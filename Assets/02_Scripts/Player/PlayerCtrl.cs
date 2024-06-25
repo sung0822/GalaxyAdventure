@@ -1,18 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerCtrl : Unit, IPlayer
 {
     public GameObject camera;
     private Transform playerTransform;
-    private MeshCollider meshCollider;
+
+    Transform middleTransform;
 
     List<IItem> items = new List<IItem>();
-    List<IWeapon> weapons = new List<IWeapon>();
+    List<BaseWeapon> weapons = new List<BaseWeapon>();
 
-    IItem equippedItem = null;
-    IWeapon equippedWeapon = null;
+    int currentWeaponIdx = 0;
+    int currentItemIdx = 0;
+
     Vector3 moveDir { get; set; }
     float IPlayer.level { get { return level; } set { level = value; } }
     float IPlayer.currentExp { get { return currentExp; } set { currentExp = value; } }
@@ -27,6 +30,12 @@ public class PlayerCtrl : Unit, IPlayer
     protected override void Start()
     {
         playerTransform = GetComponent<Transform>();
+        middleTransform = playerTransform.Find("MiddlePosition");
+
+        middleTransform.AddComponent<BasicGun>();
+        BasicGun basicGun = middleTransform.GetComponent<BasicGun>();
+        weapons.Add(basicGun);
+
     }
 
     protected override void Update()
@@ -37,12 +46,11 @@ public class PlayerCtrl : Unit, IPlayer
 
     protected override void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Trigger ÇÃ·¹ÀÌ¾î ºÎµúÈû!!");
-
+        Debug.Log("Trigger ë¶€ë”ªíž˜!!");
     }
     protected override void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Collision ÇÃ·¹ÀÌ¾î ºÎµúÈû!!");
+        Debug.Log("Collision ë¶€ë”ªíž˜!!");
     }
 
 
@@ -53,12 +61,23 @@ public class PlayerCtrl : Unit, IPlayer
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            equippedWeapon.Use();
+            weapons[currentWeaponIdx].Use();
         }
         else if (Input.GetKeyUp(KeyCode.Z))
         {
 
         }
+        if(Input.GetKeyDown(KeyCode.X))
+        {
+            items[currentItemIdx].Use();
+        }
+        
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            currentWeaponIdx++;
+        }
+        
+
 
 
 

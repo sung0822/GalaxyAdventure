@@ -4,10 +4,15 @@ using UnityEngine;
 
 public abstract class Projectile : MonoBehaviour
 {
-    int power;
+    public int power = 0;
+    protected Transform bulletTransform;
+    protected Rigidbody bulletRigidbody;
+    
+    protected bool isShooting;
     void Start()
     {
-
+        bulletRigidbody = GetComponent<Rigidbody>();
+        bulletTransform = GetComponent<Transform>();
     }
 
     // Update is called once per frame
@@ -24,5 +29,8 @@ public abstract class Projectile : MonoBehaviour
             Destroy(this);
         }
     }
+
+    public abstract void Shoot();
+    
 
 }
