@@ -5,20 +5,19 @@ using UnityEngine;
 public abstract class Projectile : MonoBehaviour
 {
     public int power = 0;
-    protected Transform bulletTransform;
+    protected Transform projectileTransform;
     protected Rigidbody bulletRigidbody;
     
     protected bool isShooting;
-    void Start()
+    protected virtual void Start()
     {
         bulletRigidbody = GetComponent<Rigidbody>();
-        bulletTransform = GetComponent<Transform>();
+        projectileTransform = GetComponent<Transform>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+                
     }
 
     protected virtual void OnCollisionEnter(Collision collision)

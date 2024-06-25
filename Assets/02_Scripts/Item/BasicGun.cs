@@ -2,30 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicGun : BaseWeapon
+public class BasicGun : MonoBehaviour, IWeapon
 {
     public GameObject bulletPrefab;
     NormalBullet normalBullet;
 
     public Transform fireTransform;
 
-    public override void Use()
+    public void Use()
     {
-        GameObject bullet = GameObject.Instantiate<GameObject>(bulletPrefab);
+        GameObject bullet = GameObject.Instantiate<GameObject>(bulletPrefab, transform.position, bulletPrefab.transform.rotation);
         normalBullet = bullet.GetComponent<NormalBullet>();
         Rigidbody rigidbody = bullet.GetComponent<Rigidbody>();
         
-        normalBullet.Shoot();
         normalBullet.power = 10;
+        normalBullet.Shoot();
     }
 
     
-    protected override void Start()
+    protected void Start()
     {
+        bulletPrefab = Resources.Load<GameObject>("Bullets/BasicBullet");
     }
 
     // Update is called once per frame
-    protected override void Update()
+    protected void Update()
     {
         
     }

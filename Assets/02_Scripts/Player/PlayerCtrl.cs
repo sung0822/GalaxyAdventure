@@ -11,7 +11,7 @@ public class PlayerCtrl : Unit, IPlayer
     Transform middleTransform;
 
     List<IItem> items = new List<IItem>();
-    List<BaseWeapon> weapons = new List<BaseWeapon>();
+    List<IWeapon> weapons = new List<IWeapon>();
 
     int currentWeaponIdx = 0;
     int currentItemIdx = 0;
@@ -30,11 +30,17 @@ public class PlayerCtrl : Unit, IPlayer
     protected override void Start()
     {
         playerTransform = GetComponent<Transform>();
-        middleTransform = playerTransform.Find("MiddlePosition");
-
+        middleTransform = playerTransform.Find("Jet/Mesh/MiddlePosition");
+        if (middleTransform != null ) 
+        {
+            Debug.Log("Not Null");
+        }
+        else
+        {
+            Debug.Log("Nulllll");
+        }
         middleTransform.AddComponent<BasicGun>();
-        BasicGun basicGun = middleTransform.GetComponent<BasicGun>();
-        weapons.Add(basicGun);
+        weapons.Add(middleTransform.GetComponent<BasicGun>());
 
     }
 
@@ -61,6 +67,7 @@ public class PlayerCtrl : Unit, IPlayer
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
+            Debug.Log(currentWeaponIdx);
             weapons[currentWeaponIdx].Use();
         }
         else if (Input.GetKeyUp(KeyCode.Z))

@@ -11,9 +11,9 @@ public class NormalBullet : Projectile
 
     }
 
-    void Start()
+    protected override void Start()
     {
-        
+        base.Start();
     }
 
     // Update is called once per frame
@@ -21,7 +21,8 @@ public class NormalBullet : Projectile
     {
         if(isShooting)
         {
-            bulletTransform.Translate(Vector3.forward);
+            Debug.Log("Shooting");
+            projectileTransform.Translate(Vector3.forward * Time.deltaTime * 5);
         }
     }
 }
