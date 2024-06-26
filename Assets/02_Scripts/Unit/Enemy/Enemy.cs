@@ -5,7 +5,8 @@ using UnityEngine;
 public abstract class Enemy : Unit
 {
 
-    List<IWeapon> weapons = new List<IWeapon>();
+    protected List<IWeapon> weapons = new List<IWeapon>();
+    protected List<IPattern> patterns = new List<IPattern>();
 
     protected override void Start()
     {

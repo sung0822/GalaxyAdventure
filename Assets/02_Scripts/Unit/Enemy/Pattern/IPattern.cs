@@ -4,10 +4,10 @@ using UnityEngine;
 
 public interface IPattern
 {
-    GameObject target{ get; }
+    Transform target{ get; }
     float timeElapsed { get; }
     
-    void SetTarget(GameObject target);
+    void SetTarget(Transform target);
     string Name { get; set; }
     public void Execute();
 

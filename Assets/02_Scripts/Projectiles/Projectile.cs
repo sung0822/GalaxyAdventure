@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Projectile : MonoBehaviour
+public abstract class Projectile : MonoBehaviour, ITeamMember
 {
     public int power { get => _power; set => _power = value; }
     public float spd { get => _spd; set => _spd = value; }
@@ -15,6 +15,9 @@ public abstract class Projectile : MonoBehaviour
     
     protected bool isShooting;
 
+    public TeamType Team { get; }
+    TeamType _team = TeamType.Ally;
+
 
     protected virtual void Start()
     {
@@ -24,15 +27,19 @@ public abstract class Projectile : MonoBehaviour
 
     void Update()
     {
-                
+
     }
 
     protected virtual void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.tag == "Enemy")
+        if (collision.transform.tag == "ENEMY")
         {
             collision.gameObject.GetComponent<Enemy>().Hit(power);
-            Destroy(this);
+            Destroy(gameObject);
+        }
+        else if(collision.transform.tag == "WALL") 
+        {
+            Destroy(gameObject);
         }
     }
 

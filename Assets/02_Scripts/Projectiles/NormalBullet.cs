@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class NormalBullet : Projectile
 {
+
     public override void Shoot()
     {
         isShooting = true;
-
     }
 
     protected override void Start()
@@ -20,8 +20,7 @@ public class NormalBullet : Projectile
     {
         if(isShooting)
         {
-            Debug.Log("Shooting");
-            projectileTransform.Translate(Vector3.forward * Time.deltaTime * _spd);
+            projectileTransform.Translate(Vector3.forward * Time.deltaTime * _spd, Space.World);
         }
     }
 }

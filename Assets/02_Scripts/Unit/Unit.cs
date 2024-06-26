@@ -4,8 +4,8 @@ using UnityEngine;
 
 public abstract class Unit : MonoBehaviour
 {
-    protected int maxHp;
-    protected int currentHp;
+    [SerializeField] protected int maxHp;
+    [SerializeField] protected int currentHp;
     public int power { get { return _power; } set { _power = value; } }
     int _power;
 
@@ -43,6 +43,11 @@ public abstract class Unit : MonoBehaviour
     public virtual void Hit(int damage)
     {
         currentHp -= damage;
+        if (currentHp <= 0)
+        {
+            Destroy(gameObject);
+        }
+        Debug.Log("ÃÄ¸ÂÀ½!");
     }
 
     protected virtual void LateUpdate()

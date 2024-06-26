@@ -11,6 +11,7 @@ public class PlayerCtrl : Unit, IPlayer
     public Rigidbody rigidbody;
 
     Transform middleTransform;
+    IWeaponController weaponController;
 
     List<IItem> items = new List<IItem>();
     List<IWeapon> weapons = new List<IWeapon>();
@@ -22,6 +23,7 @@ public class PlayerCtrl : Unit, IPlayer
     float IPlayer.level { get { return _level; } set { _level = value; } }
     float IPlayer.currentExp { get { return _currentExp; } set { _currentExp = value; } }
     float IPlayer.maxExp { get { return _maxExp; } set { _maxExp = value; } }
+
 
     float _level = 1;
     float _currentExp = 0;
@@ -67,7 +69,6 @@ public class PlayerCtrl : Unit, IPlayer
 
     protected override void OnCollisionStay(Collision collision)
     {
-        Debug.Log("Collision 부딪힘!!");
     }
 
     void HandleInput()
@@ -79,8 +80,6 @@ public class PlayerCtrl : Unit, IPlayer
         float b = Mathf.Floor(0.9f);
 
 
-        Debug.Log("Hor: " + inputHor);
-        Debug.Log("Ver: " + inputVer);
 
         moveDir = ((Vector3.forward * inputVer) + (Vector3.right * inputHor)).normalized;
         if (moveDir == Vector3.zero)

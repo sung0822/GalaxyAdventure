@@ -2,18 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PatternManager : MonoBehaviour
+public class WeaponController : MonoBehaviour
 {
-    public GameObject BasicEnemyPrefab;
-
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
+
+    void AttachWeapon(GameObject weapon)
+    {
+
+    }
+    void SetAimDirection(Vector3 direction)
+    {
+
+    }
+
 }

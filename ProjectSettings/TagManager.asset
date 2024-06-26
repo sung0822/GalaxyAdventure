@@ -7,6 +7,8 @@ TagManager:
   - CloudPointsGroup
   - CloudChecker
   - WallCollider
+  - ENEMY
+  - WALL
   layers:
   - Default
   - TransparentFX
