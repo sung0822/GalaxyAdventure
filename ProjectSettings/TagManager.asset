@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CloudPointsGroup
   - CloudChecker
+  - WallCollider
   layers:
   - Default
   - TransparentFX

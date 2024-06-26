@@ -4,11 +4,18 @@ using UnityEngine;
 
 public abstract class Projectile : MonoBehaviour
 {
-    public int power = 0;
+    public int power { get => _power; set => _power = value; }
+    public float spd { get => _spd; set => _spd = value; }
+
+    protected int _power = 0;
+    protected float _spd = 0;
+
     protected Transform projectileTransform;
     protected Rigidbody bulletRigidbody;
     
     protected bool isShooting;
+
+
     protected virtual void Start()
     {
         bulletRigidbody = GetComponent<Rigidbody>();

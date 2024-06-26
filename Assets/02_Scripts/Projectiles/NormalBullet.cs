@@ -7,7 +7,6 @@ public class NormalBullet : Projectile
     public override void Shoot()
     {
         isShooting = true;
-        //bulletRigidbody.AddForce(Vector3.forward);
 
     }
 
@@ -22,7 +21,7 @@ public class NormalBullet : Projectile
         if(isShooting)
         {
             Debug.Log("Shooting");
-            projectileTransform.Translate(Vector3.forward * Time.deltaTime * 5);
+            projectileTransform.Translate(Vector3.forward * Time.deltaTime * _spd);
         }
     }
 }
