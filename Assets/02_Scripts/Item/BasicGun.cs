@@ -16,13 +16,15 @@ public class BasicGun : MonoBehaviour, IWeapon
 
     public void Use()
     {
-        GameObject bullet = GameObject.Instantiate<GameObject>(bulletPrefab, transform.position, Quaternion.Euler(0, 0, 0));
+        GameObject bullet = GameObject.Instantiate<GameObject>(bulletPrefab, transform.position, transform.rotation);
+
         normalBullet = bullet.GetComponent<NormalBullet>();
         Rigidbody rigidbody = bullet.GetComponent<Rigidbody>();
 
         normalBullet.power = 10;
         normalBullet.spd = 10;
         normalBullet.power = normalBullet.power + user.power;
+        normalBullet.Team = _user.Team;
 
         normalBullet.Shoot();
     }

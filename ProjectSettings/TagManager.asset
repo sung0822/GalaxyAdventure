@@ -6,18 +6,18 @@ TagManager:
   tags:
   - CloudPointsGroup
   - CloudChecker
-  - WallCollider
   - ENEMY
   - WALL
+  - PLAYER
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - WALL
   - Water
   - UI
-  - 
-  - 
+  - UNIT
+  - PROJECTILE
   - 
   - 
   - 

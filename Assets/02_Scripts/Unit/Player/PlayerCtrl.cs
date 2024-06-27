@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class PlayerCtrl : Unit, IPlayer
 {
-    public GameObject camera;
     private Transform playerTransform;
     public Rigidbody rigidbody;
 
@@ -20,20 +19,25 @@ public class PlayerCtrl : Unit, IPlayer
     int currentItemIdx = 0;
 
     Vector3 moveDir { get; set; }
-    float IPlayer.level { get { return _level; } set { _level = value; } }
-    float IPlayer.currentExp { get { return _currentExp; } set { _currentExp = value; } }
-    float IPlayer.maxExp { get { return _maxExp; } set { _maxExp = value; } }
+    public float currentLevel { get { return _currentLevel; } set { _currentLevel = value; } }
+    public float currentExp { get { return _currentExp; } set { _currentExp = value; } }
+    public float maxExp { get { return _maxExp; } set { _maxExp = value; } }
+
+    //float IPlayer.level { get { return _level; } set { _level = value; } }
+    //float IPlayer.currentExp { get { return _currentExp; } set { _currentExp = value; } }
+    //float IPlayer.maxExp { get { return _maxExp; } set { _maxExp = value; } }
 
 
-    float _level = 1;
-    float _currentExp = 0;
-    float _maxExp = 100;
+    [SerializeField] float _currentLevel = 1;
+    [SerializeField] float _currentExp = 0;
+    [SerializeField] float _maxExp = 100;
 
     float moveSpd = 10;
 
     protected override void Start()
     {
         base.Start();
+        _myTeam = TeamType.ALLY;
 
         playerTransform = GetComponent<Transform>();
         rigidbody = GetComponent<Rigidbody>();
@@ -84,12 +88,10 @@ public class PlayerCtrl : Unit, IPlayer
         moveDir = ((Vector3.forward * inputVer) + (Vector3.right * inputHor)).normalized;
         if (moveDir == Vector3.zero)
         {
-            Debug.Log("멈춤");
         }
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            Debug.Log(currentWeaponIdx);
             weapons[currentWeaponIdx].Use();
         }
         else if (Input.GetKeyUp(KeyCode.Z))
@@ -113,9 +115,7 @@ public class PlayerCtrl : Unit, IPlayer
             }
         }
 
-
     }
-
 
     float inputHor;
     float inputVer;
@@ -131,4 +131,15 @@ public class PlayerCtrl : Unit, IPlayer
         rigidbody.velocity = Vector3.zero;
     }
 
+    public void GivePlayerExp(float exp)
+    {
+        currentExp += exp;
+        if (currentExp >= maxExp)
+        {
+            currentLevel++;
+
+            currentExp = 0;
+            maxExp = maxExp * 1.5f;
+        }
+    }
 }

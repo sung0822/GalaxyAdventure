@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Unit : MonoBehaviour
+public abstract class Unit : MonoBehaviour, ITeamMember
 {
     [SerializeField] protected int maxHp;
     [SerializeField] protected int currentHp;
     public int power { get { return _power; } set { _power = value; } }
-    int _power;
+
+    public TeamType Team { get { return _myTeam; } set { _myTeam = value; } }
+    protected TeamType _myTeam;
+
+    protected int _power;
 
     protected virtual void Start()
     {
@@ -43,11 +47,14 @@ public abstract class Unit : MonoBehaviour
     public virtual void Hit(int damage)
     {
         currentHp -= damage;
+    }
+
+    public virtual void CheckDead()
+    {
         if (currentHp <= 0)
         {
             Destroy(gameObject);
         }
-        Debug.Log("ÃÄ¸ÂÀ½!");
     }
 
     protected virtual void LateUpdate()

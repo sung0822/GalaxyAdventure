@@ -30,7 +30,6 @@ public class CloudMover : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("ºÎµúÈû!");
         if (other.gameObject.tag == "CloudChecker")
         {
             Spawn();
@@ -38,7 +37,6 @@ public class CloudMover : MonoBehaviour
     }
     public void Spawn()
     {
-        Debug.Log(cloudPoints.Count);
         int idx = Random.Range(0, cloudPoints.Count);
 
         transform.position = cloudPoints[idx].position;

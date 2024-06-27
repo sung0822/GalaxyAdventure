@@ -5,9 +5,15 @@ using UnityEngine;
 
 public class MainManager : MonoBehaviour
 {
-
     public static MainManager instance = null;
-    public GameObject[] cloudPrefab;
+
+    GameObject cloudManagerPrefab;
+
+    IStage currentStage = null;
+
+    Stage1 stage1 = new Stage1();
+
+    CloudManager cloudManager = null;
     void Awake()
     {
         if (instance == null)
@@ -19,44 +25,47 @@ public class MainManager : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+    public int score { get { return _score; } set { _score = value; } }
+    [SerializeField] int _score;    
 
-    BackgroundCtrl backgroundCtrl;
-
-    public List<GameObject> monsterPool;
-    public List <GameObject> cloudPool;
-
-    int maxCloud = 20;
-    int maxMonster = 10;
-
-    void Start()
+    private void Start()
     {
-        CloudMover.SetCloudPointsGroup();
-        StartCoroutine(CreateCloud());
-
+        Debug.Log("MainManager Start");
+        cloudManagerPrefab = Resources.Load<GameObject>("Managers/CloudManager");
+        GameObject cloudManager = Instantiate<GameObject>(cloudManagerPrefab, transform);
+        cloudManager.name = cloudManagerPrefab.name;
+        currentStage = stage1;
     }
-    void Update()
+
+    private void Update()
     {
-        
+        currentStage.Execute();
     }
-    IEnumerator CreateCloud()
+
+    public static MainManager Get() { return instance; }
+
+    public void CheckStage()
     {
-        for (int i = 0; i < maxCloud; i++)
+        if (_score <= 1000)
         {
-            int idx = Random.Range(0, cloudPrefab.Length);
-
-            var _cloud = Instantiate<GameObject>(cloudPrefab[idx]);
-
-            _cloud.name = $"Cloud{i:00}";
-
-            cloudPool.Add(_cloud);
-            cloudPool[i].GetComponent<CloudMover>().Spawn();
-            float waitTime = Random.Range(2.0f, 4.0f);
-
-            yield return new WaitForSeconds(waitTime);
+            currentStage = stage1;
         }
-    }
-    void CreateCloudPool()
-    {
+        else if (_score >= 1000)
+        {
+
+        }
+        else if (_score >= 3000)
+        {
+
+        }
+        else if (_score >= 7000)
+        {
+        }
+        else if(_score >= 10000)
+        {
+
+        }
 
     }
+
 }

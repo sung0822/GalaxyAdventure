@@ -15,35 +15,72 @@ public abstract class Projectile : MonoBehaviour, ITeamMember
     
     protected bool isShooting;
 
-    public TeamType Team { get; }
-    TeamType _team = TeamType.Ally;
+    public TeamType Team { get { return _myTeam; } set { _myTeam = value; } }
+    protected TeamType _myTeam;
 
 
     protected virtual void Start()
     {
         bulletRigidbody = GetComponent<Rigidbody>();
-        projectileTransform = GetComponent<Transform>();
+        projectileTransform = GetComponent<Transform>(); 
     }
 
-    void Update()
+    protected void Update()
     {
 
+    }
+
+    protected void OnTriggerEnter(Collider other)
+    {
+        
+        if (other.transform.GetComponentInParent<Unit>()?.gameObject.layer == LayerMask.NameToLayer("UNIT"))
+        {
+            Unit unit = other.transform.GetComponentInParent<Unit>();
+
+            Debug.Log("À¯´Ö ºÎµúÈû!!");
+            if (unit.Team != _myTeam)
+            {
+                Debug.Log("Àû±º ºÎµúÈû!!");
+                unit.Hit(_power);
+                unit.CheckDead();
+                Destroy(this.gameObject);
+
+                return;
+            }
+            else
+            {
+                Debug.Log("¾Æ±º ºÎµúÈû!!");
+            }
+
+        }
     }
 
     protected virtual void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.tag == "ENEMY")
+        if (collision.gameObject.layer == LayerMask.NameToLayer("WALL"))
         {
-            collision.gameObject.GetComponent<Enemy>().Hit(power);
-            Destroy(gameObject);
+            Destroy(this.gameObject);
+            return;
         }
-        else if(collision.transform.tag == "WALL") 
+        else if (collision.transform.GetComponentInParent<Unit>()?.gameObject.layer == LayerMask.NameToLayer("UNIT"))
         {
-            Destroy(gameObject);
+            Debug.Log("À¯´Ö ºÎµúÈû!!");
+            if (collision.transform.GetComponent<Unit>().Team != Team)
+            {
+                Debug.Log("Àû±º ºÎµúÈû!!");
+                collision.transform.GetComponent<Unit>().Hit(_power);
+                Destroy(this.gameObject);
+                return;
+            }
+            else
+            {
+                Debug.Log("¾Æ±º ºÎµúÈû!!");
+            }
         }
+
+        
     }
 
     public abstract void Shoot();
-    
 
 }

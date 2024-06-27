@@ -4,11 +4,11 @@ using UnityEngine;
 
 public interface ITeamMember
 {
-    TeamType Team { get; }
+    TeamType Team { get; set; }
 }
 
 public enum TeamType
 {
-    Ally,
-    Enemy
+    ALLY,
+    ENEMY
 }
