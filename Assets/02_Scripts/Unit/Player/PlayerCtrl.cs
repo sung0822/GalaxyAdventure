@@ -52,7 +52,7 @@ public class PlayerCtrl : Unit, IPlayer
     protected override void Update()
     {
         base.Update();
-
+        
         HandleInput();
     }
 
@@ -122,13 +122,6 @@ public class PlayerCtrl : Unit, IPlayer
     void Move()
     {
         rigidbody.velocity = moveDir * moveSpd;
-        //Debug.Log(Time.fixedDeltaTime);
-        //rigidbody.MovePosition(rigidbody.position + moveDir * moveSpd * Time.fixedDeltaTime);
-    }
-
-    void StopMove()
-    {
-        rigidbody.velocity = Vector3.zero;
     }
 
     public void GivePlayerExp(float exp)
@@ -136,10 +129,34 @@ public class PlayerCtrl : Unit, IPlayer
         currentExp += exp;
         if (currentExp >= maxExp)
         {
-            currentLevel++;
-
-            currentExp = 0;
-            maxExp = maxExp * 1.5f;
+            LevelUp();
         }
     }
+
+    protected void LevelUp()
+    {
+        currentLevel++;
+
+        currentExp = 0;
+        maxExp = maxExp * 1.5f;
+        
+        maxHp = maxHp + (int)(maxHp * 0.1f);
+        currentHp = maxHp;
+
+        power += (int)(power * 0.1f);
+        
+    }
+
+    public override void Hit(int damage)
+    {
+        if(isImmortal)
+        {
+            return;
+        }
+        currentHp -= damage;
+        isImmortal = true;
+        immortalTime = 1;
+        //rigidbody.isKinematic = true;
+    }
+
 }

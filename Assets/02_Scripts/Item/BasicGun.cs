@@ -17,7 +17,7 @@ public class BasicGun : MonoBehaviour, IWeapon
     public void Use()
     {
         GameObject bullet = GameObject.Instantiate<GameObject>(bulletPrefab, transform.position, transform.rotation);
-
+        
         normalBullet = bullet.GetComponent<NormalBullet>();
         Rigidbody rigidbody = bullet.GetComponent<Rigidbody>();
 

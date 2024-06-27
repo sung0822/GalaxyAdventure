@@ -7,6 +7,7 @@ public abstract class Enemy : Unit
 
     protected List<IWeapon> weapons = new List<IWeapon>();
     protected List<IPattern> patterns = new List<IPattern>();
+    protected IPattern currentPattern;
 
     protected IPlayer targetPlayer;
 

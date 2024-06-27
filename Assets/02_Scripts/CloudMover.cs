@@ -6,7 +6,7 @@ public class CloudMover : MonoBehaviour
 {
     public static List<Transform> cloudPoints = new List<Transform>();
 
-    public float spd = 10;
+    public float moveSpd = 10;
     Transform cloudTransform;
     static Transform cloudPointsGroup;
     static Transform[] formations;
@@ -20,7 +20,7 @@ public class CloudMover : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        cloudTransform.Translate(Vector3.forward * -1 * spd * Time.deltaTime, Space.World);
+        cloudTransform.Translate(Vector3.forward * -0.001f * moveSpd * Time.deltaTime, Space.World);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -41,15 +41,17 @@ public class CloudMover : MonoBehaviour
 
         transform.position = cloudPoints[idx].position;
         
-        // Å©±â ·£´ý ¼³Á¤
-        float randomScale = Random.Range(0.5f, 1.0f); // 0.5¹è¿¡¼­ 2¹è »çÀÌ·Î ¼³Á¤
+        // Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        float randomScale = Random.Range(0.5f, 1.0f); // 0.5ï¿½è¿¡ï¿½ï¿½ 2ï¿½ï¿½ ï¿½ï¿½ï¿½Ì·ï¿½ ï¿½ï¿½ï¿½ï¿½
         transform.localScale = new Vector3(randomScale, randomScale, randomScale);
 
-        // È¸Àü ·£´ý ¼³Á¤
-        float randomRotationY = Random.Range(0f, 360f); // YÃà ±âÁØÀ¸·Î 0µµ¿¡¼­ 360µµ »çÀÌ·Î ¼³Á¤
+        // È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        float randomRotationY = Random.Range(0f, 360f); // Yï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 360ï¿½ï¿½ ï¿½ï¿½ï¿½Ì·ï¿½ ï¿½ï¿½ï¿½ï¿½
         transform.rotation = Quaternion.Euler(0, randomRotationY, 0);
 
-        spd = Random.Range(3.0f, 10.0f);
+        int score = MainManager.Get().score;
+        moveSpd = Random.Range(2000.0f, 5000.0f);
+        moveSpd += score;
 
     }
 

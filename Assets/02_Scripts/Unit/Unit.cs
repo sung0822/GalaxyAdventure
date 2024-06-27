@@ -11,7 +11,12 @@ public abstract class Unit : MonoBehaviour, ITeamMember
     public TeamType Team { get { return _myTeam; } set { _myTeam = value; } }
     protected TeamType _myTeam;
 
+    protected bool isImmortal;
+
+    protected float immortalTime;
+
     protected int _power;
+
 
     protected virtual void Start()
     {
@@ -32,12 +37,27 @@ public abstract class Unit : MonoBehaviour, ITeamMember
 
     protected virtual void OnCollisionEnter(Collision other)
     {
-
+        if(other.transform.GetComponentInParent<Unit>()?.gameObject.layer == LayerMask.NameToLayer("UNIT"))
+        {
+            Unit unit = other.transform.GetComponentInParent<Unit>();
+            
+            if (unit.Team != _myTeam)
+            {
+                currentHp -= 30;
+                return;
+            }
+            else
+            {
+                Debug.Log("�Ʊ� �ε���!!");
+            }
+        }
     }
+
+    
 
     protected virtual void OnTriggerEnter(Collider other)
     {
-
+        
     }
     protected virtual void OnCollisionStay(Collision collision)
     {
@@ -46,6 +66,10 @@ public abstract class Unit : MonoBehaviour, ITeamMember
 
     public virtual void Hit(int damage)
     {
+        if(isImmortal)
+        {
+            return;
+        }
         currentHp -= damage;
     }
 

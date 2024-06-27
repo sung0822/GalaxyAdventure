@@ -4,11 +4,13 @@ using UnityEngine;
 
 public interface IPattern
 {
-    Transform target{ get; }
-    float timeElapsed { get; }
+    Transform target{ get; set; }
+    float timeElapsed { get; set; }
+
+    float moveSpd{get; set;}
     
     void SetTarget(Transform target);
-    string Name { get; set; }
+
     public void Execute();
 
 }

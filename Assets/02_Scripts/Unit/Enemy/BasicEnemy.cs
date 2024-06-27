@@ -17,16 +17,16 @@ public class BasicEnemy : Enemy
         
         weapons.Add(middleTransform.AddComponent<BasicGun>());
 
-        patterns.Add(new Pattern1());
-        patterns[0].SetTarget(this.transform);
+        currentPattern = new Pattern1();
+        currentPattern.SetTarget(this.transform);
+        
         weapons[0].user = this;
-
     }
 
     protected override void Update()
     {
         base.Update();
-        patterns[0].Execute();
+        currentPattern.Execute();
 
         time += Time.deltaTime;
         if (time > 3.0f)

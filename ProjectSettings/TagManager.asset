@@ -9,6 +9,8 @@ TagManager:
   - ENEMY
   - WALL
   - PLAYER
+  - STAGE_SPAWN_POINT
+  - STAGE_SPAWN_POINT_GROUP
   layers:
   - Default
   - TransparentFX

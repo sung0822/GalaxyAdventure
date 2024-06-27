@@ -7,13 +7,6 @@ public class MainManager : MonoBehaviour
 {
     public static MainManager instance = null;
 
-    GameObject cloudManagerPrefab;
-
-    IStage currentStage = null;
-
-    Stage1 stage1 = new Stage1();
-
-    CloudManager cloudManager = null;
     void Awake()
     {
         if (instance == null)
@@ -25,15 +18,25 @@ public class MainManager : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-    public int score { get { return _score; } set { _score = value; } }
-    [SerializeField] int _score;    
+    public static MainManager Get() { return instance; }
 
+    IStage currentStage = null;
+    public int score { get { return _score; } set { _score = value; } }
+    Stage1 stage1;
+    [SerializeField] int _score;    
+    GameObject cloudManagerPrefab;
+    CloudManager cloudManager = null;
     private void Start()
     {
         Debug.Log("MainManager Start");
         cloudManagerPrefab = Resources.Load<GameObject>("Managers/CloudManager");
         GameObject cloudManager = Instantiate<GameObject>(cloudManagerPrefab, transform);
         cloudManager.name = cloudManagerPrefab.name;
+        
+        GameObject stage1Object = new GameObject("Stage1Object");
+        stage1Object.transform.SetParent(transform);
+
+        stage1 = stage1Object.AddComponent<Stage1>();
         currentStage = stage1;
     }
 
@@ -42,7 +45,6 @@ public class MainManager : MonoBehaviour
         currentStage.Execute();
     }
 
-    public static MainManager Get() { return instance; }
 
     public void CheckStage()
     {

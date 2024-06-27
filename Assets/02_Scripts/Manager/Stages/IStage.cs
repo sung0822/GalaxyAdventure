@@ -10,4 +10,5 @@ public interface IStage
 
     void Execute();
 
+    void SetUp();
 }

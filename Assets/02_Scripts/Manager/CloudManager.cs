@@ -30,7 +30,7 @@ public class CloudManager : MonoBehaviour
     }
     void Update()
     {
-
+        
     }
     IEnumerator CreateCloud()
     {
