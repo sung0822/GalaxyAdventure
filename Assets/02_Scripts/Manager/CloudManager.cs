@@ -6,7 +6,7 @@ public class CloudManager : MonoBehaviour
 {
     public static CloudManager instance = null;
     public GameObject[] cloudPrefab;
-    void Awake()
+    private void Awake()
     {
         if (instance == null)
         {
@@ -14,6 +14,10 @@ public class CloudManager : MonoBehaviour
         }
         else
         {
+            if (instance == this)
+            {
+                return;
+            }
             Destroy(this.gameObject);
         }
     }

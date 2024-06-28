@@ -26,4 +26,9 @@ public class Pattern2 : MonoBehaviour, IPattern
     {
         this.target = target;
     }
+
+    public void ChangePattern(int idx)
+    {
+
+    }
 }

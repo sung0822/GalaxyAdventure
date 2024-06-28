@@ -8,7 +8,6 @@ public class BulletRemover : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("PROJECTILE"))
         {
-            Debug.Log("Cube");
             Destroy(other.gameObject);
             return;
         }

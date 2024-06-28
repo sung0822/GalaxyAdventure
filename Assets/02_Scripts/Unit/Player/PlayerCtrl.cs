@@ -42,6 +42,8 @@ public class PlayerCtrl : Unit, IPlayer
         playerTransform = GetComponent<Transform>();
         rigidbody = GetComponent<Rigidbody>();
 
+
+        // 중간 포지션에 무기 장착
         middleTransform = playerTransform.Find("Jet/Mesh/MiddlePosition");
         middleTransform.AddComponent<BasicGun>();
         
@@ -65,7 +67,7 @@ public class PlayerCtrl : Unit, IPlayer
 
     protected override void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Trigger 부딪힘!!");
+        Debug.Log(other.name + "Trigger 부딪힘!!");
     }
     protected override void OnCollisionEnter(Collision collision)
     {

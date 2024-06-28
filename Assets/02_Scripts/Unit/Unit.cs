@@ -28,6 +28,17 @@ public abstract class Unit : MonoBehaviour, ITeamMember
     // Update is called once per frame
     protected virtual void Update()
     {
+        if (!isImmortal)
+        {
+            
+            return;
+        }
+
+        immortalTime -= Time.deltaTime;
+        if (immortalTime <= 0)
+        {
+            isImmortal = false;
+        }
     }
 
     protected virtual void FixedUpdate()
@@ -39,16 +50,18 @@ public abstract class Unit : MonoBehaviour, ITeamMember
     {
         if(other.transform.GetComponentInParent<Unit>()?.gameObject.layer == LayerMask.NameToLayer("UNIT"))
         {
+
             Unit unit = other.transform.GetComponentInParent<Unit>();
             
             if (unit.Team != _myTeam)
             {
+                Debug.Log("유닛 충돌");
                 currentHp -= 30;
                 return;
             }
             else
             {
-                Debug.Log("�Ʊ� �ε���!!");
+
             }
         }
     }
@@ -77,8 +90,18 @@ public abstract class Unit : MonoBehaviour, ITeamMember
     {
         if (currentHp <= 0)
         {
-            Destroy(gameObject);
+            Die();
         }
+    }
+
+    protected virtual void Die()
+    {
+        GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.unitExplodingParticle, transform.position, transform.rotation);
+
+        particle.transform.localScale = this.transform.localScale * 0.1f;
+        Destroy(particle, 1.5f);
+
+        Destroy(gameObject);
     }
 
     protected virtual void LateUpdate()

@@ -6,7 +6,7 @@ using UnityEngine;
 public interface IStage
 {
     float timeElapsed { get; set; }
-    IPlayer player { get; set; }
+    Transform target {  get; set; }
 
     void Execute();
 

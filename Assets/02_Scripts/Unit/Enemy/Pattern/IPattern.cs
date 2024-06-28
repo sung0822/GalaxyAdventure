@@ -11,6 +11,8 @@ public interface IPattern
     
     void SetTarget(Transform target);
 
+    void ChangePattern(int idx);
+
     public void Execute();
 
 }

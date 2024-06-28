@@ -37,19 +37,21 @@ public abstract class Projectile : MonoBehaviour, ITeamMember
         {
             Unit unit = other.transform.GetComponentInParent<Unit>();
 
-            Debug.Log("À¯´Ö ºÎµúÈû!!");
             if (unit.Team != _myTeam)
             {
-                Debug.Log("Àû±º ºÎµúÈû!!");
                 unit.Hit(_power);
                 unit.CheckDead();
+
+                GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.basicParticle, this.transform.position, Quaternion.Euler(0, 0, 0));
+
+                Destroy(particle, 0.7f);
+                
                 Destroy(this.gameObject);
 
                 return;
             }
             else
             {
-                Debug.Log("¾Æ±º ºÎµúÈû!!");
             }
 
         }
@@ -82,5 +84,7 @@ public abstract class Projectile : MonoBehaviour, ITeamMember
     }
 
     public abstract void Shoot();
+
+
 
 }

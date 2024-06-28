@@ -7,7 +7,7 @@ public class MainManager : MonoBehaviour
 {
     public static MainManager instance = null;
 
-    void Awake()
+    private void Awake()
     {
         if (instance == null)
         {
@@ -15,29 +15,43 @@ public class MainManager : MonoBehaviour
         }
         else
         {
+            if (instance == this)
+            {
+                return;
+            }
             Destroy(this.gameObject);
         }
     }
+
     public static MainManager Get() { return instance; }
 
     IStage currentStage = null;
     public int score { get { return _score; } set { _score = value; } }
     Stage1 stage1;
     [SerializeField] int _score;    
-    GameObject cloudManagerPrefab;
-    CloudManager cloudManager = null;
+    public GameObject cloudManagerPrefab = null;
+
+    public GameObject particleManagerPrefab = null;
     private void Start()
     {
-        Debug.Log("MainManager Start");
-        cloudManagerPrefab = Resources.Load<GameObject>("Managers/CloudManager");
+        ///////////////////////////////////////////////////////////////////////////////////////
+        //cloudManagerPrefab = Resources.Load<GameObject>("Managers/CloudManager");
         GameObject cloudManager = Instantiate<GameObject>(cloudManagerPrefab, transform);
         cloudManager.name = cloudManagerPrefab.name;
+        
+
+        //particleManagerPrefab = Resources.Load<GameObject>("Managers/ParticleManager");
+        GameObject particleManager = Instantiate<GameObject>(particleManagerPrefab, transform);
+        particleManager.name = particleManagerPrefab.name;
+        /////////////////////////////////////////////////////////////////////////////////////////
         
         GameObject stage1Object = new GameObject("Stage1Object");
         stage1Object.transform.SetParent(transform);
 
         stage1 = stage1Object.AddComponent<Stage1>();
         currentStage = stage1;
+    
+    
     }
 
     private void Update()

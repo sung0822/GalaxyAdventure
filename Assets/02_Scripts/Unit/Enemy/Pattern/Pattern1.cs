@@ -19,12 +19,16 @@ public class Pattern1 : IPattern
     public void Execute()
     {
         timeElapsed = Time.deltaTime;
-        target.Translate(Vector3.forward * -1 * moveSpd * Time.deltaTime, Space.World);
+        target.Translate(Vector3.forward * 1 * moveSpd * Time.deltaTime, Space.Self);
         
     }
     public void SetTarget(Transform target)
     {
         this.target = target;
     }
-    
+
+    public void ChangePattern(int idx)
+    {
+
+    }
 }

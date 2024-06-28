@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NormalBullet : Projectile
 {
-
+    
     public override void Shoot()
     {
         isShooting = true;

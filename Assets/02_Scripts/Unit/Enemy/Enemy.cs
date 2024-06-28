@@ -7,8 +7,8 @@ public abstract class Enemy : Unit
 
     protected List<IWeapon> weapons = new List<IWeapon>();
     protected List<IPattern> patterns = new List<IPattern>();
+    
     protected IPattern currentPattern;
-
     protected IPlayer targetPlayer;
 
     protected int rewardExp;
@@ -18,6 +18,17 @@ public abstract class Enemy : Unit
     {
         base.Start();
         _myTeam = TeamType.ENEMY;
+
+        patterns.Add(new Pattern1());
+        patterns.Add(new Pattern2());
+
+        for(int i = 0; i < patterns.Count; i++)
+        {
+            patterns[i].SetTarget(transform);
+        }
+
+        currentPattern = patterns[0];
+
         targetPlayer = GameObject.FindGameObjectWithTag("PLAYER").GetComponent<PlayerCtrl>();
 
     }
@@ -41,15 +52,18 @@ public abstract class Enemy : Unit
     {
         base.Hit(damage);
     }
-    public override void CheckDead()
-    {
-        if (currentHp <= 0)
-        {
-            Destroy(gameObject);
 
-            targetPlayer.GivePlayerExp(rewardExp);
-            MainManager.Get().score += rewardScore;
-        }
+    protected override void Die()
+    {
+        targetPlayer.GivePlayerExp(rewardExp);
+        MainManager.Get().score += rewardScore;
+        base.Die();
+
+    }
+
+    public virtual void ChangePattern(int idx)
+    {
+        currentPattern = patterns[idx];
     }
 
 }

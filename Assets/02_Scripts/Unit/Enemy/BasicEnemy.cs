@@ -14,12 +14,8 @@ public class BasicEnemy : Enemy
         rewardScore = 100;
 
         middleTransform = transform.Find("Jet/Mesh/MiddlePosition");
-        
         weapons.Add(middleTransform.AddComponent<BasicGun>());
 
-        currentPattern = new Pattern1();
-        currentPattern.SetTarget(this.transform);
-        
         weapons[0].user = this;
     }
 
@@ -36,6 +32,7 @@ public class BasicEnemy : Enemy
         }
     }
 
+
     protected override void OnCollisionEnter(Collision other)
     {
         base.OnCollisionEnter(other);
@@ -45,4 +42,6 @@ public class BasicEnemy : Enemy
     {
         base.OnTriggerEnter(other);
     }
+
+
 }
