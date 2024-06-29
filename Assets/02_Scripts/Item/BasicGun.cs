@@ -12,17 +12,35 @@ public class BasicGun : MonoBehaviour, IWeapon
     public Unit user {  get { return _user; }
                         set { _user = value; } }
 
+    public float shootCycle 
+    { get { return _shootCycle; } set { _shootCycle = value; } }
+
+    protected float _shootCycle = 1.5f;
+    protected float timeAfterShoot;
+
     Unit _user;
 
     public void Use()
     {
+        if (timeAfterShoot <= _shootCycle)
+        {
+            return;
+        }
+
+        timeAfterShoot = 0;
         GameObject bullet = GameObject.Instantiate<GameObject>(bulletPrefab, transform.position, transform.rotation);
         
         normalBullet = bullet.GetComponent<NormalBullet>();
-        Rigidbody rigidbody = bullet.GetComponent<Rigidbody>();
 
         normalBullet.power = 10;
-        normalBullet.spd = 10;
+        Rigidbody rigidbody = bullet.GetComponent<Rigidbody>();
+
+        //Vector3 worldVelocity = rigidbody.velocity;
+        //Vector3 localVelocity = transform.InverseTransformDirection(worldVelocity);
+        //float localSpeed = localVelocity.magnitude;
+        
+        normalBullet.spd = 15;
+
         normalBullet.power = normalBullet.power + user.power;
         normalBullet.Team = _user.Team;
 
@@ -38,7 +56,7 @@ public class BasicGun : MonoBehaviour, IWeapon
     // Update is called once per frame
     protected void Update()
     {
-        
+        timeAfterShoot += Time.deltaTime;
     }
 
 }

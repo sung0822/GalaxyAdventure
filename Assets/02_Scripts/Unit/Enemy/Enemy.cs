@@ -14,6 +14,12 @@ public abstract class Enemy : Unit
     protected int rewardExp;
     protected int rewardScore;
 
+    public bool enableSlow = false;
+    public bool enableAttack = false;
+
+    public float lifeTime;
+
+
     protected override void Start()
     {
         base.Start();
@@ -46,6 +52,20 @@ public abstract class Enemy : Unit
     protected override void OnTriggerEnter(Collider other)
     {
         base.OnTriggerEnter(other);
+        
+        //enableSlow가 true라면 벽 충돌시 느려짐
+        if (other.GetComponentInParent<Rigidbody>()?.transform.tag == "WALL")
+        {
+            enableAttack = true;
+            
+            if (!enableSlow)
+            {
+                return;
+            }
+            
+            Debug.Log("Trigger WALL");
+            currentPattern.AdjustSpeed(4.0f, 0.5f);
+        }
     }
 
     public override void Hit(int damage)

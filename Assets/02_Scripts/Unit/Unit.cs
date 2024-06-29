@@ -4,19 +4,22 @@ using UnityEngine;
 
 public abstract class Unit : MonoBehaviour, ITeamMember
 {
-    [SerializeField] protected int maxHp;
-    [SerializeField] protected int currentHp;
-    public int power { get { return _power; } set { _power = value; } }
+    public int maxHp { get { return _maxHp; } set { _maxHp = value; } }
+    protected int _maxHp;
+    public int currentHp { get { return _currentHp; } set { _currentHp = value; } }
+    protected int _currentHp;
 
+    public int power { get { return _power; } set { _power = value; } }
     public TeamType Team { get { return _myTeam; } set { _myTeam = value; } }
     protected TeamType _myTeam;
-
-    protected bool isImmortal;
+    public bool isImmortal { get { return _isImmortal; } set { _isImmortal = value; } }
+    bool _isImmortal;
 
     protected float immortalTime;
 
     protected int _power;
 
+    public abstract bool isAttacking { get; set; }
 
     protected virtual void Start()
     {
@@ -30,7 +33,6 @@ public abstract class Unit : MonoBehaviour, ITeamMember
     {
         if (!isImmortal)
         {
-            
             return;
         }
 
@@ -55,7 +57,6 @@ public abstract class Unit : MonoBehaviour, ITeamMember
             
             if (unit.Team != _myTeam)
             {
-                Debug.Log("유닛 충돌");
                 currentHp -= 30;
                 return;
             }
@@ -92,6 +93,12 @@ public abstract class Unit : MonoBehaviour, ITeamMember
         {
             Die();
         }
+    }
+
+    public void ChangeIsImmortal(bool isImmortal)
+    {
+        this.isImmortal = isImmortal;
+        immortalTime = float.MaxValue;
     }
 
     protected virtual void Die()

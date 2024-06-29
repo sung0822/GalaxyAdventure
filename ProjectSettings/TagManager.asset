@@ -11,6 +11,7 @@ TagManager:
   - PLAYER
   - STAGE_SPAWN_POINT
   - STAGE_SPAWN_POINT_GROUP
+  - UI_PANEL
   layers:
   - Default
   - TransparentFX

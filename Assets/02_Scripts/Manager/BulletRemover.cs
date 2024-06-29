@@ -8,6 +8,7 @@ public class BulletRemover : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("PROJECTILE"))
         {
+            Debug.Log("발사체 충돌");
             Destroy(other.gameObject);
             return;
         }
@@ -16,7 +17,8 @@ public class BulletRemover : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("PROJECTILE"))
         {
-            Destroy(this.gameObject);
+            Debug.Log("발사체 충돌");
+            Destroy(other.gameObject);
             return;
         }
     }

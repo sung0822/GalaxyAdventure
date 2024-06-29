@@ -15,7 +15,7 @@ public class Stage1 : MonoBehaviour, IStage
     protected float _timeElapsed = 0;
 
     Transform stage1PointGroup;
-    bool[] isGenerated = new bool[1];
+    bool[] isGenerated = new bool[2];
 
     Transform _target;
 
@@ -23,13 +23,13 @@ public class Stage1 : MonoBehaviour, IStage
     {
         _timeElapsed += Time.deltaTime;
 
-        if (_timeElapsed >= 5)
+        if (10 > _timeElapsed && _timeElapsed >= 5)
         {
             Generate_1();
         }
         else if (_timeElapsed >= 10)
         {
-            
+            Generate_2();
         }
     }
 
@@ -71,15 +71,36 @@ public class Stage1 : MonoBehaviour, IStage
     
     void Generate_1()
     {
-        if (!isGenerated[0])
+        if (isGenerated[0])
         {
-            spawnPoints[0].transform.LookAt(target);
-            spawnPoints[6].transform.LookAt(target);
-            Instantiate(BasicEnemyPrefab, spawnPoints[0]);
-            Instantiate(BasicEnemyPrefab, spawnPoints[6]);
-            Debug.Log("½ºÆùµÊ");
-            isGenerated[0] = true;
+            return;
         }
+        spawnPoints[0].transform.LookAt(new Vector3(0, 0, 0));
+        spawnPoints[6].transform.LookAt(new Vector3(0, 0, 0));
+        Instantiate(BasicEnemyPrefab, spawnPoints[0]).GetComponent<Enemy>().enableSlow = true;
+        Instantiate(BasicEnemyPrefab, spawnPoints[6]).GetComponent<Enemy>().enableSlow = true;
+        Instantiate(BasicEnemyPrefab, spawnPoints[3]).GetComponent<Enemy>().enableSlow = false;
+
+        //spawnPoints[0].transform.rotation = Quaternion.Euler(0, 180, 0);
+        //spawnPoints[6].transform.rotation = Quaternion.Euler(0, 180, 0);
+
+        isGenerated[0] = true;
+    }
+
+    void Generate_2()
+    {
+        if (isGenerated[1])
+        {
+            return;
+        }
+        spawnPoints[0].transform.rotation = Quaternion.Euler(0, 180, 0);
+        spawnPoints[6].transform.rotation = Quaternion.Euler(0, 180, 0);
+        Instantiate(BasicEnemyPrefab, spawnPoints[1]).GetComponent<Enemy>().enableSlow = true;
+        Instantiate(BasicEnemyPrefab, spawnPoints[2]).GetComponent<Enemy>().enableSlow = true;
+        Instantiate(BasicEnemyPrefab, spawnPoints[4]).GetComponent<Enemy>().enableSlow = true;
+        Instantiate(BasicEnemyPrefab, spawnPoints[5]).GetComponent<Enemy>().enableSlow = true;
+
+        isGenerated[1] = true;
     }
 
 }

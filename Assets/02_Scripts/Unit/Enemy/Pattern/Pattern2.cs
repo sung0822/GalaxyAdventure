@@ -9,7 +9,9 @@ public class Pattern2 : MonoBehaviour, IPattern
     public float timeElapsed { get { return _timeElapsed; } set { _timeElapsed = value; } }
 
     public float moveSpd { get { return _moveSpd; } set { _moveSpd = value; }}
-    
+
+    public bool isAdjustingSpd { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+
     protected Transform _target;
 
     protected float _timeElapsed;
@@ -30,5 +32,10 @@ public class Pattern2 : MonoBehaviour, IPattern
     public void ChangePattern(int idx)
     {
 
+    }
+
+    public void AdjustSpeed(float spdMultiplier, float duration)
+    {
+        throw new System.NotImplementedException();
     }
 }

@@ -5,7 +5,6 @@ using UnityEngine;
 public class CloudManager : MonoBehaviour
 {
     public static CloudManager instance = null;
-    public GameObject[] cloudPrefab;
     private void Awake()
     {
         if (instance == null)
@@ -22,6 +21,7 @@ public class CloudManager : MonoBehaviour
         }
     }
 
+    public GameObject[] cloudPrefab;
     public List<GameObject> cloudPool;
 
     int maxCloud = 20;
@@ -52,9 +52,5 @@ public class CloudManager : MonoBehaviour
 
             yield return new WaitForSeconds(waitTime);
         }
-    }
-    void CreateCloudPool()
-    {
-
     }
 }
