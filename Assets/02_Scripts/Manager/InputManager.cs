@@ -36,12 +36,13 @@ public class InputManager : MonoBehaviour
     void Update()
     {
         OnPlaying();
+        ReceiveCheatKey();
     }
 
     void OnPlaying()
     {
-        inputHor = Input.GetAxisRaw("Horizontal");//Mathf.Floor(Input.GetAxis("Horizontal"));
-        inputVer = Input.GetAxisRaw("Vertical");//MathF.Floor(Input.GetAxis("Vertical"));
+        inputHor = Input.GetAxisRaw("Horizontal");
+        inputVer = Input.GetAxisRaw("Vertical");
 
         float a = Mathf.Floor(0.4f);
         float b = Mathf.Floor(0.9f);
@@ -60,29 +61,22 @@ public class InputManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.X))
         {
-            playerCtrl.items[playerCtrl.currentItemIdx].Use();
+            //playerCtrl.items[playerCtrl.currentItemIdx].Use();
         }
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            if (playerCtrl.currentWeaponIdx == playerCtrl.weapons.Count)
-            {
-                playerCtrl.currentWeaponIdx = 0;
-            }
-            else
-            {
-                playerCtrl.currentWeaponIdx++;
-            }
+            playerCtrl.ChangeSelcetedItem();
         }
 
-        ReceiveCheatKey();
     }
 
     void ReceiveCheatKey()
     {
         if (Input.GetKeyDown(KeyCode.F1))
         {
-            playerCtrl.ChangeIsImmortal(!playerCtrl.isImmortal);
+            Debug.Log("ÀÔ·ÂµÆÀ½");
+            playerCtrl.ChangeIsImmortal(!playerCtrl.isImmortal, float.MaxValue);
         }
         else if(Input.GetKeyDown(KeyCode.F2))
         {
@@ -118,7 +112,7 @@ public class InputManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.P))
         {
-
+            MainManager.instance.SwitchPauseStat();
         }
     }
     

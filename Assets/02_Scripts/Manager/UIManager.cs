@@ -31,7 +31,11 @@ public class UIManager : MonoBehaviour
     public Image expBar;
     public TextMeshProUGUI expText;
 
+    public TextMeshProUGUI scoreText;
+
     public PlayerCtrl playerCtrl;
+
+    public GameObject Panel_Pause;
     void Start()
     {
         GameObject ui_Panel = GameObject.FindGameObjectWithTag("UI_PANEL");
@@ -44,12 +48,24 @@ public class UIManager : MonoBehaviour
         expBar = expPanel.Find("ExpBar").GetComponent<Image>();
         expText = expPanel.Find("Exp_Text").GetComponent<TextMeshProUGUI>();
 
-
-        GameObject player = GameObject.FindGameObjectWithTag("PLAYER");
+        //scoreText = ui_Panel.transform.Find("Panel_Score").Find("ScoreText").GetComponent<TextMeshProUGUI>();
+        scoreText = GameObject.Find("ScoreText").GetComponent<TextMeshProUGUI>();
+        
         playerCtrl = GameObject.FindGameObjectWithTag("PLAYER")?.GetComponent<PlayerCtrl>();
         
         hpText.text = playerCtrl.currentHp.ToString() + " / " + playerCtrl.maxHp.ToString();
         expText.text = playerCtrl.currentExp.ToString() + " / " + playerCtrl.maxExp.ToString();
+        CheckScore();
+        CheckPlayerHp();
+        CheckPlayerExp();
+
+        Panel_Pause = GameObject.Find("Panel_Pause");
+        Panel_Pause.SetActive(false);
+
+
+
+        //Panel_Pause = GameObject.FindGameObjectsWithTag("Panel_Pause")[1];
+
     }
 
     void Update()
@@ -60,11 +76,26 @@ public class UIManager : MonoBehaviour
     public void CheckPlayerHp()
     {
         hpText.text = playerCtrl.currentHp.ToString() + " / " + playerCtrl.maxHp.ToString();
+
+        hpBar.fillAmount = (float)playerCtrl.currentHp / (float)playerCtrl.maxHp;
     }
 
     public void CheckPlayerExp()
     {
         expText.text = playerCtrl.currentExp.ToString() + " / " + playerCtrl.maxExp.ToString();
+        
+        expBar.fillAmount = (float)playerCtrl.currentExp / (float)playerCtrl.maxExp;
     }
+
+    public void CheckScore()
+    {
+        scoreText.text = MainManager.instance.score.ToString();
+    }
+
+    public void SwitchPausePanel(bool isPaused)
+    {
+        Panel_Pause.SetActive(isPaused);
+    }
+
 
 }

@@ -36,6 +36,7 @@ public abstract class Enemy : Unit
         currentPattern = patterns[0];
 
         targetPlayer = GameObject.FindGameObjectWithTag("PLAYER").GetComponent<PlayerCtrl>();
+        transform.SetParent(null);
 
     }
 
@@ -77,6 +78,10 @@ public abstract class Enemy : Unit
     {
         targetPlayer.GivePlayerExp(rewardExp);
         MainManager.Get().score += rewardScore;
+        UIManager.instance.CheckScore();
+
+        Instantiate<GameObject>(Resources.Load<GameObject>("Items/Box"), transform.position, Quaternion.Euler(0, 0, 0));
+
         base.Die();
 
     }

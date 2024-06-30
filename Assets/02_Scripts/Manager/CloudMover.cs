@@ -41,12 +41,10 @@ public class CloudMover : MonoBehaviour
 
         transform.position = cloudPoints[idx].position;
         
-        // ũ�� ���� ����
-        float randomScale = Random.Range(0.5f, 1.0f); // 0.5�迡�� 2�� ���̷� ����
+        float randomScale = Random.Range(0.5f, 1.0f); 
         transform.localScale = new Vector3(randomScale, randomScale, randomScale);
 
-        // ȸ�� ���� ����
-        float randomRotationY = Random.Range(0f, 360f); // Y�� �������� 0������ 360�� ���̷� ����
+        float randomRotationY = Random.Range(0f, 360f); 
         transform.rotation = Quaternion.Euler(0, randomRotationY, 0);
 
         int score = MainManager.Get().score;
@@ -57,7 +55,7 @@ public class CloudMover : MonoBehaviour
 
     public static void SetCloudPointsGroup()
     {
-        cloudPointsGroup = GameObject.FindGameObjectWithTag("CloudPointsGroup")?.transform;
+        cloudPointsGroup = GameObject.FindGameObjectWithTag("CLOUD_SPAWN_POINT_GROUP")?.transform;
 
         formations = new Transform[cloudPointsGroup.childCount];
         
@@ -73,10 +71,6 @@ public class CloudMover : MonoBehaviour
             }
         }
 
-        //foreach (Transform points in cloudPointsGroup)
-        //{
-        //    cloudPoints.Add(points);
-        //}
         
     }
 }

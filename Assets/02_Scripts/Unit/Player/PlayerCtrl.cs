@@ -10,12 +10,20 @@ public class PlayerCtrl : Unit, IPlayer
     public Rigidbody rigidbody;
 
     Transform middleTransform;
+    public Inventory inventory { get { return _inventory; }}
+    protected Inventory _inventory = new Inventory();
 
-    public List<IItem> items = new List<IItem>();
     public List<IWeapon> weapons = new List<IWeapon>();
 
+    protected IItem selectedItem;
+    
     public int currentWeaponIdx = 0;
-    public int currentItemIdx = 0;
+
+    Dictionary<int, int> itemOder = new Dictionary<int, int>();
+
+    protected int currentItemIdx = 0;
+
+
     public override bool isAttacking {
         get
         {
@@ -60,13 +68,16 @@ public class PlayerCtrl : Unit, IPlayer
         
         weapons.Add(middleTransform.GetComponent<BasicGun>());
         weapons[currentWeaponIdx].shootCycle = 0.2f;
-        weapons[currentItemIdx].user = this;
+        weapons[currentWeaponIdx].user = this;
+
     }
 
     protected override void Update()
     {
         base.Update();
+        Debug.Log("Player isImmortal: " + isImmortal);
         Attack();
+        
     }
 
 
@@ -133,20 +144,22 @@ public class PlayerCtrl : Unit, IPlayer
         maxHp = previousMaxHp;
 
         power += (int)(power * 0.1f);
+
         UIManager.instance.CheckPlayerHp();
         UIManager.instance.CheckPlayerExp();
     }
 
     public override void Hit(int damage)
     {
-        if(isImmortal)
+        if (isImmortal)
         {
+            Debug.Log("무적이여서 안 맞음");
             return;
         }
         currentHp -= damage;
-
+        
         isImmortal = true;
-        immortalTime = 1;
+        immortalTime = 3.0f;
         UIManager.instance.CheckPlayerHp();
     }
 
@@ -158,4 +171,27 @@ public class PlayerCtrl : Unit, IPlayer
         }
     }
 
+    public void ChangeSelcetedItem()
+    {
+        currentItemIdx++;
+        selectedItem = inventory.GetItem(itemOder[currentItemIdx]);
+    }
+
+    public void UseItem()
+    {
+        selectedItem.Use();
+    }
+
+    public void GivePlayerItem(IItem item)
+    {
+        if(inventory.CheckExist(item))
+        {
+            inventory.Add(item);
+        }
+        else
+        {
+            itemOder.Add(itemOder.Count + 1, item.id);
+            currentItemIdx++;
+        }
+    }
 }

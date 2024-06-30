@@ -31,7 +31,7 @@ public abstract class Unit : MonoBehaviour, ITeamMember
     // Update is called once per frame
     protected virtual void Update()
     {
-        if (!isImmortal)
+        if (!_isImmortal)
         {
             return;
         }
@@ -82,6 +82,7 @@ public abstract class Unit : MonoBehaviour, ITeamMember
     {
         if(isImmortal)
         {
+            Debug.Log("무적이여서 안 맞음");
             return;
         }
         currentHp -= damage;
@@ -95,10 +96,10 @@ public abstract class Unit : MonoBehaviour, ITeamMember
         }
     }
 
-    public void ChangeIsImmortal(bool isImmortal)
+    public void ChangeIsImmortal(bool isImmortal, float immortalTime)
     {
         this.isImmortal = isImmortal;
-        immortalTime = float.MaxValue;
+        this.immortalTime = immortalTime;
     }
 
     protected virtual void Die()
@@ -108,7 +109,7 @@ public abstract class Unit : MonoBehaviour, ITeamMember
         particle.transform.localScale = this.transform.localScale * 0.1f;
         Destroy(particle, 1.5f);
 
-        Destroy(gameObject);
+        Destroy(this.gameObject);
     }
 
     protected virtual void LateUpdate()

@@ -9,6 +9,5 @@ public interface IStage
     Transform target {  get; set; }
 
     void Execute();
-
     void SetUp();
 }

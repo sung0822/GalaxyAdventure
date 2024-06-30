@@ -15,33 +15,25 @@ public class Stage1 : MonoBehaviour, IStage
     protected float _timeElapsed = 0;
 
     Transform stage1PointGroup;
-    bool[] isGenerated = new bool[2];
+    bool isGenerating;
 
     Transform _target;
 
+    
+
     public void Execute()
     {
-        _timeElapsed += Time.deltaTime;
-
-        if (10 > _timeElapsed && _timeElapsed >= 5)
+        if (isGenerating)
         {
-            Generate_1();
+            return;
         }
-        else if (_timeElapsed >= 10)
-        {
-            Generate_2();
-        }
+        StartCoroutine(GenerateAll());
     }
 
     public void SetUp()
     {
         BasicEnemyPrefab = Resources.Load<GameObject>("Enemies/BasicEnemy");
         target = GameObject.FindWithTag("PLAYER").transform;
-
-        for (int i = 0; i < 0; i++)
-        {
-            isGenerated[i] = true;
-        }
 
         if ( BasicEnemyPrefab == null )
         {
@@ -68,15 +60,62 @@ public class Stage1 : MonoBehaviour, IStage
     {
         
     }
-    
-    void Generate_1()
+    IEnumerator GenerateAll()
     {
-        if (isGenerated[0])
+        isGenerating = true;
+
+        yield return    Generate_1();
+        yield return new WaitForSeconds(4.0f);
+
+        yield return    Generate_2();
+        yield return new WaitForSeconds(4.0f);
+        
+                        Generate_3();
+        yield return new WaitForSeconds(4.0f);
+                        
+                        Generate_4();
+        yield return new WaitForSeconds(4.0f);
+
+        isGenerating = false;
+    }
+    IEnumerator Generate_1()
+    {
+
+        for (int i = 0; i < 5; i++)
         {
-            return;
+            spawnPoints[i + 1].transform.rotation = Quaternion.Euler(0, 200, 0);
+            Instantiate(BasicEnemyPrefab, spawnPoints[i + 1]).GetComponent<Enemy>().enableSlow = true;
+            yield return new WaitForSeconds(0.3f);
         }
+
+        yield return new WaitForSeconds(5.0f);
+
+        for (int i = 0; i < 5; i++)
+        {
+            spawnPoints[i + 1].transform.rotation = Quaternion.Euler(0, 160, 0);
+            Instantiate(BasicEnemyPrefab, spawnPoints[i + 1]).GetComponent<Enemy>().enableSlow = true;
+            yield return new WaitForSeconds(0.3f);
+        }
+
+    }
+
+    IEnumerator Generate_2()
+    {
+
+        for (int i = 0; i < 5; i++)
+        {
+            spawnPoints[i].transform.LookAt(target);
+            Instantiate(BasicEnemyPrefab, spawnPoints[i]).GetComponent<Enemy>().enableSlow = true;
+            yield return new WaitForSeconds(0.5f);
+        }
+
+    }
+    void Generate_3()
+    {
+        
         spawnPoints[0].transform.LookAt(new Vector3(0, 0, 0));
         spawnPoints[6].transform.LookAt(new Vector3(0, 0, 0));
+        spawnPoints[3].transform.rotation = Quaternion.Euler(0, 180, 0);
         Instantiate(BasicEnemyPrefab, spawnPoints[0]).GetComponent<Enemy>().enableSlow = true;
         Instantiate(BasicEnemyPrefab, spawnPoints[6]).GetComponent<Enemy>().enableSlow = true;
         Instantiate(BasicEnemyPrefab, spawnPoints[3]).GetComponent<Enemy>().enableSlow = false;
@@ -84,23 +123,20 @@ public class Stage1 : MonoBehaviour, IStage
         //spawnPoints[0].transform.rotation = Quaternion.Euler(0, 180, 0);
         //spawnPoints[6].transform.rotation = Quaternion.Euler(0, 180, 0);
 
-        isGenerated[0] = true;
     }
 
-    void Generate_2()
+    void Generate_4()
     {
-        if (isGenerated[1])
-        {
-            return;
-        }
         spawnPoints[0].transform.rotation = Quaternion.Euler(0, 180, 0);
         spawnPoints[6].transform.rotation = Quaternion.Euler(0, 180, 0);
         Instantiate(BasicEnemyPrefab, spawnPoints[1]).GetComponent<Enemy>().enableSlow = true;
         Instantiate(BasicEnemyPrefab, spawnPoints[2]).GetComponent<Enemy>().enableSlow = true;
         Instantiate(BasicEnemyPrefab, spawnPoints[4]).GetComponent<Enemy>().enableSlow = true;
         Instantiate(BasicEnemyPrefab, spawnPoints[5]).GetComponent<Enemy>().enableSlow = true;
-
-        isGenerated[1] = true;
     }
+
+
+
+
 
 }

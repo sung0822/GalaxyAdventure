@@ -4,14 +4,13 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - CloudPointsGroup
   - CloudChecker
   - ENEMY
   - WALL
   - PLAYER
-  - STAGE_SPAWN_POINT
   - STAGE_SPAWN_POINT_GROUP
   - UI_PANEL
+  - CLOUD_SPAWN_POINT_GROUP
   layers:
   - Default
   - TransparentFX

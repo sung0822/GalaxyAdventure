@@ -65,6 +65,7 @@ public class BasicEnemy : Enemy
     protected override void OnTriggerEnter(Collider other)
     {
         base.OnTriggerEnter(other);
+        //if (other.transform.la) { }
     }
 
     void Shoot()

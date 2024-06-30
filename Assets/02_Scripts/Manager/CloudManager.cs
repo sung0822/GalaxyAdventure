@@ -42,12 +42,12 @@ public class CloudManager : MonoBehaviour
         {
             int idx = Random.Range(0, cloudPrefab.Length);
 
-            var _cloud = Instantiate<GameObject>(cloudPrefab[idx], transform);
+            var cloud = Instantiate<GameObject>(cloudPrefab[idx], transform);
+            cloud.GetComponent<CloudMover>().Spawn();
+            cloud.name = $"Cloud{i:00}";
 
-            _cloud.name = $"Cloud{i:00}";
-
-            cloudPool.Add(_cloud);
-            cloudPool[i].GetComponent<CloudMover>().Spawn();
+            cloudPool.Add(cloud);
+            //cloudPool[i].GetComponent<CloudMover>().Spawn();
             float waitTime = Random.Range(2.0f, 4.0f);
 
             yield return new WaitForSeconds(waitTime);
