@@ -157,6 +157,7 @@ public class PlayerCtrl : Unit, IPlayer
             return;
         }
         currentHp -= damage;
+        CheckDead();
         
         isImmortal = true;
         immortalTime = 3.0f;

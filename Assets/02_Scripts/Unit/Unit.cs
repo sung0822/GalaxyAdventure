@@ -1,7 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
+/// <summary>
+/// 어트리뷰트 문법을 잘 몰라서 공부해야할듯. 기능은 해당 컴포넌트를 게임오브젝트가 가지도록 강제한다.
+/// </summary>
+[RequireComponent (typeof (AudioSource))]
 public abstract class Unit : MonoBehaviour, ITeamMember
 {
     public int maxHp { get { return _maxHp; } set { _maxHp = value; } }
@@ -19,6 +24,9 @@ public abstract class Unit : MonoBehaviour, ITeamMember
 
     protected int _power;
 
+    protected AudioSource audioSource;
+    protected AudioClip audioClip;
+
     public abstract bool isAttacking { get; set; }
 
     protected virtual void Start()
@@ -26,6 +34,10 @@ public abstract class Unit : MonoBehaviour, ITeamMember
         _power = 10;
         maxHp = 100;
         currentHp = 100;
+
+        transform.AddComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
+        audioClip = Resources.Load<AudioClip>("Sounds/ExplosionSound");
     }
 
     // Update is called once per frame
@@ -86,12 +98,15 @@ public abstract class Unit : MonoBehaviour, ITeamMember
             return;
         }
         currentHp -= damage;
+        CheckDead();
     }
 
-    public virtual void CheckDead()
+    protected virtual void CheckDead()
     {
         if (currentHp <= 0)
         {
+            audioSource.clip = audioClip;
+            audioSource.PlayOneShot(audioClip, 1.0f);
             Die();
         }
     }

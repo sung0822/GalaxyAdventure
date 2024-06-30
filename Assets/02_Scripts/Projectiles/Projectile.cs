@@ -9,9 +9,6 @@ public abstract class Projectile : MonoBehaviour, ITeamMember
 
     protected int _power = 0;
     protected float _spd = 0;
-
-    protected Transform projectileTransform;
-    protected Rigidbody bulletRigidbody;
     
     protected bool isShooting;
 
@@ -21,8 +18,6 @@ public abstract class Projectile : MonoBehaviour, ITeamMember
 
     protected virtual void Start()
     {
-        bulletRigidbody = GetComponent<Rigidbody>();
-        projectileTransform = GetComponent<Transform>(); 
     }
 
     protected void Update()
@@ -40,8 +35,6 @@ public abstract class Projectile : MonoBehaviour, ITeamMember
             if (unit.Team != _myTeam)
             {
                 unit.Hit(_power);
-                unit.CheckDead();
-
                 GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.basicParticle, this.transform.position, Quaternion.Euler(0, 0, 0));
 
                 Destroy(particle, 0.7f);

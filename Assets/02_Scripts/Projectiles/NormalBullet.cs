@@ -20,7 +20,7 @@ public class NormalBullet : Projectile
     {
         if(isShooting)
         {
-            projectileTransform.Translate(Vector3.forward * Time.deltaTime * _spd, Space.Self);
+            transform.Translate(Vector3.forward * Time.deltaTime * _spd, Space.Self);
         }
     }
 }
