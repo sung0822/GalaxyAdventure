@@ -11,6 +11,7 @@ TagManager:
   - STAGE_SPAWN_POINT_GROUP
   - UI_PANEL
   - CLOUD_SPAWN_POINT_GROUP
+  - RT_MAKER
   layers:
   - Default
   - TransparentFX

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pattern2 : MonoBehaviour, IPattern
+public class Pattern2 : IPattern
 {
     public Transform target { get { return _target; } set { _target = value; }}
 

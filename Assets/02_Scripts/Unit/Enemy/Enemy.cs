@@ -64,7 +64,6 @@ public abstract class Enemy : Unit
                 return;
             }
             
-            Debug.Log("Trigger WALL");
             currentPattern.AdjustSpeed(4.0f, 0.5f);
         }
     }
@@ -80,7 +79,9 @@ public abstract class Enemy : Unit
         MainManager.Get().score += rewardScore;
         UIManager.instance.CheckScore();
 
-        Instantiate<GameObject>(Resources.Load<GameObject>("Items/Box"), transform.position, Quaternion.Euler(0, 0, 0));
+
+        ItemManager.instance.MakeItem(transform);
+        //Instantiate<GameObject>(Resources.Load<GameObject>("Items/Box"), transform.position, Quaternion.Euler(0, 0, 0));
 
         base.Die();
 

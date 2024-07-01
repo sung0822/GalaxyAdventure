@@ -15,10 +15,13 @@ public class PlayerCtrl : Unit, IPlayer
 
     public List<IWeapon> weapons = new List<IWeapon>();
 
-    protected IItem selectedItem;
+    public IItem selectedItem;
     
     public int currentWeaponIdx = 0;
 
+    /// <summary>
+    /// 적재된 순서대로 아이템 순서가 생김. currentItemIdx로 접근 
+    /// </summary>
     Dictionary<int, int> itemOder = new Dictionary<int, int>();
 
     protected int currentItemIdx = 0;
@@ -45,7 +48,6 @@ public class PlayerCtrl : Unit, IPlayer
 
     protected float previousMaxExp;
     protected int previousMaxHp;
-
 
     [SerializeField] float _currentLevel = 1;
     [SerializeField] float _currentExp = 0;
@@ -75,7 +77,6 @@ public class PlayerCtrl : Unit, IPlayer
     protected override void Update()
     {
         base.Update();
-        Debug.Log("Player isImmortal: " + isImmortal);
         Attack();
         
     }
@@ -89,10 +90,11 @@ public class PlayerCtrl : Unit, IPlayer
 
     protected override void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.name + "Trigger 부딪힘!!");
+
     }
     protected override void OnCollisionEnter(Collision collision)
     {
+
     }
 
     protected override void OnCollisionStay(Collision collision)
@@ -175,7 +177,13 @@ public class PlayerCtrl : Unit, IPlayer
     public void ChangeSelcetedItem()
     {
         currentItemIdx++;
+        if (currentItemIdx == itemOder.Count)
+        {
+            currentItemIdx = 0;
+        }
         selectedItem = inventory.GetItem(itemOder[currentItemIdx]);
+        
+        UIManager.instance.CheckItem();
     }
 
     public void UseItem()
@@ -191,8 +199,12 @@ public class PlayerCtrl : Unit, IPlayer
         }
         else
         {
+            inventory.Add(item);
             itemOder.Add(itemOder.Count + 1, item.id);
             currentItemIdx++;
+            selectedItem = item;
         }
+
+        UIManager.instance.CheckItem();
     }
 }

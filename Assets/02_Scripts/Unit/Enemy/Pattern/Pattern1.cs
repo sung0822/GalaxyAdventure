@@ -76,7 +76,6 @@ public class Pattern1 : IPattern
 
         if (timeAdjustingSpd >= duration)
         {
-            Debug.LogWarning("지속시간 다 됨");
             isAdjustingSpd = false;
             timeAdjustingSpd = 0;
             duration = 0;

@@ -36,11 +36,21 @@ public class UIManager : MonoBehaviour
     public PlayerCtrl playerCtrl;
 
     public GameObject Panel_Pause;
+
+    public GameObject rtMaker;
+
+    List<ItemComponent> items = new List<ItemComponent>();
+    ItemComponent showingItem;
+
+    TextMeshProUGUI itemCountText;
+
     void Start()
     {
-        GameObject ui_Panel = GameObject.FindGameObjectWithTag("UI_PANEL");
-        Transform hpPanel = ui_Panel.transform.Find("Panel_HpBar");
-        Transform expPanel = ui_Panel.transform.Find("Panel_ExpBar");
+        GameObject canvas = GameObject.Find("Canvas");
+
+        GameObject panel_Status = GameObject.FindGameObjectWithTag("UI_PANEL");
+        Transform hpPanel = panel_Status.transform.Find("Panel_HpBar");
+        Transform expPanel = panel_Status.transform.Find("Panel_ExpBar");
 
         hpBar = hpPanel.Find("HpBar").GetComponent<Image>();
         hpText = hpPanel.Find("Hp_Text").GetComponent<TextMeshProUGUI>();
@@ -49,7 +59,7 @@ public class UIManager : MonoBehaviour
         expText = expPanel.Find("Exp_Text").GetComponent<TextMeshProUGUI>();
 
         //scoreText = ui_Panel.transform.Find("Panel_Score").Find("ScoreText").GetComponent<TextMeshProUGUI>();
-        scoreText = GameObject.Find("ScoreText").GetComponent<TextMeshProUGUI>();
+        scoreText = panel_Status.transform.Find("Panel_Score").Find("ScoreText").GetComponent<TextMeshProUGUI>();
         
         playerCtrl = GameObject.FindGameObjectWithTag("PLAYER")?.GetComponent<PlayerCtrl>();
         
@@ -59,12 +69,21 @@ public class UIManager : MonoBehaviour
         CheckPlayerHp();
         CheckPlayerExp();
 
-        Panel_Pause = GameObject.Find("Panel_Pause");
+        Panel_Pause = canvas.transform.Find("Panel_Pause").gameObject;
         Panel_Pause.SetActive(false);
 
 
+        rtMaker = GameObject.FindGameObjectWithTag("RT_MAKER"); 
 
-        //Panel_Pause = GameObject.FindGameObjectsWithTag("Panel_Pause")[1];
+        itemCountText = panel_Status.transform.Find("Panel_Item").GetComponentInChildren<TextMeshProUGUI>();
+
+        items.AddRange(rtMaker.transform.GetComponentsInChildren<ItemComponent>());
+
+        for (int i = 0; i < items.Count; i++)
+        {
+            items[i].gameObject.SetActive(false);
+        }
+        CheckItem();
 
     }
 
@@ -90,6 +109,42 @@ public class UIManager : MonoBehaviour
     public void CheckScore()
     {
         scoreText.text = MainManager.instance.score.ToString();
+    }
+
+    public void CheckItem()
+    {
+        IItem selectedItem = playerCtrl.selectedItem;
+        if (selectedItem == null)
+        {
+            Debug.Log("선택된 아이템 없음");
+            return;
+        }
+
+
+        int count = playerCtrl.inventory.GetItemCount(selectedItem);
+
+        for (int i = 0; i < items.Count; i++)
+        {
+            if(items[i].itemId != playerCtrl.selectedItem.id)
+            {
+                continue;
+            }
+            // 해당 렌더텍스쳐와 플레이어 아이템 id가 같을 시
+            if (showingItem == null)
+            {
+                showingItem = items[i];
+                showingItem.gameObject.SetActive(true);
+                break;
+            }
+
+            showingItem.gameObject.SetActive(false);
+
+            showingItem = items[i];
+            showingItem.gameObject.SetActive(true);
+        }
+        
+        itemCountText.text = "x" + count.ToString();
+
     }
 
     public void SwitchPausePanel(bool isPaused)

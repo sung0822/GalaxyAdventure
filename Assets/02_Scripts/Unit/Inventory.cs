@@ -17,11 +17,13 @@ public class Inventory
         if (items.ContainsKey(item.id))
         {
             items[item.id].Add(item);
+            Debug.Log("아이템 추가됨");
         }
         else 
         {
             items.Add(item.id, new List<IItem>());
             items[item.id].Add(item);
+            Debug.Log("아이템 추가됨");
         }
     }
 
@@ -36,6 +38,28 @@ public class Inventory
         }
 
         return null;
+    }
+
+    public int GetItemCount(int itemCode)
+    {
+        if (items.ContainsKey(itemCode))
+        {
+            return items[itemCode].Count;
+        }
+
+        return 0;
+    }
+
+    public int GetItemCount(IItem item)
+    {
+        int itemId = item.id;
+
+        if(items.ContainsKey(itemId))
+        {
+            return items[itemId].Count;
+        }
+
+        return 0;
     }
 
     public bool CheckExist(IItem item)
