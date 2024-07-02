@@ -10,14 +10,7 @@ public class Pattern1 : IPattern
 
     public float timeElapsed { get { return _timeElapsed; } set { _timeElapsed = value; } }
 
-    public float moveSpd 
-    { 
-    get { return _moveSpd; } 
-    set {
-            _moveSpd = value;
-            _originalMoveSpd = value;
-        }
-    }
+    public float moveSpd { get { return _moveSpd; } set { _moveSpd = value; _originalMoveSpd = value; } }
 
     public bool isAdjustingSpd { get { return _isAdjustingSpd; } set { _isAdjustingSpd = value; } }
 

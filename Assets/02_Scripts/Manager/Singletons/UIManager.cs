@@ -116,7 +116,6 @@ public class UIManager : MonoBehaviour
         ItemBase selectedItem = playerCtrl.selectedItem;
         if (selectedItem == null)
         {
-            Debug.Log("선택된 아이템 없음");
             return;
         }
 

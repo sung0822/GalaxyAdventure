@@ -8,17 +8,7 @@ public class BasicEnemy : Enemy
     Transform middleTransform;
     float time = 0;
 
-    public override bool isAttacking 
-    {
-        get
-        {
-            return _isAttacking;
-        } 
-        set
-        {
-            _isAttacking = value;
-        }
-    }
+    public override bool isAttacking { get { return _isAttacking; } set { _isAttacking = value; } }
 
     bool _isAttacking;
 

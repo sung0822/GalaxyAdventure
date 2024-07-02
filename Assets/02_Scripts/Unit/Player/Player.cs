@@ -9,9 +9,16 @@ public class Player : Unit, IPlayer
     private Transform playerTransform;
     public Rigidbody rigidbody;
 
-    GameObject currentPlane;
+    GameObject currentAirCraft;
 
-    Transform middleTransform;
+    GameObject previousAirCraft;
+
+    WeaponBase currentWeapon;
+    List<GameObject> aircrafts = new List<GameObject>();
+
+    WeaponSpace weaponSpace;
+
+    public GameObject basicGunPrefab;
 
     MeshRenderer meshRenderer;
     MeshFilter meshFilter;
@@ -33,7 +40,6 @@ public class Player : Unit, IPlayer
 
     protected int currentItemIdx = -1;
 
-
     public override bool isAttacking {
         get
         {
@@ -48,15 +54,17 @@ public class Player : Unit, IPlayer
      
     public Vector3 moveDir { get { return _moveDir; } set { _moveDir = value; } }
     Vector3 _moveDir;
-    public float currentLevel { get { return _currentLevel; } set { _currentLevel = value; } }
+    public int currentLevel { get { return _currentLevel; } set { _currentLevel = value; } }
     public float currentExp { get { return _currentExp; } set { _currentExp = value; } }
     public float maxExp { get { return _maxExp; } set { _maxExp = value; } }
 
+    public int maxLevel { get { return _maxLevel; } set { _maxLevel = value; } }
+    public int _maxLevel = 10;
 
     protected float previousMaxExp;
     protected int previousMaxHp;
 
-    [SerializeField] float _currentLevel = 1;
+    [SerializeField] int _currentLevel = 1;
     [SerializeField] float _currentExp = 0;
     [SerializeField] float _maxExp = 100;
 
@@ -70,19 +78,31 @@ public class Player : Unit, IPlayer
         playerTransform = GetComponent<Transform>();
         rigidbody = GetComponent<Rigidbody>();
 
-
-        // 중간 포지션에 무기 장착
-        middleTransform = playerTransform.Find("Jet/Mesh/MiddlePosition");
-        middleTransform.AddComponent<BasicGun>();
         
+        aircrafts.Add(playerTransform.Find("Player_0").gameObject);
+        aircrafts.Add(playerTransform.Find("Player_1").gameObject);
+        aircrafts.Add(playerTransform.Find("Player_2").gameObject);
+        aircrafts.Add(playerTransform.Find("Player_3").gameObject);
+        aircrafts.Add(playerTransform.Find("Player_4").gameObject);
 
+        currentAirCraft = aircrafts[0];
 
-        weapons.Add(middleTransform.GetComponent<BasicGun>());
+        for (int i = 1; i < aircrafts.Count; i++)
+        {
+            aircrafts[i].SetActive(false);
+        }
+
+        weaponSpace = currentAirCraft.GetComponentInChildren<WeaponSpace>();
+
+        GameObject gameObject = GameObject.Instantiate<GameObject>(basicGunPrefab, weaponSpace.transform);
+        gameObject.name = basicGunPrefab.name;
+
+        weapons.Add(gameObject.GetComponent<BasicGun>());
         weapons[currentWeaponIdx].shootCycle = 0.2f;
         weapons[currentWeaponIdx].user = this;
 
-        meshFilter = GetComponentInChildren<MeshFilter>();
-        meshRenderer = GetComponentInChildren<MeshRenderer>();
+        currentWeapon = weapons[currentWeaponIdx];
+        currentAirCraft.transform.position = transform.position;
 
     }
 
@@ -146,6 +166,8 @@ public class Player : Unit, IPlayer
 
         power += (int)(power * 0.1f);
 
+        ChangeAirCraft(currentLevel -1 );
+
         UIManager.instance.CheckPlayerHp();
         UIManager.instance.CheckPlayerExp();
     }
@@ -159,13 +181,35 @@ public class Player : Unit, IPlayer
 
         power += (int)(power * 0.1f);
 
+        ChangeAirCraft(currentLevel - 1);
+
         UIManager.instance.CheckPlayerHp();
         UIManager.instance.CheckPlayerExp();
     }
 
-    void ChangeApperance()
+    void ChangeAppearance()
     {
+    }
 
+    void ChangeAirCraft(int idx)
+    {
+        if (currentLevel >= aircrafts.Count + 1)
+        {
+            return;
+        }
+        previousAirCraft = currentAirCraft;
+        previousAirCraft.transform.position = new Vector3(0, 10000, 0);
+        
+        currentAirCraft = aircrafts[idx];
+        currentAirCraft.SetActive(true);
+        
+        currentWeapon.transform.SetParent(currentAirCraft.GetComponentInChildren<WeaponSpace>().transform);
+        currentWeapon.transform.localPosition = Vector3.zero;
+
+        currentAirCraft.transform.position = this.transform.position;
+
+        previousAirCraft.SetActive(false);
+        
     }
 
     public override void Hit(int damage)
@@ -187,7 +231,8 @@ public class Player : Unit, IPlayer
     {
         if(_isAttacking)
         {
-            weapons[currentWeaponIdx].Use();
+            Debug.Log("때리는중");
+            currentWeapon.Use();
         }
     }
 

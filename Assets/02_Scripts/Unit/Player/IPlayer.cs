@@ -3,9 +3,10 @@ using UnityEngine;
 
 public interface IPlayer : ICarryable, IItemUseable, IMovalble
 {
-    public float currentLevel { get; set; }
+    public int currentLevel { get; set; }
+    public int maxLevel { get;}
     public float currentExp { get; set; }
-    public float maxExp { get; set; }
+    public float maxExp { get;}
     public void LevelUp();
     public void LevelDown();
 

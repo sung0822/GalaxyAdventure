@@ -13,20 +13,29 @@ public class Pattern2 : IPattern
     public bool isAdjustingSpd { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
     protected Transform _target;
-
+    
+    private Transform playerTransform;
+    
     protected float _timeElapsed;
     float _moveSpd = 1;
+
 
     public void Execute()
     {
         timeElapsed = Time.deltaTime;
-        target.Translate(Vector3.forward * 1 * moveSpd * Time.deltaTime, Space.World);
+
+        Debug.Log("Pattern2 Ω««‡¡ﬂ");
+        target.LookAt(playerTransform);
+
+        target.transform.Translate(Vector3.forward * moveSpd * Time.deltaTime, Space.Self);
 
     }
 
     public void SetTarget(Transform target)
     {
+        _moveSpd = 3;
         this.target = target;
+        playerTransform = GameObject.FindWithTag("PLAYER").transform;
     }
 
     public void ChangePattern(int idx)

@@ -48,7 +48,6 @@ public class ItemComponent : MonoBehaviour
             case 1:
 
                 item = new ImmortalItem();
-                Debug.Log("公利 酒捞袍 积己, id: " + item.id);
                 break;
             case 2:
 
