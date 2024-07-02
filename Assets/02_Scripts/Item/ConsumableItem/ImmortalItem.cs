@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ImmortalItem : IItem
+public class ImmortalItem : ItemBase
 {
     public Unit user { get; set; }
+    protected override int _id { get { return idValue; } set { idValue = value; } }
 
-    public int id { get {  return _itemCode; } }
+    private int idValue = 1;
 
-    protected int _itemCode = 1;
-    public void Use()
+    public override void Use()
     {
         user.ChangeIsImmortal(true, 7.0f);
     }

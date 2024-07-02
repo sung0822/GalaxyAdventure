@@ -13,7 +13,7 @@ public class ItemComponent : MonoBehaviour
     [SerializeField] public int itemId { get { return _itemId; } }
     [SerializeField] private int _itemId;
 
-    public IItem item;
+    public ItemBase item;
 
     bool isRising = true;
     bool isDestroied = false;
@@ -38,6 +38,7 @@ public class ItemComponent : MonoBehaviour
 
     void Awake()
     {
+
         switch(itemId)
         {
             case 0:
@@ -45,8 +46,9 @@ public class ItemComponent : MonoBehaviour
                 item = new HealItem();
                 break;
             case 1:
-                
+
                 item = new ImmortalItem();
+                Debug.Log("公利 酒捞袍 积己, id: " + item.id);
                 break;
             case 2:
 
@@ -67,11 +69,11 @@ public class ItemComponent : MonoBehaviour
             isRising = true;
 
         if (isRising)
-            transform.localPosition = new Vector3(0, transform.localPosition.y + 1 * moveSpd * Time.deltaTime, 5);
+            transform.Translate(0, +1 * moveSpd * Time.deltaTime, 0);
         else
-            transform.localPosition = new Vector3(0, transform.localPosition.y - 1 * moveSpd * Time.deltaTime, 5);
-        
-        
+            transform.Translate(0, -1 * moveSpd * Time.deltaTime, 0);
+
+
     }
 
 }

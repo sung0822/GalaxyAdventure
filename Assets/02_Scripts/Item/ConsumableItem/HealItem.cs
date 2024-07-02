@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealItem : IItem
+public class HealItem : ItemBase
 {
     public Unit user { get ; set ; }
 
-    public int id { get { return _itemCode; } }
+    protected  override int _id { get { return idValue; } set { idValue = value; } }
 
-    protected int _itemCode = 0;
-    public void Use()
+
+    private int idValue = 0;
+    public override void Use()
     {
         user.currentHp = user.maxHp;
     }

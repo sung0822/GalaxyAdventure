@@ -3,31 +3,24 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class BasicGun : MonoBehaviour, IWeapon
+public class BasicGun : WeaponBase
 {
     public GameObject bulletPrefab;
     NormalBullet normalBullet;
 
     public AudioSource audioSource;
     public AudioClip audioClip;
-    
+
     public Transform fireTransform;
+    public override float shootCycle { get { return _shootCycle; } set { _shootCycle = value; } }
+    protected float _shootCycle;
 
-    public Unit user {  get { return _user; }
-                        set { _user = value; } }
-
-    public float shootCycle 
-    { get { return _shootCycle; } set { _shootCycle = value; } }
-
-    public int power { get; set; }
     protected int _power = 10;
 
-    protected float _shootCycle = 1.5f;
+    protected float shootCycleValue = 1.5f;
     protected float timeAfterShoot;
 
-    Unit _user;
-
-    public void Use()
+    public override void Use()
     {
         if (timeAfterShoot <= _shootCycle)
         {
@@ -42,10 +35,10 @@ public class BasicGun : MonoBehaviour, IWeapon
         normalBullet.power += this._power;
         normalBullet.spd = 15;
         normalBullet.power = normalBullet.power + user.power;
-        normalBullet.Team = _user.Team;
+        normalBullet.Team = user.Team;
         normalBullet.Shoot();
         
-        if (_user.Team == TeamType.ENEMY)
+        if (user.Team == TeamType.ENEMY)
         {
             return;
         }
@@ -72,5 +65,4 @@ public class BasicGun : MonoBehaviour, IWeapon
     {
         timeAfterShoot += Time.deltaTime;
     }
-
 }

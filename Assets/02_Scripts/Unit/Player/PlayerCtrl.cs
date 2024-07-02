@@ -13,9 +13,9 @@ public class PlayerCtrl : Unit, IPlayer
     public Inventory inventory { get { return _inventory; }}
     protected Inventory _inventory = new Inventory();
 
-    public List<IWeapon> weapons = new List<IWeapon>();
+    public List<WeaponBase> weapons = new List<WeaponBase>();
 
-    public IItem selectedItem;
+    public ItemBase selectedItem;
     
     public int currentWeaponIdx = 0;
 
@@ -24,7 +24,7 @@ public class PlayerCtrl : Unit, IPlayer
     /// </summary>
     Dictionary<int, int> itemOder = new Dictionary<int, int>();
 
-    protected int currentItemIdx = 0;
+    protected int currentItemIdx = -1;
 
 
     public override bool isAttacking {
@@ -176,9 +176,11 @@ public class PlayerCtrl : Unit, IPlayer
 
     public void ChangeSelcetedItem()
     {
-        currentItemIdx++;
+        currentItemIdx += 1;
+        Debug.Log("currentItemIdx: " + currentItemIdx);
         if (currentItemIdx == itemOder.Count)
         {
+            Debug.Log("처음 인덱스로");
             currentItemIdx = 0;
         }
         selectedItem = inventory.GetItem(itemOder[currentItemIdx]);
@@ -191,7 +193,7 @@ public class PlayerCtrl : Unit, IPlayer
         selectedItem.Use();
     }
 
-    public void GivePlayerItem(IItem item)
+    public void GivePlayerItem(ItemBase item)
     {
         if(inventory.CheckExist(item))
         {
@@ -200,9 +202,11 @@ public class PlayerCtrl : Unit, IPlayer
         else
         {
             inventory.Add(item);
-            itemOder.Add(itemOder.Count + 1, item.id);
             currentItemIdx++;
+
+            itemOder.Add(itemOder.Count, item.id);
             selectedItem = item;
+            Debug.Log("선택된 아이템 id: "+ selectedItem.id + "번");
         }
 
         UIManager.instance.CheckItem();

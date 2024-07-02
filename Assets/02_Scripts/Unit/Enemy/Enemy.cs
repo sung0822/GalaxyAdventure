@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class Enemy : Unit
 {
 
-    protected List<IWeapon> weapons = new List<IWeapon>();
+    protected List<WeaponBase> weapons = new List<WeaponBase>();
     protected List<IPattern> patterns = new List<IPattern>();
     
     protected IPattern currentPattern;
@@ -80,7 +80,8 @@ public abstract class Enemy : Unit
         UIManager.instance.CheckScore();
 
 
-        ItemManager.instance.MakeItem(transform);
+        GameObject item = ItemManager.instance.MakeItem(transform);
+        item.GetComponent<ItemComponent>().transform.Rotate(-50, 0, 0);
         //Instantiate<GameObject>(Resources.Load<GameObject>("Items/Box"), transform.position, Quaternion.Euler(0, 0, 0));
 
         base.Die();

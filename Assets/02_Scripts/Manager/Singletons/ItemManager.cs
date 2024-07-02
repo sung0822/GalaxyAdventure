@@ -25,29 +25,34 @@ public class ItemManager : MonoBehaviour
 
     public GameObject[] itemPrefab;
 
-    public void MakeItem(Transform parent, bool isRandom = true)
+    public GameObject MakeItem(Transform parent, bool isRandom = true)
     {
         int tmp = Random.Range(0, 2);
+        GameObject gameObject = null;
 
         switch (tmp)
         {
             case 0:
-                Instantiate<GameObject>(itemPrefab[0], parent.transform.position, parent.transform.rotation);
+                gameObject = Instantiate<GameObject>(itemPrefab[0], parent.transform.position, parent.transform.rotation);
+                Debug.Log(gameObject.GetComponent<ItemComponent>().itemId + "번 아이템 생성됨");
 
                 break;
                 
             case 1:
 
-                Instantiate<GameObject>(itemPrefab[1], parent.transform.position, parent.transform.rotation);
+                gameObject = Instantiate<GameObject>(itemPrefab[1], parent.transform.position, parent.transform.rotation);
+                Debug.Log(gameObject.GetComponent<ItemComponent>().itemId + "번 아이템 생성됨");
                 break;
 
             case 2:
-
+                Debug.Log("생성 안됨");
+                return null;
                 break;
-                //Instantiate<GameObject>(itemPrefab[0]);
             default:
                 break;
         }
+
+        return gameObject;
     }
     void MakeItem(bool isRandom = true)
     {

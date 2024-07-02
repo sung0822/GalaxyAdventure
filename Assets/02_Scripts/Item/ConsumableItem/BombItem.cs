@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BombItem : IItem
+public class BombItem : ItemBase
 {
     public Unit user { get ; set ; }
-    public int id { get { return _id; } }
+    protected override int _id { get { return idValue; } set { idValue = value; } }
+    private int idValue = 2;
 
-    protected int _id = 2;
-    public void Use()
+    public override void Use()
     {
     }
 }

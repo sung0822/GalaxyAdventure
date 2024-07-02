@@ -64,17 +64,20 @@ public class Stage1 : MonoBehaviour, IStage
     {
         isGenerating = true;
 
-        yield return    Generate_1();
-        yield return new WaitForSeconds(4.0f);
+        //yield return    Generate_1();
+        //yield return new WaitForSeconds(4.0f);
 
-        yield return    Generate_2();
-        yield return new WaitForSeconds(4.0f);
-        
-                        Generate_3();
-        yield return new WaitForSeconds(4.0f);
-                        
-                        Generate_4();
-        yield return new WaitForSeconds(4.0f);
+        //yield return    Generate_2();
+        //yield return new WaitForSeconds(4.0f);
+
+        //                Generate_3();
+        //yield return new WaitForSeconds(4.0f);
+
+        //                Generate_4();
+        //yield return new WaitForSeconds(4.0f);
+
+        Generate_5();
+        yield return new WaitForSeconds(7.0f);
 
         isGenerating = false;
     }
@@ -135,7 +138,23 @@ public class Stage1 : MonoBehaviour, IStage
         Instantiate(BasicEnemyPrefab, spawnPoints[5]).GetComponent<Enemy>().enableSlow = true;
     }
 
+    void Generate_5()
+    {
+        spawnPoints[1].transform.rotation = Quaternion.Euler(0, 180, 0);
+        spawnPoints[2].transform.rotation = Quaternion.Euler(0, 180, 0);
+        spawnPoints[3].transform.rotation = Quaternion.Euler(0, 180, 0);
+        spawnPoints[4].transform.rotation = Quaternion.Euler(0, 180, 0);
+        spawnPoints[5].transform.rotation = Quaternion.Euler(0, 180, 0);
 
+        Instantiate(BasicEnemyPrefab, spawnPoints[0]).GetComponent<Enemy>().enableSlow = true;
+        Instantiate(BasicEnemyPrefab, spawnPoints[1]).GetComponent<Enemy>().enableSlow = true;
+        Instantiate(BasicEnemyPrefab, spawnPoints[2]).GetComponent<Enemy>().enableSlow = true;
+        Instantiate(BasicEnemyPrefab, spawnPoints[3]).GetComponent<Enemy>().enableSlow = true;
+        Instantiate(BasicEnemyPrefab, spawnPoints[4]).GetComponent<Enemy>().enableSlow = true;
+        Instantiate(BasicEnemyPrefab, spawnPoints[5]).GetComponent<Enemy>().enableSlow = true;
+
+
+    }
 
 
 

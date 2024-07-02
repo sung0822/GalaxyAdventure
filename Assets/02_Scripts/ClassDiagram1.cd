@@ -1,0 +1,389 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CharacterSelect" Collapsed="true">
+    <Position X="6.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAADAAAAIAAA=</HashCode>
+      <FileName>Assets\_Gloomy_Animal\Script\CharacterSelect.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MouseOrbitImproved" Collapsed="true">
+    <Position X="11.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAACAAAAAAKAAAIIEBAEAAAoAIAABgICAEgAA=</HashCode>
+      <FileName>Assets\_Gloomy_Animal\Script\MouseOrbitImproved.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CameraCtrl" Collapsed="true">
+    <Position X="16.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAIACAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Assets\02_Scripts\Camera\CameraCtrl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gizmo" Collapsed="true">
+    <Position X="8" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQEAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\02_Scripts\Gizmo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BaseWeapon" Collapsed="true">
+    <Position X="11.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAEAAAIQAAAAAAAAAA=</HashCode>
+      <FileName>Assets\02_Scripts\Item\BaseWeapon.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BasicGun" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQIAAAAACAAAAAAAQAAAgAAACEEkIIAAAAAAAAAAQA=</HashCode>
+      <FileName>Assets\02_Scripts\Item\BasicGun.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="BombItem" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="15" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAEAAAAAAAAAAAAAwA=</HashCode>
+      <FileName>Assets\02_Scripts\Item\ConsumableItem\BombItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HealItem" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAACAwA=</HashCode>
+      <FileName>Assets\02_Scripts\Item\ConsumableItem\HealItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ImmortalItem" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAACAwA=</HashCode>
+      <FileName>Assets\02_Scripts\Item\ConsumableItem\ImmortalItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WeaponController" Collapsed="true">
+    <Position X="11.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQABAAAACgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\02_Scripts\Item\WeaponController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ItemComponent" Collapsed="true">
+    <Position X="16.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAUAAAAAABDAAAAAACQACAAAAAABAAAAQAAgAABAAEA=</HashCode>
+      <FileName>Assets\02_Scripts\ItemComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackgroundCtrl" Collapsed="true">
+    <Position X="9.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAACCAAAAEEAAIIIQAAAAAAAAKAAAIAAEBAAAA=</HashCode>
+      <FileName>Assets\02_Scripts\Light\BackgroundCtrl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LightCtrl" Collapsed="true">
+    <Position X="8" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AASAQAIAACAAAAAAAAAAAQAAAAAAIAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Assets\02_Scripts\Light\LightCtrl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CloudMover" Collapsed="true">
+    <Position X="9.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAQAAQCBAAAAAAAEAAAAAAEAAAAAoQAAAAAAAAAg=</HashCode>
+      <FileName>Assets\02_Scripts\Manager\CloudMover.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Remover" Collapsed="true">
+    <Position X="11.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIQAAAAAAAAAA=</HashCode>
+      <FileName>Assets\02_Scripts\Manager\Remover.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CloudManager" Collapsed="true">
+    <Position X="8" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACBAAAAAAAAAAAAAAARAAQQAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\02_Scripts\Manager\Singletons\CloudManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InputManager" Collapsed="true">
+    <Position X="13.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQACAAAACAAAAAACAAAgAAAgCBAAAABAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\02_Scripts\Manager\Singletons\InputManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ItemManager" Collapsed="true">
+    <Position X="6.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAUAAAAAACAAAAAAAAAAAAAAAABAAgAAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\02_Scripts\Manager\Singletons\ItemManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MainManager" Collapsed="true">
+    <Position X="9.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAQACAAAgBAAAAIAAAAAAJBGAAAAAIAAEAAIEA=</HashCode>
+      <FileName>Assets\02_Scripts\Manager\Singletons\MainManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ParticleManager" Collapsed="true">
+    <Position X="13.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAASAAAABAAAAAAAAAIgBAACAAAAAgAAAAAEg=</HashCode>
+      <FileName>Assets\02_Scripts\Manager\Singletons\ParticleManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UIManager" Collapsed="true">
+    <Position X="9.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACQACAAAAiAIAQEAIAgEAACAAABBgAAAAACAAQAACEA=</HashCode>
+      <FileName>Assets\02_Scripts\Manager\Singletons\UIManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpawnPoint" Collapsed="true">
+    <Position X="6.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAiAAAAAAAAAAAAAAAAAAIAAAABAAAAABAAA=</HashCode>
+      <FileName>Assets\02_Scripts\Manager\SpawnPoint.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Stage1" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="8" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAgAAAACgAAAwAIAAAAEAAQAACAABAAAAAAMA4AAE=</HashCode>
+      <FileName>Assets\02_Scripts\Manager\Stages\Stage1.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NormalBullet" Collapsed="true">
+    <Position X="3.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\02_Scripts\Projectiles\NormalBullet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Projectile" Collapsed="true">
+    <Position X="3.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAgAAECAABAAAAAAAEAAAACEAAAAIUAAAgAAAAAA=</HashCode>
+      <FileName>Assets\02_Scripts\Projectiles\Projectile.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="BasicEnemy" Collapsed="true">
+    <Position X="3" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQBAQAAACAABAAIEAAAAAAAAAAAAAAIQAAAAAAAAAA=</HashCode>
+      <FileName>Assets\02_Scripts\Unit\Enemy\BasicEnemy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Eagle" Collapsed="true">
+    <Position X="6.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\02_Scripts\Unit\Enemy\Eagle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Enemy" Collapsed="true">
+    <Position X="3" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAYAAQAAACAgQAAgAAIEAAAAAAAAAACIQAAAEAAAAAA=</HashCode>
+      <FileName>Assets\02_Scripts\Unit\Enemy\Enemy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Pattern1" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="15" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EgAAgQIAAABAAAQAIAAAAAAAQAAgIAAAAKAAAAACABM=</HashCode>
+      <FileName>Assets\02_Scripts\Unit\Enemy\Pattern\Pattern1.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Pattern2" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgQAAAABAAAQAIAAAAAAAQAAgAAAAAAAAAAACABM=</HashCode>
+      <FileName>Assets\02_Scripts\Unit\Enemy\Pattern\Pattern2.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Inventory" Collapsed="true">
+    <Position X="15" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAEAAAAgAAAAAAQAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Assets\02_Scripts\Unit\Inventory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerCtrl" Collapsed="true">
+    <Position X="0.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQIAQUABqJQAQAIECYBAAEBQIABAACKRUAQEAgQAEA=</HashCode>
+      <FileName>Assets\02_Scripts\Unit\Player\PlayerCtrl.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Unit" Collapsed="true">
+    <Position X="2" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAUAAAQAAiAAAAAoAAYAMACEBCEA0AAIVAAAAAgAAAA=</HashCode>
+      <FileName>Assets\02_Scripts\Unit\Unit.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DealDamageComponent" Collapsed="true">
+    <Position X="11.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\ExternalAssets\EgyptMonsters\Scripts\DealDamageComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DemoController" Collapsed="true">
+    <Position X="15" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BARgAEQAAiAACAAIIAAIACAAAAADAAAIAIBBBABCAEA=</HashCode>
+      <FileName>Assets\ExternalAssets\EgyptMonsters\Scripts\DemoController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DestroyMe" Collapsed="true">
+    <Position X="16.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAACACAAIAAAAAAAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\ExternalAssets\EgyptMonsters\Scripts\DestroyMe.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Action_Manage" Collapsed="true">
+    <Position X="6.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AASABCAAACATCAACAAAQAaAEIAAAQAAgAACAAMAgAAA=</HashCode>
+      <FileName>Assets\TAZO_3D_C\DemoScene\Action_Manage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="demo" Collapsed="true">
+    <Position X="13.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAIAAAAAAAAAAAAAAABAAAAAAAAAQAAA=</HashCode>
+      <FileName>Assets\TAZO_3D_C\DemoScene\demo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpawnEffect" Collapsed="true">
+    <Position X="16.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAgAAAABAAEAAAAAAgAAAAAAIAIAA=</HashCode>
+      <FileName>Assets\UnityTechnologies\ParticlePack\EffectExamples\Misc Effects\Scripts\SpawnEffect.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RampAsset" Collapsed="true">
+    <Position X="8" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQIAAAAAAAAAAAAAAAAAAAgAAAQA=</HashCode>
+      <FileName>Assets\UnityTechnologies\ParticlePack\Shared\Ramps\Runtime\RampAsset.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdjustTimeScale" Collapsed="true">
+    <Position X="8" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAABAAACAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\UnityTechnologies\ParticlePack\Shared\Scripts\AdjustTimeScale.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProximityActivate" Collapsed="true">
+    <Position X="6.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQEIAAAQCAAAgAAIIAYAAAAAEEAAQBAAAAQABAAAAA=</HashCode>
+      <FileName>Assets\UnityTechnologies\ParticlePack\Shared\Scripts\ProximityActivate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimpleCharacterMotor" Collapsed="true">
+    <Position X="15" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQEAAggAAAEIAEAACQAAIAgAIAACQgAAEAACAAACEA=</HashCode>
+      <FileName>Assets\UnityTechnologies\ParticlePack\Shared\Scripts\SimpleCharacterMotor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Readme" Collapsed="true">
+    <Position X="9.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAQAAAAAAAAAAAAAAAAAAAQAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Assets\UnityTechnologies\ParticlePack\TutorialInfo\Scripts\Readme.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UnityTemplateProjects.SimpleCameraController" Collapsed="true">
+    <Position X="13.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAwgAAAAAAAAAIJAAAAAAAAAAAAAAAAAECAACAA=</HashCode>
+      <FileName>Assets\UnityTechnologies\ParticlePack\Shared\Scripts\SimpleCameraController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="contatiner" Collapsed="true">
+    <Position X="6.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\02_Scripts\Unit\Inventory.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="IWeaponController" Collapsed="true">
+    <Position X="15" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\02_Scripts\Item\IWaponHandler.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IWeapon" Collapsed="true">
+    <Position X="13.25" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAEEAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>Assets\02_Scripts\Item\IWeapon.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IStage" Collapsed="true">
+    <Position X="9.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAwAIAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\02_Scripts\Manager\Stages\IStage.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IPattern" Collapsed="true">
+    <Position X="8" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgQAAAABAAAQAIAAAAAAAAAAgAAAAAAAAAAAAABI=</HashCode>
+      <FileName>Assets\02_Scripts\Unit\Enemy\Pattern\IPattern.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IMovalble" Collapsed="true">
+    <Position X="0.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\02_Scripts\Unit\IMovable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ITeamMember" Collapsed="true">
+    <Position X="11.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>Assets\02_Scripts\Unit\ITeamMember.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IPlayer" Collapsed="true">
+    <Position X="0.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAQAAAIQAAAAAAAAAAAAAAABAAACBQAAAAAAAAA=</HashCode>
+      <FileName>Assets\02_Scripts\Unit\Player\IPlayer.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="TeamType" Collapsed="true">
+    <Position X="6.25" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>Assets\02_Scripts\Unit\ITeamMember.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="맑은 고딕" Size="9" />
+</ClassDiagram>

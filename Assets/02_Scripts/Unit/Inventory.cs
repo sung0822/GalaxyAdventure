@@ -9,28 +9,26 @@ public class Inventory
     /// <summary>
     /// 아이템 id로 저장합니다. List에 실제 값이 담기게 되구요.
     /// </summary>
-    private Dictionary<int, List<IItem>> items = new Dictionary<int, List<IItem>>();
+    private Dictionary<int, List<ItemBase>> items = new Dictionary<int, List<ItemBase>>();
     
 
-    public void Add(IItem item)
+    public void Add(ItemBase item)
     {
         if (items.ContainsKey(item.id))
         {
             items[item.id].Add(item);
-            Debug.Log("아이템 추가됨");
         }
         else 
         {
-            items.Add(item.id, new List<IItem>());
+            items.Add(item.id, new List<ItemBase>());
             items[item.id].Add(item);
-            Debug.Log("아이템 추가됨");
         }
     }
 
     /// <summary>
     /// 각 아이템은 고유 번호가있음. 번호로 해당 아이템에 접근.
     /// </summary>
-    public IItem GetItem(int itemCode)
+    public ItemBase GetItem(int itemCode)
     {
         if (items.ContainsKey(itemCode))
         {
@@ -50,7 +48,7 @@ public class Inventory
         return 0;
     }
 
-    public int GetItemCount(IItem item)
+    public int GetItemCount(ItemBase item)
     {
         int itemId = item.id;
 
@@ -62,7 +60,7 @@ public class Inventory
         return 0;
     }
 
-    public bool CheckExist(IItem item)
+    public bool CheckExist(ItemBase item)
     {
         if (items.ContainsKey(item.id))
         {
@@ -86,7 +84,7 @@ public class Inventory
 
 public struct contatiner
 {
-    IItem item;
+    ItemBase item;
 
     int itemCount;
 }
