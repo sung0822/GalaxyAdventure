@@ -33,7 +33,7 @@ public class UIManager : MonoBehaviour
 
     public TextMeshProUGUI scoreText;
 
-    public PlayerCtrl playerCtrl;
+    public Player playerCtrl;
 
     public GameObject Panel_Pause;
 
@@ -61,7 +61,7 @@ public class UIManager : MonoBehaviour
         //scoreText = ui_Panel.transform.Find("Panel_Score").Find("ScoreText").GetComponent<TextMeshProUGUI>();
         scoreText = panel_Status.transform.Find("Panel_Score").Find("ScoreText").GetComponent<TextMeshProUGUI>();
         
-        playerCtrl = GameObject.FindGameObjectWithTag("PLAYER")?.GetComponent<PlayerCtrl>();
+        playerCtrl = GameObject.FindGameObjectWithTag("PLAYER")?.GetComponent<Player>();
         
         hpText.text = playerCtrl.currentHp.ToString() + " / " + playerCtrl.maxHp.ToString();
         expText.text = playerCtrl.currentExp.ToString() + " / " + playerCtrl.maxExp.ToString();

@@ -64,20 +64,17 @@ public class Stage1 : MonoBehaviour, IStage
     {
         isGenerating = true;
 
-        //yield return    Generate_1();
-        //yield return new WaitForSeconds(4.0f);
+        yield return    Generate_1();
+        yield return new WaitForSeconds(4.0f);
 
-        //yield return    Generate_2();
-        //yield return new WaitForSeconds(4.0f);
+        yield return    Generate_2();
+        yield return new WaitForSeconds(4.0f);
 
-        //                Generate_3();
-        //yield return new WaitForSeconds(4.0f);
+                        Generate_3();
+        yield return new WaitForSeconds(4.0f);
 
-        //                Generate_4();
-        //yield return new WaitForSeconds(4.0f);
-
-        Generate_5();
-        yield return new WaitForSeconds(7.0f);
+                        Generate_4();
+        yield return new WaitForSeconds(4.0f);
 
         isGenerating = false;
     }

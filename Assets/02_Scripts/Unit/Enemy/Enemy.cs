@@ -35,7 +35,7 @@ public abstract class Enemy : Unit
 
         currentPattern = patterns[0];
 
-        targetPlayer = GameObject.FindGameObjectWithTag("PLAYER").GetComponent<PlayerCtrl>();
+        targetPlayer = GameObject.FindGameObjectWithTag("PLAYER").GetComponent<Player>();
         transform.SetParent(null);
 
     }

@@ -21,7 +21,7 @@ public class InputManager : MonoBehaviour
         }
     }
     GameObject player;
-    PlayerCtrl playerCtrl;
+    Player playerCtrl;
 
     float inputHor;
     float inputVer;
@@ -29,7 +29,7 @@ public class InputManager : MonoBehaviour
     void Start()
     {
         player = GameObject.FindWithTag("PLAYER");
-        playerCtrl = player.GetComponent<PlayerCtrl>();
+        playerCtrl = player.GetComponent<Player>();
         
     }
 
@@ -66,7 +66,7 @@ public class InputManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            playerCtrl.ChangeSelcetedItem();
+            playerCtrl.ChangeSelectedItem();
         }
 
     }

@@ -31,7 +31,7 @@ public class ItemComponent : MonoBehaviour
                 return;
             }
             isDestroied = true;
-            other.transform.root.GetComponent<PlayerCtrl>().GivePlayerItem(item);
+            other.transform.root.GetComponent<Player>().GiveItem(item);
             Destroy(this.gameObject);
         }
     }

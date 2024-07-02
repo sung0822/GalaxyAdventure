@@ -10,7 +10,6 @@ public class Inventory
     /// 아이템 id로 저장합니다. List에 실제 값이 담기게 되구요.
     /// </summary>
     private Dictionary<int, List<ItemBase>> items = new Dictionary<int, List<ItemBase>>();
-    
 
     public void Add(ItemBase item)
     {
@@ -18,7 +17,7 @@ public class Inventory
         {
             items[item.id].Add(item);
         }
-        else 
+        else
         {
             items.Add(item.id, new List<ItemBase>());
             items[item.id].Add(item);
