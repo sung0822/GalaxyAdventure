@@ -11,7 +11,7 @@ public class ImmortalItem : ItemBase
 
     public override void Use()
     {
-        user.ChangeIsImmortal(true, 7.0f);
+        user.SetImmortal(true, 7.0f);
     }
 
 }

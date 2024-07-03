@@ -28,10 +28,14 @@ public class ParticleManager : MonoBehaviour
 
     public GameObject unitExplodingParticle { get { return _unitExplodingParticle; } }
     [SerializeField] private GameObject _unitExplodingParticle;
+
+    public GameObject eagleDieParticle { get { return _eagleDieParticle; } }
+    [SerializeField] private GameObject _eagleDieParticle;
     private void Start()
     {
-        //_basicParticle = Resources.Load<GameObject>("Particles/Basic_Explode");
-        //_unitExplodingParticle = Resources.Load<GameObject>("Particles/Explosion_Fire");
+        _eagleDieParticle = Resources.Load<GameObject>("Particles/BloodSplash");
+        _basicParticle = Resources.Load<GameObject>("Particles/Basic_Explode");
+        _unitExplodingParticle = Resources.Load<GameObject>("Particles/SmallExplosion");
     }
 
 

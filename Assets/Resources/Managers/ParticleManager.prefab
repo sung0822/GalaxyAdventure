@@ -46,3 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _basicParticle: {fileID: 5216163537467665634, guid: c3b49585cb4bd56498a4b8f3928b50f5, type: 3}
   _unitExplodingParticle: {fileID: 1828176872806910, guid: 6c8921aff7597e149834dd51071aa659, type: 3}
+  _eagleDieParticle: {fileID: 8269904971416572043, guid: e1057f30a13b062499293da61e889127, type: 3}

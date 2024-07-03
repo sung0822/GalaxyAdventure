@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class Player : Unit, IPlayer
@@ -40,16 +41,7 @@ public class Player : Unit, IPlayer
 
     protected int currentItemIdx = -1;
 
-    public override bool isAttacking {
-        get
-        {
-            return _isAttacking;
-        }
-        set
-        {
-            _isAttacking = value;
-        }
-    }
+    public override bool isAttacking { get { return _isAttacking; } set{ _isAttacking = value; }}
     protected bool _isAttacking;
      
     public Vector3 moveDir { get { return _moveDir; } set { _moveDir = value; } }
@@ -68,6 +60,8 @@ public class Player : Unit, IPlayer
     [SerializeField] float _currentExp = 0;
     [SerializeField] float _maxExp = 100;
 
+    public bool isInvincibilityBlinking;
+
     float moveSpd = 10;
 
     protected override void Start()
@@ -78,12 +72,14 @@ public class Player : Unit, IPlayer
         playerTransform = GetComponent<Transform>();
         rigidbody = GetComponent<Rigidbody>();
 
-        
-        aircrafts.Add(playerTransform.Find("Player_0").gameObject);
-        aircrafts.Add(playerTransform.Find("Player_1").gameObject);
-        aircrafts.Add(playerTransform.Find("Player_2").gameObject);
-        aircrafts.Add(playerTransform.Find("Player_3").gameObject);
-        aircrafts.Add(playerTransform.Find("Player_4").gameObject);
+        // 비행기 메쉬 캐싱 및 현재 비행기 활성화
+        {
+            aircrafts.Add(playerTransform.Find("Player_0").gameObject);
+            aircrafts.Add(playerTransform.Find("Player_1").gameObject);
+            aircrafts.Add(playerTransform.Find("Player_2").gameObject);
+            aircrafts.Add(playerTransform.Find("Player_3").gameObject);
+            aircrafts.Add(playerTransform.Find("Player_4").gameObject);
+        }
 
         currentAirCraft = aircrafts[0];
 
@@ -92,6 +88,7 @@ public class Player : Unit, IPlayer
             aircrafts[i].SetActive(false);
         }
 
+        // 무기 등록 
         weaponSpace = currentAirCraft.GetComponentInChildren<WeaponSpace>();
 
         GameObject gameObject = GameObject.Instantiate<GameObject>(basicGunPrefab, weaponSpace.transform);
@@ -104,15 +101,30 @@ public class Player : Unit, IPlayer
         currentWeapon = weapons[currentWeaponIdx];
         currentAirCraft.transform.position = transform.position;
 
+
+        // 메시렌더러 캐싱
+        
+        meshRenderer = currentAirCraft.GetComponent<MeshRenderer>();
+        meshFilter = currentAirCraft.GetComponent<MeshFilter>();
+
+        isInvincibilityBlinking = false;
+
     }
 
     protected override void Update()
     {
         base.Update();
-        Attack();
         
-    }
+        Attack();
 
+        if (isInvincibilityBlinking)
+        {
+            return;
+        }
+
+
+
+    }
 
     protected override void FixedUpdate()
     {
@@ -122,11 +134,11 @@ public class Player : Unit, IPlayer
 
     protected override void OnTriggerEnter(Collider other)
     {
-
+        base.OnTriggerEnter(other);
     }
     protected override void OnCollisionEnter(Collision collision)
     {
-
+        Debug.Log("Player Collision충돌: " + collision.gameObject.name);
     }
 
     protected override void OnCollisionStay(Collision collision)
@@ -187,28 +199,29 @@ public class Player : Unit, IPlayer
         UIManager.instance.CheckPlayerExp();
     }
 
-    void ChangeAppearance()
-    {
-    }
-
     void ChangeAirCraft(int idx)
     {
         if (currentLevel >= aircrafts.Count + 1)
         {
             return;
         }
+        // 비행체 변경
         previousAirCraft = currentAirCraft;
         previousAirCraft.transform.position = new Vector3(0, 10000, 0);
-        
+        previousAirCraft.SetActive(false);
+
         currentAirCraft = aircrafts[idx];
         currentAirCraft.SetActive(true);
         
+        // 변경한 비행체로 무기 어태치
         currentWeapon.transform.SetParent(currentAirCraft.GetComponentInChildren<WeaponSpace>().transform);
         currentWeapon.transform.localPosition = Vector3.zero;
 
         currentAirCraft.transform.position = this.transform.position;
-
-        previousAirCraft.SetActive(false);
+        
+        // 메쉬 렌더러, 필터 다시 재할당
+        meshRenderer = currentAirCraft.GetComponent<MeshRenderer>();
+        meshFilter = currentAirCraft.GetComponent<MeshFilter>();
         
     }
 
@@ -216,22 +229,64 @@ public class Player : Unit, IPlayer
     {
         if (isImmortal)
         {
-            Debug.Log("무적이여서 안 맞음");
             return;
         }
         currentHp -= damage;
         CheckDead();
-        
+
         isImmortal = true;
-        immortalTime = 3.0f;
+        isInvincibilityBlinking = true;
+
+        StartCoroutine(SetImmortal(false, 2.0f));
+        StartCoroutine(InvincibilityBlink());
+
         UIManager.instance.CheckPlayerHp();
+    }
+
+    public override IEnumerator SetImmortal(bool isImmortal, float immortalTime)
+    {
+        yield return base.SetImmortal(isImmortal, immortalTime);
+    }
+
+    IEnumerator InvincibilityBlink()
+    {
+        meshRenderer.material.SetFloat("_Mode", 3);
+
+        while (isInvincibilityBlinking) 
+        {
+                // 반투명으로 변경
+            if (meshRenderer.material.color.a == 1.0f)
+            {
+                Color color = meshRenderer.material.color;
+                color.a = 0.7f;
+                
+                meshRenderer.material.color = color;
+                
+            }   // 불투명으로 변경
+            else
+            {
+                Color color = meshRenderer.material.color;
+                color.a = 1.0f;
+                
+                meshRenderer.material.color = color;
+
+                if (!isImmortal)
+                {
+                    isInvincibilityBlinking = false;
+                }
+            }
+
+            yield return new WaitForSeconds(0.15f);
+        }
+
+        meshRenderer.material.SetFloat("_Mode", 0);
+
     }
 
     protected void Attack()
     {
         if(_isAttacking)
         {
-            Debug.Log("때리는중");
             currentWeapon.Use();
         }
     }
@@ -268,10 +323,10 @@ public class Player : Unit, IPlayer
 
             itemOder.Add(itemOder.Count, item.id);
             selectedItem = item;
-            Debug.Log("선택된 아이템 id: "+ selectedItem.id + "번");
         }
 
         UIManager.instance.CheckItem();
     }
+
 
 }

@@ -34,14 +34,12 @@ public class ItemManager : MonoBehaviour
         {
             case 0:
                 gameObject = Instantiate<GameObject>(itemPrefab[0], parent.transform.position, parent.transform.rotation);
-                Debug.Log(gameObject.GetComponent<ItemComponent>().itemId + "번 아이템 생성됨");
 
                 break;
                 
             case 1:
 
                 gameObject = Instantiate<GameObject>(itemPrefab[1], parent.transform.position, parent.transform.rotation);
-                Debug.Log(gameObject.GetComponent<ItemComponent>().itemId + "번 아이템 생성됨");
                 break;
 
             case 2:

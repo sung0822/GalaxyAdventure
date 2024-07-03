@@ -76,7 +76,7 @@ public class InputManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F1))
         {
             Debug.Log("ÀÔ·ÂµÆÀ½");
-            playerCtrl.ChangeIsImmortal(!playerCtrl.isImmortal, float.MaxValue);
+            playerCtrl.SetImmortal(!playerCtrl.isImmortal, float.MaxValue);
         }
         else if(Input.GetKeyDown(KeyCode.F2))
         {

@@ -24,7 +24,6 @@ public class Pattern2 : IPattern
     {
         timeElapsed = Time.deltaTime;
 
-        Debug.Log("Pattern2 Ω««‡¡ﬂ");
         target.LookAt(playerTransform);
 
         target.transform.Translate(Vector3.forward * moveSpd * Time.deltaTime, Space.Self);

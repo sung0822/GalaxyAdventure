@@ -128,11 +128,9 @@ public class UIManager : MonoBehaviour
             {
                 continue;
             }
-            Debug.Log("UI아이템 id: " + items[i].itemId);
             // 해당 렌더텍스쳐와 플레이어 아이템 id가 같을 시
             if (showingItem == null)
             {
-                Debug.Log("보여주고있는 아이템 없음");
                 showingItem = items[i];
                 showingItem.gameObject.SetActive(true);
                 break;
@@ -142,7 +140,6 @@ public class UIManager : MonoBehaviour
 
             showingItem = items[i];
             showingItem.gameObject.SetActive(true);
-            Debug.Log("아이템 코드: "+ items[i].itemId + "활성화");
             break;
         }
         

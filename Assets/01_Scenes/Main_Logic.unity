@@ -314,6 +314,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Eagle
       objectReference: {fileID: 0}
+    - target: {fileID: 1937437006714112325, guid: 6e0288315cd21b64fb11a1791b1a2b69, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4068736494587950982, guid: 6e0288315cd21b64fb11a1791b1a2b69, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.55
@@ -324,7 +328,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4068736494587950982, guid: 6e0288315cd21b64fb11a1791b1a2b69, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 20.54
+      value: 9.47
       objectReference: {fileID: 0}
     - target: {fileID: 4068736494587950982, guid: 6e0288315cd21b64fb11a1791b1a2b69, type: 3}
       propertyPath: m_LocalRotation.w
@@ -928,8 +932,9 @@ GameObject:
   m_Component:
   - component: {fileID: 456135604}
   - component: {fileID: 456135605}
+  - component: {fileID: 456135606}
   m_Layer: 3
-  m_Name: PlayerWalls
+  m_Name: ScreenWall
   m_TagString: WALL
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -982,6 +987,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &456135606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 456135603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1786c2130ac7cc743bb279e413a58a53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &488719940
 GameObject:
   m_ObjectHideFlags: 0
@@ -1098,7 +1115,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -2772,10 +2789,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: BasicEnemy
       objectReference: {fileID: 0}
-    - target: {fileID: 3218093747895045973, guid: 0b451a27ff95b5e4db7edafede217c4d, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8646892214310354365, guid: 0b451a27ff95b5e4db7edafede217c4d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3849,6 +3862,14 @@ PrefabInstance:
       propertyPath: basicGunPrefab
       value: 
       objectReference: {fileID: 2686044962422066334, guid: f1a5b30b7a6beaa499348c058cd0c94b, type: 3}
+    - target: {fileID: 7999348581174181551, guid: 71b28e973e136504aaf17764ed5ef0a1, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7999348581174181551, guid: 71b28e973e136504aaf17764ed5ef0a1, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c083d0b6840bcd349859b25484c57420, type: 2}
     - target: {fileID: 8543862019115776300, guid: 71b28e973e136504aaf17764ed5ef0a1, type: 3}
       propertyPath: m_Name
       value: Player

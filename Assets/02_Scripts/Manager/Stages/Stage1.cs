@@ -19,15 +19,13 @@ public class Stage1 : MonoBehaviour, IStage
 
     Transform _target;
 
-    
-
     public void Execute()
     {
         if (isGenerating)
         {
             return;
         }
-        StartCoroutine(GenerateAll());
+        //StartCoroutine(GenerateAll());
     }
 
     public void SetUp()

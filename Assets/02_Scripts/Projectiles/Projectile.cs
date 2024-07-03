@@ -15,19 +15,24 @@ public abstract class Projectile : MonoBehaviour, ITeamMember
     public TeamType Team { get { return _myTeam; } set { _myTeam = value; } }
     protected TeamType _myTeam;
 
+    protected bool isDestroied;
+
 
     protected virtual void Start()
     {
     }
 
-    protected void Update()
+    protected virtual void Update()
     {
 
     }
 
     protected void OnTriggerEnter(Collider other)
     {
-        
+        if (isDestroied)
+        {
+            return;
+        }
         if (other.transform.GetComponentInParent<Unit>()?.gameObject.layer == LayerMask.NameToLayer("UNIT"))
         {
             Unit unit = other.transform.GetComponentInParent<Unit>();
