@@ -22,7 +22,7 @@ public abstract class Enemy : Unit, IMovalble
 
     private bool isAdjustingSpd;
     private float timeAdjustingSpd;
-    public float moveSpd { get; set; }
+    public float moveSpd { get { return _moveSpd; } set { _moveSpd = value; } }
 
     private float _moveSpd = 1;
     private float _originalMoveSpd = 1;
@@ -39,6 +39,7 @@ public abstract class Enemy : Unit, IMovalble
         weapons.Add(new BasicGun());
 
         moveSpd = 10;
+        _originalMoveSpd = moveSpd;
 
         player = GameObject.FindGameObjectWithTag("PLAYER").GetComponent<Player>();
         transform.SetParent(null);
@@ -49,6 +50,7 @@ public abstract class Enemy : Unit, IMovalble
     protected override void Update()
     {
         base.Update();
+        Move();
     }
 
     protected override void OnCollisionEnter(Collision other)
@@ -66,12 +68,12 @@ public abstract class Enemy : Unit, IMovalble
             enableAttack = true;
             SetImmortal(false);
 
-            Debug.Log("Enemy isImmortal: " + isImmortal);
             if (!enableSlow)
             {
                 return;
             }
-            
+            AdjustSpeed(3.5f, 0.8f);
+
         }
     }
 
@@ -102,12 +104,13 @@ public abstract class Enemy : Unit, IMovalble
             LerpSpd();
         }
     }
-
+    /// <summary>
+    /// 곱한 속도 값으로 보간합니다. 보간할 시간을 매개변수로 받습니다.
+    /// </summary>
     void AdjustSpeed(float spd, float duration)
     {
         if (duration <= 0)
         {
-            Debug.LogWarning("duration must be bigger than 0");
             return;
         }
         isAdjustingSpd = true;
@@ -117,17 +120,16 @@ public abstract class Enemy : Unit, IMovalble
     }
     void LerpSpd()
     {
-
         timeAdjustingSpd += Time.deltaTime;
 
         // 정규화한 길이.
-        float tmp = timeAdjustingSpd / duration;
+        float tmp = timeAdjustingSpd / this.duration;
 
-        if (timeAdjustingSpd >= duration)
+        if (timeAdjustingSpd >= this.duration)
         {
             isAdjustingSpd = false;
             timeAdjustingSpd = 0;
-            duration = 0;
+            this.duration = 0;
             _originalMoveSpd = _moveSpd;
             return;
         }

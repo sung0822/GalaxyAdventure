@@ -43,8 +43,6 @@ public class InputManager : MonoBehaviour
         inputHor = Input.GetAxisRaw("Horizontal");
         inputVer = Input.GetAxisRaw("Vertical");
 
-        float a = Mathf.Floor(0.4f);
-        float b = Mathf.Floor(0.9f);
 
         Vector3 moveDir = ((Vector3.forward * inputVer) + (Vector3.right * inputHor)).normalized;
 

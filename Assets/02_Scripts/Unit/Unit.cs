@@ -94,7 +94,6 @@ public abstract class Unit : MonoBehaviour, ITeamMember
 
             if (unit.Team != _myTeam)
             {
-                Debug.Log(name + "쳐맞음");
                 unit.Hit(30);
                 isBumpedWithUnit = true;
                 SetIsBumped(false, 3.0f);
@@ -113,10 +112,8 @@ public abstract class Unit : MonoBehaviour, ITeamMember
 
     public virtual void Hit(int damage)
     {
-        Debug.Log("Hit시 Enemy isImmortal: " + isImmortal);
         if (isImmortal)
         {
-            Debug.Log(name + ": 무적이여서 안 맞음");
             return;
         }
         currentHp -= damage;

@@ -31,7 +31,7 @@ public class StealthEnemy : Enemy
 
         if (enableAttack)
         {
-            Shoot();
+            //Shoot();
         }
 
         if (lifeTime >= 20.0f)

@@ -34,9 +34,6 @@ public class BasicEnemy : Enemy, IMovalble
     {
         base.Update();
 
-        time += Time.deltaTime;
-        Move();
-        
         if (enableAttack)
         {
             Shoot();

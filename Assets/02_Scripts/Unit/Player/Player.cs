@@ -64,7 +64,8 @@ public class Player : Unit, IPlayer
 
     public bool isInvincibilityBlinking;
 
-    public float moveSpd { get; set; }
+    public float moveSpd { get { return _moveSpd; } set { _moveSpd = value; } }
+    protected float _moveSpd = 10;
 
     protected override void Start()
     {
