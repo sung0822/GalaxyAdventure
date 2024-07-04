@@ -1,14 +1,16 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pattern2 : IPattern
+public class RotatingPattern : IPattern
 {
     public Transform target { get { return _target; } set { _target = value; }}
-
-    public float timeElapsed { get { return _timeElapsed; } set { _timeElapsed = value; } }
+    public Transform axis { get { return _axis; } set { _axis = value; } }
+    private Transform _axis;
 
     public float moveSpd { get { return _moveSpd; } set { _moveSpd = value; }}
+    public float rotateSpd { get { return _rotateSpd; } set { _rotateSpd = value; } }
 
     public bool isAdjustingSpd { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
@@ -18,13 +20,18 @@ public class Pattern2 : IPattern
     
     protected float _timeElapsed;
     float _moveSpd = 1;
+    float _rotateSpd = 1;
+
+
 
 
     public void Execute()
     {
-        timeElapsed = Time.deltaTime;
-
         target.LookAt(playerTransform);
+
+        target.RotateAround(axis.position, Vector3.up, 1);
+        
+
 
         target.transform.Translate(Vector3.forward * moveSpd * Time.deltaTime, Space.Self);
 

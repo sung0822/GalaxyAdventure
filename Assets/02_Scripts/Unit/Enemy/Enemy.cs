@@ -26,7 +26,7 @@ public abstract class Enemy : Unit
         _myTeam = TeamType.ENEMY;
 
         patterns.Add(new Pattern1());
-        patterns.Add(new Pattern2());
+        patterns.Add(new RotatingPattern());
 
         for(int i = 0; i < patterns.Count; i++)
         {

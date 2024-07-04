@@ -51,6 +51,9 @@ public class Player : Unit, IPlayer
     public float maxExp { get { return _maxExp; } set { _maxExp = value; } }
 
     public int maxLevel { get { return _maxLevel; } set { _maxLevel = value; } }
+
+    public float abilityGage { get; set; }
+
     public int _maxLevel = 10;
 
     protected float previousMaxExp;
@@ -122,8 +125,6 @@ public class Player : Unit, IPlayer
             return;
         }
 
-
-
     }
 
     protected override void FixedUpdate()
@@ -146,7 +147,7 @@ public class Player : Unit, IPlayer
     }
 
 
-    void Move()
+    public void Move()
     {
         rigidbody.velocity = moveDir * moveSpd;
     }
@@ -289,6 +290,11 @@ public class Player : Unit, IPlayer
         {
             currentWeapon.Use();
         }
+    }
+
+    public void SpecialAttack()
+    {
+        Instantiate<GameObject>(Resources.Load<GameObject>("Items/Bomber"));
     }
 
     public void ChangeSelectedItem()

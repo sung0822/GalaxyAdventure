@@ -30,7 +30,6 @@ public class InputManager : MonoBehaviour
     {
         player = GameObject.FindWithTag("PLAYER");
         playerCtrl = player.GetComponent<Player>();
-        
     }
 
     void Update()
@@ -59,12 +58,15 @@ public class InputManager : MonoBehaviour
         {
             playerCtrl.isAttacking = false;
         }
-        if (Input.GetKeyDown(KeyCode.X))
+        else if(Input.GetKeyUp(KeyCode.Q))
+        {
+            playerCtrl.SpecialAttack();
+        }
+        else if (Input.GetKeyDown(KeyCode.X))
         {
             //playerCtrl.items[playerCtrl.currentItemIdx].Use();
         }
-
-        if (Input.GetKeyDown(KeyCode.R))
+        else if (Input.GetKeyDown(KeyCode.R))
         {
             playerCtrl.ChangeSelectedItem();
         }

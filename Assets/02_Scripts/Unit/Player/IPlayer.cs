@@ -7,6 +7,8 @@ public interface IPlayer : ICarryable, IItemUseable, IMovalble
     public int maxLevel { get;}
     public float currentExp { get; set; }
     public float maxExp { get;}
+
+    public float abilityGage { get; set; }
     public void LevelUp();
     public void LevelDown();
 

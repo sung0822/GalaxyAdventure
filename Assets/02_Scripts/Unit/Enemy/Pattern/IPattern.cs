@@ -5,7 +5,6 @@ using UnityEngine;
 public interface IPattern
 {
     Transform target{ get; set; }
-    float timeElapsed { get; set; }
 
     /// <summary>
     /// 설정한 타겟을 움직이게하는 속도. 기본값은 1입니다

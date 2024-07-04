@@ -291,9 +291,9 @@ GameObject:
   - component: {fileID: 5476604115375480664}
   - component: {fileID: 6547018128584068663}
   - component: {fileID: 3382774470148850412}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: PLAYER
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -427,12 +427,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidbody: {fileID: 0}
-  BasicGun: {fileID: 2686044962422066334, guid: f1a5b30b7a6beaa499348c058cd0c94b, type: 3}
+  basicGunPrefab: {fileID: 2686044962422066334, guid: f1a5b30b7a6beaa499348c058cd0c94b, type: 3}
   weapons: []
   currentWeaponIdx: 0
+  _maxLevel: 10
   _currentLevel: 1
   _currentExp: 0
   _maxExp: 100
+  isInvincibilityBlinking: 0
 --- !u!54 &3382774470148850412
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -458,7 +460,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!1001 &438118907949315643
 PrefabInstance:
@@ -769,6 +771,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6810932424695613911, guid: fd4305c1527da894588d8fa83b0ed8b2, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c083d0b6840bcd349859b25484c57420, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

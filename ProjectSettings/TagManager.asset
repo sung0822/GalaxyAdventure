@@ -12,6 +12,9 @@ TagManager:
   - UI_PANEL
   - CLOUD_SPAWN_POINT_GROUP
   - RT_MAKER
+  - MAIN_MANAGER
+  - ALL_SPAWNPOINTS_GROUP
+  - PLANE
   layers:
   - Default
   - TransparentFX
@@ -21,7 +24,7 @@ TagManager:
   - UI
   - UNIT
   - PROJECTILE
-  - 
+  - PLANE
   - 
   - 
   - 
