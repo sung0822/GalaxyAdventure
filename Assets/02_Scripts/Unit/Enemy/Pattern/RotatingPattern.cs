@@ -6,8 +6,8 @@ using UnityEngine;
 public class RotatingPattern : IPattern
 {
     public Transform target { get { return _target; } set { _target = value; }}
-    public Transform axis { get { return _axis; } set { _axis = value; } }
-    private Transform _axis;
+    public Transform axisOfRevolution { get { return _axisOfRevolution; } set { _axisOfRevolution = value; } }
+    private Transform _axisOfRevolution;
 
     public float moveSpd { get { return _moveSpd; } set { _moveSpd = value; }}
     public float rotateSpd { get { return _rotateSpd; } set { _rotateSpd = value; } }
@@ -22,18 +22,13 @@ public class RotatingPattern : IPattern
     float _moveSpd = 1;
     float _rotateSpd = 1;
 
-
-
-
     public void Execute()
     {
         target.LookAt(playerTransform);
 
-        target.RotateAround(axis.position, Vector3.up, 1);
-        
+        target.RotateAround(axisOfRevolution.position, Vector3.up, 1);
 
-
-        target.transform.Translate(Vector3.forward * moveSpd * Time.deltaTime, Space.Self);
+        target.transform.Translate(Vector3.forward * moveSpd * Time.deltaTime, Space.World);
 
     }
 
@@ -51,6 +46,11 @@ public class RotatingPattern : IPattern
 
     public void AdjustSpeed(float spdMultiplier, float duration)
     {
-        throw new System.NotImplementedException();
+
+    }
+
+    public void SetAxisOfRevolution(Transform axisOfRevolution)
+    {
+        this.axisOfRevolution = axisOfRevolution;
     }
 }

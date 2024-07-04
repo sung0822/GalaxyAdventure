@@ -6,18 +6,26 @@ public class RotateEnemy : Enemy
 {
     public override bool isAttacking { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
+
+    RotatingPattern rotatingPattern;
     protected override void Start()
     {
         base.Start();
-        currentPattern = patterns[1];
+
+        rotatingPattern = new RotatingPattern();
+
+        rotatingPattern.SetAxisOfRevolution(transform);
+
     }
 
     protected override void Update()
     {
         base.Update();
+    }
 
-        currentPattern.Execute();
-
+    void setAxisOfRevolution()
+    {
+        rotatingPattern.SetAxisOfRevolution(transform);
     }
 
 }

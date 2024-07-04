@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using static UnityEngine.GraphicsBuffer;
 
-public class BasicEnemy : Enemy
+public class BasicEnemy : Enemy, IMovalble
 {
     Transform middleTransform;
     float time = 0;
@@ -22,7 +24,7 @@ public class BasicEnemy : Enemy
         middleTransform = transform.Find("Jet/Mesh/MiddlePosition");
         weapons.Add(middleTransform.AddComponent<BasicGun>());
 
-        currentPattern.moveSpd = 10;
+        moveSpd = 10;
 
         weapons[0].user = this;
 
@@ -33,7 +35,7 @@ public class BasicEnemy : Enemy
         base.Update();
 
         time += Time.deltaTime;
-        currentPattern.Execute();
+        Move();
         
         if (enableAttack)
         {
@@ -66,4 +68,5 @@ public class BasicEnemy : Enemy
             time = 0;
         }
     }
+
 }

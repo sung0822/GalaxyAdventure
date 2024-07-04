@@ -1,15 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
-public abstract class Enemy : Unit
+public abstract class Enemy : Unit, IMovalble
 {
 
     protected List<WeaponBase> weapons = new List<WeaponBase>();
-    protected List<IPattern> patterns = new List<IPattern>();
+    //protected Dictionary<string, IPattern> patternsDic = new Dictionary<string, IPattern>();
     
-    protected IPattern currentPattern;
-    protected IPlayer targetPlayer;
+
+    protected IPlayer player;
 
     protected int rewardExp;
     protected int rewardScore;
@@ -19,24 +20,29 @@ public abstract class Enemy : Unit
 
     public float lifeTime;
 
+    private bool isAdjustingSpd;
+    private float timeAdjustingSpd;
+    public float moveSpd { get; set; }
+
+    private float _moveSpd = 1;
+    private float _originalMoveSpd = 1;
+
+    private float spdMultiplier;
+    private float duration;
+
 
     protected override void Start()
     {
         base.Start();
         _myTeam = TeamType.ENEMY;
 
-        patterns.Add(new Pattern1());
-        patterns.Add(new RotatingPattern());
+        weapons.Add(new BasicGun());
 
-        for(int i = 0; i < patterns.Count; i++)
-        {
-            patterns[i].SetTarget(transform);
-        }
+        moveSpd = 10;
 
-        currentPattern = patterns[0];
-
-        targetPlayer = GameObject.FindGameObjectWithTag("PLAYER").GetComponent<Player>();
+        player = GameObject.FindGameObjectWithTag("PLAYER").GetComponent<Player>();
         transform.SetParent(null);
+        SetImmortal(true);
 
     }
 
@@ -58,13 +64,14 @@ public abstract class Enemy : Unit
         if (other.GetComponentInParent<Rigidbody>()?.transform.tag == "WALL")
         {
             enableAttack = true;
-            
+            SetImmortal(false);
+
+            Debug.Log("Enemy isImmortal: " + isImmortal);
             if (!enableSlow)
             {
                 return;
             }
             
-            currentPattern.AdjustSpeed(4.0f, 0.5f);
         }
     }
 
@@ -75,22 +82,58 @@ public abstract class Enemy : Unit
 
     protected override void Die()
     {
-        targetPlayer.GivePlayerExp(rewardExp);
+        player.GivePlayerExp(rewardExp);
         MainManager.Get().score += rewardScore;
         UIManager.instance.CheckScore();
 
-
         GameObject item = ItemManager.instance.MakeItem(transform);
         item.GetComponent<ItemComponent>().transform.Rotate(-50, 0, 0);
-        //Instantiate<GameObject>(Resources.Load<GameObject>("Items/Box"), transform.position, Quaternion.Euler(0, 0, 0));
 
         base.Die();
 
     }
 
-    public virtual void ChangePattern(int idx)
+    public virtual void Move()
     {
-        currentPattern = patterns[idx];
+        transform.Translate(Vector3.forward * 1 * moveSpd * Time.deltaTime, Space.Self);
+
+        if (isAdjustingSpd == true)
+        {
+            LerpSpd();
+        }
+    }
+
+    void AdjustSpeed(float spd, float duration)
+    {
+        if (duration <= 0)
+        {
+            Debug.LogWarning("duration must be bigger than 0");
+            return;
+        }
+        isAdjustingSpd = true;
+        this.spdMultiplier = spd;
+        this.duration = duration;
+
+    }
+    void LerpSpd()
+    {
+
+        timeAdjustingSpd += Time.deltaTime;
+
+        // 정규화한 길이.
+        float tmp = timeAdjustingSpd / duration;
+
+        if (timeAdjustingSpd >= duration)
+        {
+            isAdjustingSpd = false;
+            timeAdjustingSpd = 0;
+            duration = 0;
+            _originalMoveSpd = _moveSpd;
+            return;
+        }
+
+        _moveSpd = Mathf.Lerp(_originalMoveSpd, spdMultiplier, tmp);
+
     }
 
 }

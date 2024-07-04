@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class Eagle : Enemy
 {
@@ -10,6 +11,8 @@ public class Eagle : Enemy
 
     Transform middleTransform;
     float time = 0;
+
+    Transform targetPlayer;
 
 
     protected override void Start()
@@ -22,22 +25,10 @@ public class Eagle : Enemy
         currentHp = 10;
         maxHp = 10;
 
-        currentPattern = patterns[1];
-
         transform.AddComponent<AudioSource>();
         audioSource = GetComponent<AudioSource>();
 
     }
-
-    protected override void Update()
-    {
-        base.Update();
-
-        time += Time.deltaTime;
-        currentPattern.Execute();
-
-    }
-
 
     protected override void OnCollisionEnter(Collision other)
     {
@@ -51,7 +42,7 @@ public class Eagle : Enemy
 
     protected override void Die()
     {
-        targetPlayer.GivePlayerExp(rewardExp);
+        player.GivePlayerExp(rewardExp);
         MainManager.Get().score += rewardScore;
         UIManager.instance.CheckScore();
 
@@ -67,12 +58,14 @@ public class Eagle : Enemy
 
         Destroy(this.gameObject);
     }
-    void Shoot()
+
+    public override void Move()
     {
-        if (time > 1.0f)
-        {
-            weapons[0].Use();
-            time = 0;
-        }
+
+        transform.LookAt(targetPlayer);
+        
+        transform.Translate(Vector3.forward * moveSpd * Time.deltaTime, Space.Self);
+
     }
+
 }

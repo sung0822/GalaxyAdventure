@@ -17,8 +17,8 @@ public abstract class Unit : MonoBehaviour, ITeamMember
     public int power { get { return _power; } set { _power = value; } }
     public TeamType Team { get { return _myTeam; } set { _myTeam = value; } }
     protected TeamType _myTeam;
-    public bool isImmortal { get { return _isImmortal; } set { _isImmortal = value; } }
-    bool _isImmortal;
+    public bool isImmortal { get { return _isImmortal; }}
+    protected bool _isImmortal;
 
     protected int _power;
 
@@ -113,9 +113,10 @@ public abstract class Unit : MonoBehaviour, ITeamMember
 
     public virtual void Hit(int damage)
     {
-        if(isImmortal)
+        Debug.Log("Hit시 Enemy isImmortal: " + isImmortal);
+        if (isImmortal)
         {
-            Debug.Log("무적이여서 안 맞음");
+            Debug.Log(name + ": 무적이여서 안 맞음");
             return;
         }
         currentHp -= damage;
@@ -131,7 +132,11 @@ public abstract class Unit : MonoBehaviour, ITeamMember
     public virtual IEnumerator SetImmortal(bool isImmortal, float time)
     {
         yield return new WaitForSeconds(time);
-        this.isImmortal = isImmortal;
+        this._isImmortal = isImmortal;
+    }
+    public virtual void SetImmortal(bool isImmortal)
+    {
+        this._isImmortal = isImmortal;
     }
 
     protected virtual void CheckDead()

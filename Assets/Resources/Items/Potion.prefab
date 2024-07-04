@@ -292,7 +292,7 @@ GameObject:
   - component: {fileID: 8747149245845670180}
   - component: {fileID: 626350025731346939}
   - component: {fileID: 9049063932501369100}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Potion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -307,7 +307,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8344626041124490527}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.27, z: 5}
   m_LocalScale: {x: 0.85151, y: 0.85151, z: 0.85151}
   m_ConstrainProportionsScale: 1

@@ -7,7 +7,6 @@ using UnityEngine;
 
 public class Player : Unit, IPlayer
 {
-    private Transform playerTransform;
     public Rigidbody rigidbody;
 
     GameObject currentAirCraft;
@@ -65,23 +64,22 @@ public class Player : Unit, IPlayer
 
     public bool isInvincibilityBlinking;
 
-    float moveSpd = 10;
+    public float moveSpd { get; set; }
 
     protected override void Start()
     {
         base.Start();
         _myTeam = TeamType.ALLY;
 
-        playerTransform = GetComponent<Transform>();
         rigidbody = GetComponent<Rigidbody>();
 
         // 비행기 메쉬 캐싱 및 현재 비행기 활성화
         {
-            aircrafts.Add(playerTransform.Find("Player_0").gameObject);
-            aircrafts.Add(playerTransform.Find("Player_1").gameObject);
-            aircrafts.Add(playerTransform.Find("Player_2").gameObject);
-            aircrafts.Add(playerTransform.Find("Player_3").gameObject);
-            aircrafts.Add(playerTransform.Find("Player_4").gameObject);
+            aircrafts.Add(transform.Find("Player_0").gameObject);
+            aircrafts.Add(transform.Find("Player_1").gameObject);
+            aircrafts.Add(transform.Find("Player_2").gameObject);
+            aircrafts.Add(transform.Find("Player_3").gameObject);
+            aircrafts.Add(transform.Find("Player_4").gameObject);
         }
 
         currentAirCraft = aircrafts[0];
@@ -235,7 +233,7 @@ public class Player : Unit, IPlayer
         currentHp -= damage;
         CheckDead();
 
-        isImmortal = true;
+        _isImmortal = true;
         isInvincibilityBlinking = true;
 
         StartCoroutine(SetImmortal(false, 2.0f));
