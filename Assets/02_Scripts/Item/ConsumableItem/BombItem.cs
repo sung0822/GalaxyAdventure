@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BombItem : ItemBase
 {
-    public Unit user { get ; set ; }
+    public UnitBase user { get ; set ; }
     protected override int _id { get { return idValue; } set { idValue = value; } }
     private int idValue = 2;
 

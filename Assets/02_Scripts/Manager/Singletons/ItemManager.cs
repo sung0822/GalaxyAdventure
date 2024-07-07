@@ -45,7 +45,6 @@ public class ItemManager : MonoBehaviour
             case 2:
                 Debug.Log("»ý¼º ¾ÈµÊ");
                 return null;
-                break;
             default:
                 break;
         }

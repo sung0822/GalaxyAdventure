@@ -5,9 +5,8 @@ using Unity.VisualScripting;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-public class Player : Unit, IPlayer
+public class Player : UnitBase, IPlayer
 {
-    public Rigidbody rigidbody;
 
     GameObject currentAirCraft;
 
@@ -21,8 +20,6 @@ public class Player : Unit, IPlayer
     public GameObject basicGunPrefab;
 
     MeshRenderer meshRenderer;
-    MeshFilter meshFilter;
-    Inventory ICarryable.inventory { get; set; }
 
     public Inventory inventory { get { return _inventory; }}
     protected Inventory _inventory = new Inventory();
@@ -45,35 +42,43 @@ public class Player : Unit, IPlayer
      
     public Vector3 moveDir { get { return _moveDir; } set { _moveDir = value; } }
     Vector3 _moveDir;
-    public int currentLevel { get { return _currentLevel; } set { _currentLevel = value; } }
-    public float currentExp { get { return _currentExp; } set { _currentExp = value; } }
-    public float maxExp { get { return _maxExp; } set { _maxExp = value; } }
 
+    public override int maxHp { get { return _maxHp; } set { _maxHp = value; } }
+    [SerializeField] int _maxHp = 100;
+    public override int currentHp { get { return _currentHp; } set { _currentHp = value; } }
+    [SerializeField] int _currentHp = 100;
+    public int currentLevel { get { return _currentLevel; } set { _currentLevel = value; } }
+    [SerializeField] int _currentLevel = 1;
+    public float currentExp { get { return _currentExp; } set { _currentExp = value; } }
+    [SerializeField] float _currentExp = 0;
+    public float maxExp { get { return _maxExp; } set { _maxExp = value; } }
+    [SerializeField] float _maxExp = 100;
     public int maxLevel { get { return _maxLevel; } set { _maxLevel = value; } }
+    [SerializeField] int _maxLevel = 10;
+    public int power { get { return _power; } set { _power = value; } }
+    [SerializeField] public int _power = 10;
 
     public float abilityGage { get; set; }
-
-    public int _maxLevel = 10;
 
     protected float previousMaxExp;
     protected int previousMaxHp;
 
-    [SerializeField] int _currentLevel = 1;
-    [SerializeField] float _currentExp = 0;
-    [SerializeField] float _maxExp = 100;
-
     public bool isInvincibilityBlinking;
 
     public float moveSpd { get { return _moveSpd; } set { _moveSpd = value; } }
+
+    public override TeamType teamType { get { return _teamType; } set { _teamType = value; } }
+    private TeamType _teamType = TeamType.ALLY;
+
     protected float _moveSpd = 10;
 
     protected override void Start()
     {
         base.Start();
-        _myTeam = TeamType.ALLY;
-
-        rigidbody = GetComponent<Rigidbody>();
-
+    }
+    protected override void SetFirstStatus()
+    {
+        ChangeAirCraft(0);
         // 비행기 메쉬 캐싱 및 현재 비행기 활성화
         {
             aircrafts.Add(transform.Find("Player_0").gameObject);
@@ -90,6 +95,8 @@ public class Player : Unit, IPlayer
             aircrafts[i].SetActive(false);
         }
 
+        base.SetFirstStatus();
+
         // 무기 등록 
         weaponSpace = currentAirCraft.GetComponentInChildren<WeaponSpace>();
 
@@ -97,22 +104,18 @@ public class Player : Unit, IPlayer
         gameObject.name = basicGunPrefab.name;
 
         weapons.Add(gameObject.GetComponent<BasicGun>());
-        weapons[currentWeaponIdx].shootCycle = 0.2f;
+        weapons[currentWeaponIdx].useCycle = 0.2f;
         weapons[currentWeaponIdx].user = this;
 
         currentWeapon = weapons[currentWeaponIdx];
         currentAirCraft.transform.position = transform.position;
 
-
         // 메시렌더러 캐싱
-        
         meshRenderer = currentAirCraft.GetComponent<MeshRenderer>();
-        meshFilter = currentAirCraft.GetComponent<MeshFilter>();
 
         isInvincibilityBlinking = false;
 
     }
-
     protected override void Update()
     {
         base.Update();
@@ -134,7 +137,14 @@ public class Player : Unit, IPlayer
 
     protected override void OnTriggerEnter(Collider other)
     {
-        base.OnTriggerEnter(other);
+        Debug.Log(name + ":Trigger 발동");
+
+        if (isImmortal)
+        {
+            return;
+        }
+
+        CheckBumpedIntoEnemy(other)?.Hit(30);
     }
     protected override void OnCollisionEnter(Collision collision)
     {
@@ -148,7 +158,11 @@ public class Player : Unit, IPlayer
 
     public void Move()
     {
-        rigidbody.velocity = moveDir * moveSpd;
+        unitRigidbody.velocity = moveDir * moveSpd;
+        for (int i = 0; i < rigidbodies.Count; i++)
+        {
+            rigidbodies[i].velocity = moveDir * moveSpd;
+        }
     }
 
     public void GivePlayerExp(float exp)
@@ -199,6 +213,7 @@ public class Player : Unit, IPlayer
         UIManager.instance.CheckPlayerExp();
     }
 
+    /// <summary> 현재 레벨보다 1 낮은 수의 인덱스로 접근합니다. </summary>
     void ChangeAirCraft(int idx)
     {
         if (currentLevel >= aircrafts.Count + 1)
@@ -221,18 +236,18 @@ public class Player : Unit, IPlayer
         
         // 메쉬 렌더러, 필터 다시 재할당
         meshRenderer = currentAirCraft.GetComponent<MeshRenderer>();
-        meshFilter = currentAirCraft.GetComponent<MeshFilter>();
-        
+
+        unitBodyColliders.Clear();
+        rigidbodies.Clear();
+        colliders.Clear();
+
+        SetBody();
+
     }
 
     public override void Hit(int damage)
     {
-        if (isImmortal)
-        {
-            return;
-        }
-        currentHp -= damage;
-        CheckDead();
+        base.Hit(damage);
 
         _isImmortal = true;
         isInvincibilityBlinking = true;
@@ -242,10 +257,26 @@ public class Player : Unit, IPlayer
 
         UIManager.instance.CheckPlayerHp();
     }
-
-    public override IEnumerator SetImmortal(bool isImmortal, float immortalTime)
+    public override void Hit(int damage, Transform hitTransform)
     {
-        yield return base.SetImmortal(isImmortal, immortalTime);
+        if (isImmortal)
+        {
+            return;
+        }
+        
+        currentHp -= damage;
+        if (CheckDead())
+        {
+            return;
+        }
+
+        _isImmortal = true;
+        isInvincibilityBlinking = true;
+
+        StartCoroutine(SetImmortal(false, 2.0f));
+        StartCoroutine(InvincibilityBlink());
+
+        UIManager.instance.CheckPlayerHp();
     }
 
     IEnumerator InvincibilityBlink()
@@ -283,7 +314,7 @@ public class Player : Unit, IPlayer
 
     }
 
-    protected void Attack()
+    public void Attack()
     {
         if(_isAttacking)
         {
@@ -333,5 +364,5 @@ public class Player : Unit, IPlayer
         UIManager.instance.CheckItem();
     }
 
-
+    
 }

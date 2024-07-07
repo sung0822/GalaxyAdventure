@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -11,9 +12,11 @@ public class BasicGun : WeaponBase
     public AudioSource audioSource;
     public AudioClip audioClip;
 
-    public Transform fireTransform;
-    public override float shootCycle { get { return _shootCycle; } set { _shootCycle = value; } }
-    protected float _shootCycle;
+    public override float useCycle { get { return _useCycle; } set { _useCycle = value; } }
+
+    public override TeamType teamType { get; set; }
+
+    protected float _useCycle;
 
     protected int _power = 10;
 
@@ -22,7 +25,7 @@ public class BasicGun : WeaponBase
 
     public override void Use()
     {
-        if (timeAfterShoot <= _shootCycle)
+        if (timeAfterShoot <= _useCycle)
         {
             return;
         }
@@ -35,10 +38,11 @@ public class BasicGun : WeaponBase
         normalBullet.power += this._power;
         normalBullet.spd = 15;
         normalBullet.power = normalBullet.power + user.power;
-        normalBullet.Team = user.Team;
+
         normalBullet.Shoot();
-        
-        if (user.Team == TeamType.ENEMY)
+        normalBullet.teamType = this.teamType;
+
+        if (teamType == TeamType.ENEMY)
         {
             return;
         }
@@ -48,21 +52,22 @@ public class BasicGun : WeaponBase
     
     protected void Start()
     {
-        
         timeAfterShoot = 0;
-
         bulletPrefab = Resources.Load<GameObject>("Bullets/BasicBullet");
         audioClip = Resources.Load<AudioClip>("Sounds/BasicGunSound");
         audioSource = transform.AddComponent<AudioSource>();
 
         audioSource.clip = audioClip;
         audioSource.volume = audioSource.volume / 2;
-
+        
     }
-
-    // Update is called once per frame
     protected void Update()
     {
         timeAfterShoot += Time.deltaTime;
+    }
+
+    public override void SetUser(IAttackable unit)
+    {
+        
     }
 }

@@ -36,7 +36,6 @@ public class Rotator : MonoBehaviour
             {
                 Color color = meshRenderer.material.color;
                 color.a = 0.6f;
-                Debug.Log("유저 알파 색" + color.a + " 로 변경");
                 meshRenderer.material.color = color;
                 meshRenderer.material.renderQueue = 3000;
             }// 불투명으로 변경
@@ -44,7 +43,6 @@ public class Rotator : MonoBehaviour
             {
                 Color color = meshRenderer.material.color;
                 color.a = 1.0f;
-                Debug.Log("유저 알파 색" + color.a + " 로 변경");
                 meshRenderer.material.color = color;
                 meshRenderer.material.renderQueue = 2000;
                 if (time_elapsed >= 10)

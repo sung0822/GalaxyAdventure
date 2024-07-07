@@ -16,9 +16,10 @@ public class Explosion : MonoBehaviour
     {
         GameObject gameObject = other.transform.root.gameObject;
         
-        if (gameObject.GetComponent<Unit>() != null)
+        if (gameObject.GetComponent<UnitBase>() != null)
         {
-            Unit unit = gameObject.GetComponent<Unit>();
+            Debug.Log(gameObject.name + "ÆøÅº¿¡ ÃÄ¸ÂÀ½");
+            UnitBase unit = gameObject.GetComponent<UnitBase>();
             unit.Hit(player.power * 5);
         }
 

@@ -12,8 +12,9 @@ public abstract class Projectile : MonoBehaviour, ITeamMember
     
     protected bool isShooting;
 
-    public TeamType Team { get { return _myTeam; } set { _myTeam = value; } }
-    protected TeamType _myTeam;
+    public TeamType teamType { get { return _teamType; } set { _teamType = value; } }
+
+    protected TeamType _teamType;
 
     protected bool isDestroied;
 
@@ -33,16 +34,13 @@ public abstract class Projectile : MonoBehaviour, ITeamMember
         {
             return;
         }
-        if (other.transform.GetComponentInParent<Unit>()?.gameObject.layer == LayerMask.NameToLayer("UNIT"))
+        if (other.transform.GetComponentInParent<UnitBase>() != null)
         {
-            Unit unit = other.transform.GetComponentInParent<Unit>();
+            UnitBase unit = other.transform.GetComponentInParent<UnitBase>();
 
-            if (unit.Team != _myTeam)
+            if (unit.teamType != _teamType)
             {
                 unit.Hit(_power);
-                GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.basicParticle, this.transform.position, Quaternion.Euler(0, 0, 0));
-
-                Destroy(particle, 0.7f);
                 
                 Destroy(this.gameObject);
 
@@ -62,19 +60,16 @@ public abstract class Projectile : MonoBehaviour, ITeamMember
             Destroy(this.gameObject);
             return;
         }
-        else if (collision.transform.GetComponentInParent<Unit>()?.gameObject.layer == LayerMask.NameToLayer("UNIT"))
+        else if (collision.transform.GetComponentInParent<UnitBase>() != null)
         {
-            Debug.Log("À¯´Ö ºÎµúÈû!!");
-            if (collision.transform.GetComponent<Unit>().Team != Team)
+            if (collision.transform.GetComponent<UnitBase>().teamType != teamType)
             {
-                Debug.Log("Àû±º ºÎµúÈû!!");
-                collision.transform.GetComponent<Unit>().Hit(_power);
+                collision.transform.GetComponent<UnitBase>().Hit(_power);
                 Destroy(this.gameObject);
                 return;
             }
             else
             {
-                Debug.Log("¾Æ±º ºÎµúÈû!!");
             }
         }
 
