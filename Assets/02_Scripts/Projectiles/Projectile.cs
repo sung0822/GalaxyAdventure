@@ -37,10 +37,10 @@ public abstract class Projectile : MonoBehaviour, ITeamMember
         if (other.transform.GetComponentInParent<UnitBase>() != null)
         {
             UnitBase unit = other.transform.GetComponentInParent<UnitBase>();
-
             if (unit.teamType != _teamType)
             {
-                unit.Hit(_power);
+                Vector3 closetPoint = other.ClosestPoint(transform.position);
+                unit.Hit(_power, closetPoint);
                 
                 Destroy(this.gameObject);
 

@@ -61,7 +61,7 @@ public class Eagle : EnemyBase
         base.OnTriggerEnter(other);
     }
 
-    protected override void Die()
+    protected override void DieUnit()
     {
         player.GivePlayerExp(rewardExp);
         MainManager.Get().score += rewardScore;
@@ -78,6 +78,7 @@ public class Eagle : EnemyBase
         Destroy(particle, 1.5f);
 
         Destroy(this.gameObject);
+        Debug.Log("Á×À½ È£ÃâµÊ");
     }
 
     public override void Move()

@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class ImmortalItem : ItemBase
 {
-    public UnitBase user { get; set; }
-    protected override int _id { get { return idValue; } set { idValue = value; } }
+    public override UnitBase user { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
-    private int idValue = 1;
+    public override int id => throw new System.NotImplementedException();
 
     public override void Use()
     {
-        user.SetImmortal(true, 7.0f);
+        throw new System.NotImplementedException();
     }
-
 }

@@ -8,7 +8,7 @@ using static UnityEngine.GraphicsBuffer;
 
 public class BasicEnemy : EnemyBase
 {
-    Transform middleTransform;
+    WeaponSpace weaponSpace;
     float shootCycle = 3.0f;
     public override bool isAttacking { get { return _isAttacking; } set { _isAttacking = value; } }
     bool _isAttacking;
@@ -43,10 +43,12 @@ public class BasicEnemy : EnemyBase
 
         lifeTime = 0;
 
-        middleTransform = transform.GetComponentInChildren<WeaponSpace>().transform;
-        weapons.Add(middleTransform.AddComponent<BasicGun>());
+        weaponSpace = transform.GetComponentInChildren<WeaponSpace>();
+        
+        weapons.Add(new BasicGun());
 
         currentWeapon = weapons[0];
+        currentWeapon.weaponSpace = weaponSpace;
         currentWeapon.user = this;
         currentWeapon.teamType = this.teamType;
         isAttacking = false;
@@ -56,12 +58,12 @@ public class BasicEnemy : EnemyBase
     protected override void Update()
     {
         base.Update();
+        
 
         if (enableAttack && !isAttacking)
         {
             StartCoroutine(StartAttack());
             isAttacking = true;
-            
         }
 
     }

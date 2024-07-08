@@ -15,13 +15,19 @@ public class Explosion : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         GameObject gameObject = other.transform.root.gameObject;
-        
-        if (gameObject.GetComponent<UnitBase>() != null)
+        UnitBase unit = gameObject.GetComponent<UnitBase>();
+
+        if (unit == null)
         {
-            Debug.Log(gameObject.name + "ÆøÅº¿¡ ÃÄ¸ÂÀ½");
-            UnitBase unit = gameObject.GetComponent<UnitBase>();
-            unit.Hit(player.power * 5);
+            return;
         }
+
+        if (unit.teamType == TeamType.ALLY)
+        {
+            return;
+        }
+
+        unit.Hit(player.power * 20);
 
         Destroy(this.gameObject, 4.0f);
 

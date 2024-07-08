@@ -34,7 +34,7 @@ public class StealthEnemy : EnemyBase
     MeshRenderer meshRenderer;
     Material material;
 
-    Transform middleTransform;
+    WeaponSpace weaponSpace;
 
     Transform targetPlayer;
 
@@ -48,9 +48,9 @@ public class StealthEnemy : EnemyBase
         base.SetFirstStatus();
         lifeTime = 0;
         
-        middleTransform = transform.GetComponentInChildren<WeaponSpace>().transform;
-        BasicGun basicGun =  middleTransform.AddComponent<BasicGun>();
-        weapons.Add(basicGun);
+        weaponSpace = transform.GetComponentInChildren<WeaponSpace>();
+
+        weapons.Add(new BasicGun());
 
         currentWeapon = weapons[0];
         currentWeapon.user = this;
@@ -99,18 +99,10 @@ public class StealthEnemy : EnemyBase
         yield return new WaitForSeconds(1.0f);
         moveSpd = 5.0f;
         StartCoroutine(StartAttack());
-        
-        // 각종 쉐이더 속성에 접근. 일반적으로 속성 이름으로 접근하는듯함.
-        material.SetFloat("_Mode", 2.0f);
-        material.SetOverrideTag("RenderType", "Transparent");
-        material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
-        material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-        material.SetInt("_ZWrite", 0);
-        material.DisableKeyword("_ALPHATEST_ON");
-        material.EnableKeyword("_ALPHABLEND_ON");
-        material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-        material.renderQueue = 3000;
 
+        // 각종 쉐이더 속성에 접근. 일반적으로 속성 이름으로 접근하는듯함.
+        Renders.ChangeStandardShader(material, BlendMode.Fade);
+        
         Color color = new Color(material.color.r, material.color.g, material.color.b, 1);
         material.SetColor("_Color", color);
 
@@ -166,7 +158,7 @@ public class StealthEnemy : EnemyBase
     
     public override void Attack()
     {
-        currentWeapon.transform.LookAt(targetPlayer);
+        weaponSpace.transform.LookAt(targetPlayer);
         currentWeapon.Use();
     }
 

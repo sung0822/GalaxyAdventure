@@ -28,6 +28,7 @@ public class ItemComponent : MonoBehaviour
         {
             if (isDestroied)
             {
+                Debug.Log("¾È¸Ô¾îÁü");
                 return;
             }
             isDestroied = true;

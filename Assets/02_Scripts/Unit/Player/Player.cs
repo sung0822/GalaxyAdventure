@@ -12,30 +12,29 @@ public class Player : UnitBase, IPlayer
 
     GameObject previousAirCraft;
 
-    WeaponBase currentWeapon;
     List<GameObject> aircrafts = new List<GameObject>();
 
-    WeaponSpace weaponSpace;
-
+    WeaponSpace currentWeaponSpace;
     public GameObject basicGunPrefab;
-
     MeshRenderer meshRenderer;
 
     public Inventory inventory { get { return _inventory; }}
     protected Inventory _inventory = new Inventory();
 
     public List<WeaponBase> weapons = new List<WeaponBase>();
+    WeaponBase selectedWeapon;
+    Dictionary<int, int> weaponOrder = new Dictionary<int, int>();
+    public int currentWeaponIdx = 0;
 
+    Dictionary<int, int> itemOder = new Dictionary<int, int>();
+    protected int currentItemIdx = -1;
     public ItemBase selectedItem;
     
-    public int currentWeaponIdx = 0;
 
     /// <summary>
     /// 적재된 순서대로 아이템 순서가 생김. currentItemIdx로 접근 
     /// </summary>
-    Dictionary<int, int> itemOder = new Dictionary<int, int>();
 
-    protected int currentItemIdx = -1;
 
     public override bool isAttacking { get { return _isAttacking; } set{ _isAttacking = value; }}
     protected bool _isAttacking;
@@ -96,28 +95,31 @@ public class Player : UnitBase, IPlayer
         }
 
         base.SetFirstStatus();
-
+            
         // 무기 등록 
-        weaponSpace = currentAirCraft.GetComponentInChildren<WeaponSpace>();
+        currentWeaponSpace = currentAirCraft.GetComponentInChildren<WeaponSpace>();
 
-        GameObject gameObject = GameObject.Instantiate<GameObject>(basicGunPrefab, weaponSpace.transform);
-        gameObject.name = basicGunPrefab.name;
-
-        weapons.Add(gameObject.GetComponent<BasicGun>());
+        weapons.Add(new BasicGun());
         weapons[currentWeaponIdx].useCycle = 0.2f;
         weapons[currentWeaponIdx].user = this;
 
-        currentWeapon = weapons[currentWeaponIdx];
-        currentAirCraft.transform.position = transform.position;
+        selectedWeapon = weapons[currentWeaponIdx];
+        selectedWeapon.SetStatus();
+        selectedWeapon.weaponSpace = currentWeaponSpace;
+        selectedWeapon.Use();
+
+        currentAirCraft.transform.localPosition = Vector3.zero;
+        Debug.Log("플레이어 생성됨");
 
         // 메시렌더러 캐싱
         meshRenderer = currentAirCraft.GetComponent<MeshRenderer>();
 
         isInvincibilityBlinking = false;
-
+        currentAirCraft.transform.position = this.transform.position;
     }
     protected override void Update()
     {
+        currentAirCraft.transform.localPosition = Vector3.zero;
         base.Update();
         
         Attack();
@@ -229,8 +231,8 @@ public class Player : UnitBase, IPlayer
         currentAirCraft.SetActive(true);
         
         // 변경한 비행체로 무기 어태치
-        currentWeapon.transform.SetParent(currentAirCraft.GetComponentInChildren<WeaponSpace>().transform);
-        currentWeapon.transform.localPosition = Vector3.zero;
+        currentWeaponSpace.transform.SetParent(currentAirCraft.GetComponentInChildren<WeaponSpace>().transform);
+        currentWeaponSpace.transform.localPosition = Vector3.zero;
 
         currentAirCraft.transform.position = this.transform.position;
         
@@ -257,18 +259,21 @@ public class Player : UnitBase, IPlayer
 
         UIManager.instance.CheckPlayerHp();
     }
-    public override void Hit(int damage, Transform hitTransform)
+    public override void Hit(int damage, Vector3 position)
     {
-        if (isImmortal)
-        {
-            return;
-        }
-        
-        currentHp -= damage;
-        if (CheckDead())
-        {
-            return;
-        }
+        base.Hit(damage, position);
+
+        _isImmortal = true;
+        isInvincibilityBlinking = true;
+
+        StartCoroutine(SetImmortal(false, 2.0f));
+        StartCoroutine(InvincibilityBlink());
+
+        UIManager.instance.CheckPlayerHp();
+    }
+    public override void Hit(int damage, Transform transform)
+    {
+        base.Hit(damage, transform);
 
         _isImmortal = true;
         isInvincibilityBlinking = true;
@@ -281,7 +286,7 @@ public class Player : UnitBase, IPlayer
 
     IEnumerator InvincibilityBlink()
     {
-        meshRenderer.material.SetFloat("_Mode", 3);
+        Renders.ChangeStandardShader(meshRenderer.material, BlendMode.Transparent);
 
         while (isInvincibilityBlinking) 
         {
@@ -310,7 +315,7 @@ public class Player : UnitBase, IPlayer
             yield return new WaitForSeconds(0.15f);
         }
 
-        meshRenderer.material.SetFloat("_Mode", 0);
+        Renders.ChangeStandardShader(meshRenderer.material, BlendMode.Opaque);
 
     }
 
@@ -318,7 +323,7 @@ public class Player : UnitBase, IPlayer
     {
         if(_isAttacking)
         {
-            currentWeapon.Use();
+            selectedWeapon.Use();
         }
     }
 

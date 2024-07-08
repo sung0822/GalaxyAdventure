@@ -87,7 +87,13 @@ public abstract class EnemyBase : UnitBase, IMovalble, IAttackable
         SetImmortal(false);
     }
 
-    protected override void Die()
+    protected override void DieUnit()
+    {
+        DieEnemy();
+        base.DieUnit();
+    }
+
+    protected void DieEnemy()
     {
         player.GivePlayerExp(rewardExp);
         MainManager.Get().score += rewardScore;
@@ -95,7 +101,6 @@ public abstract class EnemyBase : UnitBase, IMovalble, IAttackable
 
         GameObject item = ItemManager.instance.MakeItem(transform);
         item.GetComponent<ItemComponent>().transform.Rotate(-50, 0, 0);
-        base.Die();
     }
 
     public virtual void Move()

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.UI.CanvasScaler;
 
 /// <summary>
 /// 어트리뷰트 문법을 잘 몰라서 공부해야할듯. 기능은 해당 컴포넌트를 게임오브젝트가 가지도록 강제한다.
@@ -11,21 +12,21 @@ using UnityEngine;
 public abstract class UnitBase : MonoBehaviour, ITeamMember
 {
     int arraySize = 10;
-    protected AudioSource audioSource;
+    public AudioSource audioSource;
     protected AudioClip audioClip;
     
     public List<UnitBody> unitBodyColliders = new List<UnitBody>();
     public List<Rigidbody> rigidbodies = new List<Rigidbody>();
     public List<Collider> colliders = new List<Collider>();
     public Rigidbody unitRigidbody;
-
-
     public abstract int maxHp { get; set; }
     public abstract int currentHp { get; set; }
     public bool isImmortal { get { return _isImmortal; }}
     protected bool _isImmortal;
     public bool isBumpedIntoEnemy { get { return _isBumpedIntoEnemy; } }
     private bool _isBumpedIntoEnemy;
+
+    protected bool isDie = false;
     public abstract bool isAttacking { get; set; }
     public abstract TeamType teamType { get; set; }
 
@@ -75,8 +76,6 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
 
     protected virtual void OnCollisionEnter(Collision other)
     {
-        // 충돌시 적인지 검사후 적 Hit()
-        CheckBumpedIntoEnemy(other)?.Hit(30);
     }
 
     
@@ -131,28 +130,48 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
 
     public virtual void Hit(int damage)
     {
+        if (isDie)
+        {
+            return;
+        }
         if (isImmortal)
         {
             return;
         }
+        currentHp -= damage;
+
         GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.basicParticle, this.transform.position, Quaternion.Euler(0, 0, 0));
         Destroy(particle, 0.7f);
         
-        currentHp -= damage;
         CheckDead();
     }
 
-    public virtual void Hit(int damage, Transform hittTransform)
+    public virtual void Hit(int damage, Transform hitTransform)
     {
+        if (isImmortal)
+            return;
+
+        currentHp -= damage;
+
+        GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.basicParticle, hitTransform.position, Quaternion.Euler(0, 0, 0));
+        Destroy(particle, 0.7f);
+        
+        CheckDead();
+    }
+
+    public virtual void Hit(int damage, Vector3 position)
+    {
+
         if (isImmortal)
         {
             return;
         }
-        GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.basicParticle, this.transform.position, Quaternion.Euler(0, 0, 0));
-        Destroy(particle, 0.7f);
-        
         currentHp -= damage;
+
+        GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.basicParticle, position, Quaternion.Euler(0, 0, 0));
+        Destroy(particle, 0.7f);
         CheckDead();
+        Debug.Log("죽음 체크");
     }
 
     public IEnumerator SetIsBumped(bool isBumpedIntoEnemy, float time)
@@ -183,7 +202,7 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
             audioSource.clip = audioClip;
             audioSource.enabled = true;
             audioSource.PlayOneShot(audioClip, 1.0f);
-            Die();
+            DieUnit();
             return true;
         }
         else
@@ -194,8 +213,9 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
 
 
     /// <summary> 오브젝트 파괴하고 파티클 생성 </summary>
-    protected virtual void Die()
+    protected virtual void DieUnit()
     {
+        isDie = true;
         GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.unitExplodingParticle, transform.position, transform.rotation);
 
         particle.transform.localScale = this.transform.localScale * 0.1f;

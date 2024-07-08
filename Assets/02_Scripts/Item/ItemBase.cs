@@ -1,11 +1,19 @@
-
 using Unity.VisualScripting;
+
+
+enum ItemType
+{
+    Consumable,
+    Weapon,
+}
 
 public abstract class ItemBase
 {
-    UnitBase user { get; set; }
+    public abstract UnitBase user { get; set; }
     public abstract void Use();
-    public int id { get { return _id; } }
-    protected abstract int _id { get; set; }
+    public abstract int id { get; }
 
+    //public abstract ItemType itemType { get; set; }
+
+    //public ItemType itemType { get; set; }
 }

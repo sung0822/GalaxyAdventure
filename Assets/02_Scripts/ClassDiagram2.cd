@@ -17,9 +17,10 @@
   <Class Name="BasicGun" Collapsed="true">
     <Position X="11.75" Y="9" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>IgSAAAAAACAAgAAAAQAAAAAAACAEkAIEAAABAAAAAAA=</HashCode>
-      <FileName>Assets\02_Scripts\Item\BasicGun.cs</FileName>
+      <HashCode>IgCAAAAQAAAAhEAAAABAAAAAQCAEkAIEAAAJAAAAAAA=</HashCode>
+      <FileName>Assets\02_Scripts\Item\Weapons\BasicGun.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Bomber" Collapsed="true">
     <Position X="29.5" Y="0.5" Width="1.5" />
@@ -52,7 +53,7 @@
   <Class Name="ItemBase" Collapsed="true">
     <Position X="14.25" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAEAAAAAAAAAAAAAwA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAEAAAAAAACAAAAAwA=</HashCode>
       <FileName>Assets\02_Scripts\Item\ItemBase.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -66,7 +67,7 @@
   <Class Name="WeaponBase" Collapsed="true">
     <Position X="11.75" Y="7.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AgAAAAAAAAAAgAAAAAAAAAAAAAEEAAAAAAABAAAAAQA=</HashCode>
+      <HashCode>AgAAAAAQAAAAgAAAAAAAAAAAQAEAAAAAAAABAAAAAQA=</HashCode>
       <FileName>Assets\02_Scripts\Item\WeaponBase.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -209,28 +210,28 @@
   <Class Name="BasicEnemy" Collapsed="true">
     <Position X="16" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAQAAQAAACBgAAgIEAQgAgCAIKEABAAIRAAAggACAAQ=</HashCode>
+      <HashCode>EAQAAQAQACBgAAgIEAQgAgCAIKEABAAIRAAAggACAAQ=</HashCode>
       <FileName>Assets\02_Scripts\Unit\Enemy\BasicEnemy.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="BigSizeEnemy" Collapsed="true">
     <Position X="9.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAAAAAAAABgAAAIAAAAAACAAIEAAAAAAAAAgAAAAAQ=</HashCode>
+      <HashCode>EAQAAQAAAABgAAAIEAQgAACAAKEABIAABAAAwgACAAQ=</HashCode>
       <FileName>Assets\02_Scripts\Unit\Enemy\BigSizeEnemy.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Eagle" Collapsed="true">
     <Position X="13.75" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>kAQAAQAAAKBgAAgoEAQgAACAAKEABAAIRAAAggACAAQ=</HashCode>
+      <HashCode>kAQAAQAAAKBgAAgIEAQgAACAAKEABAAIRAAAggACAAQ=</HashCode>
       <FileName>Assets\02_Scripts\Unit\Enemy\Eagle.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EnemyBase" Collapsed="true">
     <Position X="13.75" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AgQEAAAAAKBgQIggAAAEAAAAAIEkAAAJyAAAkAAAAAQ=</HashCode>
+      <HashCode>AgQEAAAAAKBgQIkAAAAEAAAAAIEkAAAJyAAAkAAAAAQ=</HashCode>
       <FileName>Assets\02_Scripts\Unit\Enemy\EnemyBase.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -269,7 +270,7 @@
   <Class Name="StealthEnemy" Collapsed="true">
     <Position X="11.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>sAQEAYAAAKBgAAgIAAQgCgCAIKEABAQIRAAAggBCAAQ=</HashCode>
+      <HashCode>sAQEAYAQAKBgAAgIAAQgCgCAIKEABAQIRAAAggBCAAQ=</HashCode>
       <FileName>Assets\02_Scripts\Unit\Enemy\StealthEnemy.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -283,7 +284,7 @@
   <Class Name="Player" Collapsed="true">
     <Position X="20.5" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>MgQCACU0BqJQAYwIEGYBCAGBAakEQACPRUAAUAgSAEA=</HashCode>
+      <HashCode>MgQCASUkDqJQAQwIEGYBCAGBAakEQACPRUAAUAgSAEA=</HashCode>
       <FileName>Assets\02_Scripts\Unit\Player\Player.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -291,7 +292,7 @@
   <Class Name="UnitBase" Collapsed="true">
     <Position X="14.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EgUBAQQgAiAAACgoAAIAIACEAAAAkAIIQIABEAiAAAQ=</HashCode>
+      <HashCode>EgUBAQQgAiAAACgIAAIAIACEAAAAkAIIQIABEAiAABQ=</HashCode>
       <FileName>Assets\02_Scripts\Unit\UnitBase.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />

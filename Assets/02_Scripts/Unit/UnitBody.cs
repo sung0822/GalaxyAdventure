@@ -30,7 +30,6 @@ public class UnitBody : MonoBehaviour, ITeamMember
         UnitBase enemy = CheckBumpedIntoEnemy(other);
         if (enemy == null)
         {
-            Debug.Log("적 충돌 유닛이 없음");
         }
         else
         {
@@ -72,7 +71,6 @@ public class UnitBody : MonoBehaviour, ITeamMember
     {
         if (masterUnit.isBumpedIntoEnemy)
         {
-            Debug.Log("이미 부딪힌 상태임");
             return null;
         }
 
@@ -80,13 +78,11 @@ public class UnitBody : MonoBehaviour, ITeamMember
 
         if (unit == null)
         {
-            Debug.Log("부모 오브젝트가 유닛베이스가 아님");
             return null;
         }
 
         if (unit.teamType != teamType)
         {
-            Debug.Log("부딪힘");
             masterUnit.SetIsBumped(true);
             StartCoroutine(masterUnit.SetIsBumped(false, 3.0f));
 
@@ -94,7 +90,6 @@ public class UnitBody : MonoBehaviour, ITeamMember
         }
         else
         {
-            Debug.Log("적이 아님");
             return null;
         }
 
