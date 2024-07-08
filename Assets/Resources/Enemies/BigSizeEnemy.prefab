@@ -531,6 +531,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1aa599a9d5fca04ea712a59d2fe31e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
   unitBodyColliders: []
   rigidbodies: []
   colliders: []

@@ -26,19 +26,17 @@ public class Player : UnitBase, IPlayer
     Dictionary<int, int> weaponOrder = new Dictionary<int, int>();
     public int currentWeaponIdx = 0;
 
-    Dictionary<int, int> itemOder = new Dictionary<int, int>();
-    protected int currentItemIdx = -1;
-    public ItemBase selectedItem;
+    Dictionary<int, int> consumableItemOder = new Dictionary<int, int>();
+    protected int currentConsumableItemIdx = -1;
+    public ItemBase selectedConsumableItem;
     
 
     /// <summary>
     /// 적재된 순서대로 아이템 순서가 생김. currentItemIdx로 접근 
     /// </summary>
 
-
     public override bool isAttacking { get { return _isAttacking; } set{ _isAttacking = value; }}
     protected bool _isAttacking;
-     
     public Vector3 moveDir { get { return _moveDir; } set { _moveDir = value; } }
     Vector3 _moveDir;
 
@@ -99,13 +97,13 @@ public class Player : UnitBase, IPlayer
         // 무기 등록 
         currentWeaponSpace = currentAirCraft.GetComponentInChildren<WeaponSpace>();
 
-        weapons.Add(new BasicGun());
+        weapons.Add(new BasicGun(this, this, currentWeaponSpace));
         weapons[currentWeaponIdx].useCycle = 0.2f;
-        weapons[currentWeaponIdx].user = this;
 
         selectedWeapon = weapons[currentWeaponIdx];
-        selectedWeapon.SetStatus();
+        
         selectedWeapon.weaponSpace = currentWeaponSpace;
+        selectedWeapon.attackableUser = this;
         selectedWeapon.Use();
 
         currentAirCraft.transform.localPosition = Vector3.zero;
@@ -322,9 +320,7 @@ public class Player : UnitBase, IPlayer
     public void Attack()
     {
         if(_isAttacking)
-        {
             selectedWeapon.Use();
-        }
     }
 
     public void SpecialAttack()
@@ -334,36 +330,51 @@ public class Player : UnitBase, IPlayer
 
     public void ChangeSelectedItem()
     {
-        currentItemIdx += 1;
-        Debug.Log("currentItemIdx: " + currentItemIdx);
-        if (currentItemIdx == itemOder.Count)
+        currentConsumableItemIdx += 1;
+        Debug.Log("currentItemIdx: " + currentConsumableItemIdx);
+        if (currentConsumableItemIdx == consumableItemOder.Count)
         {
             Debug.Log("처음 인덱스로");
-            currentItemIdx = 0;
+            currentConsumableItemIdx = 0;
         }
-        selectedItem = inventory.GetItem(itemOder[currentItemIdx]);
+        selectedConsumableItem = inventory.GetItem(consumableItemOder[currentConsumableItemIdx], ItemType.Consumable);
         
         UIManager.instance.CheckItem();
     }
 
     public void UseItem()
     {
-        selectedItem.Use();
+        selectedConsumableItem.Use();
     }
 
     public void GiveItem(ItemBase item)
     {
-        if(inventory.CheckExist(item))
+        if(inventory.CheckExist(item.id, item.itemType))
         {
             inventory.Add(item);
         }
         else
         {
             inventory.Add(item);
-            currentItemIdx++;
 
-            itemOder.Add(itemOder.Count, item.id);
-            selectedItem = item;
+            switch (item.itemType)
+            {
+                case ItemType.Consumable:
+                    consumableItemOder.Add(consumableItemOder.Count, item.id);
+                    currentConsumableItemIdx++;
+
+                    break;
+                case ItemType.Weapon:
+                    
+                    weaponOrder.Add(weaponOrder.Count, item.id);
+                    currentWeaponIdx++;
+                    break;
+
+                default:
+                    break;
+            }
+
+            selectedConsumableItem = item;
         }
 
         UIManager.instance.CheckItem();

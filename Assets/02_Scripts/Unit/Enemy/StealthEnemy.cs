@@ -48,13 +48,13 @@ public class StealthEnemy : EnemyBase
         base.SetFirstStatus();
         lifeTime = 0;
         
+
         weaponSpace = transform.GetComponentInChildren<WeaponSpace>();
 
-        weapons.Add(new BasicGun());
+        weapons.Add(new BasicGun(this, this, weaponSpace));
+        
 
         currentWeapon = weapons[0];
-        currentWeapon.user = this;
-        currentWeapon.teamType = this.teamType;
         isAttacking = false;
 
         targetPlayer = GameObject.FindWithTag("PLAYER").transform;

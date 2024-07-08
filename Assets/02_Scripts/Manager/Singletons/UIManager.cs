@@ -42,7 +42,8 @@ public class UIManager : MonoBehaviour
     List<ItemComponent> items = new List<ItemComponent>();
     ItemComponent showingItem;
 
-    TextMeshProUGUI itemCountText;
+    TextMeshProUGUI consumableItemText;
+    TextMeshProUGUI weaponItemText;
 
     void Start()
     {
@@ -75,7 +76,9 @@ public class UIManager : MonoBehaviour
 
         rtMaker = GameObject.FindGameObjectWithTag("RT_MAKER"); 
 
-        itemCountText = panel_Status.transform.Find("Panel_Item").GetComponentInChildren<TextMeshProUGUI>();
+        consumableItemText = panel_Status.transform.Find("Panel_ConsumableItem").GetComponentInChildren<TextMeshProUGUI>();
+
+        weaponItemText = panel_Status.transform.Find("Panel_ConsumableItem").GetComponentInChildren<TextMeshProUGUI>();
 
         items.AddRange(rtMaker.transform.GetComponentsInChildren<ItemComponent>());
 
@@ -113,18 +116,18 @@ public class UIManager : MonoBehaviour
 
     public void CheckItem()
     {
-        ItemBase selectedItem = playerCtrl.selectedItem;
+        ItemBase selectedItem = playerCtrl.selectedConsumableItem;
         if (selectedItem == null)
         {
             return;
         }
 
 
-        int count = playerCtrl.inventory.GetItemCount(selectedItem);
+        int count = playerCtrl.inventory.GetItemCount(selectedItem.id, ItemType.Consumable);
 
         for (int i = 0; i < items.Count; i++)
         {
-            if(items[i].itemId != playerCtrl.selectedItem.id)
+            if(items[i].itemId != playerCtrl.selectedConsumableItem.id)
             {
                 continue;
             }
@@ -143,7 +146,7 @@ public class UIManager : MonoBehaviour
             break;
         }
         
-        itemCountText.text = "x" + count.ToString();
+        consumableItemText.text = "x" + count.ToString();
 
     }
 

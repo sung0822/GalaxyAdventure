@@ -14,14 +14,11 @@ public class ItemComponent : MonoBehaviour
     [SerializeField] private int _itemId;
 
     public ItemBase item;
+    public ItemType itemType;
 
     bool isRising = true;
     bool isDestroied = false;
 
-    Material material;
-
-    MeshFilter meshFilter;
-    MeshRenderer meshRenderer;
     private void OnTriggerEnter(Collider other)
     {
         if (other.transform.root.tag == "PLAYER")
@@ -39,29 +36,50 @@ public class ItemComponent : MonoBehaviour
 
     void Awake()
     {
-
-        switch(itemId)
+        if(itemType == ItemType.Consumable)
         {
-            case 0:
+            switch (itemId)
+            {
+                case 0:
 
-                item = new HealItem();
-                break;
-            case 1:
+                    item = new HealItem(null);
+                    break;
+                case 1:
 
-                item = new ImmortalItem();
-                break;
-            case 2:
+                    item = new ImmortalItem(null);
+                    break;
+                case 2:
 
-                item = new BombItem();
-                break;
-                
+                    item = new BombItem(null);
+                    break;
+
+            }
+        }
+        else if (itemType == ItemType.Weapon)
+        {
+            switch (itemId)
+            {
+                case 0:
+
+                    item = new BasicGun(null, null, null);
+                    break;
+                case 1:
+
+                    item = new ImmortalItem(null);
+                    break;
+                case 2:
+
+                    item = new BombItem(null);
+                    break;
+
+            }
         }
     }
 
 
     void Update()
     {
-        transform.Rotate(0, rotSpd * Time.deltaTime, 0);
+        
         
         if (transform.localPosition.y >= risePos)
             isRising = false;
@@ -73,6 +91,12 @@ public class ItemComponent : MonoBehaviour
         else
             transform.Translate(0, -1 * moveSpd * Time.deltaTime, 0);
 
+        if (item.itemType == ItemType.Weapon)
+        {
+            return;
+        }
+
+        transform.Rotate(0, rotSpd * Time.deltaTime, 0);
 
     }
 

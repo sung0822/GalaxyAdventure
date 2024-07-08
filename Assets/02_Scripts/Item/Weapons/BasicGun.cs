@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class BasicGun : WeaponBase, IShootable
 {
-
     public GameObject bulletPrefab;
     NormalBullet normalBullet;
 
@@ -14,30 +13,34 @@ public class BasicGun : WeaponBase, IShootable
     public AudioClip audioClip;
     public override UnitBase user { get; set; }
     public override int id { get { return _id; }}
-    protected int _id;
+    private int _id;
     public override float useCycle { get { return _useCycle; } set { _useCycle = value; } }
     protected float _useCycle;
-    protected bool isShootable = true;
+    
+    private bool isShootable = true;
     public override TeamType teamType { get; set; }
     public override WeaponSpace weaponSpace { get; set; }
-    public override int power { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public override int power { get; set; }
+    private int _power = 10;
+    public override ItemUsageType usageType { get { return _usageType; } }
+    private ItemUsageType _usageType = ItemUsageType.NotImmediatelyUse;
 
-    protected int _power = 10;
-    protected float shootCycleValue = 1.5f;
+    private float shootCycleValue = 1.5f;
 
-    public BasicGun()
+
+    public BasicGun(UnitBase user, IAttackable attackableUser, WeaponSpace weaponSpace) : base(user, attackableUser, weaponSpace)
     {
         bulletPrefab = Resources.Load<GameObject>("Bullets/BasicBullet");
         //audioSource = unitBase.audioSource;
         audioClip = Resources.Load<AudioClip>("Sounds/BasicGunSound");
+        teamType = user.teamType;
         
         if (audioClip == null)
-        {
             Debug.Log("오디오클립 비었음");
-        }
 
         useCycle = 0.65f;
     }
+
     public override void Use()
     {
         Shoot();
@@ -58,6 +61,15 @@ public class BasicGun : WeaponBase, IShootable
         if (!isShootable)
         {
             return;
+        }
+
+        if (bulletPrefab == null)
+        {
+            Debug.Log("불렛프리팹 null");
+        }
+        if (weaponSpace == null)
+        {
+            Debug.Log("weaponSpace null");
         }
         GameObject bullet = GameObject.Instantiate<GameObject>(bulletPrefab, weaponSpace.transform.position, weaponSpace.transform.rotation);
 
