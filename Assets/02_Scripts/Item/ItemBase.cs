@@ -1,19 +1,30 @@
+using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEngine;
 
-
-
-public abstract class ItemBase : IItemAttribute
+public interface IUseable
 {
-    public ItemBase(UnitBase user)
-    {
-        this.user = user;
-    }
-    public abstract UnitBase user { get; set; }
+    void Use();
+}
+
+public abstract class ItemBase : IUseable
+{
+    public ItemBase(ItemData data) => this._data = data;
+    public ItemData data { get { return _data; } }
+    protected ItemData _data;
     public abstract void Use();
-    public abstract int id { get; }
+}
 
-    public abstract ItemType itemType { get;}
+public abstract class ConsumableItemBase : ItemBase
+{
 
-    public abstract ItemUsageType usageType { get; }
+    public ConsumableItemData consumableItemData { get { return _consumableItemData; } }
+    
+    private ConsumableItemData _consumableItemData;
+
+    public ConsumableItemBase(ConsumableItemData data) : base(data)
+    {
+        _consumableItemData = data;
+    }
 
 }

@@ -11,7 +11,6 @@ public abstract class Projectile : MonoBehaviour, ITeamMember
     protected float _spd = 0;
     
     protected bool isShooting;
-
     public TeamType teamType { get { return _teamType; } set { _teamType = value; } }
 
     protected TeamType _teamType;

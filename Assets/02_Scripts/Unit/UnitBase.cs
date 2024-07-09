@@ -14,7 +14,9 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
     int arraySize = 10;
     public AudioSource audioSource;
     protected AudioClip audioClip;
-    
+
+    //public UnitData unitData;
+
     public List<UnitBody> unitBodyColliders = new List<UnitBody>();
     public List<Rigidbody> rigidbodies = new List<Rigidbody>();
     public List<Collider> colliders = new List<Collider>();

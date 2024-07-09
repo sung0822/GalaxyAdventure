@@ -5,8 +5,8 @@ using static UnityEngine.GraphicsBuffer;
 
 public abstract class EnemyBase : UnitBase, IMovalble, IAttackable
 {
-    protected List<WeaponBase> weapons = new List<WeaponBase>();
-    protected WeaponBase currentWeapon;
+    protected List<WeaponItem> weapons = new List<WeaponItem>();
+    protected WeaponItem currentWeapon;
     //protected Dictionary<string, IPattern> patternsDic = new Dictionary<string, IPattern>();
 
     protected IPlayer player;

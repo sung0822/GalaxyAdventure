@@ -1,156 +1,86 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using static UnityEditor.Progress;
 
-public class Inventory
+
+public class Inventory : MonoBehaviour
 {
     /// <summary>
     /// 아이템 id로 저장합니다. List에 실제 값이 담기게 되구요.
     /// </summary>
-    private Dictionary<int, List<ItemBase>> items = new Dictionary<int, List<ItemBase>>();
+    private Dictionary<int, List<ItemData>> items = new Dictionary<int, List<ItemData>>();
 
-    private Dictionary<int, List<ConsumableItemBase>> consumableItems = new Dictionary<int, List<ConsumableItemBase>>();
-    private Dictionary<int, List<WeaponBase>> weapons = new Dictionary<int, List<WeaponBase>>();
+    // 최대 수용 한도(아이템 배열 크기)
+    [SerializeField, Range(8, 64)]
+    private int _maxCapacity = 64;
 
-    public void Add(ItemBase item)
+    [SerializeField]
+    private UIManager _inventoryUI; // 연결된 인벤토리 UI
+
+    /// <summary> 아이템 목록 </summary>
+    [SerializeField]
+    private void Awake()
     {
-        ItemType itemType = item.itemType;
-        switch (itemType)
-        {
-            case ItemType.Consumable:
-                AddToDictionary(consumableItems, (ConsumableItemBase)item);
-                break;
-         
-            case ItemType.Weapon:
-                AddToDictionary(weapons, (WeaponBase)item);
-                break;
-            
-            default:
-                break;
-        }
     }
-    private void AddToDictionary<T>(Dictionary<int, List<T>> dictionary, T item) where T : ItemBase
+
+    private void Start()
     {
-        if (dictionary.ContainsKey(item.id))
+    }
+
+    public int Add(ItemData itemData, int amount = 1)
+    {
+        int id = itemData.id;
+        if (items.ContainsKey(id))
         {
-            dictionary[item.id].Add(item);
+            items.Add(id, new List<ItemData>());
+            return 1;
         }
         else
         {
-            dictionary.Add(item.id, new List<T>());
-            dictionary[item.id].Add(item);
+            items[id].Add(itemData);
+            return items[id].Count;
         }
     }
-
-    /// <summary>
-    /// 각 아이템은 고유 번호가있음. 번호로 해당 아이템에 접근.
-    /// </summary>
-    public ItemBase GetItem(int id, ItemType itemType)
+    public void Remove(int id, int removeCount = 1)
     {
-        ItemBase item = null;
-        switch (itemType)
+        if (items.ContainsKey(id))
         {
-            case ItemType.Consumable:
-                if (consumableItems.ContainsKey(id))
-                    item = consumableItems[id][0];
-                
-                break;
-            case ItemType.Weapon:
-                if (weapons.ContainsKey(id))
-                    item = weapons[id][0];
-
-                break;
-            default:
-                break;
+            items[id].RemoveRange(0, removeCount);
         }
-
-        return item;
+        
     }
-    public int GetItemCount(int id, ItemType itemType)
+
+    public int GetItemCount(int id)
     {
-        int count = 0;
-        switch (itemType)
+        if (items.ContainsKey(id))
         {
-            case ItemType.Consumable:
-                
-                if (consumableItems.ContainsKey(id))
-                    count = consumableItems[id].Count;
-                break;
-            case ItemType.Weapon:
-                
-                if (weapons.ContainsKey(id))
-                    count = weapons[id].Count;
-                break;
-            default:
-                break;
+            return items[id].Count;
         }
-
-        return count;
+        else
+        {
+            return 0;
+        }
     }
-    public void Remove(int id, ItemType itemType)
+
+    public bool CheckExist(int id)
     {
-        switch (itemType)
-        {
-            case ItemType.Consumable:
-                
-                if (!consumableItems.ContainsKey(id))
-                {
-                    return;
-                } // 키를 포함하고있다면
-                
-                consumableItems[id].RemoveAt(0);
-                
-                if (consumableItems[id].Count <= 0)
-                    consumableItems.Remove(id);
-                break;
-            case ItemType.Weapon:
-                
-                if (!weapons.ContainsKey(id))
-                {
-                    return;
-                }
-                
-                weapons[id].RemoveAt(0);
-                
-                if (weapons[id].Count <= 0)
-                    weapons.Remove(id);
-                break;
-            default:
-                break;
-        }
+        if (items.ContainsKey(id))
+            return true;
+        else
+            return false;
     }
 
-    public bool CheckExist(int id, ItemType itemType)
+    /// <summary> 해당 슬롯의 아이템 정보 리턴 </summary>
+    public ItemData GetItemData(int id)
     {
-        bool isExist = false;
-
-        switch (itemType)
-        {
-            case ItemType.Consumable:
-                
-                if (consumableItems.ContainsKey(id))
-                    isExist = true;
-                break;
-            case ItemType.Weapon:
-                
-                if (weapons.ContainsKey(id))
-                    isExist = true;
-                break;
-            default:
-                break;
-        }
-        return isExist;
+        if (items.ContainsKey(id))
+            return items[id][0];
+        else
+            return null;
     }
 
-
-}
-
-
-public struct contatiner
-{
-    ItemBase item;
-
-    int itemCount;
+    
 }

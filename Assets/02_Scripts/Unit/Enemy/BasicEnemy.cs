@@ -45,12 +45,12 @@ public class BasicEnemy : EnemyBase
 
         weaponSpace = transform.GetComponentInChildren<WeaponSpace>();
         
-        weapons.Add(new BasicGun(this, this, weaponSpace));
+        //weapons.Add(new WeaponItem(new WeaponItemData()));
 
         currentWeapon = weapons[0];
-        currentWeapon.weaponSpace = weaponSpace;
-        currentWeapon.attackableUser = this;
-        currentWeapon.teamType = this.teamType;
+        //currentWeapon.weaponSpace = weaponSpace;
+        //currentWeapon.attackableUser = this;
+        //currentWeapon.teamType = this.teamType;
         isAttacking = false;
     }
 

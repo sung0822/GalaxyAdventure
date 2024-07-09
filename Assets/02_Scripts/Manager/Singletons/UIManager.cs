@@ -123,11 +123,11 @@ public class UIManager : MonoBehaviour
         }
 
 
-        int count = playerCtrl.inventory.GetItemCount(selectedItem.id, ItemType.Consumable);
+        int count = playerCtrl.inventory.GetItemCount(selectedItem.data.id);
 
         for (int i = 0; i < items.Count; i++)
         {
-            if(items[i].itemId != playerCtrl.selectedConsumableItem.id)
+            if(items[i].itemId != playerCtrl.selectedConsumableItem.data.id)
             {
                 continue;
             }

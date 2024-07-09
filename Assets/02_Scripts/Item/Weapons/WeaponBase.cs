@@ -1,21 +1,17 @@
+using TMPro;
 using UnityEngine;
+using static UnityEditor.Progress;
 
-public abstract class WeaponBase : ItemBase, ITeamMember
+/// <summary> 장비 - 무기 아이템 </summary>
+public abstract class WeaponItem : ItemBase
 {
-    protected WeaponBase(UnitBase user, IAttackable attackableUser, WeaponSpace weaponSpace) : base(user)
-    {
-        this.attackableUser = attackableUser;
-        this.weaponSpace = weaponSpace;
-    }
-    public override ItemType itemType { get { return _itemType; } }
-    private ItemType _itemType = ItemType.Weapon;
+    public WeaponItemData weaponItemData { get { return _weaponItemData; } }
 
-    public abstract int power { get; set; }
-    public IAttackable attackableUser { get; set; }
-    public abstract float useCycle { get; set; }
-    public abstract WeaponSpace weaponSpace { get; set; }
-    public abstract TeamType teamType { get; set; }
-    public abstract void SetUser(IAttackable unit);
-    public abstract void SetStatus();
-    
+    protected WeaponItemData _weaponItemData;
+    public WeaponItem(WeaponItemData data) : base(data) 
+    {
+        _weaponItemData = data;
+    } 
+
 }
+

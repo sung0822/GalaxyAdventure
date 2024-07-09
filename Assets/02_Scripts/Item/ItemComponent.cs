@@ -13,8 +13,7 @@ public class ItemComponent : MonoBehaviour
     [SerializeField] public int itemId { get { return _itemId; } }
     [SerializeField] private int _itemId;
 
-    public ItemBase item;
-    public ItemType itemType;
+    public ItemData itemData;
 
     bool isRising = true;
     bool isDestroied = false;
@@ -29,47 +28,47 @@ public class ItemComponent : MonoBehaviour
                 return;
             }
             isDestroied = true;
-            other.transform.root.GetComponent<Player>().GiveItem(item);
+            other.transform.root.GetComponent<Player>().GiveItem(itemData);
             Destroy(this.gameObject);
         }
     }
 
     void Awake()
     {
-        if(itemType == ItemType.Consumable)
+        if(itemData.itemType == ItemType.Consumable)
         {
             switch (itemId)
             {
                 case 0:
 
-                    item = new HealItem(null);
+                    //itemData = new HealItem(null);
                     break;
                 case 1:
 
-                    item = new ImmortalItem(null);
+                    //itemData = new ImmortalItem(null);
                     break;
                 case 2:
 
-                    item = new BombItem(null);
+                    //itemData = new BombItem(null);
                     break;
 
             }
         }
-        else if (itemType == ItemType.Weapon)
+        else if (itemData.itemType == ItemType.Weapon)
         {
             switch (itemId)
             {
                 case 0:
 
-                    item = new BasicGun(null, null, null);
+                    // itemData = 
                     break;
                 case 1:
 
-                    item = new ImmortalItem(null);
+                    //itemData = new ImmortalItem(null);
                     break;
                 case 2:
 
-                    item = new BombItem(null);
+                    //itemData = new BombItem(null);
                     break;
 
             }
@@ -91,7 +90,7 @@ public class ItemComponent : MonoBehaviour
         else
             transform.Translate(0, -1 * moveSpd * Time.deltaTime, 0);
 
-        if (item.itemType == ItemType.Weapon)
+        if (itemData.itemType == ItemType.Weapon)
         {
             return;
         }

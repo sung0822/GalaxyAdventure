@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class Player : UnitBase, IPlayer
 {
-
+    
     GameObject currentAirCraft;
 
     GameObject previousAirCraft;
@@ -21,19 +21,14 @@ public class Player : UnitBase, IPlayer
     public Inventory inventory { get { return _inventory; }}
     protected Inventory _inventory = new Inventory();
 
-    public List<WeaponBase> weapons = new List<WeaponBase>();
-    WeaponBase selectedWeapon;
+    public List<WeaponItem> weapons = new List<WeaponItem>();
+    WeaponItem selectedWeapon;
     Dictionary<int, int> weaponOrder = new Dictionary<int, int>();
     public int currentWeaponIdx = 0;
 
-    Dictionary<int, int> consumableItemOder = new Dictionary<int, int>();
+    Dictionary<int, int> consumableItemOrder = new Dictionary<int, int>();
     protected int currentConsumableItemIdx = -1;
     public ItemBase selectedConsumableItem;
-    
-
-    /// <summary>
-    /// 적재된 순서대로 아이템 순서가 생김. currentItemIdx로 접근 
-    /// </summary>
 
     public override bool isAttacking { get { return _isAttacking; } set{ _isAttacking = value; }}
     protected bool _isAttacking;
@@ -92,19 +87,16 @@ public class Player : UnitBase, IPlayer
             aircrafts[i].SetActive(false);
         }
 
-        base.SetFirstStatus();
-            
+        GunItemData gunItemData = new GunItemData();
+        gunItemData.SetStatus(10, 1, currentWeaponSpace, this, teamType);
+
+        inventory.Add(gunItemData);
+        BasicGun basicGun = new BasicGun();
+
+        selectedWeapon = new BasicGun(new WeaponItemData());
+
         // 무기 등록 
         currentWeaponSpace = currentAirCraft.GetComponentInChildren<WeaponSpace>();
-
-        weapons.Add(new BasicGun(this, this, currentWeaponSpace));
-        weapons[currentWeaponIdx].useCycle = 0.2f;
-
-        selectedWeapon = weapons[currentWeaponIdx];
-        
-        selectedWeapon.weaponSpace = currentWeaponSpace;
-        selectedWeapon.attackableUser = this;
-        selectedWeapon.Use();
 
         currentAirCraft.transform.localPosition = Vector3.zero;
         Debug.Log("플레이어 생성됨");
@@ -114,6 +106,8 @@ public class Player : UnitBase, IPlayer
 
         isInvincibilityBlinking = false;
         currentAirCraft.transform.position = this.transform.position;
+
+        base.SetFirstStatus();
     }
     protected override void Update()
     {
@@ -328,18 +322,9 @@ public class Player : UnitBase, IPlayer
         Instantiate<GameObject>(Resources.Load<GameObject>("Items/Bomber"));
     }
 
-    public void ChangeSelectedItem()
+    public void ChangeSelectedItem<T>(int id) where T : ItemData
     {
-        currentConsumableItemIdx += 1;
-        Debug.Log("currentItemIdx: " + currentConsumableItemIdx);
-        if (currentConsumableItemIdx == consumableItemOder.Count)
-        {
-            Debug.Log("처음 인덱스로");
-            currentConsumableItemIdx = 0;
-        }
-        selectedConsumableItem = inventory.GetItem(consumableItemOder[currentConsumableItemIdx], ItemType.Consumable);
-        
-        UIManager.instance.CheckItem();
+
     }
 
     public void UseItem()
@@ -347,9 +332,9 @@ public class Player : UnitBase, IPlayer
         selectedConsumableItem.Use();
     }
 
-    public void GiveItem(ItemBase item)
+    public void GiveItem(ItemData item)
     {
-        if(inventory.CheckExist(item.id, item.itemType))
+        if(inventory.CheckExist(item.id))
         {
             inventory.Add(item);
         }
@@ -360,7 +345,7 @@ public class Player : UnitBase, IPlayer
             switch (item.itemType)
             {
                 case ItemType.Consumable:
-                    consumableItemOder.Add(consumableItemOder.Count, item.id);
+                    consumableItemOrder.Add(consumableItemOrder.Count, item.id);
                     currentConsumableItemIdx++;
 
                     break;
@@ -374,11 +359,19 @@ public class Player : UnitBase, IPlayer
                     break;
             }
 
-            selectedConsumableItem = item;
+            selectedConsumableItem = item.CreateItem();
         }
 
         UIManager.instance.CheckItem();
     }
 
-    
+    public void GiveItem(ItemBase item)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void ChangeSelectedItem()
+    {
+        throw new NotImplementedException();
+    }
 }

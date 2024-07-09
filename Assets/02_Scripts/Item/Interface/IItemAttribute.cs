@@ -12,6 +12,7 @@ public enum ItemUsageType
 
 public interface IItemAttribute
 {
+    int id { get; }
     public abstract ItemType itemType { get; }
     public abstract ItemUsageType usageType { get; }
 }
