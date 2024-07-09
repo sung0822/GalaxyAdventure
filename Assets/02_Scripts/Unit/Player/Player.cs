@@ -91,9 +91,10 @@ public class Player : UnitBase, IPlayer
         gunItemData.SetStatus(10, 1, currentWeaponSpace, this, teamType);
 
         inventory.Add(gunItemData);
-        BasicGun basicGun = new BasicGun();
+        BasicGun basicGun = new BasicGun(gunItemData);
+        weapons.Add(basicGun);
 
-        selectedWeapon = new BasicGun(new WeaponItemData());
+        selectedWeapon = basicGun;
 
         // 무기 등록 
         currentWeaponSpace = currentAirCraft.GetComponentInChildren<WeaponSpace>();
@@ -359,7 +360,7 @@ public class Player : UnitBase, IPlayer
                     break;
             }
 
-            selectedConsumableItem = item.CreateItem();
+            //selectedConsumableItem = item.CreateItem();
         }
 
         UIManager.instance.CheckItem();

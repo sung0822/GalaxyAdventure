@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "ItemData", menuName = "Inventory System/Item Data", order = 1)]
 public abstract class ItemData : ScriptableObject
 {
     public int id => _id;
 
     [SerializeField] private int _id;
-    [SerializeField] private GameObject _dropItemPrefab; // 바닥에 떨어질 때 생성할 프리팹
     public abstract ItemType itemType { get; }
     public abstract ItemUsageType itemUsageType { get; }
 
     /// <summary> 타입에 맞는 새로운 아이템 생성 </summary>
 }
 
-[CreateAssetMenu(fileName = "ItemWeapon", menuName = "Inventory System/Item Data/Weaopn", order = 1)]
+[CreateAssetMenu(fileName = "ItemData", menuName = "Inventory System/Item Data/WeaponItemData", order = 1)]
 public abstract class WeaponItemData : ItemData, ITeamMember
 {
     /// <summary> 공격력 </summary>
@@ -47,28 +47,7 @@ public abstract class WeaponItemData : ItemData, ITeamMember
 
 public abstract class ConsumableItemData : ItemData
 {
-
-}
-
-public class GunItemData : WeaponItemData, IShootable
-{
-    public override TeamType teamType { get { return _teamType; } set { _teamType = value; } }
-    private TeamType _teamType;
-
-    public GameObject projectilePrefab { get { return _projectilePrefab; } set { _projectilePrefab = value; } }
-    private GameObject _projectilePrefab;
-    public AudioClip audioClip { get { return _audioClip; } set { _audioClip = value; } }
-    private AudioClip _audioClip;
-    public float useCycle { get { return _useCycle; } set { _useCycle = value; } }
-
-    public override ItemUsageType itemUsageType { get { return ItemUsageType.ImmediatelyUse; } }
-
-    public float _useCycle;
-
-    public void Shoot()
-    {
-        throw new System.NotImplementedException();
-    }
+    public override ItemType itemType { get { return ItemType.Consumable; } }
 }
 
 //public class ShootableItemData : ItemData

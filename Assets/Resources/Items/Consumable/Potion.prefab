@@ -333,6 +333,7 @@ MonoBehaviour:
   moveSpd: 0.1
   risePos: 0.3
   _itemId: 0
+  itemData: {fileID: 11400000, guid: 4ea54e213efefa741b31ab5388512710, type: 2}
 --- !u!65 &9049063932501369100
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -348,7 +349,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

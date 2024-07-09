@@ -38,7 +38,7 @@ public class StealthEnemy : EnemyBase
 
     Transform targetPlayer;
 
-    WeaponItemData weaponItemData;
+    GunItemData gunItemData;
 
     protected override void Start()
     {
@@ -53,7 +53,10 @@ public class StealthEnemy : EnemyBase
 
         weaponSpace = transform.GetComponentInChildren<WeaponSpace>();
 
-        weapons.Add(new BasicGun(weaponItemData));
+        gunItemData = new GunItemData();
+        gunItemData.SetStatus(10, 1, weaponSpace, this, teamType);
+        
+        weapons.Add(new BasicGun(gunItemData));
         
 
         currentWeapon = weapons[0];

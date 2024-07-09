@@ -41,7 +41,6 @@ public class ItemComponent : MonoBehaviour
             {
                 case 0:
 
-                    //itemData = new HealItem(null);
                     break;
                 case 1:
 

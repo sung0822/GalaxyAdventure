@@ -35,12 +35,15 @@ public class Inventory : MonoBehaviour
         int id = itemData.id;
         if (items.ContainsKey(id))
         {
+            Debug.Log("이미 포함하고있음");
             items.Add(id, new List<ItemData>());
             return 1;
         }
         else
         {
+            items.Add(id, new List<ItemData>());
             items[id].Add(itemData);
+            Debug.Log(items[id].Count);
             return items[id].Count;
         }
     }
