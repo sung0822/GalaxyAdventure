@@ -40,10 +40,13 @@ public class UIManager : MonoBehaviour
     public GameObject rtMaker;
 
     List<ItemComponent> items = new List<ItemComponent>();
-    ItemComponent showingItem;
+
+    ItemComponent showingConsumableItem;
+    ItemComponent showingGun;
+    ItemComponent showingBullet;
 
     TextMeshProUGUI consumableItemText;
-    TextMeshProUGUI weaponItemText;
+    TextMeshProUGUI GunItemText;
 
     void Start()
     {
@@ -78,7 +81,7 @@ public class UIManager : MonoBehaviour
 
         consumableItemText = panel_Status.transform.Find("Panel_ConsumableItem").GetComponentInChildren<TextMeshProUGUI>();
 
-        weaponItemText = panel_Status.transform.Find("Panel_ConsumableItem").GetComponentInChildren<TextMeshProUGUI>();
+        GunItemText = panel_Status.transform.Find("Panel_ConsumableItem").GetComponentInChildren<TextMeshProUGUI>();
 
         items.AddRange(rtMaker.transform.GetComponentsInChildren<ItemComponent>());
 
@@ -116,14 +119,16 @@ public class UIManager : MonoBehaviour
 
     public void CheckItem()
     {
-        ItemBase selectedItem = playerCtrl.selectedConsumableItem;
-        if (selectedItem == null)
+        IItemAttribute selectedConsumableItem = playerCtrl.selectedConsumableItem;
+        IItemAttribute selectedWeaponItem = playerCtrl.selectedGun;
+
+        if (selectedConsumableItem == null)
         {
             return;
         }
 
 
-        int count = playerCtrl.inventory.GetItemCount(selectedItem.id, ItemType.Consumable);
+        int count = playerCtrl.inventory.GetItemCount(selectedConsumableItem.id, ItemType.Consumable);
 
         for (int i = 0; i < items.Count; i++)
         {
@@ -132,21 +137,25 @@ public class UIManager : MonoBehaviour
                 continue;
             }
             // 해당 렌더텍스쳐와 플레이어 아이템 id가 같을 시
-            if (showingItem == null)
+            if (showingConsumableItem == null)
             {
-                showingItem = items[i];
-                showingItem.gameObject.SetActive(true);
+                showingConsumableItem = items[i];
+                showingConsumableItem.gameObject.SetActive(true);
                 break;
             }
 
-            showingItem.gameObject.SetActive(false);
+            showingConsumableItem.gameObject.SetActive(false);
 
-            showingItem = items[i];
-            showingItem.gameObject.SetActive(true);
+            showingConsumableItem = items[i];
+            showingConsumableItem.gameObject.SetActive(true);
             break;
         }
         
         consumableItemText.text = "x" + count.ToString();
+
+    }
+    public void CheckItem(ItemType itemType, ItemUsageType itemUsageType)
+    {
 
     }
 

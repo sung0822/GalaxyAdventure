@@ -86,7 +86,6 @@ public class BigSizeEnemy : EnemyBase
         {
             transform.Rotate(eulerPerSec * Time.deltaTime, Space.Self);
             time += Time.deltaTime;
-            Debug.Log("È¸Àü½ÃÅ´"); 
             yield return new WaitForEndOfFrame();
         }
     }

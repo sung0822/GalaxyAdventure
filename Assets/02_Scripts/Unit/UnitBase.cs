@@ -11,7 +11,6 @@ using static UnityEngine.UI.CanvasScaler;
 [RequireComponent(typeof(Rigidbody))]
 public abstract class UnitBase : MonoBehaviour, ITeamMember
 {
-    int arraySize = 10;
     public AudioSource audioSource;
     protected AudioClip audioClip;
     

@@ -4,6 +4,11 @@ using UnityEngine;
 
 public interface IShootable
 {
+    public int power { get; set; }
+    public float spd { get; set; }
+
     public void Shoot();
+
+
 
 }

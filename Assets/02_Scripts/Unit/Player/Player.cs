@@ -21,19 +21,15 @@ public class Player : UnitBase, IPlayer
     public Inventory inventory { get { return _inventory; }}
     protected Inventory _inventory = new Inventory();
 
-    public List<WeaponBase> weapons = new List<WeaponBase>();
-    WeaponBase selectedWeapon;
+    public List<Gun> guns = new List<Gun>();
+    public Gun selectedGun;
+
     Dictionary<int, int> weaponOrder = new Dictionary<int, int>();
     public int currentWeaponIdx = 0;
 
     Dictionary<int, int> consumableItemOder = new Dictionary<int, int>();
     protected int currentConsumableItemIdx = -1;
-    public ItemBase selectedConsumableItem;
-    
-
-    /// <summary>
-    /// 적재된 순서대로 아이템 순서가 생김. currentItemIdx로 접근 
-    /// </summary>
+    public ConsumableItemBase selectedConsumableItem;
 
     public override bool isAttacking { get { return _isAttacking; } set{ _isAttacking = value; }}
     protected bool _isAttacking;
@@ -97,14 +93,30 @@ public class Player : UnitBase, IPlayer
         // 무기 등록 
         currentWeaponSpace = currentAirCraft.GetComponentInChildren<WeaponSpace>();
 
-        weapons.Add(new BasicGun(this, this, currentWeaponSpace));
-        weapons[currentWeaponIdx].useCycle = 0.2f;
+        guns.Add(new Pistol(this, this, currentWeaponSpace));
 
-        selectedWeapon = weapons[currentWeaponIdx];
+        selectedGun = guns[currentWeaponIdx];
+        if (selectedGun is null)
+        {
+            Debug.Log("총이 null");
+            return;
+        }
+        NormalBullet[] normalBullets = new NormalBullet[30];
+        for (int i = 0; i < normalBullets.Length; i++)
+        {
+            normalBullets[i] = new NormalBullet();
+            if (normalBullets[i] == null)
+            {
+                Debug.Log("Null");
+            }
+        }
         
-        selectedWeapon.weaponSpace = currentWeaponSpace;
-        selectedWeapon.attackableUser = this;
-        selectedWeapon.Use();
+        inventory.Add(normalBullets);
+        selectedGun.Reload(inventory.GetItems<Projectile>(0, ItemType.Projectile, 30));
+        selectedGun.useCycle = 0.2f;
+
+        selectedGun.weaponSpace = currentWeaponSpace;
+        selectedGun.attackableUser = this;
 
         currentAirCraft.transform.localPosition = Vector3.zero;
         Debug.Log("플레이어 생성됨");
@@ -319,8 +331,12 @@ public class Player : UnitBase, IPlayer
 
     public void Attack()
     {
+        if (selectedGun == null)
+        {
+            Debug.Log("총이 null");
+        }
         if(_isAttacking)
-            selectedWeapon.Use();
+            selectedGun.Use();
     }
 
     public void SpecialAttack()
@@ -337,7 +353,7 @@ public class Player : UnitBase, IPlayer
             Debug.Log("처음 인덱스로");
             currentConsumableItemIdx = 0;
         }
-        selectedConsumableItem = inventory.GetItem(consumableItemOder[currentConsumableItemIdx], ItemType.Consumable);
+        selectedConsumableItem = inventory.GetItem<ConsumableItemBase>(consumableItemOder[currentConsumableItemIdx], ItemType.Consumable);
         
         UIManager.instance.CheckItem();
     }
@@ -347,7 +363,7 @@ public class Player : UnitBase, IPlayer
         selectedConsumableItem.Use();
     }
 
-    public void GiveItem(ItemBase item)
+    public void GiveItem(IItemAttribute item)
     {
         if(inventory.CheckExist(item.id, item.itemType))
         {
@@ -360,12 +376,13 @@ public class Player : UnitBase, IPlayer
             switch (item.itemType)
             {
                 case ItemType.Consumable:
+                    selectedConsumableItem = (ConsumableItemBase)item;
                     consumableItemOder.Add(consumableItemOder.Count, item.id);
                     currentConsumableItemIdx++;
 
                     break;
                 case ItemType.Weapon:
-                    
+                    selectedGun = (Gun)item;
                     weaponOrder.Add(weaponOrder.Count, item.id);
                     currentWeaponIdx++;
                     break;
@@ -374,11 +391,12 @@ public class Player : UnitBase, IPlayer
                     break;
             }
 
-            selectedConsumableItem = item;
         }
 
         UIManager.instance.CheckItem();
     }
 
-    
+    public void GiveItem(ItemBase item)
+    {
+    }
 }

@@ -19,7 +19,9 @@ public class HealItem : ConsumableItemBase
     public HealItem(UnitBase user) : base(user)
     {
     }
-
+    public HealItem()
+    {
+    }
     public override void Use()
     {
         user.currentHp = user.maxHp;

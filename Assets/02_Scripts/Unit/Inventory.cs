@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEditor.Progress;
 
@@ -9,29 +12,40 @@ public class Inventory
     /// <summary>
     /// 아이템 id로 저장합니다. List에 실제 값이 담기게 되구요.
     /// </summary>
-    private Dictionary<int, List<ItemBase>> items = new Dictionary<int, List<ItemBase>>();
+    private Dictionary<int, List<IItemAttribute>> items = new Dictionary<int, List<IItemAttribute>>();
 
     private Dictionary<int, List<ConsumableItemBase>> consumableItems = new Dictionary<int, List<ConsumableItemBase>>();
     private Dictionary<int, List<WeaponBase>> weapons = new Dictionary<int, List<WeaponBase>>();
+    private Dictionary<int, List<Projectile>> projectiles = new Dictionary<int, List<Projectile>>();
 
-    public void Add(ItemBase item)
+    public void Add(IItemAttribute item)
     {
-        ItemType itemType = item.itemType;
-        switch (itemType)
+        switch (item.itemType)
         {
             case ItemType.Consumable:
                 AddToDictionary(consumableItems, (ConsumableItemBase)item);
+                
                 break;
-         
             case ItemType.Weapon:
                 AddToDictionary(weapons, (WeaponBase)item);
+                
                 break;
-            
+                case ItemType.Projectile:
+                
+                AddToDictionary(projectiles, (Projectile)item);
+                break;
             default:
                 break;
         }
     }
-    private void AddToDictionary<T>(Dictionary<int, List<T>> dictionary, T item) where T : ItemBase
+    public void Add(IItemAttribute[] items)
+    {
+        for (int i = 0; i < items.Length; i++)
+        {
+            Add(items[i]);
+        }
+    }
+    private void AddToDictionary<T>(Dictionary<int, List<T>> dictionary, T item) where T : IItemAttribute
     {
         if (dictionary.ContainsKey(item.id))
         {
@@ -47,9 +61,10 @@ public class Inventory
     /// <summary>
     /// 각 아이템은 고유 번호가있음. 번호로 해당 아이템에 접근.
     /// </summary>
-    public ItemBase GetItem(int id, ItemType itemType)
+    public T GetItem<T>(int id, ItemType itemType) where T : IItemAttribute
     {
-        ItemBase item = null;
+        IItemAttribute item = null;
+
         switch (itemType)
         {
             case ItemType.Consumable:
@@ -66,7 +81,38 @@ public class Inventory
                 break;
         }
 
-        return item;
+        return (T)item;
+    }
+    public T[] GetItems<T>(int id, ItemType itemType, int count) where T : IItemAttribute
+    {
+        switch (itemType)
+        {
+            case ItemType.Consumable:
+                if (consumableItems.ContainsKey(id))
+                {
+                    ConsumableItemBase[] array = consumableItems[id].GetRange(0, count).ToArray();
+                    consumableItems[id].RemoveRange(0, count);
+                    return array as T[];
+                }
+                break;
+            case ItemType.Weapon:
+                if (consumableItems.ContainsKey(id))
+                {
+                    WeaponBase[] array = this.weapons[id].GetRange(0, count).ToArray();
+                    weapons[id].RemoveRange(0, count);
+                    return array as T[];
+                }
+                break;
+            case ItemType.Projectile:
+                if (consumableItems.ContainsKey(id))
+                {
+                    Projectile[] array = this.projectiles[id].GetRange(0, count).ToArray();
+                    projectiles[id].RemoveRange(0, count);
+                    return array as T[];
+                }
+                break;
+        }
+        return null;
     }
     public int GetItemCount(int id, ItemType itemType)
     {
@@ -116,6 +162,15 @@ public class Inventory
                 
                 if (weapons[id].Count <= 0)
                     weapons.Remove(id);
+                break;
+            case ItemType.Projectile:
+
+                if (!projectiles.ContainsKey(id))
+                {
+                    return;
+                }
+
+                projectiles[id].RemoveAt(0);
                 break;
             default:
                 break;

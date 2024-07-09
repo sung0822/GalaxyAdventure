@@ -7,8 +7,12 @@ public abstract class ConsumableItemBase : ItemBase
     public override ItemType itemType { get { return _itemType; } }
     private ItemType _itemType = ItemType.Consumable;
 
-    protected ConsumableItemBase(UnitBase user) : base(user)
+    public ConsumableItemBase(UnitBase user) : base(user)
     {
 
     }
+    public ConsumableItemBase()
+    {
+    }
+
 }

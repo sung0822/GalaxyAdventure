@@ -45,7 +45,7 @@ public class BasicEnemy : EnemyBase
 
         weaponSpace = transform.GetComponentInChildren<WeaponSpace>();
         
-        weapons.Add(new BasicGun(this, this, weaponSpace));
+        weapons.Add(new Pistol(this, this, weaponSpace));
 
         currentWeapon = weapons[0];
         currentWeapon.weaponSpace = weaponSpace;

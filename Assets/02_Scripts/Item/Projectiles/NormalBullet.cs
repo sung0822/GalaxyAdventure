@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class NormalBullet : Projectile
 {
-    
+    public override int id { get { return _id; }  }
+    private int _id = 0;
+    protected override GameObject projectileSelfPrefab { get; set; }
+
     public override void Shoot()
     {
         isShooting = true;
@@ -15,12 +18,7 @@ public class NormalBullet : Projectile
         base.Start();
     }
 
-    // Update is called once per frame
     protected override void Update()
     {
-        if(isShooting)
-        {
-            transform.Translate(Vector3.forward * Time.deltaTime * _spd, Space.Self);
-        }
     }
 }

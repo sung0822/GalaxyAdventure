@@ -7,9 +7,14 @@ public abstract class WeaponBase : ItemBase, ITeamMember
         this.attackableUser = attackableUser;
         this.weaponSpace = weaponSpace;
     }
+    protected WeaponBase()
+    {
+        this.attackableUser = null;
+        this.weaponSpace = null;
+    }
     public override ItemType itemType { get { return _itemType; } }
     private ItemType _itemType = ItemType.Weapon;
-
+    
     public abstract int power { get; set; }
     public IAttackable attackableUser { get; set; }
     public abstract float useCycle { get; set; }

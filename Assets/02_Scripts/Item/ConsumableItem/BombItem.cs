@@ -17,6 +17,9 @@ public class BombItem : ConsumableItemBase
     public BombItem(UnitBase user) : base(user)
     {
     }
+    public BombItem()
+    {
+    }
 
     public override void Use()
     {

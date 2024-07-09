@@ -16,6 +16,10 @@ public class ImmortalItem : ConsumableItemBase
     public ImmortalItem(UnitBase user) : base(user)
     {
     }
+    public ImmortalItem()
+    {
+
+    }
 
     public override void Use()
     {

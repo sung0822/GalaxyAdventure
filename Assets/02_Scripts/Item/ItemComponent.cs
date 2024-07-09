@@ -42,15 +42,15 @@ public class ItemComponent : MonoBehaviour
             {
                 case 0:
 
-                    item = new HealItem(null);
+                    item = new HealItem();
                     break;
                 case 1:
 
-                    item = new ImmortalItem(null);
+                    item = new ImmortalItem();
                     break;
                 case 2:
 
-                    item = new BombItem(null);
+                    item = new BombItem();
                     break;
 
             }
@@ -61,15 +61,15 @@ public class ItemComponent : MonoBehaviour
             {
                 case 0:
 
-                    item = new BasicGun(null, null, null);
+                    item = new Pistol();
                     break;
                 case 1:
 
-                    item = new ImmortalItem(null);
+                    item = new ImmortalItem();
                     break;
                 case 2:
 
-                    item = new BombItem(null);
+                    item = new BombItem();
                     break;
 
             }
