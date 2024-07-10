@@ -34,7 +34,7 @@ public class StealthEnemy : EnemyBase
     MeshRenderer meshRenderer;
     Material material;
 
-    WeaponSpace weaponSpace;
+    WeaponSpace currentWeaponSpace;
 
     Transform targetPlayer;
 
@@ -49,22 +49,21 @@ public class StealthEnemy : EnemyBase
     {
         base.SetFirstStatus();
         lifeTime = 0;
-        
 
-        weaponSpace = transform.GetComponentInChildren<WeaponSpace>();
+        gunItemData = ScriptableObject.Instantiate(gunItemData);
 
-        gunItemData = ScriptableObject.CreateInstance<GunItemData>();
-        gunItemData.SetStatus(10, 1, weaponSpace, this, teamType, this);
-        
-        weapons.Add(new BasicGun(gunItemData));
-        
+        currentWeaponSpace = GetComponentInChildren<WeaponSpace>();
+        meshRenderer = GetComponentInChildren<MeshRenderer>();
 
-        currentWeapon = weapons[0];
+        gunItemData.SetStatus(10, 1, currentWeaponSpace, this, teamType, this);
+        gunItemData.useCycle = 1.5f;
+        gunItemData.forceForProjectile = 8;
+        gunItemData.level = 1;
+        currentWeapon = new Pistol((PistolItemData)gunItemData);
         isAttacking = false;
 
         targetPlayer = GameObject.FindWithTag("PLAYER").transform;
         moveDir = Vector3.forward;
-        meshRenderer = GetComponentInChildren<MeshRenderer>();
         material = meshRenderer.material;
 
     }
@@ -161,7 +160,7 @@ public class StealthEnemy : EnemyBase
     
     public override void Attack()
     {
-        weaponSpace.transform.LookAt(targetPlayer);
+        currentWeaponSpace.transform.LookAt(targetPlayer);
         currentWeapon.Use();
     }
 

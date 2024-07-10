@@ -15,6 +15,7 @@ TagManager:
   - MAIN_MANAGER
   - ALL_SPAWNPOINTS_GROUP
   - PLANE
+  - PROJECTILE
   layers:
   - Default
   - TransparentFX

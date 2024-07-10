@@ -14,7 +14,6 @@ public class HealItem : ConsumableItemBase
         if (consumableItemData.unitUser is Player)
         {
             UIManager.instance.CheckPlayerHp();
-            Debug.Log("체크플레이어 호출");
         }
     }
 }

@@ -76,7 +76,7 @@ public class Inventory : MonoBehaviour
             return false;
     }
 
-    /// <summary> 해당 슬롯의 아이템 정보 리턴 </summary>
+    /// <summary> 아이템 데이터 정보참조 리턴. </summary>
     public ItemData GetItemData(int id)
     {
         if (items.ContainsKey(id))

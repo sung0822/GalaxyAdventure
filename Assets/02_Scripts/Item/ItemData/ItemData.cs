@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using static UnityEditor.Progress;
-
-[CreateAssetMenu(fileName = "ItemData", menuName = "Inventory System/Item Data", order = 1)]
 public abstract class ItemData : ScriptableObject
 {
     public int id => _id;
@@ -17,20 +15,18 @@ public abstract class ItemData : ScriptableObject
     public abstract bool isUsing { get; set; }
 
     public abstract UnitBase unitUser { get; set; }
+    /// <summary> 아이템실체를 생성합니다. 원하는 아이템 타입에 맞게 캐스팅해서 쓰세요</summary>
     public abstract ItemBase CreateItem();
 
-    /// <summary> 타입에 맞는 새로운 아이템 생성 </summary>
 }
-
-[CreateAssetMenu(fileName = "ItemData", menuName = "Inventory System/Item Data/WeaponItemData", order = 1)]
 public abstract class WeaponItemData : ItemData, ITeamMember
 {
     /// <summary> 공격력 </summary>
     public int power { get { return _power; } }
-    [SerializeField] private int _power = 1;
+    [SerializeField] protected int _power = 1;
 
-    public int level { get { return _level; } }
-    [SerializeField] private int _level;
+    public virtual int level { get { return _level; } set { _level = value; } }
+    [SerializeField] protected int _level;
 
     public WeaponSpace weaponSpace { get { return _weaponSpace; } }
     [SerializeField] private WeaponSpace _weaponSpace;
@@ -38,18 +34,18 @@ public abstract class WeaponItemData : ItemData, ITeamMember
     public IAttackable attackableUser { get { return _attackableUser; } }
     [SerializeField] private IAttackable _attackableUser;
     public override ItemType itemType { get { return ItemType.Weapon; } }
-
     public abstract TeamType teamType { get; set; }
 
     public virtual void SetStatus(int power, int level, WeaponSpace weaponSpace, IAttackable attackableUser, TeamType teamType, UnitBase unitUser)
     {
         _power = power;
-        _level = level;
+        this.level = level;
         _weaponSpace = weaponSpace;
         _attackableUser = attackableUser;
         this.teamType = teamType;
         this.unitUser = unitUser;
     }
+
 
 }
 

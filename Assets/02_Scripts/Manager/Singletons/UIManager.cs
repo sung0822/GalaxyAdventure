@@ -38,13 +38,16 @@ public class UIManager : MonoBehaviour
     public GameObject Panel_Pause;
 
     public GameObject rtMaker;
+    public GameObject rtMaker_1;
 
-    List<ItemComponent> items = new List<ItemComponent>();
-    ItemComponent showingConsumableItem;
-    ItemComponent showingWeaponItem;
+    List<ItemComponent> consumableItems = new List<ItemComponent>();
+    public ItemComponent showingConsumableItem;
+    public TextMeshProUGUI consumableItemText;
 
-    TextMeshProUGUI consumableItemText;
-    TextMeshProUGUI weaponItemText;
+    List<ItemComponent> weaponItems = new List<ItemComponent>();
+    public ItemComponent showingWeaponItem;
+    public TextMeshProUGUI weaponItemText;
+
 
     void Start()
     {
@@ -79,16 +82,24 @@ public class UIManager : MonoBehaviour
 
         consumableItemText = panel_Status.transform.Find("Panel_ConsumableItem").GetComponentInChildren<TextMeshProUGUI>();
 
-        weaponItemText = panel_Status.transform.Find("Panel_ConsumableItem").GetComponentInChildren<TextMeshProUGUI>();
+        weaponItemText = panel_Status.transform.Find("Panel_WeaponItem").GetComponentInChildren<TextMeshProUGUI>();
 
-        items.AddRange(rtMaker.transform.GetComponentsInChildren<ItemComponent>());
+        consumableItems.AddRange(rtMaker.transform.GetComponentsInChildren<ItemComponent>());
 
-        for (int i = 0; i < items.Count; i++)
+        for (int i = 0; i < consumableItems.Count; i++)
         {
-            items[i].gameObject.SetActive(false);
+            consumableItems[i].gameObject.SetActive(false);
         }
-        CheckItem(ItemType.Consumable);
-        CheckItem(ItemType.Weapon);
+        
+        weaponItems.AddRange(rtMaker_1.transform.GetComponentsInChildren<ItemComponent>());
+        for (int i = 0; i < weaponItems.Count; i++)
+        {
+            weaponItems[i].gameObject.SetActive(false);
+        }
+
+
+        CheckItem(ItemType.Consumable, playerCtrl);
+        CheckItem(ItemType.Weapon, playerCtrl);
 
     }
 
@@ -116,8 +127,9 @@ public class UIManager : MonoBehaviour
         scoreText.text = MainManager.instance.score.ToString();
     }
 
-    public void CheckItem(ItemType itemType)
+    public void CheckItem(ItemType itemType, Player playerCtrl)
     {
+        int count = 0;
         switch (itemType)
         {
             case ItemType.Consumable:
@@ -128,26 +140,25 @@ public class UIManager : MonoBehaviour
                 }
 
 
-                int count = playerCtrl.inventory.GetItemCount(selectedConsumableItem.data.id);
-                Debug.Log("ConsumableItem Count: " + count);
+                count = playerCtrl.inventory.GetItemCount(selectedConsumableItem.data.id);
 
-                for (int i = 0; i < items.Count; i++)
+                for (int i = 0; i < consumableItems.Count; i++)
                 {
-                    if (items[i].itemId != playerCtrl.selectedConsumableItem.data.id)
+                    if (consumableItems[i].itemId != playerCtrl.selectedConsumableItem.data.id)
                     {
                         continue;
                     }
                     // 해당 렌더텍스쳐와 플레이어 아이템 id가 같을 시
                     if (showingConsumableItem == null)
                     {
-                        showingConsumableItem = items[i];
+                        showingConsumableItem = consumableItems[i];
                         showingConsumableItem.gameObject.SetActive(true);
                         break;
                     }
 
                     showingConsumableItem.gameObject.SetActive(false);
 
-                    showingConsumableItem = items[i];
+                    showingConsumableItem = consumableItems[i];
                     showingConsumableItem.gameObject.SetActive(true);
                     break;
                 }
@@ -156,6 +167,41 @@ public class UIManager : MonoBehaviour
 
                 break;
             case ItemType.Weapon:
+                Debug.Log(playerCtrl.selectedConsumableItem);
+                WeaponItemBase selectedWeaponItem = playerCtrl.selectedWeaponItem;
+                if (selectedWeaponItem == null)
+                {
+                    Debug.Log("선택된 무기 없음");
+                    return;
+                }
+
+                count = selectedWeaponItem.weaponItemData.level;
+
+                for (int i = 0; i < weaponItems.Count; i++)
+                {
+                    Debug.Log("반복문 시작");
+                    if (weaponItems[i].itemId != playerCtrl.selectedWeaponItem.data.id)
+                    {
+                        continue;
+                    }
+                    Debug.Log("진입");
+                    // 해당 렌더텍스쳐와 플레이어 아이템 id가 같을 시
+                    if (showingWeaponItem == null)
+                    {
+                        showingWeaponItem = weaponItems[i];
+                        showingWeaponItem.gameObject.SetActive(true);
+                        break;
+                    }
+
+                    showingWeaponItem.gameObject.SetActive(false);
+
+                    showingWeaponItem = weaponItems[i];
+                    showingWeaponItem.gameObject.SetActive(true);
+                    break;
+                }
+
+                weaponItemText.text = "Lv" + count.ToString();
+
                 break;
             default:
                 break;

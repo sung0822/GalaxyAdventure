@@ -34,48 +34,10 @@ public class ItemComponent : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-
-    void Awake()
+    private void Awake()
     {
-        if(itemData.itemType == ItemType.Consumable)
-        {
-            switch (itemId)
-            {
-                case 0:
-
-                    break;
-                case 1:
-
-                    //itemData = new ImmortalItem(null);
-                    break;
-                case 2:
-
-                    //itemData = new BombItem(null);
-                    break;
-
-            }
-        }
-        else if (itemData.itemType == ItemType.Weapon)
-        {
-            switch (itemId)
-            {
-                case 0:
-
-                    // itemData = 
-                    break;
-                case 1:
-
-                    //itemData = new ImmortalItem(null);
-                    break;
-                case 2:
-
-                    //itemData = new BombItem(null);
-                    break;
-
-            }
-        }
+        _itemId = itemData.id;
     }
-
 
     void Update()
     {

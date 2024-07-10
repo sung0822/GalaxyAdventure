@@ -23,6 +23,5 @@ public class Detect : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.name + "Ãæµ¹");
     }
 }

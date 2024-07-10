@@ -23,13 +23,13 @@ public class Player : UnitBase, IPlayer
     [SerializeField] protected Inventory _inventory;
 
     public List<WeaponItemBase> weapons = new List<WeaponItemBase>();
-    [SerializeField] WeaponItemBase selectedWeapon;
     Dictionary<int, int> weaponItemOrder = new Dictionary<int, int>();
-    public int currentWeaponIdx = 0;
+    public WeaponItemBase selectedWeaponItem;
+    public int currentWeaponkey = -1;
 
     /// <summary> 아이템 순서(인덱스, 아이템 키) </summary>
     Dictionary<int, int> consumableItemOrder = new Dictionary<int, int>();
-    protected int currentConsumableItemIdx = -1;
+    protected int currentConsumableItemKey = -1;
     public ConsumableItemBase selectedConsumableItem;
 
     public override bool isAttacking { get { return _isAttacking; } set{ _isAttacking = value; }}
@@ -106,20 +106,13 @@ public class Player : UnitBase, IPlayer
 
     private void MakeBasicGun()
     {
-        GunItemData gunItemData = Resources.Load<GunItemData>("Datas/Weapons/BasicGunData");
+        GunItemData gunItemData = ScriptableObject.Instantiate(Resources.Load<PistolItemData>("Datas/Weapons/PistolItemData"));
         _inventory = gameObject.AddComponent<Inventory>();
-        inventory.Add(gunItemData);
 
         currentWeaponSpace = currentAirCraft.GetComponentInChildren<WeaponSpace>();
+        
+        GiveItem(gunItemData);
 
-        gunItemData.SetStatus(10, 1, currentWeaponSpace, this, teamType, this);
-        gunItemData.useCycle = 0.35f;
-        gunItemData.projectilePrefab = Resources.Load<GameObject>("Bullets/BasicBullet");
-
-        BasicGun basicGun = new BasicGun(gunItemData);
-        weapons.Add(basicGun);
-
-        selectedWeapon = basicGun;
     }
 
     protected override void Update()
@@ -324,8 +317,8 @@ public class Player : UnitBase, IPlayer
     {
         if(_isAttacking)
         {
-            Debug.Log("공격중");
-            selectedWeapon.Use();
+            selectedWeaponItem.Use();
+            
         }
     }
 
@@ -346,10 +339,9 @@ public class Player : UnitBase, IPlayer
             case ItemType.Consumable:
                 selectedConsumableItem.Use();
                 int count = inventory.Remove(selectedConsumableItem.data.id, 1);
-                Debug.Log("남은 아이템 개수: " + count);
                 if (0 == count)
                 {
-                    consumableItemOrder.Remove(consumableItemOrder.Count);
+                    consumableItemOrder.Remove(currentConsumableItemKey);
                     ChangeSelectedItem(itemType);
                 }
                 break;
@@ -358,38 +350,64 @@ public class Player : UnitBase, IPlayer
             default:
                 break;
         }
-        UIManager.instance.CheckItem(itemType);
+        UIManager.instance.CheckItem(itemType, this);
     }
 
     public void GiveItem(ItemData item)
     {
         ItemType itemType = item.itemType;
-        switch (itemType)   
+        
+        if (item.itemUsageType == ItemUsageType.ImmediatelyUse)
+        {
+            Debug.Log("즉시 사용 아이템");
+            return;
+        }
+
+        switch (itemType)
         {
             case ItemType.Consumable:
                 if (inventory.CheckExist(item.id))
                 {
                     inventory.Add(item);
-                    selectedConsumableItem = (ConsumableItemBase)inventory.GetItemData(item.id).CreateItem();
-                    selectedConsumableItem.PrintItemName();
                     break;
                 }
                 selectedConsumableItem = (ConsumableItemBase)inventory.Add(item).CreateItem();
                 consumableItemOrder.Add(consumableItemOrder.Count, item.id);
-                currentConsumableItemIdx++;
+                currentConsumableItemKey++;
 
                 break;
             case ItemType.Weapon:
+                WeaponItemData weaponItemData;
+                if (inventory.CheckExist(item.id))
+                {
+                    if (selectedWeaponItem.data.id == item.id)
+                    {
+                        // 이미 가방안에 들어있고, 현재 선택된 무기라면
+                        weaponItemData = ((GunItemData)inventory.GetItemData(item.id));
+                        weaponItemData.level += 1;
+
+                        selectedWeaponItem = (GunItemBase)weaponItemData.CreateItem();
+                        Debug.Log(selectedWeaponItem.weaponItemData.itemName);
+                        selectedWeaponItem.weaponItemData.level = weaponItemData.level;
+                        break;
+                    }
+                    break;
+                }
+                // 가방안에 없으면
+                weaponItemData = (GunItemData)inventory.Add(item);
+                weaponItemData.SetStatus(weaponItemData.power, 1, currentWeaponSpace, this, teamType, this);
+
+                selectedWeaponItem = (GunItemBase)weaponItemData.CreateItem();
+                Debug.Log(selectedWeaponItem.weaponItemData.itemName);
 
                 weaponItemOrder.Add(weaponItemOrder.Count, item.id);
-                currentWeaponIdx++;
-
+                currentWeaponkey++;
                 break;
 
             default:
                 break;
         }
-        UIManager.instance.CheckItem(itemType);;
+        UIManager.instance.CheckItem(itemType, this);
 
     }
     public void ChangeSelectedItem(ItemType itemType)
@@ -397,20 +415,37 @@ public class Player : UnitBase, IPlayer
         switch (itemType)
         {
             case ItemType.Consumable:
-                currentConsumableItemIdx++;
-                if (currentConsumableItemIdx == consumableItemOrder.Count)
+                if (consumableItemOrder.Count <= 0)
                 {
-                    currentConsumableItemIdx = 0;
+                    return;
                 }
-                selectedConsumableItem = (ConsumableItemBase)inventory.GetItemData(consumableItemOrder[currentConsumableItemIdx]).CreateItem();
+                currentConsumableItemKey++;
+                if (currentConsumableItemKey >= consumableItemOrder.Count)
+                {
+                    currentConsumableItemKey = 0;
+                }
+                selectedConsumableItem = (ConsumableItemBase)inventory.GetItemData(consumableItemOrder[currentConsumableItemKey]).CreateItem();
 
                 break;
             case ItemType.Weapon:
+                if (weaponItemOrder.Count <= 0)
+                {
+                    return;
+                }
+                currentWeaponkey++;
+                Debug.Log("무기 인덱스: " + currentWeaponkey);
+                Debug.Log("무기 개수: " + weaponItemOrder.Count);
+                if (currentWeaponkey >= weaponItemOrder.Count)
+                {
+                    currentWeaponkey = 0;
+                }
+                selectedWeaponItem = (WeaponItemBase)inventory.GetItemData(weaponItemOrder[currentWeaponkey]).CreateItem();
+
                 break;
             default:
                 break;
         }
-        UIManager.instance.CheckItem(itemType);
+        UIManager.instance.CheckItem(itemType, this);
     }
 
 }

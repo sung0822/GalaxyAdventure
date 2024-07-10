@@ -4,9 +4,9 @@ using System.Data;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class BasicGun : GunBase
+public class Pistol : GunItemBase
 {
-    public BasicGun(GunItemData gunItemdata) : base(gunItemdata)
+    public Pistol(PistolItemData gunItemdata) : base(gunItemdata)
     {
     }
 }

@@ -18,7 +18,6 @@ public class ItemManager : MonoBehaviour
             {
                 return;
             }
-            Debug.Log("Particle duplication");
             Destroy(this.gameObject);
         }
     }

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fff99ba86ed861f4a8b1ce9e53f22a39, type: 3}
+  m_Name: MachineGunItemData
+  m_EditorClassIdentifier: 
+  _id: 101
+  _itemName: MachineGun
+  _power: 5
+  _level: 1
+  _weaponSpace: {fileID: 0}
+  _projectilePrefab: {fileID: 5150634236380144079, guid: 7e935c33671eeb14ab6ff8a3afef355c, type: 3}
+  _audioClip: {fileID: 0}
+  _useCycle: 0.2
+  _forceForProjectile: 20
+  _itemUsageType: 1
+  _unitUser: {fileID: 0}
+  _isUsing: 0

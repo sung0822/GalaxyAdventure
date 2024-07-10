@@ -44,21 +44,19 @@ public class BasicEnemy : EnemyBase
         lifeTime = 0;
 
         currentWeaponSpace = transform.GetComponentInChildren<WeaponSpace>();
-        gunItemData = Instantiate(Resources.Load<GunItemData>("Datas/Weapons/BasicGunData"));
+        gunItemData = ScriptableObject.Instantiate(gunItemData);
 
         gunItemData.SetStatus(10, 1, currentWeaponSpace, this, teamType, this);
-        currentWeapon = new BasicGun(gunItemData);
+        gunItemData.useCycle = 1.5f;
+        gunItemData.forceForProjectile = 8;
+        gunItemData.level = 1;
+        currentWeapon = new Pistol((PistolItemData)gunItemData);
+
         if (currentWeapon == null)
         {
             Debug.Log("¹«±â nullÀÓ");
         }
         
-        weapons.Add(currentWeapon);
-
-        currentWeapon = weapons[0];
-        //currentWeapon.weaponSpace = weaponSpace;
-        //currentWeapon.attackableUser = this;
-        //currentWeapon.teamType = this.teamType;
         isAttacking = false;
     }
 
@@ -66,14 +64,12 @@ public class BasicEnemy : EnemyBase
     protected override void Update()
     {
         base.Update();
-        
 
-        if (enableAttack && !isAttacking)
+        if (enableAttack)
         {
-            StartCoroutine(StartAttack());
-            isAttacking = true;
+            Attack();
         }
-
+            
     }
 
 
