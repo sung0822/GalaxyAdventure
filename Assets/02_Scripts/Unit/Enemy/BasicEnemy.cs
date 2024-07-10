@@ -8,7 +8,7 @@ using static UnityEngine.GraphicsBuffer;
 
 public class BasicEnemy : EnemyBase
 {
-    WeaponSpace weaponSpace;
+    WeaponSpace currentWeaponSpace;
     float shootCycle = 3.0f;
     public override bool isAttacking { get { return _isAttacking; } set { _isAttacking = value; } }
     bool _isAttacking;
@@ -31,7 +31,7 @@ public class BasicEnemy : EnemyBase
     protected override int rewardScore { get { return _rewardScore; } set { _rewardScore = value; } }
     [SerializeField] protected int _rewardScore = 100;
 
-
+    [SerializeField] GunItemData gunItemData;
 
     protected override void Start()
     {
@@ -43,9 +43,17 @@ public class BasicEnemy : EnemyBase
 
         lifeTime = 0;
 
-        weaponSpace = transform.GetComponentInChildren<WeaponSpace>();
+        currentWeaponSpace = transform.GetComponentInChildren<WeaponSpace>();
+        gunItemData = Instantiate(Resources.Load<GunItemData>("Datas/Weapons/BasicGunData"));
+
+        gunItemData.SetStatus(10, 1, currentWeaponSpace, this, teamType, this);
+        currentWeapon = new BasicGun(gunItemData);
+        if (currentWeapon == null)
+        {
+            Debug.Log("¹«±â nullÀÓ");
+        }
         
-        //weapons.Add(new WeaponItem(new WeaponItemData()));
+        weapons.Add(currentWeapon);
 
         currentWeapon = weapons[0];
         //currentWeapon.weaponSpace = weaponSpace;

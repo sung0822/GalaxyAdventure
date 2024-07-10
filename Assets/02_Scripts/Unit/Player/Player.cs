@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class Player : UnitBase, IPlayer
 {
@@ -19,16 +20,17 @@ public class Player : UnitBase, IPlayer
     MeshRenderer meshRenderer;
 
     public Inventory inventory { get { return _inventory; }}
-    protected Inventory _inventory = new Inventory();
+    [SerializeField] protected Inventory _inventory;
 
-    public List<WeaponItem> weapons = new List<WeaponItem>();
-    WeaponItem selectedWeapon;
-    Dictionary<int, int> weaponOrder = new Dictionary<int, int>();
+    public List<WeaponItemBase> weapons = new List<WeaponItemBase>();
+    [SerializeField] WeaponItemBase selectedWeapon;
+    Dictionary<int, int> weaponItemOrder = new Dictionary<int, int>();
     public int currentWeaponIdx = 0;
 
+    /// <summary> 아이템 순서(인덱스, 아이템 키) </summary>
     Dictionary<int, int> consumableItemOrder = new Dictionary<int, int>();
     protected int currentConsumableItemIdx = -1;
-    public ItemBase selectedConsumableItem;
+    public ConsumableItemBase selectedConsumableItem;
 
     public override bool isAttacking { get { return _isAttacking; } set{ _isAttacking = value; }}
     protected bool _isAttacking;
@@ -87,20 +89,10 @@ public class Player : UnitBase, IPlayer
             aircrafts[i].SetActive(false);
         }
 
-        GunItemData gunItemData = new GunItemData();
-        gunItemData.SetStatus(10, 1, currentWeaponSpace, this, teamType);
-
-        inventory.Add(gunItemData);
-        BasicGun basicGun = new BasicGun(gunItemData);
-        weapons.Add(basicGun);
-
-        selectedWeapon = basicGun;
-
         // 무기 등록 
-        currentWeaponSpace = currentAirCraft.GetComponentInChildren<WeaponSpace>();
+        MakeBasicGun();
 
         currentAirCraft.transform.localPosition = Vector3.zero;
-        Debug.Log("플레이어 생성됨");
 
         // 메시렌더러 캐싱
         meshRenderer = currentAirCraft.GetComponent<MeshRenderer>();
@@ -109,12 +101,30 @@ public class Player : UnitBase, IPlayer
         currentAirCraft.transform.position = this.transform.position;
 
         base.SetFirstStatus();
+
     }
+
+    private void MakeBasicGun()
+    {
+        GunItemData gunItemData = Resources.Load<GunItemData>("Datas/Weapons/BasicGunData");
+        _inventory = gameObject.AddComponent<Inventory>();
+        inventory.Add(gunItemData);
+
+        currentWeaponSpace = currentAirCraft.GetComponentInChildren<WeaponSpace>();
+
+        gunItemData.SetStatus(10, 1, currentWeaponSpace, this, teamType, this);
+        gunItemData.useCycle = 0.35f;
+        gunItemData.projectilePrefab = Resources.Load<GameObject>("Bullets/BasicBullet");
+
+        BasicGun basicGun = new BasicGun(gunItemData);
+        weapons.Add(basicGun);
+
+        selectedWeapon = basicGun;
+    }
+
     protected override void Update()
     {
-        currentAirCraft.transform.localPosition = Vector3.zero;
         base.Update();
-        
         Attack();
 
         if (isInvincibilityBlinking)
@@ -132,7 +142,6 @@ public class Player : UnitBase, IPlayer
 
     protected override void OnTriggerEnter(Collider other)
     {
-        Debug.Log(name + ":Trigger 발동");
 
         if (isImmortal)
         {
@@ -143,7 +152,6 @@ public class Player : UnitBase, IPlayer
     }
     protected override void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Player Collision충돌: " + collision.gameObject.name);
     }
 
     protected override void OnCollisionStay(Collision collision)
@@ -315,7 +323,10 @@ public class Player : UnitBase, IPlayer
     public void Attack()
     {
         if(_isAttacking)
+        {
+            Debug.Log("공격중");
             selectedWeapon.Use();
+        }
     }
 
     public void SpecialAttack()
@@ -328,51 +339,78 @@ public class Player : UnitBase, IPlayer
 
     }
 
-    public void UseItem()
+    public void UseItem(ItemType itemType)
     {
-        selectedConsumableItem.Use();
+        switch (itemType)
+        {
+            case ItemType.Consumable:
+                selectedConsumableItem.Use();
+                int count = inventory.Remove(selectedConsumableItem.data.id, 1);
+                Debug.Log("남은 아이템 개수: " + count);
+                if (0 == count)
+                {
+                    consumableItemOrder.Remove(consumableItemOrder.Count);
+                    ChangeSelectedItem(itemType);
+                }
+                break;
+            case ItemType.Weapon:
+                break;
+            default:
+                break;
+        }
+        UIManager.instance.CheckItem(itemType);
     }
 
     public void GiveItem(ItemData item)
     {
-        if(inventory.CheckExist(item.id))
+        ItemType itemType = item.itemType;
+        switch (itemType)   
         {
-            inventory.Add(item);
+            case ItemType.Consumable:
+                if (inventory.CheckExist(item.id))
+                {
+                    inventory.Add(item);
+                    selectedConsumableItem = (ConsumableItemBase)inventory.GetItemData(item.id).CreateItem();
+                    selectedConsumableItem.PrintItemName();
+                    break;
+                }
+                selectedConsumableItem = (ConsumableItemBase)inventory.Add(item).CreateItem();
+                consumableItemOrder.Add(consumableItemOrder.Count, item.id);
+                currentConsumableItemIdx++;
+
+                break;
+            case ItemType.Weapon:
+
+                weaponItemOrder.Add(weaponItemOrder.Count, item.id);
+                currentWeaponIdx++;
+
+                break;
+
+            default:
+                break;
         }
-        else
+        UIManager.instance.CheckItem(itemType);;
+
+    }
+    public void ChangeSelectedItem(ItemType itemType)
+    {
+        switch (itemType)
         {
-            inventory.Add(item);
+            case ItemType.Consumable:
+                currentConsumableItemIdx++;
+                if (currentConsumableItemIdx == consumableItemOrder.Count)
+                {
+                    currentConsumableItemIdx = 0;
+                }
+                selectedConsumableItem = (ConsumableItemBase)inventory.GetItemData(consumableItemOrder[currentConsumableItemIdx]).CreateItem();
 
-            switch (item.itemType)
-            {
-                case ItemType.Consumable:
-                    consumableItemOrder.Add(consumableItemOrder.Count, item.id);
-                    currentConsumableItemIdx++;
-
-                    break;
-                case ItemType.Weapon:
-                    
-                    weaponOrder.Add(weaponOrder.Count, item.id);
-                    currentWeaponIdx++;
-                    break;
-
-                default:
-                    break;
-            }
-
-            //selectedConsumableItem = item.CreateItem();
+                break;
+            case ItemType.Weapon:
+                break;
+            default:
+                break;
         }
-
-        UIManager.instance.CheckItem();
+        UIManager.instance.CheckItem(itemType);
     }
 
-    public void GiveItem(ItemBase item)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void ChangeSelectedItem()
-    {
-        throw new NotImplementedException();
-    }
 }

@@ -62,11 +62,11 @@ public class InputManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.X))
         {
-            //playerCtrl.items[playerCtrl.currentItemIdx].Use();
+            playerCtrl.UseItem(ItemType.Consumable);
         }
         else if (Input.GetKeyDown(KeyCode.R))
         {
-            playerCtrl.ChangeSelectedItem();
+            playerCtrl.ChangeSelectedItem(ItemType.Consumable);
         }
 
     }

@@ -38,7 +38,7 @@ public class StealthEnemy : EnemyBase
 
     Transform targetPlayer;
 
-    GunItemData gunItemData;
+    [SerializeField] GunItemData gunItemData;
 
     protected override void Start()
     {
@@ -53,8 +53,8 @@ public class StealthEnemy : EnemyBase
 
         weaponSpace = transform.GetComponentInChildren<WeaponSpace>();
 
-        gunItemData = new GunItemData();
-        gunItemData.SetStatus(10, 1, weaponSpace, this, teamType);
+        gunItemData = ScriptableObject.CreateInstance<GunItemData>();
+        gunItemData.SetStatus(10, 1, weaponSpace, this, teamType, this);
         
         weapons.Add(new BasicGun(gunItemData));
         
@@ -122,7 +122,6 @@ public class StealthEnemy : EnemyBase
                 StartCoroutine(AdjustTransparency(1, 1.0f));
 
                 isAttacking = true;
-                Debug.Log("°ø°Ý ½ÃÀÛ");
 
                 for (int i = 0; i < rigidbodies.Count; i++)
                 {
@@ -144,7 +143,6 @@ public class StealthEnemy : EnemyBase
                 StartCoroutine(AdjustTransparency(0, 1.0f));
                 
                 isAttacking = false;
-                Debug.Log("°ø°Ý ¸ØÃã");
 
                 for (int i = 0; i < rigidbodies.Count; i++)
                 {

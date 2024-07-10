@@ -4,8 +4,8 @@ using UnityEngine;
 
 public interface IItemUseable
 { 
-    public void UseItem();
+    public void UseItem(ItemType itemType);
 
-    public void ChangeSelectedItem();
+    public void ChangeSelectedItem(ItemType itemType);
 
 }

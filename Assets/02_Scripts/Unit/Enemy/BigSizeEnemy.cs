@@ -81,12 +81,10 @@ public class BigSizeEnemy : EnemyBase
     IEnumerator RotateGradually(Vector3 eulerPerSec, float duration)
     {
         float time = 0;
-        Debug.Log("time: " + 0 + "duration: " + duration);
         while (time <= duration)
         {
             transform.Rotate(eulerPerSec * Time.deltaTime, Space.Self);
             time += Time.deltaTime;
-            Debug.Log("È¸Àü½ÃÅ´"); 
             yield return new WaitForEndOfFrame();
         }
     }

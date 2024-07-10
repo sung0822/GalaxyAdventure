@@ -5,6 +5,6 @@ using UnityEngine;
 public interface ICarryable 
 {
     public Inventory inventory { get;}
-    void GiveItem(ItemBase item);
+    void GiveItem(ItemData item);
 
 }

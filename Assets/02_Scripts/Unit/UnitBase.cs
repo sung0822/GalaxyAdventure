@@ -11,7 +11,6 @@ using static UnityEngine.UI.CanvasScaler;
 [RequireComponent(typeof(Rigidbody))]
 public abstract class UnitBase : MonoBehaviour, ITeamMember
 {
-    int arraySize = 10;
     public AudioSource audioSource;
     protected AudioClip audioClip;
 
@@ -52,12 +51,26 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
     }
     protected void SetBody()
     {
+        Collider colliderSelf = GetComponent<Collider>();
         unitBodyColliders.AddRange(GetComponentsInChildren<UnitBody>());
         int count = unitBodyColliders.Count;
-        for (int i = 0; i < count; i++)
+
+        if (colliderSelf == null)
         {
-            rigidbodies.Add(unitBodyColliders[i].rigidbody);
-            colliders.Add(unitBodyColliders[i].collider);
+            for (int i = 0; i < count; i++)
+            {
+                rigidbodies.Add(unitBodyColliders[i].rigidbody);
+                colliders.Add(unitBodyColliders[i].collider);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < count; i++)
+            {
+                rigidbodies.Add(unitBodyColliders[i].rigidbody);
+                colliders.Add(unitBodyColliders[i].collider);
+                Physics.IgnoreCollision(colliderSelf, unitBodyColliders[i].collider);
+            }
         }
 
         for (int i = count; i > 0; i--)

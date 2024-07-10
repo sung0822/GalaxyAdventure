@@ -5,8 +5,8 @@ using static UnityEngine.GraphicsBuffer;
 
 public abstract class EnemyBase : UnitBase, IMovalble, IAttackable
 {
-    protected List<WeaponItem> weapons = new List<WeaponItem>();
-    protected WeaponItem currentWeapon;
+    protected List<WeaponItemBase> weapons = new List<WeaponItemBase>();
+    protected WeaponItemBase currentWeapon;
     //protected Dictionary<string, IPattern> patternsDic = new Dictionary<string, IPattern>();
 
     protected IPlayer player;
@@ -26,6 +26,8 @@ public abstract class EnemyBase : UnitBase, IMovalble, IAttackable
     public abstract float moveSpd { get; set; }
 
     protected bool hasCollideWithWall = false;
+
+    
 
     protected override void Start()
     {

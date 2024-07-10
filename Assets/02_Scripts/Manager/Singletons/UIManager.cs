@@ -40,7 +40,8 @@ public class UIManager : MonoBehaviour
     public GameObject rtMaker;
 
     List<ItemComponent> items = new List<ItemComponent>();
-    ItemComponent showingItem;
+    ItemComponent showingConsumableItem;
+    ItemComponent showingWeaponItem;
 
     TextMeshProUGUI consumableItemText;
     TextMeshProUGUI weaponItemText;
@@ -86,7 +87,8 @@ public class UIManager : MonoBehaviour
         {
             items[i].gameObject.SetActive(false);
         }
-        CheckItem();
+        CheckItem(ItemType.Consumable);
+        CheckItem(ItemType.Weapon);
 
     }
 
@@ -114,40 +116,51 @@ public class UIManager : MonoBehaviour
         scoreText.text = MainManager.instance.score.ToString();
     }
 
-    public void CheckItem()
+    public void CheckItem(ItemType itemType)
     {
-        ItemBase selectedItem = playerCtrl.selectedConsumableItem;
-        if (selectedItem == null)
+        switch (itemType)
         {
-            return;
-        }
+            case ItemType.Consumable:
+                ItemBase selectedConsumableItem = playerCtrl.selectedConsumableItem;
+                if (selectedConsumableItem == null)
+                {
+                    return;
+                }
 
 
-        int count = playerCtrl.inventory.GetItemCount(selectedItem.data.id);
+                int count = playerCtrl.inventory.GetItemCount(selectedConsumableItem.data.id);
+                Debug.Log("ConsumableItem Count: " + count);
 
-        for (int i = 0; i < items.Count; i++)
-        {
-            if(items[i].itemId != playerCtrl.selectedConsumableItem.data.id)
-            {
-                continue;
-            }
-            // 해당 렌더텍스쳐와 플레이어 아이템 id가 같을 시
-            if (showingItem == null)
-            {
-                showingItem = items[i];
-                showingItem.gameObject.SetActive(true);
+                for (int i = 0; i < items.Count; i++)
+                {
+                    if (items[i].itemId != playerCtrl.selectedConsumableItem.data.id)
+                    {
+                        continue;
+                    }
+                    // 해당 렌더텍스쳐와 플레이어 아이템 id가 같을 시
+                    if (showingConsumableItem == null)
+                    {
+                        showingConsumableItem = items[i];
+                        showingConsumableItem.gameObject.SetActive(true);
+                        break;
+                    }
+
+                    showingConsumableItem.gameObject.SetActive(false);
+
+                    showingConsumableItem = items[i];
+                    showingConsumableItem.gameObject.SetActive(true);
+                    break;
+                }
+
+                consumableItemText.text = "x" + count.ToString();
+
                 break;
-            }
-
-            showingItem.gameObject.SetActive(false);
-
-            showingItem = items[i];
-            showingItem.gameObject.SetActive(true);
-            break;
+            case ItemType.Weapon:
+                break;
+            default:
+                break;
         }
         
-        consumableItemText.text = "x" + count.ToString();
-
     }
 
     public void SwitchPausePanel(bool isPaused)
