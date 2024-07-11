@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.UIElements;
 using static UnityEditor.Progress;
 
 public class Player : UnitBase, IPlayer
@@ -16,13 +17,11 @@ public class Player : UnitBase, IPlayer
     List<GameObject> aircrafts = new List<GameObject>();
 
     WeaponSpace currentWeaponSpace;
-    public GameObject basicGunPrefab;
     MeshRenderer meshRenderer;
 
     public Inventory inventory { get { return _inventory; }}
     [SerializeField] protected Inventory _inventory;
 
-    public List<WeaponItemBase> weapons = new List<WeaponItemBase>();
     Dictionary<int, int> weaponItemOrder = new Dictionary<int, int>();
     public WeaponItemBase selectedWeaponItem;
     public int currentWeaponkey = -1;
@@ -245,34 +244,48 @@ public class Player : UnitBase, IPlayer
     {
         base.Hit(damage);
 
+        if (_isImmortal)
+        {
+            return;
+        }
+
         _isImmortal = true;
         isInvincibilityBlinking = true;
-
-        StartCoroutine(SetImmortal(false, 2.0f));
+        SetImmortalDuring(false, 3.0f);
         StartCoroutine(InvincibilityBlink());
 
         UIManager.instance.CheckPlayerHp();
     }
     public override void Hit(int damage, Vector3 position)
     {
-        base.Hit(damage, position);
+        if (isImmortal)
+            return;
+        currentHp -= damage;
 
-        _isImmortal = true;
+        GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.basicParticle, position, Quaternion.Euler(0, 0, 0));
+        Destroy(particle, 0.7f);
+
+        CheckDead();
         isInvincibilityBlinking = true;
-
-        StartCoroutine(SetImmortal(false, 2.0f));
+        SetImmortalDuring(true, 3.0f);
         StartCoroutine(InvincibilityBlink());
 
         UIManager.instance.CheckPlayerHp();
     }
-    public override void Hit(int damage, Transform transform)
+    public override void Hit(int damage, Transform hitTransform)
     {
-        base.Hit(damage, transform);
+        if (isImmortal)
+            return;
+        currentHp -= damage;
 
+        GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.basicParticle, hitTransform.position, Quaternion.Euler(0, 0, 0));
+        Destroy(particle, 0.7f);
+
+        CheckDead();
+        
         _isImmortal = true;
         isInvincibilityBlinking = true;
-
-        StartCoroutine(SetImmortal(false, 2.0f));
+        SetImmortalDuring(false, 3.0f);
         StartCoroutine(InvincibilityBlink());
 
         UIManager.instance.CheckPlayerHp();
@@ -448,6 +461,10 @@ public class Player : UnitBase, IPlayer
                 break;
         }
         UIManager.instance.CheckItem(itemType, this);
+    }
+
+    public void ChangeBullet()
+    {
     }
 
 }

@@ -70,7 +70,7 @@ public class BigSizeEnemy : EnemyBase
         currentWeapon.Use();
     }
 
-    protected override void DieUnit()
+    public override void DieUnit()
     {
         DieEnemy();
 

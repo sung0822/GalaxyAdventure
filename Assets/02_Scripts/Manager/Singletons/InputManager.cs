@@ -79,7 +79,7 @@ public class InputManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F1))
         {
-            playerCtrl.SetImmortal(!playerCtrl.isImmortal, float.MaxValue);
+            playerCtrl.SetImmortalDuring(!playerCtrl.isImmortal, float.MaxValue);
         }
         else if(Input.GetKeyDown(KeyCode.F2))
         {

@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class BombItem : ConsumableItemBase
 {
-    public BombItem(ConsumableItemData data) : base(data)
+    BombItemData bombItemData;
+    public BombItem(BombItemData bombItemData) : base(bombItemData)
     {
+        this.bombItemData = bombItemData;
     }
 
     public override void Use()
     {
+        Bomber bomber = GameObject.Instantiate<GameObject>(this.bombItemData.bomber).GetComponent<Bomber>();
+        bomber.teamType = TeamType.ALLY;
     }
 }

@@ -159,9 +159,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6064724462188950983}
-  - component: {fileID: 5878739497343620172}
   - component: {fileID: 1099005670791865655}
   - component: {fileID: 5732000397775688119}
+  - component: {fileID: 5027755973378214624}
   m_Layer: 7
   m_Name: ArmorPiercingBullet
   m_TagString: PROJECTILE
@@ -185,18 +185,6 @@ Transform:
   - {fileID: 1707290211712356495}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5878739497343620172
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5507913028062610320}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a80e11c760651742970dbec94241b7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &1099005670791865655
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -245,3 +233,15 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.13, y: 0.12, z: 0.59}
   m_Center: {x: 0, y: 0, z: 0.3}
+--- !u!114 &5027755973378214624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5507913028062610320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b91aba193bdef9a429eee4d153697a19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -61,7 +61,7 @@ public class Eagle : EnemyBase
         base.OnTriggerEnter(other);
     }
 
-    protected override void DieUnit()
+    public override void DieUnit()
     {
         player.GivePlayerExp(rewardExp);
         MainManager.Get().score += rewardScore;

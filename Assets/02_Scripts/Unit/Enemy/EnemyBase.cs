@@ -87,7 +87,7 @@ public abstract class EnemyBase : UnitBase, IMovalble, IAttackable
         SetImmortal(false);
     }
 
-    protected override void DieUnit()
+    public override void DieUnit()
     {
         DieEnemy();
         base.DieUnit();

@@ -13,6 +13,11 @@ public class ShieldItemData : ConsumableItemData
     [SerializeField] UnitBase _unitUser;
 
     [SerializeField] ItemUsageType _itemUsageType;
+    public float shieldTerm { get {return _shieldTerm;} }
+    [SerializeField] float _shieldTerm;
+
+    public GameObject barrierPrefab { get { return _barrierPrefab; } }
+    [SerializeField] GameObject _barrierPrefab;
 
     public override ItemBase CreateItem()
     {

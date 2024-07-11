@@ -13,6 +13,12 @@ public class BombItemData : ConsumableItemData
     public override UnitBase unitUser { get { return _unitUser; } set { _unitUser = value; } }
     [SerializeField] private UnitBase _unitUser;
 
+    public GameObject bomber { get { return _bomber; } set { _bomber = value; } }
+    [SerializeField] private GameObject _bomber;
+
+    public TeamType teamType { get { return _teamType; } set { _teamType = value; } }
+    [SerializeField] private TeamType _teamType;
+
 
     public override ItemBase CreateItem()
     {

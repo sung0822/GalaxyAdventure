@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class NormalBullet : Projectile
 {
-    
+    public override int power { get { return _power; } set { _power = value; } }
+    protected int _power = 0;
     public override void Shoot()
     {
-        isShooting = true;
+        base.Shoot();
     }
 
     protected override void Start()
     {
-        base.Start();
     }
 
     // Update is called once per frame

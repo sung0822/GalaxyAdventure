@@ -552,13 +552,13 @@ MonoBehaviour:
   enableSlow: 0
   enableAttack: 0
   lifeTime: 0
-  _power: 20
+  _power: 10
   _maxHp: 700
-  _currentHp: 40
+  _currentHp: 700
   _moveSpd: 10
   _rewardExp: 10
   _rewardScore: 100
-  gunItemData: {fileID: 11400000, guid: 85c5dc7e38113f840a5f762830f916b9, type: 2}
+  gunItemData: {fileID: 11400000, guid: 38831413cc76cbe499a66b73cdcab1c4, type: 2}
 --- !u!82 &4875306463989942123
 AudioSource:
   m_ObjectHideFlags: 0

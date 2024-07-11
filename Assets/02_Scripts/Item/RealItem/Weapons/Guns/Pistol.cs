@@ -6,7 +6,9 @@ using UnityEngine;
 
 public class Pistol : GunItemBase
 {
+    PistolItemData pistolItemData;
     public Pistol(PistolItemData gunItemdata) : base(gunItemdata)
     {
+        pistolItemData = gunItemdata;
     }
 }

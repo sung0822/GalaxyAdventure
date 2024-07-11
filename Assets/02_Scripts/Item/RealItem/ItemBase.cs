@@ -9,10 +9,14 @@ public interface IUseable
 
 public abstract class ItemBase : IUseable
 {
-    public ItemBase(ItemData data) => this._data = data;
+
     public ItemData data { get { return _data; } }
     protected ItemData _data;
     public abstract void Use();
+    public ItemBase(ItemData data)
+    {
+        this._data = data;
+    }
     public string PrintItemName()
     {
         Debug.Log("itemName: " + data.itemName);

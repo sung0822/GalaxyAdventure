@@ -42,11 +42,11 @@ public class GunLevelTwoState : IGunState
 
 
 
-        projectile.power += gunItemData.attackableUser.power;
+        projectile.power += gunItemData.power + gunItemData.attackableUser.power;
         projectile.spd = gunItemData.forceForProjectile;
         projectile.teamType = gunItemData.teamType;
         
-        projectile2.power += gunItemData.attackableUser.power;
+        projectile2.power += gunItemData.power + gunItemData.attackableUser.power;
         projectile2.spd = gunItemData.forceForProjectile;
         projectile2.teamType = gunItemData.teamType;
 

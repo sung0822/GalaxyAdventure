@@ -47,15 +47,15 @@ public class GunLevelThreeState : IGunState
         Projectile projectile3 = projectileObject3.GetComponent<Projectile>();
 
 
-        projectile.power += gunItemData.attackableUser.power;
+        projectile.power += gunItemData.power + gunItemData.attackableUser.power;
         projectile.spd = gunItemData.forceForProjectile;
         projectile.teamType = gunItemData.teamType;
 
-        projectile2.power += gunItemData.attackableUser.power;
+        projectile2.power += gunItemData.power + gunItemData.attackableUser.power;
         projectile2.spd = gunItemData.forceForProjectile;
         projectile2.teamType = gunItemData.teamType;
 
-        projectile3.power += gunItemData.attackableUser.power;
+        projectile3.power += gunItemData.power + gunItemData.attackableUser.power;
         projectile3.spd = gunItemData.forceForProjectile;
         projectile3.teamType = gunItemData.teamType;
 

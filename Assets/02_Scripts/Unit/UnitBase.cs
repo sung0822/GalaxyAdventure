@@ -146,10 +146,6 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
 
     public virtual void Hit(int damage)
     {
-        if (isDie)
-        {
-            return;
-        }
         if (isImmortal)
         {
             return;
@@ -179,9 +175,8 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
     {
 
         if (isImmortal)
-        {
             return;
-        }
+        
         currentHp -= damage;
 
         GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.basicParticle, position, Quaternion.Euler(0, 0, 0));
@@ -200,11 +195,16 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
     {
         this._isBumpedIntoEnemy = isBumpedIntoEnemy;
     }
-
-    public virtual IEnumerator SetImmortal(bool isImmortal, float time)
+    public void SetImmortalDuring(bool isImmortal, float time)
     {
-        yield return new WaitForSeconds(time);
+        StartCoroutine(SetImmortalCoroutine(isImmortal, time));
+    }
+    protected IEnumerator SetImmortalCoroutine(bool isImmortal, float time)
+    {
         this._isImmortal = isImmortal;
+        Debug.Log("Player isImmortal: " + isImmortal);
+        yield return new WaitForSeconds(time);
+        this._isImmortal = !isImmortal;
     }
     public virtual void SetImmortal(bool isImmortal)
     {
@@ -215,9 +215,6 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
     {
         if (currentHp <= 0)
         {
-            audioSource.clip = audioClip;
-            audioSource.enabled = true;
-            audioSource.PlayOneShot(audioClip, 1.0f);
             DieUnit();
             return true;
         }
@@ -229,9 +226,12 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
 
 
     /// <summary> 오브젝트 파괴하고 파티클 생성 </summary>
-    protected virtual void DieUnit()
+    public virtual void DieUnit()
     {
         isDie = true;
+        audioSource.clip = audioClip;
+        audioSource.enabled = true;
+        audioSource.PlayOneShot(audioClip, 1.0f);
         GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.unitExplodingParticle, transform.position, transform.rotation);
 
         particle.transform.localScale = this.transform.localScale * 0.1f;

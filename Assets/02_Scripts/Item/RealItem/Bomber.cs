@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bomber : MonoBehaviour
+public class Bomber : MonoBehaviour, ITeamMember
 {
     Transform spawnPoint;
     GameObject missile;
     
     public float moveSpd = 10;
     bool isDropped = false;
+    public TeamType teamType { get { return _teamType; } set { _teamType = value; } }
+    private TeamType _teamType;
 
     void Start()
     {
@@ -24,7 +26,7 @@ public class Bomber : MonoBehaviour
 
         if (transform.position.z >= 0 && !isDropped)
         {
-            Instantiate(missile);
+            Missile missile = Instantiate(this.missile).GetComponent<Missile>();
             isDropped = true;
         }
     }

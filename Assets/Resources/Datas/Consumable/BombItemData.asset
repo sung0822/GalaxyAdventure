@@ -15,5 +15,7 @@ MonoBehaviour:
   _id: 2
   _itemName: 
   _isUsing: 0
-  _itemUsageType: 1
+  _itemUsageType: 0
   _unitUser: {fileID: 0}
+  _bomber: {fileID: 4734719065074426907, guid: 7b795bf22e291d040be83b1ac88273d9, type: 3}
+  _teamType: 0

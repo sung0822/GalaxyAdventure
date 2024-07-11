@@ -17,3 +17,5 @@ MonoBehaviour:
   _isUsing: 0
   _unitUser: {fileID: 0}
   _itemUsageType: 0
+  _shieldTerm: 7
+  _barrierPrefab: {fileID: 8809148706134917461, guid: c9749001ff7a22f4a855f66311a770f9, type: 3}

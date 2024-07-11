@@ -32,4 +32,9 @@ public abstract class GunItemBase : WeaponItemBase
         gunItemData.level -= 1;
     }
 
+    public void ChangeBullet(GameObject projectilePrefab)
+    {
+        gunItemData.projectilePrefab = projectilePrefab;
+    }
+
 }

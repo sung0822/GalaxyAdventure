@@ -4,11 +4,10 @@ using UnityEngine;
 
 public abstract class Projectile : MonoBehaviour, ITeamMember
 {
-    public int power { get => _power; set => _power = value; }
-    public float spd { get => _spd; set => _spd = value; }
-
-    protected int _power = 0;
+    public abstract int power { get; set; }
+    public float spd { get { return _spd; } set { _spd = value; } }
     protected float _spd = 0;
+
     
     protected bool isShooting;
     public TeamType teamType { get { return _teamType; } set { _teamType = value; } }
@@ -27,7 +26,7 @@ public abstract class Projectile : MonoBehaviour, ITeamMember
 
     }
 
-    protected void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         if (isDestroied)
         {
@@ -39,15 +38,15 @@ public abstract class Projectile : MonoBehaviour, ITeamMember
             if (unit.teamType != _teamType)
             {
                 Vector3 closetPoint = other.ClosestPoint(transform.position);
-                unit.Hit(_power, closetPoint);
-                
+                unit.Hit(power, closetPoint);
+                isDestroied = true;
                 Destroy(this.gameObject);
 
                 return;
             }
             else
             {
-            }
+            }   
 
         }
     }
@@ -63,19 +62,19 @@ public abstract class Projectile : MonoBehaviour, ITeamMember
         {
             if (collision.transform.GetComponent<UnitBase>().teamType != teamType)
             {
-                collision.transform.GetComponent<UnitBase>().Hit(_power);
+                collision.transform.GetComponent<UnitBase>().Hit(power);
                 Destroy(this.gameObject);
                 return;
-            }
-            else
-            {
             }
         }
 
         
     }
 
-    public abstract void Shoot();
+    public virtual void Shoot()
+    {
+        isShooting = true;
+    }
 
 
 

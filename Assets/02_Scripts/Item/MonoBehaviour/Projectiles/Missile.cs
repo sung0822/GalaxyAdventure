@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Missile : MonoBehaviour
+public class Missile : Projectile, ITeamMember
 {
     Transform spawnPoint;
 
@@ -11,6 +11,9 @@ public class Missile : MonoBehaviour
     GameObject explosion;
 
     public float spd = 1;
+
+    public override int power { get { return _power; } set { _power = value; } }
+    private int _power;
 
     private void Awake()
     {
@@ -21,12 +24,12 @@ public class Missile : MonoBehaviour
         explosion = Resources.Load<GameObject>("Bullets/Explosion");
     }
 
-    private void Update()
+    protected override void Update()
     {
         transform.Translate(Vector3.forward * spd * Time.deltaTime, Space.Self);
     }
 
-    private void OnTriggerEnter(Collider other)
+    protected override void OnTriggerEnter(Collider other)
     {
         if (other.tag == "PLANE")
         {
@@ -38,7 +41,7 @@ public class Missile : MonoBehaviour
 
     void Explode()
     {
-        GameObject explosion = Instantiate(this.explosion);
+        Explosion explosion = Instantiate(this.explosion).GetComponent<Explosion>();
         explosion.transform.position = transform.position; 
         Destroy(this.gameObject);
     }
