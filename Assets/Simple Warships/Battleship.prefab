@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 33982591042259916}
   - component: {fileID: 23024931009104300}
   - component: {fileID: 65731194216609384}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Medium Cannons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50,7 +50,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1067374995210044}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 33349803449634586}
   - component: {fileID: 23820320054652662}
   - component: {fileID: 65932098988625244}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Large Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -156,7 +156,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1091212372621910}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: 33538287180145040}
   - component: {fileID: 23049366821400644}
   - component: {fileID: 65499314238943334}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Small Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -262,7 +262,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1142375084225564}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -329,7 +329,7 @@ GameObject:
   - component: {fileID: 33543109360967364}
   - component: {fileID: 23272416811734396}
   - component: {fileID: 65146948302371568}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Small Cannons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -367,7 +367,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1152335015086766}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -434,7 +434,7 @@ GameObject:
   - component: {fileID: 33112265141207676}
   - component: {fileID: 23062104803377146}
   - component: {fileID: 65687691417453640}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Small Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -473,7 +473,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1159939571549066}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -540,7 +540,7 @@ GameObject:
   - component: {fileID: 33110618921622814}
   - component: {fileID: 23417334618772322}
   - component: {fileID: 65005337911911300}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Small Cannons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -578,7 +578,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1166103359228462}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -645,7 +645,7 @@ GameObject:
   - component: {fileID: 33942854050728086}
   - component: {fileID: 23012817207340872}
   - component: {fileID: 65165850259093796}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Small Cannons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -683,7 +683,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1202126190463726}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -750,7 +750,7 @@ GameObject:
   - component: {fileID: 33511263659272850}
   - component: {fileID: 23772966006281810}
   - component: {fileID: 65086466377410656}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Small Cannons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -788,7 +788,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1219537971965552}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -855,7 +855,7 @@ GameObject:
   - component: {fileID: 33963524606995114}
   - component: {fileID: 23712689763950862}
   - component: {fileID: 65450506485248136}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Medium Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -894,7 +894,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1257192311937704}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -961,7 +961,7 @@ GameObject:
   - component: {fileID: 33516512400767644}
   - component: {fileID: 23181354129260578}
   - component: {fileID: 65150517641640456}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Small Cannons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -999,7 +999,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1288254123668534}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -1066,7 +1066,7 @@ GameObject:
   - component: {fileID: 33822203873634510}
   - component: {fileID: 23388016241166434}
   - component: {fileID: 65729600701402448}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Large Cannons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1104,7 +1104,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1307851949100322}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -1168,7 +1168,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4886044998786962}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Weapons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1218,7 +1218,7 @@ GameObject:
   - component: {fileID: 33349388823638528}
   - component: {fileID: 23612706318549540}
   - component: {fileID: 65616769896906628}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Medium Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1257,7 +1257,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1390661720521370}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -1324,7 +1324,7 @@ GameObject:
   - component: {fileID: 33771339806270276}
   - component: {fileID: 23170634988479314}
   - component: {fileID: 65316287068453022}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Large Cannons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1362,7 +1362,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1400487395398574}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -1429,7 +1429,7 @@ GameObject:
   - component: {fileID: 33273758405771616}
   - component: {fileID: 23129367185685494}
   - component: {fileID: 65377860408542188}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Small Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1468,7 +1468,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1404381941816146}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -1535,7 +1535,7 @@ GameObject:
   - component: {fileID: 33551218489597070}
   - component: {fileID: 23771202231807340}
   - component: {fileID: 65658793615561694}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Small Cannons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1573,7 +1573,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1409742708638140}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -1640,7 +1640,7 @@ GameObject:
   - component: {fileID: 33776123110021230}
   - component: {fileID: 23985809473815148}
   - component: {fileID: 65311243157236962}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Large Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1679,7 +1679,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1415331000246130}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -1746,7 +1746,7 @@ GameObject:
   - component: {fileID: 33624905073592888}
   - component: {fileID: 23365386680975340}
   - component: {fileID: 65614427495926960}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Medium Cannons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1784,7 +1784,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1420697578662060}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -1851,7 +1851,7 @@ GameObject:
   - component: {fileID: 33274407789677362}
   - component: {fileID: 23731002427568308}
   - component: {fileID: 65372514276820990}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Large Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1890,7 +1890,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1460967861838036}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -1957,7 +1957,7 @@ GameObject:
   - component: {fileID: 33154066257295038}
   - component: {fileID: 23598999720240692}
   - component: {fileID: 65092303815981788}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Small Cannons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1995,7 +1995,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1512382619255842}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -2062,7 +2062,7 @@ GameObject:
   - component: {fileID: 33320768957865470}
   - component: {fileID: 23187013084098716}
   - component: {fileID: 65821194745616392}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Large Cannons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2100,7 +2100,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1572957833127472}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -2167,7 +2167,7 @@ GameObject:
   - component: {fileID: 33151447905198364}
   - component: {fileID: 23567230998158716}
   - component: {fileID: 65984409597697042}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Small Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2206,7 +2206,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1596703760448642}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -2273,7 +2273,7 @@ GameObject:
   - component: {fileID: 33244041757115980}
   - component: {fileID: 23980208629214570}
   - component: {fileID: 65999471724480780}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Medium Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2312,7 +2312,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1621576671782682}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -2379,7 +2379,7 @@ GameObject:
   - component: {fileID: 33690887653871476}
   - component: {fileID: 23811406304720880}
   - component: {fileID: 65960901255795216}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Medium Cannons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2417,7 +2417,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1625357546150598}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -2484,7 +2484,7 @@ GameObject:
   - component: {fileID: 33032253159421782}
   - component: {fileID: 23232511757888150}
   - component: {fileID: 65849652940892242}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Medium Cannons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2522,7 +2522,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1639134332332736}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -2589,7 +2589,7 @@ GameObject:
   - component: {fileID: 33896144128703588}
   - component: {fileID: 23561982818674152}
   - component: {fileID: 65524779707044456}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Small Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2628,7 +2628,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1652828891208414}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -2695,7 +2695,7 @@ GameObject:
   - component: {fileID: 33038986446736856}
   - component: {fileID: 23633844196683032}
   - component: {fileID: 65891924789374630}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Small Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2734,7 +2734,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1656230656517150}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -2801,7 +2801,7 @@ GameObject:
   - component: {fileID: 33000963977026716}
   - component: {fileID: 23691176581414648}
   - component: {fileID: 64536545008364172}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Battleship
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2816,9 +2816,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1813258765252098}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.000000021855694, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 55.260002, y: -4.3, z: 4.066518}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.3177439, y: 0.3177439, z: 0.3177439}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4886044998786962}
@@ -2841,7 +2841,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1813258765252098}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -2912,7 +2912,7 @@ GameObject:
   - component: {fileID: 33867973266907590}
   - component: {fileID: 23355163787652802}
   - component: {fileID: 65718936805911034}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Small Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2951,7 +2951,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1831865685939244}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -3018,7 +3018,7 @@ GameObject:
   - component: {fileID: 33427556241343172}
   - component: {fileID: 23338536317006348}
   - component: {fileID: 65347585516281970}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Medium Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3057,7 +3057,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1840385136630484}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -3124,7 +3124,7 @@ GameObject:
   - component: {fileID: 33683574845124878}
   - component: {fileID: 23245201011657054}
   - component: {fileID: 65591497187955634}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Small Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3163,7 +3163,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1872997639778798}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -3230,7 +3230,7 @@ GameObject:
   - component: {fileID: 33175330603715746}
   - component: {fileID: 23619901643544416}
   - component: {fileID: 65603602328709126}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Large Cannons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3268,7 +3268,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1907218747954874}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -3345,7 +3345,7 @@ GameObject:
   - component: {fileID: 65261080422414530}
   - component: {fileID: 65286412355785294}
   - component: {fileID: 65648651474047374}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3652,7 +3652,7 @@ GameObject:
   - component: {fileID: 33529482328135144}
   - component: {fileID: 23433830946691798}
   - component: {fileID: 65831929937424192}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Large Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3691,7 +3691,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1959843623914516}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -3758,7 +3758,7 @@ GameObject:
   - component: {fileID: 33994362384875064}
   - component: {fileID: 23511196422907624}
   - component: {fileID: 65495927333398106}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Small Cannons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3796,7 +3796,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1995590057126598}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0

@@ -21,7 +21,7 @@ public class GunLevelOneState : IGunState
     }
     public void Shoot()
     {
-        Debug.Log("½úÀ½: " + gunItemData.itemName);
+        Debug.Log(gunItemData.unitUser.name + " ½úÀ½: " + gunItemData.itemName);
         GameObject projectileObject = GameObject.Instantiate<GameObject>
                                     (gunItemData.projectilePrefab,
                                     gunItemData.weaponSpace.transform.position,
@@ -30,7 +30,6 @@ public class GunLevelOneState : IGunState
         Projectile projectile = projectileObject.GetComponent<Projectile>();
 
         projectile.power += gunItemData.power + gunItemData.attackableUser.power;
-        Debug.Log(gunItemData.itemName + " bullet power: " + projectile.power);
         projectile.spd = gunItemData.forceForProjectile;
         projectile.teamType = gunItemData.teamType;
         //AudioSource.PlayClipAtPoint(audioClip, transform.position);

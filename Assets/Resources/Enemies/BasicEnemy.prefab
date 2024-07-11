@@ -427,6 +427,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6080b2fcf87a0cf4bb0e66ba73bbcba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
   unitBodyColliders: []
   rigidbodies: []
   colliders: []
@@ -440,6 +441,7 @@ MonoBehaviour:
   _moveSpd: 10
   _rewardExp: 10
   _rewardScore: 100
+  gunItemData: {fileID: 11400000, guid: 61872b0e59a0be14fa1191495c4b35b9, type: 2}
 --- !u!82 &7541906570721928612
 AudioSource:
   m_ObjectHideFlags: 0

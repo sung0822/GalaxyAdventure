@@ -359,6 +359,9 @@ public class Player : UnitBase, IPlayer
         
         if (item.itemUsageType == ItemUsageType.ImmediatelyUse)
         {
+            item.unitUser = this;
+            item.CreateItem().Use();
+            
             Debug.Log("즉시 사용 아이템");
             return;
         }
@@ -398,7 +401,6 @@ public class Player : UnitBase, IPlayer
                 weaponItemData.SetStatus(weaponItemData.power, 1, currentWeaponSpace, this, teamType, this);
 
                 selectedWeaponItem = (GunItemBase)weaponItemData.CreateItem();
-                Debug.Log(selectedWeaponItem.weaponItemData.itemName);
 
                 weaponItemOrder.Add(weaponItemOrder.Count, item.id);
                 currentWeaponkey++;

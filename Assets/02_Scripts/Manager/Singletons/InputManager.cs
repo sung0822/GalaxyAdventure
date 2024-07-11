@@ -117,6 +117,10 @@ public class InputManager : MonoBehaviour
         {
             MainManager.instance.SwitchPauseStat();
         }
+        else if (Input.GetKeyDown(KeyCode.F9))
+        {
+            MainManager.instance.EndLevel();
+        }
     }
     
 

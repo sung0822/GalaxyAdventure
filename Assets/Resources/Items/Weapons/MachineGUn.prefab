@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 5373126873393674396}
   - component: {fileID: 8334157235524287677}
   m_Layer: 5
-  m_Name: MachineGun
+  m_Name: MachineGUn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5293483408634637861
 Transform:
   m_ObjectHideFlags: 0
@@ -50,7 +50,7 @@ MonoBehaviour:
   moveSpd: 0.15
   risePos: 0.3
   _itemId: 0
-  itemData: {fileID: 11400000, guid: 4b6864a3582999049b8c12cc9c4c034b, type: 2}
+  itemData: {fileID: 11400000, guid: 85c5dc7e38113f840a5f762830f916b9, type: 2}
 --- !u!65 &8334157235524287677
 BoxCollider:
   m_ObjectHideFlags: 0

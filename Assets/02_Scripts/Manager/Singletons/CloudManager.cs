@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
 
 public class CloudManager : MonoBehaviour
@@ -52,5 +53,10 @@ public class CloudManager : MonoBehaviour
 
             yield return new WaitForSeconds(waitTime);
         }
+    }
+
+    private void OnDestroy()
+    {
+        CloudMover.InitClouds();
     }
 }

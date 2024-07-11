@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffb5fa8dce1f39b42839959570c9740f, type: 3}
-  m_Name: SniperItemData
+  m_Script: {fileID: 11500000, guid: fff99ba86ed861f4a8b1ce9e53f22a39, type: 3}
+  m_Name: SniperitemData
   m_EditorClassIdentifier: 
   _id: 102
   _itemName: Sniper

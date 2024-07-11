@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEditor.Search;
+using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -35,7 +38,7 @@ public class UIManager : MonoBehaviour
 
     public Player playerCtrl;
 
-    public GameObject Panel_Pause;
+    public GameObject panel_Pause;
 
     public GameObject rtMaker;
     public GameObject rtMaker_1;
@@ -47,6 +50,10 @@ public class UIManager : MonoBehaviour
     List<ItemComponent> weaponItems = new List<ItemComponent>();
     public ItemComponent showingWeaponItem;
     public TextMeshProUGUI weaponItemText;
+
+    public TextMeshProUGUI finalScore;
+    public GameObject panel_Final;
+    public Button replayButton;
 
 
     void Start()
@@ -74,8 +81,8 @@ public class UIManager : MonoBehaviour
         CheckPlayerHp();
         CheckPlayerExp();
 
-        Panel_Pause = canvas.transform.Find("Panel_Pause").gameObject;
-        Panel_Pause.SetActive(false);
+        panel_Pause = canvas.transform.Find("Panel_Pause").gameObject;
+        panel_Pause.SetActive(false);
 
 
         rtMaker = GameObject.FindGameObjectWithTag("RT_MAKER"); 
@@ -96,6 +103,8 @@ public class UIManager : MonoBehaviour
         {
             weaponItems[i].gameObject.SetActive(false);
         }
+
+        replayButton.onClick.AddListener(delegate { LoadMenu(); });
 
 
         CheckItem(ItemType.Consumable, playerCtrl);
@@ -167,11 +176,9 @@ public class UIManager : MonoBehaviour
 
                 break;
             case ItemType.Weapon:
-                Debug.Log(playerCtrl.selectedConsumableItem);
                 WeaponItemBase selectedWeaponItem = playerCtrl.selectedWeaponItem;
                 if (selectedWeaponItem == null)
                 {
-                    Debug.Log("선택된 무기 없음");
                     return;
                 }
 
@@ -179,12 +186,10 @@ public class UIManager : MonoBehaviour
 
                 for (int i = 0; i < weaponItems.Count; i++)
                 {
-                    Debug.Log("반복문 시작");
                     if (weaponItems[i].itemId != playerCtrl.selectedWeaponItem.data.id)
                     {
                         continue;
                     }
-                    Debug.Log("진입");
                     // 해당 렌더텍스쳐와 플레이어 아이템 id가 같을 시
                     if (showingWeaponItem == null)
                     {
@@ -211,8 +216,20 @@ public class UIManager : MonoBehaviour
 
     public void SwitchPausePanel(bool isPaused)
     {
-        Panel_Pause.SetActive(isPaused);
+        panel_Pause.SetActive(isPaused);
     }
+
+    public void ShowEndLevelPanel()
+    {
+        panel_Final.SetActive(true);
+        finalScore.text = MainManager.instance.score.ToString();
+    }
+
+    public void LoadMenu()
+    {
+        SceneManager.LoadScene("Menu");
+    }
+
 
 
 }

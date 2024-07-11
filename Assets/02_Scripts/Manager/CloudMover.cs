@@ -14,13 +14,12 @@ public class CloudMover : MonoBehaviour
 
     void Start()
     {
-        cloudTransform = transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-        cloudTransform.Translate(Vector3.forward * -0.001f * moveSpd * Time.deltaTime, Space.World);
+        transform.Translate(Vector3.forward * -0.001f * moveSpd * Time.deltaTime, Space.World);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -65,12 +64,21 @@ public class CloudMover : MonoBehaviour
             Transform formation = formations[i];
 
             for (int j = 0; j < formation.childCount; j++)
-            {   
+            {
                 Transform child = formation.GetChild(j);
                 cloudPoints.Add(child);
             }
         }
+    }
+    private void OnDestroy()
+    {
+    }
 
-        
+    static public void InitClouds()
+    {
+
+        cloudPointsGroup = null;
+        formations = null;
+        cloudPoints = new List<Transform>();
     }
 }

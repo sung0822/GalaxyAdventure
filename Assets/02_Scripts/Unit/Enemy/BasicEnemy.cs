@@ -9,6 +9,8 @@ using static UnityEngine.GraphicsBuffer;
 public class BasicEnemy : EnemyBase
 {
     WeaponSpace currentWeaponSpace;
+
+    protected WeaponItemBase currentWeapon;
     float shootCycle = 3.0f;
     public override bool isAttacking { get { return _isAttacking; } set { _isAttacking = value; } }
     bool _isAttacking;
@@ -47,17 +49,10 @@ public class BasicEnemy : EnemyBase
         gunItemData = ScriptableObject.Instantiate(gunItemData);
 
         gunItemData.SetStatus(10, 1, currentWeaponSpace, this, teamType, this);
-        gunItemData.useCycle = 1.5f;
-        gunItemData.forceForProjectile = 8;
         gunItemData.level = 1;
         currentWeapon = new Pistol((PistolItemData)gunItemData);
 
-        if (currentWeapon == null)
-        {
-            Debug.Log("¹«±â nullÀÓ");
-        }
         
-        isAttacking = false;
     }
 
 
@@ -88,14 +83,5 @@ public class BasicEnemy : EnemyBase
         currentWeapon.Use();
     }
 
-    IEnumerator StartAttack()
-    {
-        while (true) 
-        {
-            Attack();
-            yield return new WaitForSeconds(shootCycle);
-        
-        }
-    }
 
 }

@@ -26,17 +26,14 @@ public abstract class GunItemData : WeaponItemData
         switch (_level) 
         {
             case 1:
-                Debug.Log(itemName + "레벨1 상태");
                 _gunState = new GunLevelOneState(this);
                 
             break;
             case 2:
-                Debug.Log(itemName + "레벨2 상태");
                 _gunState = new GunLevelTwoState(this);
 
                 break;
             case 3:
-                Debug.Log(itemName + "레벨3 상태");
                 _gunState = new GunLevelThreeState(this);
                 
             break;

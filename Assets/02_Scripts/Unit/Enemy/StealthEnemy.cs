@@ -6,6 +6,7 @@ using UnityEngine;
 public class StealthEnemy : EnemyBase
 {
     public override bool isAttacking { get; set; }
+
     protected override float spdChanged { get { return _spdChanged; } set { _spdChanged = value; } }
     private float _spdChanged = 1.0f;
     protected override float spdChangeDuration { get { return _spdChangeDuration; } set { _spdChangeDuration = value; } }
@@ -35,6 +36,7 @@ public class StealthEnemy : EnemyBase
     Material material;
 
     WeaponSpace currentWeaponSpace;
+    protected WeaponItemBase currentWeapon;
 
     Transform targetPlayer;
 
