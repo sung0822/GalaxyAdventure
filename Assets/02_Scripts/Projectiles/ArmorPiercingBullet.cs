@@ -36,7 +36,7 @@ public class ArmorPiercingBullet : Projectile
             if (unit.teamType != _teamType)
             {
                 Vector3 closetPoint = other.ClosestPoint(transform.position);
-                unit.Hit(_power, closetPoint);
+                unit.Hit(power, closetPoint);
 
                 return;
             }

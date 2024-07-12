@@ -15,7 +15,7 @@ MonoBehaviour:
   _id: 102
   _itemName: Sniper
   _power: 40
-  _level: 2
+  _level: 1
   _weaponSpace: {fileID: 0}
   _projectilePrefab: {fileID: 5150634236380144079, guid: 7e935c33671eeb14ab6ff8a3afef355c, type: 3}
   _audioClip: {fileID: 0}
@@ -23,4 +23,4 @@ MonoBehaviour:
   _forceForProjectile: 25
   _itemUsageType: 1
   _unitUser: {fileID: 0}
-  _isUsing: 1
+  _isUsing: 0

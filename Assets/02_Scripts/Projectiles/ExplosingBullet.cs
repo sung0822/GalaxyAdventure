@@ -7,7 +7,7 @@ public class ExplosingBullet : Projectile
     public override int power { get { return _power; } set { _power = value; } }
     protected int _power = 0;
 
-    GameObject explosion;
+    [SerializeField] GameObject explosionPrefab;
     public override void Shoot()
     {
         base.Shoot();
@@ -19,6 +19,7 @@ public class ExplosingBullet : Projectile
 
     protected override void Update()
     {
+        base.Update();
     }
 
     protected override void OnTriggerEnter(Collider other)
@@ -34,12 +35,17 @@ public class ExplosingBullet : Projectile
             {
                 Vector3 closetPoint = other.ClosestPoint(transform.position);
                 isDestroied = true;
-                Destroy(this.gameObject);
 
+                HitBox explosion = Instantiate<GameObject>(explosionPrefab).GetComponent<HitBox>();
+
+                explosion.transform.position = this .transform.position;
+
+                explosion.power = this.power;
+                
+                Destroy(this.gameObject);
+                Destroy(explosion.gameObject, 1.0f);
+                
                 return;
-            }
-            else
-            {
             }
 
         }

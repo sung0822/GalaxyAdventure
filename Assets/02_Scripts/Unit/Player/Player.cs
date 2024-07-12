@@ -22,13 +22,14 @@ public class Player : UnitBase, IPlayer
     public Inventory inventory { get { return _inventory; }}
     [SerializeField] protected Inventory _inventory;
 
+    /// <summary> 무기 순서. Key: 무기 인덱스, value : 아이템 id </summary>
     Dictionary<int, int> weaponItemOrder = new Dictionary<int, int>();
     public WeaponItemBase selectedWeaponItem;
-    public int currentWeaponkey = -1;
+    public int currentWeaponIdx = -1;
 
     /// <summary> 아이템 순서(인덱스, 아이템 키) </summary>
     Dictionary<int, int> consumableItemOrder = new Dictionary<int, int>();
-    protected int currentConsumableItemKey = -1;
+    protected int currentConsumableItemIdx = -1;
     public ConsumableItemBase selectedConsumableItem;
 
     public override bool isAttacking { get { return _isAttacking; } set{ _isAttacking = value; }}
@@ -82,7 +83,7 @@ public class Player : UnitBase, IPlayer
         }
 
         currentAirCraft = aircrafts[0];
-
+            
         for (int i = 1; i < aircrafts.Count; i++)
         {
             aircrafts[i].SetActive(false);
@@ -100,17 +101,23 @@ public class Player : UnitBase, IPlayer
         currentAirCraft.transform.position = this.transform.position;
 
         base.SetFirstStatus();
-
+        SetBody();
     }
 
     private void MakeBasicGun()
     {
-        GunItemData gunItemData = ScriptableObject.Instantiate(Resources.Load<PistolItemData>("Datas/Weapons/PistolItemData"));
         _inventory = gameObject.AddComponent<Inventory>();
+        GunItemData gunItemData = ScriptableObject.Instantiate(Resources.Load<PistolItemData>("Datas/Weapons/PistolItemData"));
 
         currentWeaponSpace = currentAirCraft.GetComponentInChildren<WeaponSpace>();
+
+        gunItemData.SetStatus(gunItemData.power, 1, currentWeaponSpace, this, teamType, this);
+        selectedWeaponItem = (WeaponItemBase)gunItemData.CreateItem();
         
-        GiveItem(gunItemData);
+        inventory.Add(gunItemData);
+        weaponItemOrder.Add(weaponItemOrder.Count, gunItemData.id);
+        currentWeaponIdx++;
+        Debug.Log(weaponItemOrder.Count);
 
     }
 
@@ -236,7 +243,7 @@ public class Player : UnitBase, IPlayer
         rigidbodies.Clear();
         colliders.Clear();
 
-        SetBody();
+        //SetBody();
 
     }
 
@@ -249,9 +256,8 @@ public class Player : UnitBase, IPlayer
             return;
         }
 
-        _isImmortal = true;
         isInvincibilityBlinking = true;
-        SetImmortalDuring(false, 3.0f);
+        SetImmortalDuring(true, 3.0f);
         StartCoroutine(InvincibilityBlink());
 
         UIManager.instance.CheckPlayerHp();
@@ -283,9 +289,8 @@ public class Player : UnitBase, IPlayer
 
         CheckDead();
         
-        _isImmortal = true;
         isInvincibilityBlinking = true;
-        SetImmortalDuring(false, 3.0f);
+        SetImmortalDuring(true, 3.0f);
         StartCoroutine(InvincibilityBlink());
 
         UIManager.instance.CheckPlayerHp();
@@ -354,7 +359,7 @@ public class Player : UnitBase, IPlayer
                 int count = inventory.Remove(selectedConsumableItem.data.id, 1);
                 if (0 == count)
                 {
-                    consumableItemOrder.Remove(currentConsumableItemKey);
+                    consumableItemOrder.Remove(currentConsumableItemIdx);
                     ChangeSelectedItem(itemType);
                 }
                 break;
@@ -389,7 +394,7 @@ public class Player : UnitBase, IPlayer
                 }
                 selectedConsumableItem = (ConsumableItemBase)inventory.Add(item).CreateItem();
                 consumableItemOrder.Add(consumableItemOrder.Count, item.id);
-                currentConsumableItemKey++;
+                currentConsumableItemIdx++;
 
                 break;
             case ItemType.Weapon:
@@ -410,13 +415,19 @@ public class Player : UnitBase, IPlayer
                     break;
                 }
                 // 가방안에 없으면
-                weaponItemData = (GunItemData)inventory.Add(item);
+
+                weaponItemData = (GunItemData)Instantiate<ScriptableObject>(item);
                 weaponItemData.SetStatus(weaponItemData.power, 1, currentWeaponSpace, this, teamType, this);
-
+                
+                GameObject projectilePrefab = ((GunItemData)(selectedWeaponItem.data)).projectilePrefab;
+                
                 selectedWeaponItem = (GunItemBase)weaponItemData.CreateItem();
+                Debug.Log(selectedWeaponItem.data.itemName);
+                ChangeBullet(projectilePrefab);
 
-                weaponItemOrder.Add(weaponItemOrder.Count, item.id);
-                currentWeaponkey++;
+                weaponItemOrder.Add(weaponItemOrder.Count + 1, item.id);
+                Debug.Log("갖고있는 총 개수: " + weaponItemOrder.Count);
+                currentWeaponIdx++;
                 break;
 
             default:
@@ -434,12 +445,12 @@ public class Player : UnitBase, IPlayer
                 {
                     return;
                 }
-                currentConsumableItemKey++;
-                if (currentConsumableItemKey >= consumableItemOrder.Count)
+                currentConsumableItemIdx++;
+                if (currentConsumableItemIdx >= consumableItemOrder.Count)
                 {
-                    currentConsumableItemKey = 0;
+                    currentConsumableItemIdx = 0;
                 }
-                selectedConsumableItem = (ConsumableItemBase)inventory.GetItemData(consumableItemOrder[currentConsumableItemKey]).CreateItem();
+                selectedConsumableItem = (ConsumableItemBase)inventory.GetItemData(consumableItemOrder[currentConsumableItemIdx]).CreateItem();
 
                 break;
             case ItemType.Weapon:
@@ -447,14 +458,14 @@ public class Player : UnitBase, IPlayer
                 {
                     return;
                 }
-                currentWeaponkey++;
-                Debug.Log("무기 인덱스: " + currentWeaponkey);
+                currentWeaponIdx++;
+                Debug.Log("무기 인덱스: " + currentWeaponIdx);
                 Debug.Log("무기 개수: " + weaponItemOrder.Count);
-                if (currentWeaponkey >= weaponItemOrder.Count)
+                if (currentWeaponIdx >= weaponItemOrder.Count)
                 {
-                    currentWeaponkey = 0;
+                    currentWeaponIdx = 0;
                 }
-                selectedWeaponItem = (WeaponItemBase)inventory.GetItemData(weaponItemOrder[currentWeaponkey]).CreateItem();
+                selectedWeaponItem = (WeaponItemBase)inventory.GetItemData(weaponItemOrder[currentWeaponIdx]).CreateItem();
 
                 break;
             default:
@@ -463,8 +474,48 @@ public class Player : UnitBase, IPlayer
         UIManager.instance.CheckItem(itemType, this);
     }
 
-    public void ChangeBullet()
+    public void ChangeBullet(GameObject bulletPrefab)
     {
+        for (int i = 0; i < weaponItemOrder.Count; i++)
+        {
+            Debug.Log("갖고있는 총 개수: " + weaponItemOrder.Count);
+            Debug.Log(((GunItemData)inventory.GetItemData(weaponItemOrder[i])).itemName);
+            
+            ((GunItemData)inventory.GetItemData(weaponItemOrder[i])).projectilePrefab = bulletPrefab;
+        }
+        selectedWeaponItem = (WeaponItemBase)inventory.GetItemData(weaponItemOrder[currentWeaponIdx]).CreateItem();
     }
 
+    protected void SetBody()
+    {
+        Collider colliderSelf = GetComponent<Collider>();
+        unitBodyColliders.AddRange(GetComponentsInChildren<UnitBody>());
+        int count = unitBodyColliders.Count;
+
+        if (colliderSelf == null)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                rigidbodies.Add(unitBodyColliders[i].rigidbody);
+                colliders.Add(unitBodyColliders[i].collider);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < count; i++)
+            {
+                rigidbodies.Add(unitBodyColliders[i].rigidbody);
+                colliders.Add(unitBodyColliders[i].collider);
+                Physics.IgnoreCollision(colliderSelf, unitBodyColliders[i].collider);
+            }
+        }
+
+        for (int i = count; i > 0; i--)
+        {
+            for (int j = 0; j < i - 1; j++)
+            {
+                Physics.IgnoreCollision(colliders[i - 1], colliders[j]);
+            }
+        }
+    }
 }

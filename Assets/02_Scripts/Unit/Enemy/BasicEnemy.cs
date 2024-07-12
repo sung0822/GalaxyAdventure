@@ -11,7 +11,6 @@ public class BasicEnemy : EnemyBase
     WeaponSpace currentWeaponSpace;
 
     protected WeaponItemBase currentWeapon;
-    float shootCycle = 3.0f;
     public override bool isAttacking { get { return _isAttacking; } set { _isAttacking = value; } }
     bool _isAttacking;
     protected override float spdChanged { get { return _spdChanged; } set { _spdChanged = value; } }

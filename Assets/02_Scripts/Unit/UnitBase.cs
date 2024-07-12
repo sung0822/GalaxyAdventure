@@ -5,7 +5,7 @@ using UnityEngine;
 using static UnityEngine.UI.CanvasScaler;
 
 /// <summary>
-/// ¾îÆ®¸®ºäÆ® ¹®¹ıÀ» Àß ¸ô¶ó¼­ °øºÎÇØ¾ßÇÒµí. ±â´ÉÀº ÇØ´ç ÄÄÆ÷³ÍÆ®¸¦ °ÔÀÓ¿ÀºêÁ§Æ®°¡ °¡Áöµµ·Ï °­Á¦ÇÑ´Ù.
+/// ì–´íŠ¸ë¦¬ë·°íŠ¸ ë¬¸ë²•ì„ ì˜ ëª°ë¼ì„œ ê³µë¶€í•´ì•¼í• ë“¯. ê¸°ëŠ¥ì€ í•´ë‹¹ ì»´í¬ë„ŒíŠ¸ë¥¼ ê²Œì„ì˜¤ë¸Œì íŠ¸ê°€ ê°€ì§€ë„ë¡ ê°•ì œí•œë‹¤.
 /// </summary>
 [RequireComponent (typeof (AudioSource))]
 [RequireComponent(typeof(Rigidbody))]
@@ -38,7 +38,7 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
     }
 
     /// <summary>
-    /// ¸ğµç À¯´ÖÀº ½ÃÀÛ½Ã ½ºÅÈÀ» Á¤¸®ÇÏ°í °¡¾ßÇÔ.
+    /// ëª¨ë“  ìœ ë‹›ì€ ì‹œì‘ì‹œ ìŠ¤íƒ¯ì„ ì •ë¦¬í•˜ê³  ê°€ì•¼í•¨.
     /// </summary>
     protected virtual void SetFirstStatus()
     {
@@ -47,39 +47,6 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
         transform.AddComponent<AudioSource>();
         audioSource = GetComponent<AudioSource>();
         audioClip = Resources.Load<AudioClip>("Sounds/ExplosionSound");
-        SetBody();
-    }
-    protected void SetBody()
-    {
-        Collider colliderSelf = GetComponent<Collider>();
-        unitBodyColliders.AddRange(GetComponentsInChildren<UnitBody>());
-        int count = unitBodyColliders.Count;
-
-        if (colliderSelf == null)
-        {
-            for (int i = 0; i < count; i++)
-            {
-                rigidbodies.Add(unitBodyColliders[i].rigidbody);
-                colliders.Add(unitBodyColliders[i].collider);
-            }
-        }
-        else
-        {
-            for (int i = 0; i < count; i++)
-            {
-                rigidbodies.Add(unitBodyColliders[i].rigidbody);
-                colliders.Add(unitBodyColliders[i].collider);
-                Physics.IgnoreCollision(colliderSelf, unitBodyColliders[i].collider);
-            }
-        }
-
-        for (int i = count; i > 0; i--)
-        {
-            for (int j = 0; j < i - 1; j++)
-            {
-                Physics.IgnoreCollision(colliders[i - 1], colliders[j]);
-            }
-        }
     }
 
     protected virtual void Update()
@@ -97,32 +64,54 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
     
 
     protected virtual void OnTriggerEnter(Collider other)
-    { 
+    {
+        UnitBase enemy = CheckBumpedIntoEnemy(other);
+        if (enemy == null)
+        {
+        }
+        else
+        {
+            enemy.Hit(30);
+        }
     }
 
 
-    /// <summary> ÇØ´ç Äİ¶óÀÌ´õ°¡ Àû À¯´ÖÀÎÁö Ã¼Å©, Ãæµ¹º¯¼ö¸¦ ¼³Á¤ÇÔ. </summary>
+    /// <summary> í•´ë‹¹ ì½œë¼ì´ë”ê°€ ì  ìœ ë‹›ì¸ì§€ ì²´í¬, ì¶©ëŒë³€ìˆ˜ë¥¼ ì„¤ì •í•¨. </summary>
     protected UnitBase CheckBumpedIntoEnemy(Collider other)
     {
+        if (isBumpedIntoEnemy)
+        {
+            return null;
+        }
+
         UnitBase unit = other.transform.GetComponentInParent<UnitBase>();
-        
+
         if (unit == null)
         {
             return null;
-
         }
-        
+
         if (unit.teamType != teamType)
         {
-            SetIsBumped(false, 3.0f);
+            SetIsBumped(true);
+            StartCoroutine(SetIsBumped(false, 3.0f));
+
             return unit;
         }
         else
+        {
             return null;
+        }
 
     }
     protected UnitBase CheckBumpedIntoEnemy(Collision other)
     {
+
+        if (isBumpedIntoEnemy)
+        {
+            return null;
+        }
+
         UnitBase unit = other.transform.GetComponentInParent<UnitBase>();
 
         if (unit == null)
@@ -132,11 +121,15 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
 
         if (unit.teamType != teamType)
         {
-            SetIsBumped(false, 3.0f);
+            SetIsBumped(true);
+            StartCoroutine(SetIsBumped(false, 3.0f));
+
             return unit;
         }
         else
+        {
             return null;
+        }
 
     }
 
@@ -178,31 +171,36 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
             return;
         
         currentHp -= damage;
+        Debug.Log(name + ": ì³ë§ìŒ");
 
         GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.basicParticle, position, Quaternion.Euler(0, 0, 0));
         Destroy(particle, 0.7f);
         CheckDead();
-        Debug.Log("Á×À½ Ã¼Å©");
     }
 
     public IEnumerator SetIsBumped(bool isBumpedIntoEnemy, float time)
     {
         yield return new WaitForSeconds(time);
         this._isBumpedIntoEnemy = isBumpedIntoEnemy;
-        Debug.Log("isBumpedIntoEnemy: " + _isBumpedIntoEnemy);
     }
+
     public void SetIsBumped(bool isBumpedIntoEnemy)
     {
         this._isBumpedIntoEnemy = isBumpedIntoEnemy;
     }
+
+    Coroutine immortalCoroutine = null;
     public void SetImmortalDuring(bool isImmortal, float time)
     {
-        StartCoroutine(SetImmortalCoroutine(isImmortal, time));
+        if (this.isImmortal)
+        {
+            StopCoroutine(immortalCoroutine);
+        }
+        immortalCoroutine = StartCoroutine(SetImmortalCoroutine(isImmortal, time));
     }
     protected IEnumerator SetImmortalCoroutine(bool isImmortal, float time)
     {
         this._isImmortal = isImmortal;
-        Debug.Log("Player isImmortal: " + isImmortal);
         yield return new WaitForSeconds(time);
         this._isImmortal = !isImmortal;
     }
@@ -225,7 +223,7 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
     }
 
 
-    /// <summary> ¿ÀºêÁ§Æ® ÆÄ±«ÇÏ°í ÆÄÆ¼Å¬ »ı¼º </summary>
+    /// <summary> ì˜¤ë¸Œì íŠ¸ íŒŒê´´í•˜ê³  íŒŒí‹°í´ ìƒì„± </summary>
     public virtual void DieUnit()
     {
         isDie = true;

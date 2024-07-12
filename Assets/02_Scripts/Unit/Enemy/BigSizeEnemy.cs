@@ -44,12 +44,10 @@ public class BigSizeEnemy : EnemyBase
         currentWeaponSpace = transform.GetComponentInChildren<WeaponSpace>();
 
         gunItemData = ScriptableObject.Instantiate(gunItemData);
-        Debug.Log(gunItemData.itemName);
         gunItemData.SetStatus(10, 1, currentWeaponSpace, this, teamType, this);
 
         targetPlayer = GameObject.FindWithTag("PLAYER").transform;
         currentWeapon = new MachineGun((MachineGunItemData)gunItemData);
-        Debug.Log(currentWeapon.data.itemName);
 
 
         isAttacking = false;
@@ -62,7 +60,7 @@ public class BigSizeEnemy : EnemyBase
         {
             Attack();
         }
-;    }
+    }
 
     public override void Attack()
     {

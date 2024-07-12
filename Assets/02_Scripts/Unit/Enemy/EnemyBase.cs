@@ -25,8 +25,6 @@ public abstract class EnemyBase : UnitBase, IMovalble, IAttackable
 
     protected bool hasCollideWithWall = false;
 
-    
-
     protected override void Start()
     {
         base.Start();
@@ -85,6 +83,21 @@ public abstract class EnemyBase : UnitBase, IMovalble, IAttackable
         hasCollideWithWall = true;
         StartCoroutine(AdjustSpeed(spdChanged, spdChangeDuration));
         SetImmortal(false);
+    }
+
+    public override void Hit(int damage)
+    {
+        base.Hit(damage);
+    }
+
+    public override void Hit(int damage, Transform hitTransform)
+    {
+        base.Hit(damage, hitTransform);
+    }
+
+    public override void Hit(int damage, Vector3 position)
+    {
+        base.Hit(damage, position);
     }
 
     public override void DieUnit()

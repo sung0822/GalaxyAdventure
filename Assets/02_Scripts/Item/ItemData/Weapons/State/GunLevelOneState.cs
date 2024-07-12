@@ -21,7 +21,6 @@ public class GunLevelOneState : IGunState
     }
     public void Shoot()
     {
-        Debug.Log(gunItemData.unitUser.name + " ½úÀ½: " + gunItemData.itemName);
         GameObject projectileObject = GameObject.Instantiate<GameObject>
                                     (gunItemData.projectilePrefab,
                                     gunItemData.weaponSpace.transform.position,

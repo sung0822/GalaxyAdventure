@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-[RequireComponent (typeof (Rigidbody))]
 public class UnitBody : MonoBehaviour, ITeamMember
 {
     public TeamType teamType { get { return _teamType; } set { _teamType = value; } }

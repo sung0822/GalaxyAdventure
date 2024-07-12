@@ -16,7 +16,8 @@ public class BulletBox : MonoBehaviour
         if (player != null)
         {
             isDestroied = true;
-            //player.
+            player.ChangeBullet(bulletPrefab);
+            Destroy(this.gameObject);
             
         }
     }

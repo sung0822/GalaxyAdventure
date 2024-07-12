@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 725686991666967465}
   - component: {fileID: 2434213968482309489}
-  - component: {fileID: 676708440000233219}
+  - component: {fileID: 2583151765472479533}
   m_Layer: 7
   m_Name: Explosion
   m_TagString: Untagged
@@ -55,7 +55,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &676708440000233219
+--- !u!114 &2583151765472479533
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -64,7 +64,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7548775294395784233}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7de704792ddd21848834400daec02bfd, type: 3}
+  m_Script: {fileID: 11500000, guid: 1a8de989e6b9a9543944b98947164e49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &8013860049745681764

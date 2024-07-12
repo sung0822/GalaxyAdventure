@@ -18,9 +18,6 @@ public class NormalBullet : Projectile
     // Update is called once per frame
     protected override void Update()
     {
-        if(isShooting)
-        {
-            transform.Translate(Vector3.forward * Time.deltaTime * _spd, Space.Self);
-        }
+        base.Update();
     }
 }

@@ -23,7 +23,10 @@ public abstract class Projectile : MonoBehaviour, ITeamMember
 
     protected virtual void Update()
     {
-
+        if (isShooting)
+        {
+            transform.Translate(Vector3.forward * Time.deltaTime * _spd, Space.Self);
+        }
     }
 
     protected virtual void OnTriggerEnter(Collider other)
@@ -47,7 +50,6 @@ public abstract class Projectile : MonoBehaviour, ITeamMember
             else
             {
             }   
-
         }
     }
 
