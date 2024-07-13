@@ -243,7 +243,7 @@ public class Player : UnitBase, IPlayer
         rigidbodies.Clear();
         colliders.Clear();
 
-        //SetBody();
+        SetBody();
 
     }
 
@@ -419,15 +419,21 @@ public class Player : UnitBase, IPlayer
                 weaponItemData = (GunItemData)Instantiate<ScriptableObject>(item);
                 weaponItemData.SetStatus(weaponItemData.power, 1, currentWeaponSpace, this, teamType, this);
                 
+
+
+
                 GameObject projectilePrefab = ((GunItemData)(selectedWeaponItem.data)).projectilePrefab;
                 
                 selectedWeaponItem = (GunItemBase)weaponItemData.CreateItem();
                 Debug.Log(selectedWeaponItem.data.itemName);
+                inventory.Add(weaponItemData);
+                weaponItemOrder.Add(weaponItemOrder.Count, item.id);
+                currentWeaponIdx++;
+                Debug.Log("갖고있는 총 개수: " + weaponItemOrder.Count);
+                Debug.Log("현재 총 인덱스: " + currentWeaponIdx);
                 ChangeBullet(projectilePrefab);
 
-                weaponItemOrder.Add(weaponItemOrder.Count + 1, item.id);
-                Debug.Log("갖고있는 총 개수: " + weaponItemOrder.Count);
-                currentWeaponIdx++;
+
                 break;
 
             default:

@@ -8,14 +8,16 @@ public abstract class GunItemData : WeaponItemData
 
     public GameObject projectilePrefab { get { return _projectilePrefab; } set { _projectilePrefab = value; } }
     [SerializeField] private GameObject _projectilePrefab;
-    public AudioClip audioClip { get { return _audioClip; } set { _audioClip = value; } }
-    [SerializeField] private AudioClip _audioClip;
     public float useCycle { get { return _useCycle; } set { _useCycle = value; } }
     [SerializeField] private float _useCycle;
 
     public float forceForProjectile { get { return _forceForProjectile; } set { _forceForProjectile = value; } }
     [SerializeField] private float _forceForProjectile = 10;
 
+    AudioSource audioSoruce { get { return _audioSource; } set { _audioSource = value; } }
+    [SerializeField] private AudioSource _audioSource;
+    public AudioClip shootSound { get { return _shootSound; } set { _shootSound = value; } }
+    [SerializeField] AudioClip _shootSound;
     public IGunState gunState { get { return _gunState; } }
     public IGunState _gunState;
     public override int level { get { return _level; } set { SetLevel(value); } }

@@ -8,8 +8,6 @@ public abstract class GunItemBase : WeaponItemBase
     public GunItemData gunItemData { get { return _gunItemData; } }
     [SerializeField] private GunItemData _gunItemData;
 
-    //public ShootableItemData shootableItemData { get { return _shootableItemData; } }
-    //private ShootableItemData _shootableItemData;
 
 
     public GunItemBase(GunItemData gunItemdata) : base(gunItemdata)

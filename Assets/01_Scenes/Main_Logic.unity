@@ -5314,7 +5314,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6584342217411620720, guid: 7fa9c5f9a87805349bcb1147cbfaba30, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7229680724707445061, guid: 7fa9c5f9a87805349bcb1147cbfaba30, type: 3}
       propertyPath: gunItemData

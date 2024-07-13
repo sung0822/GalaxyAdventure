@@ -11,4 +11,9 @@ public class Pistol : GunItemBase
     {
         pistolItemData = gunItemdata;
     }
+
+    public override void Use()
+    {
+        base.Use();
+    }
 }

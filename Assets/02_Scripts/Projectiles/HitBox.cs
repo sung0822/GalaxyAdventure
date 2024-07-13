@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HitBox : MonoBehaviour, ITeamMember
 {
-    public int power { get; set; }
+    public int power { get { return _power; } set { _power = value; } }
     [SerializeField] private int _power = 0;
     Collider collider;
 

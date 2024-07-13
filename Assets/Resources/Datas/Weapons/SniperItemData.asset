@@ -18,9 +18,9 @@ MonoBehaviour:
   _level: 1
   _weaponSpace: {fileID: 0}
   _projectilePrefab: {fileID: 5150634236380144079, guid: 7e935c33671eeb14ab6ff8a3afef355c, type: 3}
-  _audioClip: {fileID: 0}
   _useCycle: 1.2
   _forceForProjectile: 25
+  _shootSound: {fileID: 8300000, guid: 32706ea18cdb11446ad3d41bd264e970, type: 3}
   _itemUsageType: 1
   _unitUser: {fileID: 0}
   _isUsing: 0

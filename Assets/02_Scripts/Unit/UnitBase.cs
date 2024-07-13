@@ -12,7 +12,8 @@ using static UnityEngine.UI.CanvasScaler;
 public abstract class UnitBase : MonoBehaviour, ITeamMember
 {
     public AudioSource audioSource;
-    protected AudioClip audioClip;
+    protected AudioClip dieSound { get { return _dieSound; } set { _dieSound = value; } }
+    [SerializeField] AudioClip _dieSound;
 
     //public
     //unitData;
@@ -46,7 +47,7 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
 
         transform.AddComponent<AudioSource>();
         audioSource = GetComponent<AudioSource>();
-        audioClip = Resources.Load<AudioClip>("Sounds/ExplosionSound");
+        dieSound = Resources.Load<AudioClip>("Sounds/ExplosionSound");
     }
 
     protected virtual void Update()
@@ -227,9 +228,9 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
     public virtual void DieUnit()
     {
         isDie = true;
-        audioSource.clip = audioClip;
+        audioSource.clip = dieSound;
         audioSource.enabled = true;
-        audioSource.PlayOneShot(audioClip, 1.0f);
+        audioSource.PlayOneShot(dieSound, 1.0f);
         GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.unitExplodingParticle, transform.position, transform.rotation);
 
         particle.transform.localScale = this.transform.localScale * 0.1f;

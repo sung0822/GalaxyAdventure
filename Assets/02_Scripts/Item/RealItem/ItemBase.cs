@@ -17,6 +17,8 @@ public abstract class ItemBase : IUseable
     {
         this._data = data;
     }
+
+
     public string PrintItemName()
     {
         Debug.Log("itemName: " + data.itemName);

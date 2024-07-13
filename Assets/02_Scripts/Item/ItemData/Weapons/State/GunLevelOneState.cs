@@ -31,7 +31,8 @@ public class GunLevelOneState : IGunState
         projectile.power += gunItemData.power + gunItemData.attackableUser.power;
         projectile.spd = gunItemData.forceForProjectile;
         projectile.teamType = gunItemData.teamType;
-        //AudioSource.PlayClipAtPoint(audioClip, transform.position);
+        
+        AudioSource.PlayClipAtPoint(gunItemData.shootSound, gunItemData.weaponSpace.transform.position);
         projectile.Shoot();
     }
 
