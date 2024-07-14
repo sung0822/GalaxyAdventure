@@ -19,6 +19,7 @@ public abstract class Projectile : MonoBehaviour, ITeamMember
 
     protected virtual void Start()
     {
+        Destroy(gameObject, 15.0f);
     }
 
     protected virtual void Update()
@@ -35,6 +36,14 @@ public abstract class Projectile : MonoBehaviour, ITeamMember
         {
             return;
         }
+        Debug.Log(name + ": 부딪힘");
+        Debug.Log(other.name);
+        if (other.tag == "HYDRO_BEAM")
+        {
+            Debug.Log("하이드로펌프 충격");
+            return;
+        }
+
         if (other.transform.GetComponentInParent<UnitBase>() != null)
         {
             UnitBase unit = other.transform.GetComponentInParent<UnitBase>();
@@ -42,6 +51,13 @@ public abstract class Projectile : MonoBehaviour, ITeamMember
             {
                 Vector3 closetPoint = other.ClosestPoint(transform.position);
                 unit.Hit(power, closetPoint);
+
+                Debug.Log(name + "공격");
+                
+                if (unit.tag == "ENEMY")
+                {
+                    Debug.Log("기본탄 공격 데미지: " + power);
+                }
                 isDestroied = true;
                 Destroy(this.gameObject);
 

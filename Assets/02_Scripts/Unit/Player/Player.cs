@@ -14,6 +14,9 @@ public class Player : UnitBase, IPlayer
 
     GameObject previousAirCraft;
 
+    [SerializeField] GameObject hydroBeamPrefab;
+    [SerializeField] Transform hydroSpace;
+
     List<GameObject> aircrafts = new List<GameObject>();
 
     WeaponSpace currentWeaponSpace;
@@ -23,24 +26,23 @@ public class Player : UnitBase, IPlayer
     [SerializeField] protected Inventory _inventory;
 
     /// <summary> 무기 순서. Key: 무기 인덱스, value : 아이템 id </summary>
-    Dictionary<int, int> weaponItemOrder = new Dictionary<int, int>();
-    public WeaponItemBase selectedWeaponItem;
+    protected List<WeaponItemBase> selectedWeapons = new List<WeaponItemBase>();
+    public WeaponItemBase currentWeapon;
+    public WeaponItemBase currentSpeicalWeapon;
+
     public int currentWeaponIdx = -1;
 
     /// <summary> 아이템 순서(인덱스, 아이템 키) </summary>
-    Dictionary<int, int> consumableItemOrder = new Dictionary<int, int>();
+    public ConsumableItemBase currentConsumableItem;
+    protected List<ConsumableItemBase> selectedConsumableItems = new List<ConsumableItemBase>();
+
     protected int currentConsumableItemIdx = -1;
-    public ConsumableItemBase selectedConsumableItem;
 
     public override bool isAttacking { get { return _isAttacking; } set{ _isAttacking = value; }}
     protected bool _isAttacking;
     public Vector3 moveDir { get { return _moveDir; } set { _moveDir = value; } }
     Vector3 _moveDir;
 
-    public override int maxHp { get { return _maxHp; } set { _maxHp = value; } }
-    [SerializeField] int _maxHp = 100;
-    public override int currentHp { get { return _currentHp; } set { _currentHp = value; } }
-    [SerializeField] int _currentHp = 100;
     public int currentLevel { get { return _currentLevel; } set { _currentLevel = value; } }
     [SerializeField] int _currentLevel = 1;
     public float currentExp { get { return _currentExp; } set { _currentExp = value; } }
@@ -52,7 +54,11 @@ public class Player : UnitBase, IPlayer
     public int power { get { return _power; } set { _power = value; } }
     [SerializeField] public int _power = 10;
 
-    public float abilityGage { get; set; }
+    public float abilityGage { get { return _abilityGage; } set { _abilityGage = value; } }
+    [SerializeField] float _abilityGage;
+
+    public float maxAbilityGage { get { return _maxAbilityGage; } set { _maxAbilityGage = value; } }
+    [SerializeField] float _maxAbilityGage;
 
     protected float previousMaxExp;
     protected int previousMaxHp;
@@ -90,6 +96,7 @@ public class Player : UnitBase, IPlayer
         }
 
         // 무기 등록 
+        hydroSpace = transform.Find("HydroSpace");
         MakeBasicGun();
 
         currentAirCraft.transform.localPosition = Vector3.zero;
@@ -99,6 +106,8 @@ public class Player : UnitBase, IPlayer
 
         isInvincibilityBlinking = false;
         currentAirCraft.transform.position = this.transform.position;
+
+        //하이드로빔 정보 캐싱
 
         base.SetFirstStatus();
         SetBody();
@@ -111,21 +120,42 @@ public class Player : UnitBase, IPlayer
 
         currentWeaponSpace = currentAirCraft.GetComponentInChildren<WeaponSpace>();
 
-        gunItemData.SetStatus(gunItemData.power, 1, currentWeaponSpace, this, teamType, this);
-        selectedWeaponItem = (WeaponItemBase)gunItemData.CreateItem();
+        gunItemData.power = 10;
+        gunItemData.level = 1;
+        gunItemData.weaponSpaceTransform = currentWeaponSpace.transform;
+        gunItemData.unitUser = this;
+        gunItemData.attackableUser = this;
+        gunItemData.teamType = teamType;
+
+        currentWeapon = (GunItemBase)gunItemData.CreateItem();
+        selectedWeapons.Add(currentWeapon);
+        currentWeapon.transform.parent = currentWeaponSpace.transform;
+        currentWeapon.transform.localPosition = Vector3.zero;
+
+        GunItemData specialGun = ScriptableObject.Instantiate(Resources.Load<LaserGunItemData>("Datas/Weapons/LaserGunItemData"));
         
+
+
+        specialGun.power = 0;
+        specialGun.level = 1;
+        specialGun.weaponSpaceTransform = hydroSpace;
+        specialGun.unitUser = this;
+        specialGun.attackableUser = this;
+        specialGun.teamType = teamType;
+
+        currentSpeicalWeapon = (GunItemBase)specialGun.CreateItem();
         inventory.Add(gunItemData);
-        weaponItemOrder.Add(weaponItemOrder.Count, gunItemData.id);
+        
         currentWeaponIdx++;
-        Debug.Log(weaponItemOrder.Count);
 
     }
 
     protected override void Update()
     {
-        base.Update();
-        Attack();
-
+        if (_isAttacking)
+        {
+            currentWeapon.Use();
+        }
         if (isInvincibilityBlinking)
         {
             return;
@@ -333,21 +363,22 @@ public class Player : UnitBase, IPlayer
 
     public void Attack()
     {
-        if(_isAttacking)
-        {
-            selectedWeaponItem.Use();
-            
-        }
+        isAttacking = true;
+    }
+
+    public void StopAttack()
+    {
+        _isAttacking = false;
+        currentWeapon.StopUse();
     }
 
     public void SpecialAttack()
     {
-        Instantiate<GameObject>(Resources.Load<GameObject>("Items/Bomber"));
+        currentSpeicalWeapon.Use();
     }
 
     public void ChangeSelectedItem<T>(int id) where T : ItemData
     {
-
     }
 
     public void UseItem(ItemType itemType)
@@ -355,11 +386,17 @@ public class Player : UnitBase, IPlayer
         switch (itemType)
         {
             case ItemType.Consumable:
-                selectedConsumableItem.Use();
-                int count = inventory.Remove(selectedConsumableItem.data.id, 1);
+                if (selectedConsumableItems.Count <= 0)
+                {
+                    currentConsumableItem = null;
+                    break;
+                }
+                currentConsumableItem.Use();
+                int count = inventory.Remove(currentConsumableItem.data.id, 1);
+
                 if (0 == count)
                 {
-                    consumableItemOrder.Remove(currentConsumableItemIdx);
+                    selectedConsumableItems.RemoveAt(currentConsumableItemIdx);
                     ChangeSelectedItem(itemType);
                 }
                 break;
@@ -380,7 +417,6 @@ public class Player : UnitBase, IPlayer
             item.unitUser = this;
             item.CreateItem().Use();
             
-            Debug.Log("즉시 사용 아이템");
             return;
         }
 
@@ -392,8 +428,10 @@ public class Player : UnitBase, IPlayer
                     inventory.Add(item);
                     break;
                 }
-                selectedConsumableItem = (ConsumableItemBase)inventory.Add(item).CreateItem();
-                consumableItemOrder.Add(consumableItemOrder.Count, item.id);
+                currentConsumableItem = (ConsumableItemBase)inventory.Add(item).CreateItem();
+                currentConsumableItem.transform.parent = transform;
+                
+                selectedConsumableItems.Add(currentConsumableItem);
                 currentConsumableItemIdx++;
 
                 break;
@@ -401,15 +439,14 @@ public class Player : UnitBase, IPlayer
                 WeaponItemData weaponItemData;
                 if (inventory.CheckExist(item.id))
                 {
-                    if (selectedWeaponItem.data.id == item.id)
+                    if (currentWeapon.data.id == item.id)
                     {
                         // 이미 가방안에 들어있고, 현재 선택된 무기라면
                         weaponItemData = ((GunItemData)inventory.GetItemData(item.id));
                         weaponItemData.level += 1;
 
-                        selectedWeaponItem = (GunItemBase)weaponItemData.CreateItem();
-                        Debug.Log(selectedWeaponItem.weaponItemData.itemName);
-                        selectedWeaponItem.weaponItemData.level = weaponItemData.level;
+                        currentWeapon = (GunItemBase)weaponItemData.CreateItem();
+                        currentWeapon.weaponItemData.level = weaponItemData.level;
                         break;
                     }
                     break;
@@ -417,20 +454,25 @@ public class Player : UnitBase, IPlayer
                 // 가방안에 없으면
 
                 weaponItemData = (GunItemData)Instantiate<ScriptableObject>(item);
-                weaponItemData.SetStatus(weaponItemData.power, 1, currentWeaponSpace, this, teamType, this);
-                
+
+                weaponItemData.level = 1;
+                weaponItemData.weaponSpaceTransform = currentWeaponSpace.transform;
+                weaponItemData.unitUser = this;
+                weaponItemData.attackableUser = this;
+                weaponItemData.teamType = teamType;
+
+                GameObject projectilePrefab = ((GunItemData)(currentWeapon.data)).projectilePrefab;
 
 
-
-                GameObject projectilePrefab = ((GunItemData)(selectedWeaponItem.data)).projectilePrefab;
-                
-                selectedWeaponItem = (GunItemBase)weaponItemData.CreateItem();
-                Debug.Log(selectedWeaponItem.data.itemName);
-                inventory.Add(weaponItemData);
-                weaponItemOrder.Add(weaponItemOrder.Count, item.id);
+                currentWeapon.StopUse();
+                currentWeapon = (GunItemBase)weaponItemData.CreateItem();
+                currentWeapon.transform.parent = currentWeaponSpace.transform;
+                currentWeapon.transform.localPosition = Vector3.zero;
+                selectedWeapons.Add(currentWeapon);
                 currentWeaponIdx++;
-                Debug.Log("갖고있는 총 개수: " + weaponItemOrder.Count);
-                Debug.Log("현재 총 인덱스: " + currentWeaponIdx);
+                inventory.Add(weaponItemData);
+                
+                
                 ChangeBullet(projectilePrefab);
 
 
@@ -447,31 +489,31 @@ public class Player : UnitBase, IPlayer
         switch (itemType)
         {
             case ItemType.Consumable:
-                if (consumableItemOrder.Count <= 0)
+                if (selectedConsumableItems.Count <= 0)
                 {
                     return;
                 }
                 currentConsumableItemIdx++;
-                if (currentConsumableItemIdx >= consumableItemOrder.Count)
+                if (currentConsumableItemIdx >= selectedConsumableItems.Count)
                 {
                     currentConsumableItemIdx = 0;
                 }
-                selectedConsumableItem = (ConsumableItemBase)inventory.GetItemData(consumableItemOrder[currentConsumableItemIdx]).CreateItem();
+                currentConsumableItem = selectedConsumableItems[currentConsumableItemIdx];
 
                 break;
             case ItemType.Weapon:
-                if (weaponItemOrder.Count <= 0)
+                if (selectedWeapons.Count <= 1)
                 {
                     return;
                 }
                 currentWeaponIdx++;
-                Debug.Log("무기 인덱스: " + currentWeaponIdx);
-                Debug.Log("무기 개수: " + weaponItemOrder.Count);
-                if (currentWeaponIdx >= weaponItemOrder.Count)
+
+                if (currentWeaponIdx >= selectedWeapons.Count)
                 {
                     currentWeaponIdx = 0;
                 }
-                selectedWeaponItem = (WeaponItemBase)inventory.GetItemData(weaponItemOrder[currentWeaponIdx]).CreateItem();
+                currentWeapon.StopUse();
+                currentWeapon = selectedWeapons[currentWeaponIdx];
 
                 break;
             default:
@@ -482,14 +524,13 @@ public class Player : UnitBase, IPlayer
 
     public void ChangeBullet(GameObject bulletPrefab)
     {
-        for (int i = 0; i < weaponItemOrder.Count; i++)
+        for (int i = 0; i < selectedWeapons.Count; i++)
         {
-            Debug.Log("갖고있는 총 개수: " + weaponItemOrder.Count);
-            Debug.Log(((GunItemData)inventory.GetItemData(weaponItemOrder[i])).itemName);
-            
-            ((GunItemData)inventory.GetItemData(weaponItemOrder[i])).projectilePrefab = bulletPrefab;
+
+            ((GunItemBase)selectedWeapons[i]).gunItemData.projectilePrefab = bulletPrefab;
+
         }
-        selectedWeaponItem = (WeaponItemBase)inventory.GetItemData(weaponItemOrder[currentWeaponIdx]).CreateItem();
+        
     }
 
     protected void SetBody()

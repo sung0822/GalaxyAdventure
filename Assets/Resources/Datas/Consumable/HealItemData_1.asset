@@ -15,5 +15,5 @@ MonoBehaviour:
   _id: 0
   _itemName: HealItem
   _itemUsageType: 0
-  _unitUser: {fileID: 0}
   _isUsing: 0
+  _healAmountOfPercent: 1

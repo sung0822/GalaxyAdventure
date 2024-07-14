@@ -142,7 +142,7 @@ public class UIManager : MonoBehaviour
         switch (itemType)
         {
             case ItemType.Consumable:
-                ItemBase selectedConsumableItem = playerCtrl.selectedConsumableItem;
+                ItemBase selectedConsumableItem = playerCtrl.currentConsumableItem;
                 if (selectedConsumableItem == null)
                 {
                     return;
@@ -153,7 +153,7 @@ public class UIManager : MonoBehaviour
 
                 for (int i = 0; i < consumableItems.Count; i++)
                 {
-                    if (consumableItems[i].itemId != playerCtrl.selectedConsumableItem.data.id)
+                    if (consumableItems[i].itemId != playerCtrl.currentConsumableItem.data.id)
                     {
                         continue;
                     }
@@ -176,7 +176,7 @@ public class UIManager : MonoBehaviour
 
                 break;
             case ItemType.Weapon:
-                WeaponItemBase selectedWeaponItem = playerCtrl.selectedWeaponItem;
+                WeaponItemBase selectedWeaponItem = playerCtrl.currentWeapon;
                 if (selectedWeaponItem == null)
                 {
                     return;
@@ -186,7 +186,7 @@ public class UIManager : MonoBehaviour
 
                 for (int i = 0; i < weaponItems.Count; i++)
                 {
-                    if (weaponItems[i].itemId != playerCtrl.selectedWeaponItem.data.id)
+                    if (weaponItems[i].itemId != playerCtrl.currentWeapon.data.id)
                     {
                         continue;
                     }

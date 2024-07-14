@@ -5,7 +5,7 @@ using UnityEngine;
 public class ArmorPiercingBullet : Projectile
 {
     public override int power { get { return _power; } set { _power = value; } }
-    protected int _power = 0;
+    protected int _power = 5;
     public override void Shoot()
     {
         base.Shoot();
@@ -15,7 +15,6 @@ public class ArmorPiercingBullet : Projectile
     {
     }
 
-    // Update is called once per frame
     protected override void Update()
     {
         if (isShooting)
@@ -30,6 +29,12 @@ public class ArmorPiercingBullet : Projectile
         {
             return;
         }
+
+        if (other.tag == "HYDRO_BEAM")
+        {
+            return;
+        }
+
         if (other.transform.GetComponentInParent<UnitBase>() != null)
         {
             UnitBase unit = other.transform.GetComponentInParent<UnitBase>();

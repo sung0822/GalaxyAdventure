@@ -7,7 +7,6 @@ using static UnityEngine.UI.CanvasScaler;
 /// <summary>
 /// 어트리뷰트 문법을 잘 몰라서 공부해야할듯. 기능은 해당 컴포넌트를 게임오브젝트가 가지도록 강제한다.
 /// </summary>
-[RequireComponent (typeof (AudioSource))]
 [RequireComponent(typeof(Rigidbody))]
 public abstract class UnitBase : MonoBehaviour, ITeamMember
 {
@@ -22,8 +21,21 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
     public List<Rigidbody> rigidbodies = new List<Rigidbody>();
     public List<Collider> colliders = new List<Collider>();
     public Rigidbody unitRigidbody;
-    public abstract int maxHp { get; set; }
-    public abstract int currentHp { get; set; }
+    public int maxHp { get { return _maxHp; } set { _maxHp = value; } }
+    [SerializeField] protected int _maxHp;
+    public int currentHp 
+    { 
+        get { return _currentHp; }
+        set 
+        {
+            _currentHp = value;
+            if (_currentHp > maxHp)
+            {
+                _currentHp = maxHp;
+            }
+        } 
+    }
+    [SerializeField] protected int _currentHp;
     public bool isImmortal { get { return _isImmortal; }}
     protected bool _isImmortal;
     public bool isBumpedIntoEnemy { get { return _isBumpedIntoEnemy; } }
@@ -84,7 +96,10 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
         {
             return null;
         }
-
+        if (other.tag == "HYDRO_BEAM")
+        {
+            return null;
+        }
         UnitBase unit = other.transform.GetComponentInParent<UnitBase>();
 
         if (unit == null)
@@ -145,7 +160,6 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
             return;
         }
         currentHp -= damage;
-
         GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.basicParticle, this.transform.position, Quaternion.Euler(0, 0, 0));
         Destroy(particle, 0.7f);
         
@@ -172,7 +186,6 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
             return;
         
         currentHp -= damage;
-        Debug.Log(name + ": 쳐맞음");
 
         GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.basicParticle, position, Quaternion.Euler(0, 0, 0));
         Destroy(particle, 0.7f);

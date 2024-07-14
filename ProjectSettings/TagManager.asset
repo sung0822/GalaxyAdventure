@@ -16,6 +16,7 @@ TagManager:
   - ALL_SPAWNPOINTS_GROUP
   - PLANE
   - PROJECTILE
+  - HYDRO_BEAM
   layers:
   - Default
   - TransparentFX

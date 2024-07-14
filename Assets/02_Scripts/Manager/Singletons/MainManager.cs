@@ -31,10 +31,6 @@ public class MainManager : MonoBehaviour
     public int score 
     {
         get { return _score; }
-        set 
-        {
-            _score = value;
-        } 
     }
     Stage1 stage1;
     [SerializeField] int _score;
@@ -44,9 +40,10 @@ public class MainManager : MonoBehaviour
 
     public GameObject inputManagerPrefab = null;
 
-    public GameObject audioManagerPrefab = null;
+    public GameObject bgmManagerPrefab = null;
 
     bool isPaused = false;
+
     private void Start()
     {
         ///////////////////////////////////////////////////////////////////////////////////////
@@ -60,8 +57,8 @@ public class MainManager : MonoBehaviour
         GameObject inputManager = Instantiate<GameObject>(inputManagerPrefab, transform);
         inputManager.name = inputManagerPrefab.name;
 
-        GameObject audioManager = Instantiate<GameObject>(audioManagerPrefab, transform);
-        audioManager.name = audioManagerPrefab.name;
+        GameObject audioManager = Instantiate<GameObject>(bgmManagerPrefab, transform);
+        audioManager.name = bgmManagerPrefab.name;
 
         /////////////////////////////////////////////////////////////////////////////////////////
 
@@ -69,6 +66,7 @@ public class MainManager : MonoBehaviour
         stage1Object.transform.SetParent(transform);
 
         stage1 = stage1Object.AddComponent<Stage1>();
+        BGMManager.instance.PlayBGM(BGMManager.instance.bgm1);
         currentStage = stage1;
 
     }
@@ -78,6 +76,11 @@ public class MainManager : MonoBehaviour
         currentStage.Execute();
     }
 
+    public void AddScore(int score)
+    {
+        this._score += score;
+        CheckStage();
+    }
 
     public void CheckStage()
     {

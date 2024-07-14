@@ -23,6 +23,9 @@ public abstract class EnemyBase : UnitBase, IMovalble, IAttackable
     public abstract int power { get; set; }
     public abstract float moveSpd { get; set; }
 
+    public float rewardAbilityGage { get { return _rewardAbilityGage; } set { _rewardAbilityGage = value; } }
+    [SerializeField] protected float _rewardAbilityGage;
+
     protected bool hasCollideWithWall = false;
 
     protected override void Start()
@@ -109,7 +112,7 @@ public abstract class EnemyBase : UnitBase, IMovalble, IAttackable
     protected void DieEnemy()
     {
         player.GivePlayerExp(rewardExp);
-        MainManager.Get().score += rewardScore;
+        MainManager.instance.AddScore(rewardScore);
         UIManager.instance.CheckScore();
 
         GameObject item = ItemManager.instance.MakeItem(transform);
@@ -150,4 +153,7 @@ public abstract class EnemyBase : UnitBase, IMovalble, IAttackable
 
     public abstract void Attack();
 
+    public virtual void StopAttack()
+    {
+    }
 }

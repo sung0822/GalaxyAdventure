@@ -37,6 +37,7 @@ public class ItemComponent : MonoBehaviour
     private void Awake()
     {
         _itemId = itemData.id;
+        itemData = Instantiate(itemData);
     }
 
     void Update()

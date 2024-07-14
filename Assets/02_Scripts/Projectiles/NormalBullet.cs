@@ -5,7 +5,7 @@ using UnityEngine;
 public class NormalBullet : Projectile
 {
     public override int power { get { return _power; } set { _power = value; } }
-    protected int _power = 0;
+    protected int _power = 15;
     public override void Shoot()
     {
         base.Shoot();

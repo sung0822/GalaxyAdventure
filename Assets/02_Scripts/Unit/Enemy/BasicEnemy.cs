@@ -17,13 +17,8 @@ public class BasicEnemy : EnemyBase
     private float _spdChanged = 4.0f;
     protected override float spdChangeDuration { get { return _spdChangeDuration; } set { _spdChangeDuration = value; } }
     private float _spdChangeDuration = 0.75f;
-
     public override int power { get { return _power; } set { _power = value; } }
     [SerializeField] int _power = 10;
-    public override int maxHp { get { return _maxHp; } set { _maxHp = value; } }
-    [SerializeField] int _maxHp = 40;
-    public override int currentHp { get { return _currentHp; } set { _currentHp = value; } }
-    [SerializeField] int _currentHp = 40;
     public override float moveSpd { get { return _moveSpd; } set { _moveSpd = value; } }
     [SerializeField] float _moveSpd = 10;
 
@@ -47,9 +42,15 @@ public class BasicEnemy : EnemyBase
         currentWeaponSpace = transform.GetComponentInChildren<WeaponSpace>();
         gunItemData = ScriptableObject.Instantiate(gunItemData);
 
-        gunItemData.SetStatus(10, 1, currentWeaponSpace, this, teamType, this);
+
+        gunItemData.power = 10;
         gunItemData.level = 1;
-        currentWeapon = new Pistol((PistolItemData)gunItemData);
+        gunItemData.weaponSpaceTransform = currentWeaponSpace.transform;
+        gunItemData.unitUser = this;
+        gunItemData.attackableUser = this;
+        gunItemData.teamType = teamType;
+
+        currentWeapon = (WeaponItemBase)gunItemData.CreateItem();
 
         
     }

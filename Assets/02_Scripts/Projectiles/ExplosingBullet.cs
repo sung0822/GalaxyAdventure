@@ -28,6 +28,12 @@ public class ExplosingBullet : Projectile
         {
             return;
         }
+
+        if (other.tag == "HYDRO_BEAM")
+        {
+            return;
+        }
+
         if (other.transform.GetComponentInParent<UnitBase>() != null)
         {
             UnitBase unit = other.transform.GetComponentInParent<UnitBase>();
@@ -41,13 +47,12 @@ public class ExplosingBullet : Projectile
                 explosion.transform.position = this .transform.position;
 
                 explosion.power = this.power;
-                
+                explosion.SetEnableCollider(false);
                 Destroy(this.gameObject);
                 Destroy(explosion.gameObject, 1.0f);
                 
                 return;
             }
-
         }
     }
 }

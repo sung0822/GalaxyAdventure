@@ -7,6 +7,12 @@ public class MachineGunItemData : GunItemData
 {
     public override ItemBase CreateItem()
     {
-        return new MachineGun(this);
+        GameObject gameObject = new GameObject(this.itemName);
+        MachineGun machineGun = gameObject.AddComponent<MachineGun>();
+
+        machineGun.gunItemData = this;
+
+
+        return machineGun;
     }
 }

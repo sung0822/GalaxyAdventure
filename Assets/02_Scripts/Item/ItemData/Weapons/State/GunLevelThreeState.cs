@@ -25,7 +25,7 @@ public class GunLevelThreeState : IGunState
     public void Shoot()
     {
 
-        Transform shootSpace = gunItemData.weaponSpace.transform;
+        Transform shootSpace = gunItemData.weaponSpaceTransform.transform;
 
         GameObject projectileObject = GameObject.Instantiate<GameObject>
                                     (gunItemData.projectilePrefab,

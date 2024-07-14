@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Collider))]
 public class HitBox : MonoBehaviour, ITeamMember
 {
     public int power { get { return _power; } set { _power = value; } }
@@ -11,7 +12,6 @@ public class HitBox : MonoBehaviour, ITeamMember
     public TeamType teamType { get { return _teamType; } set{ _teamType = value; } }
     private TeamType _teamType;
 
-    private bool isDisabled;
 
     private void Start()
     {
@@ -25,10 +25,9 @@ public class HitBox : MonoBehaviour, ITeamMember
             UnitBase unit = other.transform.GetComponentInParent<UnitBase>();
             if (unit.teamType != _teamType)
             {
-                isDisabled = true;
                 Vector3 closetPoint = other.ClosestPoint(transform.position);
                 unit.Hit(power, closetPoint);
-                
+
                 return;
             }
         }
@@ -36,10 +35,25 @@ public class HitBox : MonoBehaviour, ITeamMember
 
     private void LateUpdate()
     {
-        if (isDisabled)
-        {
-            collider.enabled = false;
-        }
     }
+
+    public void SetEnableCollider(bool enable, float time)
+    {
+        StartCoroutine(SetEnableColliderAfterTime(enable, time));
+    }
+    public void SetEnableCollider(bool enable)
+    {
+        if (collider == null)
+        {
+            return;
+        }
+        collider.enabled = enable;
+    }
+    IEnumerator SetEnableColliderAfterTime(bool enable, float time)
+    {
+        yield return new WaitForSeconds(time);
+        collider.enabled = enable;
+    }
+
 
 }

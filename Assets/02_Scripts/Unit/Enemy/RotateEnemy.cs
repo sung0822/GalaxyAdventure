@@ -10,10 +10,6 @@ public class RotateEnemy : EnemyBase
 
     public override int power { get { return _power; } set { _power = value; } }
     [SerializeField] int _power = 10;
-    public override int maxHp { get { return _maxHp; } set { _maxHp = value; } }
-    [SerializeField] int _maxHp = 40;
-    public override int currentHp { get { return _currentHp; } set { _currentHp = value; } }
-    [SerializeField] int _currentHp = 40;
     public override float moveSpd { get { return _moveSpd; } set { _moveSpd = value; } }
     [SerializeField] float _moveSpd = 10;
 

@@ -13,10 +13,6 @@ public class BigSizeEnemy : EnemyBase
 
     public override int power { get { return _power; } set { _power = value; } }
     [SerializeField] int _power = 20;
-    public override int maxHp { get { return _maxHp; } set { _maxHp = value; } }
-    [SerializeField] int _maxHp = 700;
-    public override int currentHp { get { return _currentHp; } set { _currentHp = value; } }
-    [SerializeField] int _currentHp = 700;
     public override float moveSpd { get { return _moveSpd; } set { _moveSpd = value; } }
     [SerializeField] float _moveSpd = 10;
 
@@ -44,10 +40,16 @@ public class BigSizeEnemy : EnemyBase
         currentWeaponSpace = transform.GetComponentInChildren<WeaponSpace>();
 
         gunItemData = ScriptableObject.Instantiate(gunItemData);
-        gunItemData.SetStatus(10, 1, currentWeaponSpace, this, teamType, this);
+        
+        gunItemData.power = 10;
+        gunItemData.level = 1;
+        gunItemData.weaponSpaceTransform = currentWeaponSpace.transform;
+        gunItemData.unitUser = this;
+        gunItemData.attackableUser = this;
+        gunItemData.teamType = teamType;
 
         targetPlayer = GameObject.FindWithTag("PLAYER").transform;
-        currentWeapon = new MachineGun((MachineGunItemData)gunItemData);
+        currentWeapon = (GunItemBase)gunItemData.CreateItem();
 
 
         isAttacking = false;

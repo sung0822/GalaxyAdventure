@@ -12,10 +12,6 @@ public class Eagle : EnemyBase
     protected override float spdChangeDuration { get { return _spdChangeDuration; } set { _spdChangeDuration = value; } }
     public override int power { get { return _power; } set { _power = value; } }
     [SerializeField] int _power = 10;
-    public override int maxHp { get { return _maxHp; } set { _maxHp = value; } }
-    [SerializeField] int _maxHp = 10;
-    public override int currentHp { get { return _currentHp; } set { _currentHp = value; } }
-    [SerializeField] int _currentHp = 10;
     public override float moveSpd { get { return _moveSpd; } set { _moveSpd = value; } }
     [SerializeField] float _moveSpd = 10;
 
@@ -64,7 +60,7 @@ public class Eagle : EnemyBase
     public override void DieUnit()
     {
         player.GivePlayerExp(rewardExp);
-        MainManager.Get().score += rewardScore;
+        MainManager.instance.AddScore(rewardScore);
         UIManager.instance.CheckScore();
 
 

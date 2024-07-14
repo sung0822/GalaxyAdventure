@@ -5,6 +5,7 @@ using UnityEngine;
 public interface IAttackable
 {
     void Attack();
+    void StopAttack();
     int power { get; set; }
     bool isAttacking { get; set; }
 }

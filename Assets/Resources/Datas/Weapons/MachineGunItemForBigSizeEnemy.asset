@@ -14,13 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: 201
   _itemName: MachineGun
+  _itemUsageType: 1
+  _isUsing: 0
   _power: 5
   _level: 1
   _weaponSpace: {fileID: 0}
+  _teamType: 0
   _projectilePrefab: {fileID: 5150634236380144079, guid: 7e935c33671eeb14ab6ff8a3afef355c, type: 3}
-  _audioClip: {fileID: 0}
   _useCycle: 0.5
   _forceForProjectile: 10
-  _itemUsageType: 1
-  _unitUser: {fileID: 0}
-  _isUsing: 0
+  _audioSource: {fileID: 0}
+  _shootSound: {fileID: 0}
+  _playSondWhileShooting: 1

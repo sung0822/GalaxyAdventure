@@ -54,7 +54,7 @@ public class InputManager : MonoBehaviour
         }
         else if (Input.GetKeyUp(KeyCode.Z))
         {
-            playerCtrl.isAttacking = false;
+            playerCtrl.StopAttack();
         }
         else if(Input.GetKeyUp(KeyCode.Q))
         {
@@ -107,7 +107,7 @@ public class InputManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.F7))
         {
-            MainManager.instance.score += 100;
+            MainManager.instance.AddScore(100);
         }
         else if (Input.GetKeyDown(KeyCode.F8))
         {

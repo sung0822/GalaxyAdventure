@@ -7,6 +7,13 @@ public class SniperitemData : GunItemData
 {
     public override ItemBase CreateItem()
     {
-        return new Sniper(this);
+        GameObject gameObject = new GameObject(this.itemName);
+        Sniper sniper = gameObject.AddComponent<Sniper>();
+
+        sniper.gunItemData = this;
+
+        Debug.Log(this.itemName);
+
+        return sniper;
     }
 }
