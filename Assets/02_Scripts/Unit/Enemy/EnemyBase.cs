@@ -11,17 +11,24 @@ public abstract class EnemyBase : UnitBase, IMovalble, IAttackable
     public override TeamType teamType { get { return _teamType; } set { _teamType = value; } }
     protected TeamType _teamType = TeamType.ENEMY;
 
-    protected abstract int rewardExp { get; set; }
-    protected abstract int rewardScore { get; set; }
+    public int rewardExp { get { return _rewardExp; } set { _rewardExp = value; } }
+    [SerializeField] protected int _rewardExp;  
+    public int rewardScore { get { return _rewardScore; } }
+    [SerializeField] protected int _rewardScore;
 
     public bool enableSlow = false;
     public bool enableAttack = false;
 
-    public float lifeTime;
-    protected abstract float spdChanged { get; set; }
-    protected abstract float spdChangeDuration { get; set; }
-    public abstract int power { get; set; }
-    public abstract float moveSpd { get; set; }
+    public float lifeTime = 0;
+    public float spdChanged { get {return _spdChanged; } set { _spdChanged = value; } }
+    [SerializeField] protected float _spdChanged;
+    public float spdChangeDuration { get { return _spdChangeDuration; } set{ _spdChangeDuration = value; } }
+    [SerializeField] protected float _spdChangeDuration;
+    public int power { get { return _power; } set { _power = value; } }
+    [SerializeField] protected int _power;
+
+    public float moveSpd { get { return _moveSpd;} set { _moveSpd = value; } }
+    [SerializeField] protected float _moveSpd;
 
     public float rewardAbilityGage { get { return _rewardAbilityGage; } set { _rewardAbilityGage = value; } }
     [SerializeField] protected float _rewardAbilityGage;
@@ -40,8 +47,6 @@ public abstract class EnemyBase : UnitBase, IMovalble, IAttackable
     {
         base.SetFirstStatus();
 
-        enableAttack = false;
-        teamType = TeamType.ENEMY;
         player = GameObject.FindGameObjectWithTag("PLAYER").GetComponent<Player>();
         transform.SetParent(null);
         SetImmortal(true);
@@ -82,7 +87,7 @@ public abstract class EnemyBase : UnitBase, IMovalble, IAttackable
 
     protected virtual void HandleColliderWall()
     {
-        enableAttack = true;
+        
         hasCollideWithWall = true;
         StartCoroutine(AdjustSpeed(spdChanged, spdChangeDuration));
         SetImmortal(false);
@@ -128,10 +133,11 @@ public abstract class EnemyBase : UnitBase, IMovalble, IAttackable
     /// <summary>
     /// 속도를 선형보간 하여 조절합니다. 보간할 시간을 매개변수로 받습니다.
     /// </summary>
-    protected IEnumerator AdjustSpeed(float spd, float duration)
+    protected virtual IEnumerator AdjustSpeed(float spd, float duration)
     {
         float timeAdjustingSpd = 0;
         float originalMoveSpd = moveSpd;
+        enableAttack = true;
 
         while (true)
         {

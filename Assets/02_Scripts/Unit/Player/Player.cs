@@ -290,6 +290,8 @@ public class Player : UnitBase, IPlayer
         SetImmortalDuring(true, 3.0f);
         StartCoroutine(InvincibilityBlink());
 
+        Debug.Log("쳐맞음");
+
         UIManager.instance.CheckPlayerHp();
     }
     public override void Hit(int damage, Vector3 position)
@@ -300,6 +302,7 @@ public class Player : UnitBase, IPlayer
 
         GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.basicParticle, position, Quaternion.Euler(0, 0, 0));
         Destroy(particle, 0.7f);
+        Debug.Log("쳐맞음");
 
         CheckDead();
         isInvincibilityBlinking = true;
@@ -316,7 +319,7 @@ public class Player : UnitBase, IPlayer
 
         GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.basicParticle, hitTransform.position, Quaternion.Euler(0, 0, 0));
         Destroy(particle, 0.7f);
-
+        Debug.Log("쳐맞음");
         CheckDead();
         
         isInvincibilityBlinking = true;

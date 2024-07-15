@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07dfa6aad19f1144d92f50f852a06321, type: 3}
+  m_Name: SprayGunItemData
+  m_EditorClassIdentifier: 
+  _id: 104
+  _itemName: SprayGun
+  _itemUsageType: 1
+  _isUsing: 0
+  _power: 10
+  _level: 1
+  _weaponSpaceTransform: {fileID: 0}
+  _teamType: 0
+  _projectilePrefab: {fileID: 5150634236380144079, guid: 7e935c33671eeb14ab6ff8a3afef355c, type: 3}
+  _useCycle: 2
+  _forceForProjectile: 10
+  _audioSource: {fileID: 0}
+  _shootSound: {fileID: 0}
+  _playSondWhileShooting: 0
+  _isShooting: 0

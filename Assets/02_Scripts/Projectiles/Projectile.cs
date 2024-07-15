@@ -8,7 +8,6 @@ public abstract class Projectile : MonoBehaviour, ITeamMember
     public float spd { get { return _spd; } set { _spd = value; } }
     protected float _spd = 0;
 
-    
     protected bool isShooting;
     public TeamType teamType { get { return _teamType; } set { _teamType = value; } }
 
@@ -36,8 +35,6 @@ public abstract class Projectile : MonoBehaviour, ITeamMember
         {
             return;
         }
-        Debug.Log(name + ": ºÎµúÈû");
-        Debug.Log(other.name);
         if (other.tag == "HYDRO_BEAM")
         {
             Debug.Log("ÇÏÀÌµå·ÎÆßÇÁ Ãæ°Ý");
@@ -52,7 +49,6 @@ public abstract class Projectile : MonoBehaviour, ITeamMember
                 Vector3 closetPoint = other.ClosestPoint(transform.position);
                 unit.Hit(power, closetPoint);
 
-                Debug.Log(name + "°ø°Ý");
                 
                 if (unit.tag == "ENEMY")
                 {

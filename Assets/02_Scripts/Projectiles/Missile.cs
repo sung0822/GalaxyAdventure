@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Missile : Projectile, ITeamMember
+public class Missile : Projectile
 {
     Transform spawnPoint;
 
     Collider collider;
 
-    GameObject explosion;
+    [SerializeField] GameObject explosion;
 
     public float spd = 1;
 
@@ -21,7 +21,6 @@ public class Missile : Projectile, ITeamMember
         transform.position = spawnPoint.position;
         transform.LookAt(GameObject.FindWithTag("MAIN_MANAGER").transform);
         collider = GetComponent<Collider>();
-        explosion = Resources.Load<GameObject>("Bullets/Explosion");
     }
 
     protected override void Update()
@@ -35,14 +34,12 @@ public class Missile : Projectile, ITeamMember
         {
             Explode();
         }
-
-
     }
 
     void Explode()
     {
         Explosion explosion = Instantiate(this.explosion).GetComponent<Explosion>();
-        explosion.transform.position = transform.position; 
+        explosion.transform.position = transform.position;
         Destroy(this.gameObject);
     }
 }

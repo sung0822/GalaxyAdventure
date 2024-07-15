@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 1634103333132122423}
   - component: {fileID: 7422430220413651880}
   - component: {fileID: 5419205664331410438}
-  m_Layer: 0
+  - component: {fileID: 4712179160919560632}
+  m_Layer: 5
   m_Name: ArmorPiercingBulletBox 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,3 +106,16 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.0023148, y: 2, z: 2}
   m_Center: {x: -0.001157403, y: 0, z: 0}
+--- !u!114 &4712179160919560632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6029357951188924150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f472835cd50dd046a80be29f5b1a7e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 5507913028062610320, guid: 26b0403077edf0b4a8810a53e83d05a1, type: 3}

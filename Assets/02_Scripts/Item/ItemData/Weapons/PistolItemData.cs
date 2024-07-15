@@ -31,6 +31,5 @@ public class PistolItemData : GunItemData
         {
             return null;
         }
-
     }
 }

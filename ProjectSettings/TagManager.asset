@@ -17,6 +17,8 @@ TagManager:
   - PLANE
   - PROJECTILE
   - HYDRO_BEAM
+  - BOSS
+  - PLAYER_UI
   layers:
   - Default
   - TransparentFX

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 725686991666967465}
   - component: {fileID: 2434213968482309489}
-  - component: {fileID: 2583151765472479533}
+  - component: {fileID: 6039518546111827034}
   m_Layer: 7
   m_Name: Explosion
   m_TagString: Untagged
@@ -55,7 +55,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2583151765472479533
+--- !u!114 &6039518546111827034
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

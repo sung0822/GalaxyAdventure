@@ -58,7 +58,7 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-        GameObject canvas = GameObject.Find("Canvas");
+        GameObject canvas = GameObject.FindWithTag("PLAYER_UI");
 
         GameObject panel_Status = GameObject.FindGameObjectWithTag("UI_PANEL");
         Transform hpPanel = panel_Status.transform.Find("Panel_HpBar");

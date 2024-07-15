@@ -50,7 +50,10 @@ public abstract class GunItemData : WeaponItemData
         }
     }
     
-
+    public void SetGunState(IGunState gunState)
+    {
+        _gunState = gunState;
+    }
     public override ItemData SetData(ItemData itemData)
     {
         if (itemData is GunItemData)

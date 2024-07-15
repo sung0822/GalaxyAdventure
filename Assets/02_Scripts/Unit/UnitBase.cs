@@ -41,7 +41,8 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
     public bool isBumpedIntoEnemy { get { return _isBumpedIntoEnemy; } }
     private bool _isBumpedIntoEnemy;
 
-    protected bool isDie = false;
+    public bool isDead { get { return _isDead; } set { _isDead = value; } }
+    protected bool _isDead = false;
     public abstract bool isAttacking { get; set; }
     public abstract TeamType teamType { get; set; }
 
@@ -240,7 +241,7 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
     /// <summary> 오브젝트 파괴하고 파티클 생성 </summary>
     public virtual void DieUnit()
     {
-        isDie = true;
+        isDead = true;
         audioSource.clip = dieSound;
         audioSource.enabled = true;
         audioSource.PlayOneShot(dieSound, 1.0f);

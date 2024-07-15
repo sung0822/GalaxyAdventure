@@ -14,14 +14,6 @@ public class GunLevelThreeState : IGunState
     {
     }
 
-    public void OnShoot()
-    {
-        if (gunItemData.isUsing)
-        {
-            return;
-        }
-        CoroutineHelper.instance.RunCoroutine(StartShoot());
-    }
     public void Shoot()
     {
 

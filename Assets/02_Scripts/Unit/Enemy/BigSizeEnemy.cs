@@ -6,21 +6,6 @@ public class BigSizeEnemy : EnemyBase
 {
     public override bool isAttacking { get { return _isAttacking; } set { _isAttacking = value; } }
     private bool _isAttacking = false;
-    protected override float spdChanged { get { return _spdChanged; } set { _spdChanged = value; } }
-    private float _spdChanged = 2.0f;
-    protected override float spdChangeDuration { get { return _spdChangeDuration; } set { _spdChangeDuration = value; } }
-    private float _spdChangeDuration = 0.75f;
-
-    public override int power { get { return _power; } set { _power = value; } }
-    [SerializeField] int _power = 20;
-    public override float moveSpd { get { return _moveSpd; } set { _moveSpd = value; } }
-    [SerializeField] float _moveSpd = 10;
-
-    protected override int rewardExp { get { return _rewardExp; } set { _rewardExp = value; } }
-    [SerializeField] int _rewardExp = 10;
-    protected override int rewardScore { get { return _rewardScore; } set { _rewardScore = value; } }
-
-    [SerializeField] protected int _rewardScore = 100;
 
     [SerializeField] GunItemData gunItemData;
     WeaponSpace currentWeaponSpace;
@@ -34,8 +19,6 @@ public class BigSizeEnemy : EnemyBase
     protected override void SetFirstStatus()
     {
         base.SetFirstStatus();
-
-        lifeTime = 0;
 
         currentWeaponSpace = transform.GetComponentInChildren<WeaponSpace>();
 
@@ -94,7 +77,8 @@ public class BigSizeEnemy : EnemyBase
         }
 
         Destroy(this.gameObject, 10.0f);
-        isDie = true;
+        isDead = true;
+        enableAttack = false;
     }
 
     IEnumerator CreateExploding()

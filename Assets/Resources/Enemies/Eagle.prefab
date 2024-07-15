@@ -1342,16 +1342,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
+  _dieSound: {fileID: 0}
   unitBodyColliders: []
   rigidbodies: []
   colliders: []
   unitRigidbody: {fileID: 0}
+  _maxHp: 10
+  _currentHp: 10
   enableSlow: 1
   enableAttack: 0
   lifeTime: 0
+  _rewardAbilityGage: 0
   _power: 10
-  _maxHp: 10
-  _currentHp: 10
   _moveSpd: 10
   _rewardExp: 10
   _rewardScore: 50

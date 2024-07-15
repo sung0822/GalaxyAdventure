@@ -5,6 +5,5 @@ using UnityEngine;
 public interface IGunState : IShootable
 {
     GunItemData gunItemData { get; set; }
-    void Shoot();
 
 }
