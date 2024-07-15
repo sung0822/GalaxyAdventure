@@ -16,11 +16,11 @@ public class MachineGun : GunItemBase
     [SerializeField] protected MachineGunItemData _machineGunItemData;
     public override void Use()
     {
+        
         if (machineGunItemData.shooted)
         {
             return;
         }
-
         CoroutineHelper.instance.RunCoroutine(StartShoot());
         if (machineGunItemData.isUsing)
         {

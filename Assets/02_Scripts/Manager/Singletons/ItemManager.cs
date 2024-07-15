@@ -26,33 +26,32 @@ public class ItemManager : MonoBehaviour
 
     public GameObject MakeItem(Transform parent, bool isRandom = true)
     {
-        int tmp = Random.Range(0, 2);
+        int tmp = Random.Range(0, itemPrefab.Length);
         GameObject gameObject = null;
 
-        switch (tmp)
-        {
-            case 0:
-                gameObject = Instantiate<GameObject>(itemPrefab[0], parent.transform.position, parent.transform.rotation);
-
-                break;
-                
-            case 1:
-
-                gameObject = Instantiate<GameObject>(itemPrefab[1], parent.transform.position, parent.transform.rotation);
-                break;
-
-            case 2:
-                Debug.Log("생성 안됨");
-                return null;
-            default:
-                break;
-        }
+        gameObject = Instantiate<GameObject>(itemPrefab[tmp], parent.transform.position, Quaternion.Euler(Vector3.zero));
+        RotateItemObject(gameObject);
 
         return gameObject;
     }
-    void MakeItem(bool isRandom = true)
+    void RotateItemObject(GameObject gameObject)
     {
+        switch (gameObject.tag)
+        {
+            case "WEAPON":
+                gameObject.transform.Rotate(0, 90, 50);
+                Debug.Log("무기 호출");
 
+                break;
+            case "BOX":
+                Debug.Log("상자 호출");
+                break;
+
+            default:
+                gameObject.transform.Rotate(-50, 0, 0);
+                Debug.Log("나머지 호출");
+                break;
+        }
     }
 
     void Start()

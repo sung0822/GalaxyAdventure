@@ -199,7 +199,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2769102520703742209
 Transform:
   m_ObjectHideFlags: 0
@@ -209,7 +209,7 @@ Transform:
   m_GameObject: {fileID: 6584342217411620720}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -37.14, y: -1, z: 7.99}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -238,14 +238,16 @@ MonoBehaviour:
   unitRigidbody: {fileID: 0}
   _maxHp: 700
   _currentHp: 700
+  _rewardExp: 10
+  _rewardScore: 100
   enableSlow: 0
   enableAttack: 0
   lifeTime: 0
-  _rewardAbilityGage: 0
+  _spdChanged: 4
+  _spdChangeDuration: 1
   _power: 10
   _moveSpd: 10
-  _rewardExp: 10
-  _rewardScore: 100
+  _rewardAbilityGage: 0
   gunItemData: {fileID: 11400000, guid: 38831413cc76cbe499a66b73cdcab1c4, type: 2}
 --- !u!82 &4875306463989942123
 AudioSource:

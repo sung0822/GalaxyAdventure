@@ -16,6 +16,7 @@ public class BombItemData : ConsumableItemData
         GameObject gameObject = new GameObject(this.itemName);
         BombItem bomb = gameObject.AddComponent<BombItem>();
 
+
         bomb.consumableItemData = this;
 
 

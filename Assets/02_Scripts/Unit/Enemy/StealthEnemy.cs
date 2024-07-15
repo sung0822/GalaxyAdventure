@@ -123,13 +123,7 @@ public class StealthEnemy : EnemyBase
             }// 불투명일시 투명으로 변경 및 공격 중지
             else if(!isInvisible)
             {
-                //do
-                //{
-                //    horizontalDirection = Random.Range(-1, 2);
-                //}
-                //while (horizontalDirection == 0);
 
-                //moveDir = Vector3.right * horizontalDirection;
                 moveDir = Vector3.zero;
                 StartCoroutine(AdjustTransparency(0, 1.0f));
                 

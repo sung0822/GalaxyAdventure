@@ -22,7 +22,6 @@ public class SprayGun : GunItemBase
         {
             return;
         }
-
         CoroutineHelper.instance.RunCoroutine(StartShoot());
         if (sprayGunItemData.isUsing)
         {

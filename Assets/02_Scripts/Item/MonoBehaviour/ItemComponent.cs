@@ -9,9 +9,6 @@ public class ItemComponent : MonoBehaviour
     [SerializeField] float moveSpd = 0.15f;
     [SerializeField] float risePos = 0.3f;
 
-    [SerializeField] public int itemId { get { return _itemId; } }
-    [SerializeField] private int _itemId;
-
     public ItemData itemData;
 
     bool isRising = true;
@@ -29,6 +26,7 @@ public class ItemComponent : MonoBehaviour
             
             Player player = other.transform.root.GetComponent<Player>();
             itemData.unitUser = player;
+
             player.GiveItem(itemData);
             
             Destroy(this.gameObject);
@@ -36,7 +34,6 @@ public class ItemComponent : MonoBehaviour
     }
     private void Awake()
     {
-        _itemId = itemData.id;
         itemData = Instantiate(itemData);
     }
 

@@ -11,8 +11,11 @@ public class SprayGunItemData : GunItemData
         SprayGun sprayGun = gameObject.AddComponent<SprayGun>();
 
         gameObject.transform.parent = this.weaponSpaceTransform.transform;
-
+        gameObject.transform.localPosition = Vector3.zero;
         sprayGun.sprayGunItemData = this;
+
+        isShooting = false;
+        shooted = false;
 
         return sprayGun;
     }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bomber : MonoBehaviour, ITeamMember
 {
     Transform spawnPoint;
-    GameObject missile;
+    [SerializeField] GameObject missile;
     
     public float moveSpd = 10;
     bool isDropped = false;

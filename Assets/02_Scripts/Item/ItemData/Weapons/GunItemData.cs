@@ -20,7 +20,9 @@ public abstract class GunItemData : WeaponItemData
     public bool playSondWhileShooting { get { return _playSondWhileShooting; } }
     [SerializeField] protected bool _playSondWhileShooting;
 
-    public bool shooted { get { return _isShooting; } set { _isShooting = value; } }
+    public bool shooted { get { return _shooted; } set { _shooted = value; } }
+    [SerializeField] protected bool _shooted = false;
+    public bool isShooting { get { return _isShooting; } set { _isShooting = value; } }
     [SerializeField] protected bool _isShooting;
     public IGunState gunState { get { return _gunState; } }
     public IGunState _gunState;
@@ -73,5 +75,6 @@ public abstract class GunItemData : WeaponItemData
         }
 
     }
+
 
 }

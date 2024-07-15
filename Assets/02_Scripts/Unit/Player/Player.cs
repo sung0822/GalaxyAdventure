@@ -389,18 +389,27 @@ public class Player : UnitBase, IPlayer
         switch (itemType)
         {
             case ItemType.Consumable:
+                Debug.Log("UseItemCalled");
+
+                if (currentConsumableItem == null)
+                {
+                    return;
+                }
+
+                currentConsumableItem.Use();
+                int count = inventory.Remove(currentConsumableItem.data.id, 1);
+                Debug.Log(count);
+                
+                if (0 == count)
+                {
+                    Destroy(selectedConsumableItems[currentConsumableItemIdx].transform.gameObject);
+                    selectedConsumableItems.RemoveAt(currentConsumableItemIdx);
+                    ChangeSelectedItem(itemType);
+                }
                 if (selectedConsumableItems.Count <= 0)
                 {
                     currentConsumableItem = null;
                     break;
-                }
-                currentConsumableItem.Use();
-                int count = inventory.Remove(currentConsumableItem.data.id, 1);
-
-                if (0 == count)
-                {
-                    selectedConsumableItems.RemoveAt(currentConsumableItemIdx);
-                    ChangeSelectedItem(itemType);
                 }
                 break;
             case ItemType.Weapon:
@@ -418,8 +427,9 @@ public class Player : UnitBase, IPlayer
         if (item.itemUsageType == ItemUsageType.ImmediatelyUse)
         {
             item.unitUser = this;
-            item.CreateItem().Use();
-            
+            ItemBase currentItem = item.CreateItem();
+            currentItem.Use();
+            Destroy(currentItem.transform.gameObject);
             return;
         }
 
@@ -435,6 +445,7 @@ public class Player : UnitBase, IPlayer
                 currentConsumableItem.transform.parent = transform;
                 
                 selectedConsumableItems.Add(currentConsumableItem);
+                Debug.Log("CurrentConsumableItem: " + currentConsumableItem.name);
                 currentConsumableItemIdx++;
 
                 break;

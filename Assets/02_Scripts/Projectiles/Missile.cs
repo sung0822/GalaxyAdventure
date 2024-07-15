@@ -9,18 +9,23 @@ public class Missile : Projectile
     Collider collider;
 
     [SerializeField] GameObject explosion;
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip explodingSound;
+
+    [SerializeField] MeshRenderer meshRenderer;
 
     public float spd = 1;
 
     public override int power { get { return _power; } set { _power = value; } }
     private int _power;
-
     private void Awake()
     {
         spawnPoint = GameObject.FindWithTag("ALL_SPAWNPOINTS_GROUP").transform.Find("missileSpawnPoint");
         transform.position = spawnPoint.position;
         transform.LookAt(GameObject.FindWithTag("MAIN_MANAGER").transform);
         collider = GetComponent<Collider>();
+        audioSource = GetComponent<AudioSource>();
+        meshRenderer = GetComponentInChildren<MeshRenderer>();
     }
 
     protected override void Update()
@@ -38,8 +43,16 @@ public class Missile : Projectile
 
     void Explode()
     {
-        Explosion explosion = Instantiate(this.explosion).GetComponent<Explosion>();
+        HitBox explosion = Instantiate(this.explosion).GetComponent<HitBox>();
         explosion.transform.position = transform.position;
-        Destroy(this.gameObject);
+        explosion.SetEnableCollider(false);
+        audioSource.clip = explodingSound;
+        audioSource.Play();
+
+        meshRenderer.enabled = false;
+        meshRenderer.material.color = Color.clear;
+
+
+        Destroy(this.gameObject, 3);
     }
 }

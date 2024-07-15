@@ -143,8 +143,15 @@ public class UIManager : MonoBehaviour
         {
             case ItemType.Consumable:
                 ItemBase selectedConsumableItem = playerCtrl.currentConsumableItem;
+                
                 if (selectedConsumableItem == null)
                 {
+                    if (showingConsumableItem == null)
+                    {
+                        return;
+                    }
+                    showingConsumableItem.gameObject.SetActive(false);
+                    consumableItemText.text = "x" + count.ToString();
                     return;
                 }
 
@@ -153,7 +160,7 @@ public class UIManager : MonoBehaviour
 
                 for (int i = 0; i < consumableItems.Count; i++)
                 {
-                    if (consumableItems[i].itemId != playerCtrl.currentConsumableItem.data.id)
+                    if (consumableItems[i].itemData.id != playerCtrl.currentConsumableItem.data.id)
                     {
                         continue;
                     }
@@ -186,7 +193,7 @@ public class UIManager : MonoBehaviour
 
                 for (int i = 0; i < weaponItems.Count; i++)
                 {
-                    if (weaponItems[i].itemId != playerCtrl.currentWeapon.data.id)
+                    if (weaponItems[i].itemData.id != playerCtrl.currentWeapon.data.id)
                     {
                         continue;
                     }

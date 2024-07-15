@@ -51,8 +51,6 @@ public class Eagle : EnemyBase
 
         GameObject item = ItemManager.instance.MakeItem(transform);
         
-        item.GetComponent<ItemComponent>().transform.Rotate(-50, 0, 0);
-        
         GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.eagleDieParticle, transform.position, transform.rotation);
 
         particle.transform.localScale = this.transform.localScale * 0.1f;

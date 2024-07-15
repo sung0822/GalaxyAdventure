@@ -308,7 +308,7 @@ Transform:
   m_GameObject: {fileID: 5249967635383352588}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.7, y: 0.27, z: 4.64}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.85151, y: 0.85151, z: 0.85151}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -332,7 +332,6 @@ MonoBehaviour:
   rotSpd: 10
   moveSpd: 0.1
   risePos: 0.3
-  _itemId: 0
   itemData: {fileID: 11400000, guid: 6c47748a796e39344ae6dd2c361e4fb2, type: 2}
 --- !u!65 &5310950909264856100
 BoxCollider:

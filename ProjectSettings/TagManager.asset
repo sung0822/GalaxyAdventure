@@ -19,6 +19,8 @@ TagManager:
   - HYDRO_BEAM
   - BOSS
   - PLAYER_UI
+  - WEAPON
+  - BOX
   layers:
   - Default
   - TransparentFX

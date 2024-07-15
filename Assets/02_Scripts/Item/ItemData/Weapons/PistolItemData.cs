@@ -12,7 +12,7 @@ public class PistolItemData : GunItemData
         Pistol pistol = gameObject.AddComponent<Pistol>();
 
         gameObject.transform.parent = this.weaponSpaceTransform.transform;
-        
+        gameObject.transform.localPosition = Vector3.zero;
         pistol.pistolItemData = this;
 
 

@@ -3,8 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Stage1 : MonoBehaviour, IStage
+public class Stage1 : IStage
 {
+    public Stage1()
+    {
+        SetUp();
+    }
+
     GameObject BasicEnemyPrefab;
     public float timeElapsed { get { return _timeElapsed; } set { _timeElapsed = value; } }
 
@@ -25,7 +30,7 @@ public class Stage1 : MonoBehaviour, IStage
         {
             return;
         }
-        //StartCoroutine(GenerateAll());
+        CoroutineHelper.instance.RunCoroutine(GenerateAll());
     }
 
     public void SetUp()
@@ -51,7 +56,6 @@ public class Stage1 : MonoBehaviour, IStage
 
     void Start()
     {
-        SetUp();
     }
 
     void Update()
@@ -82,7 +86,7 @@ public class Stage1 : MonoBehaviour, IStage
         for (int i = 0; i < 5; i++)
         {
             spawnPoints[i + 1].transform.rotation = Quaternion.Euler(0, 200, 0);
-            Instantiate(BasicEnemyPrefab, spawnPoints[i + 1]).GetComponent<EnemyBase>().enableSlow = true;
+            GameObject.Instantiate(BasicEnemyPrefab, spawnPoints[i + 1]).GetComponent<EnemyBase>().enableSlow = true;
             yield return new WaitForSeconds(0.3f);
         }
 
@@ -91,7 +95,7 @@ public class Stage1 : MonoBehaviour, IStage
         for (int i = 0; i < 5; i++)
         {
             spawnPoints[i + 1].transform.rotation = Quaternion.Euler(0, 160, 0);
-            Instantiate(BasicEnemyPrefab, spawnPoints[i + 1]).GetComponent<EnemyBase>().enableSlow = true;
+            GameObject.Instantiate(BasicEnemyPrefab, spawnPoints[i + 1]).GetComponent<EnemyBase>().enableSlow = true;
             yield return new WaitForSeconds(0.3f);
         }
 
@@ -103,7 +107,7 @@ public class Stage1 : MonoBehaviour, IStage
         for (int i = 0; i < 5; i++)
         {
             spawnPoints[i].transform.LookAt(target);
-            Instantiate(BasicEnemyPrefab, spawnPoints[i]).GetComponent<EnemyBase>().enableSlow = true;
+            GameObject.Instantiate(BasicEnemyPrefab, spawnPoints[i]).GetComponent<EnemyBase>().enableSlow = true;
             yield return new WaitForSeconds(0.5f);
         }
 
@@ -114,9 +118,9 @@ public class Stage1 : MonoBehaviour, IStage
         spawnPoints[0].transform.LookAt(new Vector3(0, 0, 0));
         spawnPoints[6].transform.LookAt(new Vector3(0, 0, 0));
         spawnPoints[3].transform.rotation = Quaternion.Euler(0, 180, 0);
-        Instantiate(BasicEnemyPrefab, spawnPoints[0]).GetComponent<EnemyBase>().enableSlow = true;
-        Instantiate(BasicEnemyPrefab, spawnPoints[6]).GetComponent<EnemyBase>().enableSlow = true;
-        Instantiate(BasicEnemyPrefab, spawnPoints[3]).GetComponent<EnemyBase>().enableSlow = false;
+        GameObject.Instantiate(BasicEnemyPrefab, spawnPoints[0]).GetComponent<EnemyBase>().enableSlow = true;
+        GameObject.Instantiate(BasicEnemyPrefab, spawnPoints[6]).GetComponent<EnemyBase>().enableSlow = true;
+        GameObject.Instantiate(BasicEnemyPrefab, spawnPoints[3]).GetComponent<EnemyBase>().enableSlow = false;
 
         //spawnPoints[0].transform.rotation = Quaternion.Euler(0, 180, 0);
         //spawnPoints[6].transform.rotation = Quaternion.Euler(0, 180, 0);
@@ -127,10 +131,10 @@ public class Stage1 : MonoBehaviour, IStage
     {
         spawnPoints[0].transform.rotation = Quaternion.Euler(0, 180, 0);
         spawnPoints[6].transform.rotation = Quaternion.Euler(0, 180, 0);
-        Instantiate(BasicEnemyPrefab, spawnPoints[1]).GetComponent<EnemyBase>().enableSlow = true;
-        Instantiate(BasicEnemyPrefab, spawnPoints[2]).GetComponent<EnemyBase>().enableSlow = true;
-        Instantiate(BasicEnemyPrefab, spawnPoints[4]).GetComponent<EnemyBase>().enableSlow = true;
-        Instantiate(BasicEnemyPrefab, spawnPoints[5]).GetComponent<EnemyBase>().enableSlow = true;
+        GameObject.Instantiate(BasicEnemyPrefab, spawnPoints[1]).GetComponent<EnemyBase>().enableSlow = true;
+        GameObject.Instantiate(BasicEnemyPrefab, spawnPoints[2]).GetComponent<EnemyBase>().enableSlow = true;
+        GameObject.Instantiate(BasicEnemyPrefab, spawnPoints[4]).GetComponent<EnemyBase>().enableSlow = true;
+        GameObject.Instantiate(BasicEnemyPrefab, spawnPoints[5]).GetComponent<EnemyBase>().enableSlow = true;
     }
 
     void Generate_5()
@@ -141,12 +145,12 @@ public class Stage1 : MonoBehaviour, IStage
         spawnPoints[4].transform.rotation = Quaternion.Euler(0, 180, 0);
         spawnPoints[5].transform.rotation = Quaternion.Euler(0, 180, 0);
 
-        Instantiate(BasicEnemyPrefab, spawnPoints[0]).GetComponent<EnemyBase>().enableSlow = true;
-        Instantiate(BasicEnemyPrefab, spawnPoints[1]).GetComponent<EnemyBase>().enableSlow = true;
-        Instantiate(BasicEnemyPrefab, spawnPoints[2]).GetComponent<EnemyBase>().enableSlow = true;
-        Instantiate(BasicEnemyPrefab, spawnPoints[3]).GetComponent<EnemyBase>().enableSlow = true;
-        Instantiate(BasicEnemyPrefab, spawnPoints[4]).GetComponent<EnemyBase>().enableSlow = true;
-        Instantiate(BasicEnemyPrefab, spawnPoints[5]).GetComponent<EnemyBase>().enableSlow = true;
+        GameObject.Instantiate(BasicEnemyPrefab, spawnPoints[0]).GetComponent<EnemyBase>().enableSlow = true;
+        GameObject.Instantiate(BasicEnemyPrefab, spawnPoints[1]).GetComponent<EnemyBase>().enableSlow = true;
+        GameObject.Instantiate(BasicEnemyPrefab, spawnPoints[2]).GetComponent<EnemyBase>().enableSlow = true;
+        GameObject.Instantiate(BasicEnemyPrefab, spawnPoints[3]).GetComponent<EnemyBase>().enableSlow = true;
+        GameObject.Instantiate(BasicEnemyPrefab, spawnPoints[4]).GetComponent<EnemyBase>().enableSlow = true;
+        GameObject.Instantiate(BasicEnemyPrefab, spawnPoints[5]).GetComponent<EnemyBase>().enableSlow = true;
 
 
     }

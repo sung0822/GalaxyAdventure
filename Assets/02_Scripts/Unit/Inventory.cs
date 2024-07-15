@@ -49,10 +49,12 @@ public class Inventory : MonoBehaviour
             if (items[id].Count <= 0)
             {
                 items.Remove(id);
+                Debug.Log("아이템 키: " + id);
                 return 0;
             }
             return items[id].Count;
         }
+        Debug.Log("키 포함 안 함");
         return 0;
     }
 
@@ -60,6 +62,7 @@ public class Inventory : MonoBehaviour
     {
         if (items.ContainsKey(id))
         {
+            Debug.Log("아이템 " + id + " 카운트: " + items[id].Count);
             return items[id].Count;
         }
         else

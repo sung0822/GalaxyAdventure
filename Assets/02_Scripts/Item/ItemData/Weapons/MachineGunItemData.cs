@@ -10,8 +10,12 @@ public class MachineGunItemData : GunItemData
         GameObject gameObject = new GameObject(this.itemName);
         MachineGun machineGun = gameObject.AddComponent<MachineGun>();
 
+        gameObject.transform.parent = this.weaponSpaceTransform.transform;
+        gameObject.transform.localPosition = Vector3.zero;
         machineGun.gunItemData = this;
 
+        isShooting = false;
+        shooted = false;
 
         return machineGun;
     }

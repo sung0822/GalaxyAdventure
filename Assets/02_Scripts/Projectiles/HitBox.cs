@@ -43,17 +43,19 @@ public class HitBox : MonoBehaviour, ITeamMember
     }
     public void SetEnableCollider(bool enable)
     {
-        if (collider == null)
-        {
-            return;
-        }
-        collider.enabled = enable;
+        SetEnableColliderAfterFixedTime(enable);
     }
     IEnumerator SetEnableColliderAfterTime(bool enable, float time)
     {
         yield return new WaitForSeconds(time);
         collider.enabled = enable;
     }
+    IEnumerator SetEnableColliderAfterFixedTime(bool enable)
+    {
+        yield return new WaitForFixedUpdate();
+        collider.enabled = enable;
+    }
+
 
 
 }

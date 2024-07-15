@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9206193207987237765}
   - component: {fileID: 8124879835135877394}
   - component: {fileID: 5230701753175265355}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BombItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 7070331639946330806}
   - component: {fileID: 2533539752204720303}
   - component: {fileID: 5904515902008275078}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Bomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -153,5 +153,4 @@ MonoBehaviour:
   rotSpd: 100
   moveSpd: 0.15
   risePos: 0.3
-  _itemId: 0
   itemData: {fileID: 11400000, guid: db367f6c2a464e54b8abb4690cd08338, type: 2}

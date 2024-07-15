@@ -121,7 +121,6 @@ public abstract class EnemyBase : UnitBase, IMovalble, IAttackable
         UIManager.instance.CheckScore();
 
         GameObject item = ItemManager.instance.MakeItem(transform);
-        item.GetComponent<ItemComponent>().transform.Rotate(-50, 0, 0);
     }
 
     public virtual void Move()

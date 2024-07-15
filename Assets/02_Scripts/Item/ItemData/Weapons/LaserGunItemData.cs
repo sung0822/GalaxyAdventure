@@ -11,7 +11,7 @@ public class LaserGunItemData : GunItemData
         LaserGun laserGun = gameObject.AddComponent<LaserGun>();
 
         gameObject.transform.parent = this.weaponSpaceTransform.transform;
-
+        gameObject.transform.localPosition = Vector3.zero;
         laserGun.laserGunItemData = this;
 
         return laserGun;

@@ -49,7 +49,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8646892214310354365
 Transform:
   m_ObjectHideFlags: 0
@@ -113,14 +113,16 @@ MonoBehaviour:
   unitRigidbody: {fileID: 0}
   _maxHp: 40
   _currentHp: 40
+  _rewardExp: 10
+  _rewardScore: 100
   enableSlow: 1
   enableAttack: 0
   lifeTime: 0
-  _rewardAbilityGage: 0
+  _spdChanged: 4
+  _spdChangeDuration: 1
   _power: 10
   _moveSpd: 10
-  _rewardExp: 10
-  _rewardScore: 100
+  _rewardAbilityGage: 0
   gunItemData: {fileID: 11400000, guid: 61872b0e59a0be14fa1191495c4b35b9, type: 2}
 --- !u!82 &7541906570721928612
 AudioSource:

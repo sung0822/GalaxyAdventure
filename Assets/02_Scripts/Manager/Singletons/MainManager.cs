@@ -42,6 +42,8 @@ public class MainManager : MonoBehaviour
 
     public GameObject bgmManagerPrefab = null;
 
+    public GameObject itemManagerPrefab = null;
+
     bool isPaused = false;
 
     private void Start()
@@ -60,12 +62,15 @@ public class MainManager : MonoBehaviour
         GameObject audioManager = Instantiate<GameObject>(bgmManagerPrefab, transform);
         audioManager.name = bgmManagerPrefab.name;
 
+        GameObject itemManager = Instantiate<GameObject>(itemManagerPrefab, transform);
+        itemManager.name = itemManagerPrefab.name;
+
         /////////////////////////////////////////////////////////////////////////////////////////
 
         GameObject stage1Object = new GameObject("Stage1Object");
         stage1Object.transform.SetParent(transform);
 
-        stage1 = stage1Object.AddComponent<Stage1>();
+        stage1 = new Stage1();
         BGMManager.instance.PlayBGM(BGMManager.instance.bgm1);
         currentStage = stage1;
 

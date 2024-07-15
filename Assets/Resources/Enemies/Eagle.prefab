@@ -1056,7 +1056,6 @@ GameObject:
   - component: {fileID: 1134817569992900632}
   - component: {fileID: 1464392237369171497}
   - component: {fileID: 8341614353554735367}
-  - component: {fileID: 4270574483792328227}
   m_Layer: 0
   m_Name: ROOT
   m_TagString: Untagged
@@ -1128,20 +1127,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &4270574483792328227
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7639008828389204097}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3958ac82affcb8545954c15bd7f20586, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rigidbody: {fileID: 0}
-  collider: {fileID: 0}
 --- !u!1 &7862159764975925148
 GameObject:
   m_ObjectHideFlags: 0
@@ -1194,7 +1179,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3326751772767789402
 Transform:
   m_ObjectHideFlags: 0
@@ -1204,7 +1189,7 @@ Transform:
   m_GameObject: {fileID: 8026722089060990954}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 1.55, y: 0, z: 9.47}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1349,14 +1334,16 @@ MonoBehaviour:
   unitRigidbody: {fileID: 0}
   _maxHp: 10
   _currentHp: 10
+  _rewardExp: 10
+  _rewardScore: 50
   enableSlow: 1
   enableAttack: 0
   lifeTime: 0
-  _rewardAbilityGage: 0
+  _spdChanged: 4
+  _spdChangeDuration: 1
   _power: 10
   _moveSpd: 10
-  _rewardExp: 10
-  _rewardScore: 50
+  _rewardAbilityGage: 0
 --- !u!54 &1851218276069378059
 Rigidbody:
   m_ObjectHideFlags: 0

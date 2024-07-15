@@ -66,6 +66,8 @@ public class Boss : EnemyBase
 
         _sprayGun = (SprayGun)sprayGunItemData.CreateItem();
 
+        _machineGunItemData = ScriptableObject.Instantiate(_machineGunItemData);
+
         _machineGunItemData.power = 10;
         _machineGunItemData.level = 1;
         _machineGunItemData.weaponSpaceTransform = machineGunWeaponSpace.transform;
@@ -91,6 +93,16 @@ public class Boss : EnemyBase
 
     public override void Attack()
     {
+    }
+
+    public override void Move()
+    {
+        if (enableAttack)
+        {
+            _pageState.Move();
+            return;
+        }
+        base.Move();
     }
 
     protected override IEnumerator AdjustSpeed(float spd, float duration)
@@ -170,12 +182,15 @@ public class Boss : EnemyBase
                     _pageNumber++;
                     StartCoroutine(ChangeColor(page2Color, 2));
                     _pageState = new BossPageTwoState();
+                    _sprayGunItemData.useCycle -= _sprayGunItemData.useCycle * 0.5f;
                     _pageState.boss = this;
 
                     break;
                 case 2:
                     _pageNumber++;
                     StartCoroutine(ChangeColor(page3Color, 2));
+                    _sprayGunItemData.useCycle -= _sprayGunItemData.useCycle * 0.3f;
+                    _machineGunItemData.useCycle -= _machineGunItemData.useCycle * 0.5f;
                     _pageState = new BossPageThreeState();
                     _pageState.boss = this;
 
