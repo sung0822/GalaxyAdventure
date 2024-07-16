@@ -7,7 +7,7 @@ public class HitBox : MonoBehaviour, ITeamMember
 {
     public int power { get { return _power; } set { _power = value; } }
     [SerializeField] private int _power = 0;
-    Collider collider;
+    [SerializeField] Collider collider;
 
     public TeamType teamType { get { return _teamType; } set{ _teamType = value; } }
     private TeamType _teamType;
@@ -43,7 +43,9 @@ public class HitBox : MonoBehaviour, ITeamMember
     }
     public void SetEnableCollider(bool enable)
     {
-        SetEnableColliderAfterFixedTime(enable);
+        Debug.Log("SetEnableCollider Called");
+        StartCoroutine(SetEnableColliderAfterFixedTime(enable));
+        
     }
     IEnumerator SetEnableColliderAfterTime(bool enable, float time)
     {
@@ -52,8 +54,13 @@ public class HitBox : MonoBehaviour, ITeamMember
     }
     IEnumerator SetEnableColliderAfterFixedTime(bool enable)
     {
+        Debug.Log("SetEnableColliderAfterFixedTime Called");
+        
         yield return new WaitForFixedUpdate();
+        yield return new WaitForFixedUpdate();
+
         collider.enabled = enable;
+        Debug.Log("collider enable: " + collider.enabled);
     }
 
 

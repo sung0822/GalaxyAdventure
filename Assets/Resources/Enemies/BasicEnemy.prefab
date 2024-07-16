@@ -116,12 +116,12 @@ MonoBehaviour:
   _rewardScore: 100
   enableSlow: 1
   enableAttack: 0
-  lifeTime: 0
+  lifeTime: 20
   _spdChanged: 4
   _spdChangeDuration: 1
   _power: 10
   _moveSpd: 10
-  _rewardAbilityGage: 0
+  _rewardAbilityGage: 5
   gunItemData: {fileID: 11400000, guid: 61872b0e59a0be14fa1191495c4b35b9, type: 2}
 --- !u!1 &5643854451028371781
 GameObject:

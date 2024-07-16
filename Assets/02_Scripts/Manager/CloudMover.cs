@@ -16,7 +16,6 @@ public class CloudMover : MonoBehaviour
     {
     }
 
-    // Update is called once per frame
     void Update()
     {
         transform.Translate(Vector3.forward * -0.001f * moveSpd * Time.deltaTime, Space.World);
@@ -76,7 +75,6 @@ public class CloudMover : MonoBehaviour
 
     static public void InitClouds()
     {
-
         cloudPointsGroup = null;
         formations = null;
         cloudPoints = new List<Transform>();

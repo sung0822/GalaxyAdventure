@@ -69,10 +69,7 @@ public class Stage2 : IStage
             {
                 Debug.Log("null");
             }
-            Debug.Log(SpawnPoint.commonName + i);
-            Debug.Log("스폰포인트 추가");
             spawnPointsForward.Add(child);
-            Debug.Log(spawnPointsForward[i].name);
         }
 
         for (int i = 0; i < pointGroupBackward.childCount; i++)
@@ -107,10 +104,10 @@ public class Stage2 : IStage
         Debug.Log("Stage2: Generate1 Called");
         spawnPointsForward[0].transform.LookAt(Vector3.zero);
         spawnPointsForward[6].transform.LookAt(Vector3.zero);
-        spawnPointsForward[3].transform.rotation = Quaternion.Euler(0, 180, 0);
+        spawnPointsForward[3].transform.rotation = Quaternion.Euler(0, 0, 0);
         
-        spawnPointsForward[1].transform.rotation = Quaternion.Euler(0, 180, 0);
-        spawnPointsForward[5].transform.rotation = Quaternion.Euler(0, 180, 0);
+        spawnPointsForward[1].transform.rotation = Quaternion.Euler(0, 0, 0);
+        spawnPointsForward[5].transform.rotation = Quaternion.Euler(0, 0, 0);
 
         GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[3]).GetComponent<EnemyBase>().enableSlow = true;
         GameObject.Instantiate(eaglePrefab, spawnPointsForward[0]).GetComponent<EnemyBase>().enableSlow = true;
@@ -140,7 +137,7 @@ public class Stage2 : IStage
         spawnPointsForward[0].transform.LookAt(Vector3.zero);
         spawnPointsForward[6].transform.LookAt(Vector3.zero);
         
-        spawnPointsForward[3].transform.rotation = Quaternion.Euler(0, 180, 0);
+        spawnPointsForward[3].transform.localRotation = Quaternion.Euler(0, 180, 0);
         
         spawnPointsForward[1].transform.LookAt(Vector3.zero);
         spawnPointsForward[5].transform.LookAt(Vector3.zero);
@@ -161,13 +158,13 @@ public class Stage2 : IStage
     IEnumerator Generate_4()
     {
         Debug.Log("Stage2: Generate4 Called");
-        spawnPointsForward[0].transform.rotation = Quaternion.Euler(0, 180, 0);
-        spawnPointsForward[1].transform.rotation = Quaternion.Euler(0, 180, 0);
-        spawnPointsForward[2].transform.rotation = Quaternion.Euler(0, 180, 0);
-        spawnPointsForward[3].transform.rotation = Quaternion.Euler(0, 180, 0);
-        spawnPointsForward[4].transform.rotation = Quaternion.Euler(0, 180, 0);
-        spawnPointsForward[5].transform.rotation = Quaternion.Euler(0, 180, 0);
-        spawnPointsForward[6].transform.rotation = Quaternion.Euler(0, 180, 0);
+        spawnPointsForward[0].transform.localRotation = Quaternion.Euler(0, 0, 0);
+        spawnPointsForward[1].transform.localRotation = Quaternion.Euler(0, 0, 0);
+        spawnPointsForward[2].transform.localRotation = Quaternion.Euler(0, 0, 0);
+        spawnPointsForward[3].transform.localRotation = Quaternion.Euler(0, 0, 0);
+        spawnPointsForward[4].transform.localRotation = Quaternion.Euler(0, 0, 0);
+        spawnPointsForward[5].transform.localRotation = Quaternion.Euler(0, 0, 0);
+        spawnPointsForward[6].transform.localRotation = Quaternion.Euler(0, 0, 0);
 
         GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[0]).GetComponent<EnemyBase>().enableSlow = true;
         GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[6]).GetComponent<EnemyBase>().enableSlow = true;
@@ -194,11 +191,11 @@ public class Stage2 : IStage
     void Generate_5()
     {
         Debug.Log("Stage2: Generate5 Called");
-        spawnPointsForward[1].transform.rotation = Quaternion.Euler(0, 180, 0);
-        spawnPointsForward[2].transform.rotation = Quaternion.Euler(0, 180, 0);
-        spawnPointsForward[3].transform.rotation = Quaternion.Euler(0, 180, 0);
-        spawnPointsForward[4].transform.rotation = Quaternion.Euler(0, 180, 0);
-        spawnPointsForward[5].transform.rotation = Quaternion.Euler(0, 180, 0);
+        spawnPointsForward[1].transform.localRotation = Quaternion.Euler(0, 0, 0);
+        spawnPointsForward[2].transform.localRotation = Quaternion.Euler(0, 0, 0);
+        spawnPointsForward[3].transform.localRotation = Quaternion.Euler(0, 0, 0);
+        spawnPointsForward[4].transform.localRotation = Quaternion.Euler(0, 0, 0);
+        spawnPointsForward[5].transform.localRotation = Quaternion.Euler(0, 0, 0);
 
         GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[0]).GetComponent<EnemyBase>().enableSlow = true;
         GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[1]).GetComponent<EnemyBase>().enableSlow = true;

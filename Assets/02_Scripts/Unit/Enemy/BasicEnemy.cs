@@ -63,7 +63,7 @@ public class BasicEnemy : EnemyBase
 
     public override void Attack()
     {
-        //currentWeapon.Use();
+        currentWeapon.Use();
     }
 
 

@@ -49,15 +49,10 @@ public class Missile : Projectile
         explosion.transform.position = transform.position;
         explosion.SetEnableCollider(false);
         audioSource.clip = explodingSound;
-           
-        //audioSource.Play();
-        //Debug.Log("오디오플레이");
         
         SoundManager.instance.PlayAtPoint(explodingSound, transform.position);
 
-        //meshRenderer.enabled = false;
-        //meshRenderer.material.color = Color.clear;
-
+        Destroy(explosion, 3.0f);
         Destroy(this.gameObject);
     }
 }

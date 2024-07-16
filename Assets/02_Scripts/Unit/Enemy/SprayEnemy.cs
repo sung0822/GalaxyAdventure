@@ -26,14 +26,15 @@ public class SprayEnemy : EnemyBase
 
         gunItemData.power = 10;
         gunItemData.level = 1;
-        gunItemData.useCycle = 1.0f;
-        gunItemData.forceForProjectile += 5;
+        gunItemData.useCycle = 1.7f;
+        gunItemData.forceForProjectile = 8;
         gunItemData.weaponSpaceTransform = currentWeaponSpace.transform;
         gunItemData.unitUser = this;
         gunItemData.attackableUser = this;
         gunItemData.teamType = teamType;
 
         currentWeapon = (WeaponItemBase)gunItemData.CreateItem();
+
 
     }
 

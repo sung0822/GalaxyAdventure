@@ -78,6 +78,8 @@ public class MainManager : MonoBehaviour
         stages.Add(new Stage1());
         stages.Add(new Stage2());
         stages.Add(new Stage3());
+        stages.Add(new Stage4());
+        stages.Add(new StageBoss());
 
 
         BGMManager.instance.PlayBGM(BGMManager.instance.bgm1);
@@ -137,6 +139,7 @@ public class MainManager : MonoBehaviour
                     break;
                 }
                 currentStageIdx++;
+                currentStage.StopGenerating();
                 currentStage = stages[currentStageIdx];
 
                 break;

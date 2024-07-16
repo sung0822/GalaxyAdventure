@@ -50,6 +50,7 @@ public abstract class EnemyBase : UnitBase, IMovalble, IAttackable
         player = GameObject.FindGameObjectWithTag("PLAYER").GetComponent<Player>();
         transform.SetParent(null);
         SetImmortal(true);
+        Destroy(gameObject, lifeTime);
     }
 
 

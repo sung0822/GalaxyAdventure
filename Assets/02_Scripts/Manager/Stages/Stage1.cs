@@ -82,6 +82,7 @@ public class Stage1 : IStage
                         Generate_4();
         yield return new WaitForSeconds(4.0f);
 
+
         isGenerating = false;
     }
     IEnumerator Generate_1()
@@ -89,7 +90,7 @@ public class Stage1 : IStage
         
         for (int i = 0; i < 5; i++)
         {
-            spawnPointsForward[i + 1].transform.rotation = Quaternion.Euler(0, 200, 0);
+            spawnPointsForward[i + 1].transform.localRotation = Quaternion.Euler(0, 20, 0);
             GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[i + 1]).GetComponent<EnemyBase>().enableSlow = true;
             yield return new WaitForSeconds(0.3f);
         }
@@ -98,7 +99,7 @@ public class Stage1 : IStage
 
         for (int i = 0; i < 5; i++)
         {
-            spawnPointsForward[i + 1].transform.rotation = Quaternion.Euler(0, 160, 0);
+            spawnPointsForward[i + 1].transform.localRotation = Quaternion.Euler(0, 20, 0);
             GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[i + 1]).GetComponent<EnemyBase>().enableSlow = true;
             yield return new WaitForSeconds(0.3f);
         }
@@ -120,7 +121,7 @@ public class Stage1 : IStage
 
         spawnPointsForward[0].transform.LookAt(new Vector3(0, 0, 0));
         spawnPointsForward[6].transform.LookAt(new Vector3(0, 0, 0));
-        spawnPointsForward[3].transform.rotation = Quaternion.Euler(0, 180, 0);
+        spawnPointsForward[3].transform.localRotation = Quaternion.Euler(0, 0, 0);
         GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[0]).GetComponent<EnemyBase>().enableSlow = true;
         GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[6]).GetComponent<EnemyBase>().enableSlow = true;
         GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[3]).GetComponent<EnemyBase>().enableSlow = false;
@@ -133,8 +134,8 @@ public class Stage1 : IStage
     void Generate_4()
     {
 
-        spawnPointsForward[0].transform.rotation = Quaternion.Euler(0, 180, 0);
-        spawnPointsForward[6].transform.rotation = Quaternion.Euler(0, 180, 0);
+        spawnPointsForward[0].transform.localRotation = Quaternion.Euler(0, 0, 0);
+        spawnPointsForward[6].transform.localRotation = Quaternion.Euler(0, 0, 0);
         GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[1]).GetComponent<EnemyBase>().enableSlow = true;
         GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[2]).GetComponent<EnemyBase>().enableSlow = true;
         GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[4]).GetComponent<EnemyBase>().enableSlow = true;
@@ -143,19 +144,11 @@ public class Stage1 : IStage
 
     void Generate_5()
     {
-
-        spawnPointsForward[1].transform.rotation = Quaternion.Euler(0, 180, 0);
-        spawnPointsForward[2].transform.rotation = Quaternion.Euler(0, 180, 0);
-        spawnPointsForward[3].transform.rotation = Quaternion.Euler(0, 180, 0);
-        spawnPointsForward[4].transform.rotation = Quaternion.Euler(0, 180, 0);
-        spawnPointsForward[5].transform.rotation = Quaternion.Euler(0, 180, 0);
-
-        GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[0]).GetComponent<EnemyBase>().enableSlow = true;
-        GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[1]).GetComponent<EnemyBase>().enableSlow = true;
-        GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[2]).GetComponent<EnemyBase>().enableSlow = true;
-        GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[3]).GetComponent<EnemyBase>().enableSlow = true;
-        GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[4]).GetComponent<EnemyBase>().enableSlow = true;
-        GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[5]).GetComponent<EnemyBase>().enableSlow = true;
+        for (int i = 0; i < 6; i++)
+        {
+            spawnPointsForward[i].transform.localRotation = Quaternion.Euler(0, 0, 0);
+            GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[i]).GetComponent<EnemyBase>().enableSlow = true;
+        }
 
 
     }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Gizmo : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] Color color;
     void Start()
     {
         
@@ -12,7 +12,7 @@ public class Gizmo : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red; 
+        Gizmos.color = this.color; 
         Gizmos.DrawSphere(transform.position, 1f);
     }
 

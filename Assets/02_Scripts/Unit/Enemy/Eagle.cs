@@ -21,10 +21,6 @@ public class Eagle : EnemyBase
     {
         base.SetFirstStatus();
         lifeTime = 0;
-
-        transform.AddComponent<AudioSource>();
-        audioSource = GetComponent<AudioSource>();
-
         targetPlayer = GameObject.FindWithTag("PLAYER").transform;
     }
     protected override void Update()

@@ -57,7 +57,7 @@ public class StealthEnemy : EnemyBase
         targetPlayer = GameObject.FindWithTag("PLAYER").transform;
         moveDir = Vector3.forward;
         material = meshRenderer.material;
-
+        
     }
 
     protected override void Update()

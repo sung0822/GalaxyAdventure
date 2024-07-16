@@ -107,7 +107,7 @@ public class InputManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.F7))
         {
-            MainManager.instance.AddScore(100);
+            MainManager.instance.AddScore(1000);
             UIManager.instance.CheckScore();
         }
         else if (Input.GetKeyDown(KeyCode.F8))

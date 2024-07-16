@@ -8,7 +8,7 @@ public class SpawnPoint : MonoBehaviour
 
     public static string commonName = "Point_";
 
-    private Color raserColor = Color.red;
+    [SerializeField] private Color raserColor = Color.red;
     private float laserLength = 100.0f;
 
     private void Start()

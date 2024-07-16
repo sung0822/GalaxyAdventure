@@ -300,6 +300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07767b78f9eb0134db85c2cadd815ab5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  missile: {fileID: 9111302289368323778, guid: 68cffba371513a8499fabf10cc77234a, type: 3}
   moveSpd: 20
 --- !u!1 &6268861565898501214
 GameObject:

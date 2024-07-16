@@ -245,8 +245,6 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
     public virtual void DieUnit()
     {
         isDead = true;
-        audioSource.clip = dieSound;
-        audioSource.enabled = true;
         
         GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.unitExplodingParticle, transform.position, transform.rotation);
 

@@ -48,10 +48,20 @@ public class CloudManager : MonoBehaviour
             cloud.name = $"Cloud{i:00}";
 
             cloudPool.Add(cloud);
-            //cloudPool[i].GetComponent<CloudMover>().Spawn();
+            cloudPool[i].GetComponent<CloudMover>().Spawn();
             float waitTime = Random.Range(2.0f, 4.0f);
 
             yield return new WaitForSeconds(waitTime);
+        }
+        Debug.Log("CloudPoolCount: " + cloudPool.Count);
+    }
+
+    public void StopCloudMoving()
+    {
+        for (int i = 0; i < maxCloud; i++)
+        {
+            cloudPool[i].GetComponent<CloudMover>().moveSpd = 0;
+
         }
     }
 

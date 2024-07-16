@@ -32,11 +32,17 @@ public abstract class GunItemBase : WeaponItemBase
         audioSource.Play();
         Debug.Log(gunItemData.unitUser.name + gunItemData.name + "오디오플레이");
     }
+    protected virtual void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        Debug.Log("Awake 호출됨");
+    }
 
     protected virtual void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        
+        Debug.Log("Start 호출됨");
         audioSource.clip = gunItemData.shootSound;
     }
     protected virtual void Update() 
