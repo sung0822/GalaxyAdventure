@@ -19,7 +19,6 @@ public class BombItem : ConsumableItemBase
     public override void Use()
     {
         Bomber bomber = GameObject.Instantiate(this.bombItemData.bomber).GetComponent<Bomber>();
-        Debug.Log("아아아아");
         bomber.name = "아아아아";
         bomber.teamType = TeamType.ALLY;
     }

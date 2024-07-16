@@ -26,6 +26,7 @@ public class LaserGun : GunItemBase
         hydroBeam.power += laserGunItemData.attackableUser.power * 10;
         audioSource.clip = laserGunItemData.shootSound;
         audioSource.Play();
+        Debug.Log("LaserGun 오디오플레이");
         Destroy(go, 5.0f);
         StartCoroutine(AudioStop(5.0f));
     }

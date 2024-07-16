@@ -50,8 +50,6 @@ public class GunLevelTwoState : IGunState
         projectile2.spd = gunItemData.forceForProjectile;
         projectile2.teamType = gunItemData.teamType;
 
-
-        //AudioSource.PlayClipAtPoint(audioClip, transform.position);
         projectile.Shoot();
         projectile2.Shoot();
     }

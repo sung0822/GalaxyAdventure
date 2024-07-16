@@ -82,6 +82,7 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
         UnitBase enemy = CheckBumpedIntoEnemy(other);
         if (enemy == null)
         {
+            
         }
         else
         {
@@ -93,12 +94,15 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
     /// <summary> 해당 콜라이더가 적 유닛인지 체크, 충돌변수를 설정함. </summary>
     protected UnitBase CheckBumpedIntoEnemy(Collider other)
     {
+        
         if (isBumpedIntoEnemy)
         {
+        
             return null;
         }
         if (other.tag == "HYDRO_BEAM")
         {
+        
             return null;
         }
         UnitBase unit = other.transform.GetComponentInParent<UnitBase>();
@@ -110,6 +114,7 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
 
         if (unit.teamType != teamType)
         {
+        
             SetIsBumped(true);
             StartCoroutine(SetIsBumped(false, 3.0f));
 
@@ -117,6 +122,7 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
         }
         else
         {
+            
             return null;
         }
 
@@ -244,7 +250,7 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
         isDead = true;
         audioSource.clip = dieSound;
         audioSource.enabled = true;
-        audioSource.PlayOneShot(dieSound, 1.0f);
+        
         GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.unitExplodingParticle, transform.position, transform.rotation);
 
         particle.transform.localScale = this.transform.localScale * 0.1f;

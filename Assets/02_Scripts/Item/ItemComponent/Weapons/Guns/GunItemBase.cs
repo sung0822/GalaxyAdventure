@@ -24,8 +24,13 @@ public abstract class GunItemBase : WeaponItemBase
         }
 
         CoroutineHelper.instance.RunCoroutine(StartShoot());
-        audioSource.Play();
         gunItemData.isUsing = true;
+        if (gunItemData.shootSound == null) 
+        {
+            return;
+        }
+        audioSource.Play();
+        Debug.Log(gunItemData.unitUser.name + gunItemData.name + "오디오플레이");
     }
 
     protected virtual void Start()

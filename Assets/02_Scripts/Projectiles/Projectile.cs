@@ -52,7 +52,6 @@ public abstract class Projectile : MonoBehaviour, ITeamMember
                 
                 if (unit.tag == "ENEMY")
                 {
-                    Debug.Log("기본탄 공격 데미지: " + power);
                 }
                 isDestroied = true;
                 Destroy(this.gameObject);

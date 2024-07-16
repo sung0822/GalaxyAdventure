@@ -133,8 +133,6 @@ public class Player : UnitBase, IPlayer
         currentWeapon.transform.localPosition = Vector3.zero;
 
         GunItemData specialGun = ScriptableObject.Instantiate(Resources.Load<LaserGunItemData>("Datas/Weapons/LaserGunItemData"));
-        
-
 
         specialGun.power = 0;
         specialGun.level = 1;
@@ -171,13 +169,14 @@ public class Player : UnitBase, IPlayer
 
     protected override void OnTriggerEnter(Collider other)
     {
-
-        if (isImmortal)
+        UnitBase enemy = CheckBumpedIntoEnemy(other);
+        if (enemy == null)
         {
-            return;
         }
-
-        CheckBumpedIntoEnemy(other)?.Hit(30);
+        else
+        {
+            enemy.Hit(30);
+        }
     }
     protected override void OnCollisionEnter(Collision collision)
     {
@@ -191,6 +190,7 @@ public class Player : UnitBase, IPlayer
     public void Move()
     {
         unitRigidbody.velocity = moveDir * moveSpd;
+        
         for (int i = 0; i < rigidbodies.Count; i++)
         {
             rigidbodies[i].velocity = moveDir * moveSpd;
@@ -267,7 +267,7 @@ public class Player : UnitBase, IPlayer
         currentAirCraft.transform.position = this.transform.position;
         
         // 메쉬 렌더러, 필터 다시 재할당
-        meshRenderer = currentAirCraft.GetComponent<MeshRenderer>();
+        meshRenderer = currentAirCraft.GetComponentInChildren<MeshRenderer>();
 
         unitBodyColliders.Clear();
         rigidbodies.Clear();
@@ -290,8 +290,6 @@ public class Player : UnitBase, IPlayer
         SetImmortalDuring(true, 3.0f);
         StartCoroutine(InvincibilityBlink());
 
-        Debug.Log("쳐맞음");
-
         UIManager.instance.CheckPlayerHp();
     }
     public override void Hit(int damage, Vector3 position)
@@ -302,7 +300,6 @@ public class Player : UnitBase, IPlayer
 
         GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.basicParticle, position, Quaternion.Euler(0, 0, 0));
         Destroy(particle, 0.7f);
-        Debug.Log("쳐맞음");
 
         CheckDead();
         isInvincibilityBlinking = true;
@@ -331,6 +328,7 @@ public class Player : UnitBase, IPlayer
 
     IEnumerator InvincibilityBlink()
     {
+      
         Renders.ChangeStandardShader(meshRenderer.material, BlendMode.Transparent);
 
         while (isInvincibilityBlinking) 
@@ -445,7 +443,6 @@ public class Player : UnitBase, IPlayer
                 currentConsumableItem.transform.parent = transform;
                 
                 selectedConsumableItems.Add(currentConsumableItem);
-                Debug.Log("CurrentConsumableItem: " + currentConsumableItem.name);
                 currentConsumableItemIdx++;
 
                 break;
@@ -456,11 +453,8 @@ public class Player : UnitBase, IPlayer
                     if (currentWeapon.data.id == item.id)
                     {
                         // 이미 가방안에 들어있고, 현재 선택된 무기라면
-                        weaponItemData = ((GunItemData)inventory.GetItemData(item.id));
-                        weaponItemData.level += 1;
 
-                        currentWeapon = (GunItemBase)weaponItemData.CreateItem();
-                        currentWeapon.weaponItemData.level = weaponItemData.level;
+                        currentWeapon.weaponItemData.level += 1;
                         break;
                     }
                     break;

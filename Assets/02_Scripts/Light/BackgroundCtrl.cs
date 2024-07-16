@@ -13,7 +13,6 @@ public class BackgroundCtrl : MonoBehaviour
     int currentScore = 0;
 
     private Material material;             // 머터리얼 참조
-    private float lerpTime = 0.0f;         // 경과 시간
 
 
 

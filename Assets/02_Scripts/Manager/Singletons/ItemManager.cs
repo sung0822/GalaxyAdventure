@@ -26,10 +26,14 @@ public class ItemManager : MonoBehaviour
 
     public GameObject MakeItem(Transform parent, bool isRandom = true)
     {
-        int tmp = Random.Range(0, itemPrefab.Length);
-        GameObject gameObject = null;
+        int tmp = Random.Range(0, itemPrefab.Length * 2);
+        
+        if (tmp >= itemPrefab.Length)
+        {
+            return null;
+        }
 
-        gameObject = Instantiate<GameObject>(itemPrefab[tmp], parent.transform.position, Quaternion.Euler(Vector3.zero));
+        GameObject gameObject = Instantiate<GameObject>(itemPrefab[tmp], parent.transform.position, Quaternion.Euler(Vector3.zero));
         RotateItemObject(gameObject);
 
         return gameObject;
@@ -40,16 +44,13 @@ public class ItemManager : MonoBehaviour
         {
             case "WEAPON":
                 gameObject.transform.Rotate(0, 90, 50);
-                Debug.Log("무기 호출");
 
                 break;
             case "BOX":
-                Debug.Log("상자 호출");
                 break;
 
             default:
                 gameObject.transform.Rotate(-50, 0, 0);
-                Debug.Log("나머지 호출");
                 break;
         }
     }

@@ -27,6 +27,7 @@ public class MachineGun : GunItemBase
             return;
         }
         audioSource.Play();
+        Debug.Log(machineGunItemData.name + "오디오플레이");
         machineGunItemData.isUsing = true;
     }
     protected override void Start()

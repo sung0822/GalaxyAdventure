@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class Detect : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+
+    Rigidbody rigidbody;
+    [SerializeField] float moveSpd;
+
+    private void Start()
     {
-        
+        rigidbody = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
-        
+        Move();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -23,4 +25,19 @@ public class Detect : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
     }
+
+
+    void Move()
+    {
+
+        Vector3 moveDir;
+        float inputHor = Input.GetAxisRaw("Horizontal");
+        float inputVer = Input.GetAxisRaw("Vertical");
+
+        moveDir = new Vector3(inputHor, 0, inputVer).normalized;
+
+        rigidbody.velocity = moveDir * moveSpd;
+
+    }
+
 }

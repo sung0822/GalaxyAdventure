@@ -91,6 +91,7 @@ public class InputManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.F3))
         {
+            
             playerCtrl.currentHp = playerCtrl.maxHp;
         }
         else if (Input.GetKeyDown(KeyCode.F4))

@@ -28,6 +28,7 @@ public class SprayGun : GunItemBase
             return;
         }
         audioSource.Play();
+        Debug.Log("오디오플레이");
         sprayGunItemData.isUsing = true;
     }
 

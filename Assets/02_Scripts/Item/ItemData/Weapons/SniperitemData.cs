@@ -12,8 +12,6 @@ public class SniperitemData : GunItemData
 
         sniper.gunItemData = this;
 
-        Debug.Log(this.itemName);
-
         return sniper;
     }
 }

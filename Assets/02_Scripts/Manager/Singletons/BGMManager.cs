@@ -51,6 +51,7 @@ public class BGMManager : MonoBehaviour
         currentAudioSource.Stop();
         currentAudioSource.clip = audioClip;
         currentAudioSource.Play();
+        Debug.Log("브금 오디오 호출");
     }
 
     public void ChangeBGM(AudioClip audioClip)

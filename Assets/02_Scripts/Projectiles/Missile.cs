@@ -47,11 +47,11 @@ public class Missile : Projectile
         explosion.transform.position = transform.position;
         explosion.SetEnableCollider(false);
         audioSource.clip = explodingSound;
-        audioSource.Play();
+        //audioSource.Play();
+        //Debug.Log("오디오플레이");
 
         meshRenderer.enabled = false;
         meshRenderer.material.color = Color.clear;
-
 
         Destroy(this.gameObject, 3);
     }

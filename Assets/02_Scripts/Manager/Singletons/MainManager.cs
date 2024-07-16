@@ -72,7 +72,7 @@ public class MainManager : MonoBehaviour
 
         stage1 = new Stage1();
         BGMManager.instance.PlayBGM(BGMManager.instance.bgm1);
-        currentStage = stage1;
+        currentStage = new Stage1();
 
     }
 
@@ -91,11 +91,10 @@ public class MainManager : MonoBehaviour
     {
         if (_score <= 1000)
         {
-            currentStage = stage1;
         }
         else if (_score >= 1000)
         {
-
+            currentStage = new Stage2();
         }
         else if (_score >= 3000)
         {
