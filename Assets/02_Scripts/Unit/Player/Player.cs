@@ -457,6 +457,16 @@ public class Player : UnitBase, IPlayer
                         currentWeapon.weaponItemData.level += 1;
                         break;
                     }
+
+                    for (int i = 0; i < selectedWeapons.Count; i++)
+                    {
+                        if (selectedWeapons[i].data.id == item.id)
+                        {
+                            selectedWeapons[i].weaponItemData.level += 1;
+                        }
+                    }
+                    
+
                     break;
                 }
                 // 가방안에 없으면

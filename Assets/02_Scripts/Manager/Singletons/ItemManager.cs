@@ -26,7 +26,7 @@ public class ItemManager : MonoBehaviour
 
     public GameObject MakeItem(Transform parent, bool isRandom = true)
     {
-        int tmp = Random.Range(0, itemPrefab.Length * 2);
+        int tmp = Random.Range(0, itemPrefab.Length * 4);
         
         if (tmp >= itemPrefab.Length)
         {

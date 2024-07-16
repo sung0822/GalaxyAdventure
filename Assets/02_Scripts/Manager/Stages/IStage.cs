@@ -5,9 +5,12 @@ using UnityEngine;
 
 public interface IStage
 {
-    float timeElapsed { get; set; }
+    float timeElapsed { get; }
     Transform target {  get; set; }
 
     void Execute();
     void SetUp();
+
+    void StopGenerating();
+    Coroutine currentCoroutine { get;}
 }

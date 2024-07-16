@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5caf548f5c84f2142baab09629fc28b8, type: 3}
-  m_Name: ShieldItemData 1
+  m_Name: ShieldItemData Immediately
   m_EditorClassIdentifier: Assembly-CSharp::ShieldItemData
   _id: 1
   _itemName: Shield
   _itemUsageType: 0
   _isUsing: 0
-  _shieldTerm: 3
+  _shieldTerm: 7
   _barrierPrefab: {fileID: 8809148706134917461, guid: c9749001ff7a22f4a855f66311a770f9, type: 3}

@@ -91,7 +91,6 @@ public class InputManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.F3))
         {
-            
             playerCtrl.currentHp = playerCtrl.maxHp;
         }
         else if (Input.GetKeyDown(KeyCode.F4))
@@ -109,6 +108,7 @@ public class InputManager : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.F7))
         {
             MainManager.instance.AddScore(100);
+            UIManager.instance.CheckScore();
         }
         else if (Input.GetKeyDown(KeyCode.F8))
         {

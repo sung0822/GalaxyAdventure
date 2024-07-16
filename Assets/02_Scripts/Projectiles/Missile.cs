@@ -13,6 +13,7 @@ public class Missile : Projectile
     [SerializeField] AudioClip explodingSound;
 
     [SerializeField] MeshRenderer meshRenderer;
+    [SerializeField] ParticleSystem particleSystem;
 
     public float spd = 1;
 
@@ -26,6 +27,7 @@ public class Missile : Projectile
         collider = GetComponent<Collider>();
         audioSource = GetComponent<AudioSource>();
         meshRenderer = GetComponentInChildren<MeshRenderer>();
+        particleSystem = GetComponentInChildren<ParticleSystem>();
     }
 
     protected override void Update()
@@ -47,12 +49,15 @@ public class Missile : Projectile
         explosion.transform.position = transform.position;
         explosion.SetEnableCollider(false);
         audioSource.clip = explodingSound;
+           
         //audioSource.Play();
         //Debug.Log("오디오플레이");
+        
+        SoundManager.instance.PlayAtPoint(explodingSound, transform.position);
 
-        meshRenderer.enabled = false;
-        meshRenderer.material.color = Color.clear;
+        //meshRenderer.enabled = false;
+        //meshRenderer.material.color = Color.clear;
 
-        Destroy(this.gameObject, 3);
+        Destroy(this.gameObject);
     }
 }

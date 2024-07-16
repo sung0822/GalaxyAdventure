@@ -1,12 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using static UnityEngine.GraphicsBuffer;
 
-public class BasicEnemy : EnemyBase
+public class SprayEnemy : EnemyBase
 {
     WeaponSpace currentWeaponSpace;
 
@@ -15,11 +11,11 @@ public class BasicEnemy : EnemyBase
     bool _isAttacking;
 
     [SerializeField] GunItemData gunItemData;
-
-    protected override void Start()
+    public override void Attack()
     {
-        base.Start();
+        currentWeapon.Use();
     }
+
     protected override void SetFirstStatus()
     {
         base.SetFirstStatus();
@@ -27,8 +23,11 @@ public class BasicEnemy : EnemyBase
         currentWeaponSpace = transform.GetComponentInChildren<WeaponSpace>();
         gunItemData = ScriptableObject.Instantiate(gunItemData);
 
+
         gunItemData.power = 10;
         gunItemData.level = 1;
+        gunItemData.useCycle = 1.0f;
+        gunItemData.forceForProjectile += 5;
         gunItemData.weaponSpaceTransform = currentWeaponSpace.transform;
         gunItemData.unitUser = this;
         gunItemData.attackableUser = this;
@@ -38,32 +37,12 @@ public class BasicEnemy : EnemyBase
 
     }
 
-
     protected override void Update()
     {
         base.Update();
 
         if (enableAttack)
-        {
             Attack();
-        }
-            
-    }
-
-
-    protected override void OnCollisionEnter(Collision other)
-    {
-        base.OnCollisionEnter(other);
-    }
-
-    protected override void OnTriggerEnter(Collider other)
-    {
-        base.OnTriggerEnter(other);
-    }
-
-    public override void Attack()
-    {
-        //currentWeapon.Use();
     }
 
 

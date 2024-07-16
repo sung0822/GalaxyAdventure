@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7872485562443495020}
   - component: {fileID: 6573146122096127057}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SprayGunSpace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 4942489367760230313}
   - component: {fileID: 3375123514445317541}
   - component: {fileID: 4179827181227045210}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 8128843228039946537}
   - component: {fileID: 3557093911497711869}
   - component: {fileID: 8672909128605571757}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -234,7 +234,7 @@ GameObject:
   - component: {fileID: 8562902510289926359}
   - component: {fileID: 7311485480939314815}
   - component: {fileID: 5552085947461535414}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: hp_Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -308,7 +308,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9117087238596981676}
   - component: {fileID: 3497343912064588012}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PistolSpace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -353,7 +353,7 @@ GameObject:
   - component: {fileID: 4124523420282315758}
   - component: {fileID: 7700306821516518578}
   - component: {fileID: 5038853502828587600}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: hp_Bar_Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -428,7 +428,7 @@ GameObject:
   - component: {fileID: 1149645551328648227}
   - component: {fileID: 7704017178419320767}
   - component: {fileID: 8218463234177105634}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Boss
   m_TagString: BOSS
   m_Icon: {fileID: 0}
@@ -532,9 +532,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1149645551328648227}
     m_Modifications:
+    - target: {fileID: 1152636010132240, guid: c9951ca0f61167b4593ffe21b0a089c8, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1217421958681002, guid: c9951ca0f61167b4593ffe21b0a089c8, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1374267811619562, guid: c9951ca0f61167b4593ffe21b0a089c8, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 1625221395402176, guid: c9951ca0f61167b4593ffe21b0a089c8, type: 3}
       propertyPath: m_Name
       value: Monster_Bat_Prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 1625221395402176, guid: c9951ca0f61167b4593ffe21b0a089c8, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1809875507653856, guid: c9951ca0f61167b4593ffe21b0a089c8, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4085869397129016, guid: c9951ca0f61167b4593ffe21b0a089c8, type: 3}
       propertyPath: m_LocalScale.x
