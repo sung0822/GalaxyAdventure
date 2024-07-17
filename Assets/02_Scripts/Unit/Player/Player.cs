@@ -45,18 +45,23 @@ public class Player : UnitBase, IPlayer
 
     public int currentLevel { get { return _currentLevel; } set { _currentLevel = value; } }
     [SerializeField] int _currentLevel = 1;
-    public float currentExp { get { return _currentExp; } set { _currentExp = value; } }
+    public float currentExp { get { return _currentExp; } }
     [SerializeField] float _currentExp = 0;
-    public float maxExp { get { return _maxExp; } set { _maxExp = value; } }
-    [SerializeField] float _maxExp = 100;
+
+    public List<float> expToLevelUp { get { return _expToLevelUp; }  }
+    [SerializeField] List<float> _expToLevelUp = new List<float>();
+
+    public float currentExpToLevel { get { return _currentExpToLevel; } set { _currentExpToLevel = value; } }
+    [SerializeField] float _currentExpToLevel;
+
+    //public float maxExp { get { return _maxExp; } set { _maxExp = value; } }
+    //[SerializeField] float _maxExp = 100;
     public int maxLevel { get { return _maxLevel; } set { _maxLevel = value; } }
     [SerializeField] int _maxLevel = 10;
     public int power { get { return _power; } set { _power = value; } }
     [SerializeField] public int _power = 10;
-
-    public float abilityGage { get { return _abilityGage; } set { _abilityGage = value; } }
-    [SerializeField] float _abilityGage;
-
+    public float currentAbilityGage { get { return _currentAbilityGage; } set { _currentAbilityGage = value; } }
+    [SerializeField] float _currentAbilityGage;
     public float maxAbilityGage { get { return _maxAbilityGage; } set { _maxAbilityGage = value; } }
     [SerializeField] float _maxAbilityGage;
 
@@ -199,23 +204,37 @@ public class Player : UnitBase, IPlayer
 
     public void GivePlayerExp(float exp)
     {
-        currentExp += exp;
-        UIManager.instance.CheckPlayerExp();
+        _currentExp += exp;
 
-        if (currentExp >= maxExp)
+        if (currentExp >= currentExpToLevel)
         {
             LevelUp();
         }
+        UIManager.instance.CheckPlayerExp();
+    }
+
+    public void GivePlayerAbilityGage(float abilityGage)
+    {
+        currentAbilityGage += abilityGage;
+        if (currentAbilityGage >= maxAbilityGage)
+        {
+            currentAbilityGage = maxAbilityGage;
+        }
+        UIManager.instance.CheckPlayerAbilityGage();
+
     }
 
     public void LevelUp()
     {
         currentLevel++;
+        if (currentLevel-1 >= expToLevelUp.Count)
+        {
+            currentLevel--;
+        }
 
-        currentExp = 0;
+        _currentExp = 0;
 
-        previousMaxExp = maxExp;
-        maxExp = maxExp * 1.5f;
+        currentExpToLevel = expToLevelUp[currentLevel - 1];
 
         previousMaxHp = maxHp;
 
@@ -233,11 +252,21 @@ public class Player : UnitBase, IPlayer
     public void LevelDown()
     {
         currentLevel--;
+        if (currentLevel <= 0)
+        {
+            currentLevel++;
+        }
 
-        maxExp = previousMaxExp;
-        maxHp = previousMaxHp;
+        _currentExp = 0;
 
-        power += (int)(power * 0.1f);
+        currentExpToLevel = expToLevelUp[currentLevel - 1];
+
+        previousMaxHp = maxHp;
+        
+        maxHp = maxHp - (int)(maxHp * 0.1f);
+        currentHp = maxHp;
+
+        power -= (int)(power * 0.1f);
 
         ChangeAirCraft(currentLevel - 1);
 
@@ -326,9 +355,14 @@ public class Player : UnitBase, IPlayer
         UIManager.instance.CheckPlayerHp();
     }
 
+    public override void DieUnit()
+    {
+        base.DieUnit();
+        MainManager.instance.EndLevel();
+    }
+
     IEnumerator InvincibilityBlink()
     {
-      
         Renders.ChangeStandardShader(meshRenderer.material, BlendMode.Transparent);
 
         while (isInvincibilityBlinking) 
@@ -375,6 +409,13 @@ public class Player : UnitBase, IPlayer
 
     public void SpecialAttack()
     {
+        Debug.Log("currentAbilityGage: " + currentAbilityGage);
+        if (currentAbilityGage <= maxAbilityGage)
+        {
+            Debug.Log("들어옴");
+            return;
+        }
+        currentAbilityGage = 0;
         currentSpeicalWeapon.Use();
     }
 

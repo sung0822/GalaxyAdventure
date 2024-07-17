@@ -90,7 +90,7 @@ MonoBehaviour:
   _spdChangeDuration: 1
   _power: 10
   _moveSpd: 10
-  _rewardAbilityGage: 10
+  _rewardAbilityGage: 15
   gunItemData: {fileID: 11400000, guid: b98e617bab24e3f4d854fa8f1644d6b6, type: 2}
 --- !u!1001 &4623572214566039625
 PrefabInstance:

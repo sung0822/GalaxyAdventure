@@ -1152,7 +1152,7 @@ MonoBehaviour:
   _spdChangeDuration: 1
   _power: 10
   _moveSpd: 10
-  _rewardAbilityGage: 0
+  _rewardAbilityGage: 2
 --- !u!54 &1851218276069378059
 Rigidbody:
   m_ObjectHideFlags: 0

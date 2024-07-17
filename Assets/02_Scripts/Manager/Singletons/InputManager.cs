@@ -85,25 +85,21 @@ public class InputManager : MonoBehaviour
         {
             playerCtrl.LevelUp();
         }
-        else if(Input.GetKeyDown(KeyCode.F2))
+        else if(Input.GetKeyDown(KeyCode.F3))
         {
             playerCtrl.LevelDown();
         }
-        else if (Input.GetKeyDown(KeyCode.F3))
+        else if (Input.GetKeyDown(KeyCode.F4))
         {
             playerCtrl.currentHp = playerCtrl.maxHp;
         }
-        else if (Input.GetKeyDown(KeyCode.F4))
-        {
-
-        }
         else if (Input.GetKeyDown(KeyCode.F5))
         {
-
+            ItemManager.instance.MakeItem(Vector3.zero, 1, 2);
         }
         else if (Input.GetKeyDown(KeyCode.F6))
         {
-
+            ItemManager.instance.MakeItem(Vector3.zero, 3, 5);
         }
         else if (Input.GetKeyDown(KeyCode.F7))
         {
@@ -111,6 +107,9 @@ public class InputManager : MonoBehaviour
             UIManager.instance.CheckScore();
         }
         else if (Input.GetKeyDown(KeyCode.F8))
+        {
+        }
+        else if (Input.GetKeyDown(KeyCode.F9))
         {
 
         }

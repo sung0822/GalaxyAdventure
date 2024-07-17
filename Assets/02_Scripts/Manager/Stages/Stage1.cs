@@ -99,7 +99,7 @@ public class Stage1 : IStage
 
         for (int i = 0; i < 5; i++)
         {
-            spawnPointsForward[i + 1].transform.localRotation = Quaternion.Euler(0, 20, 0);
+            spawnPointsForward[i + 1].transform.localRotation = Quaternion.Euler(0, -20, 0);
             GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[i + 1]).GetComponent<EnemyBase>().enableSlow = true;
             yield return new WaitForSeconds(0.3f);
         }

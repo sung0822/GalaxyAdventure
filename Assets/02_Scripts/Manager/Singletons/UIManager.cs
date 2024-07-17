@@ -36,6 +36,9 @@ public class UIManager : MonoBehaviour
 
     public TextMeshProUGUI scoreText;
 
+    public Image AbilityGageBar;
+    public TextMeshProUGUI AbilityGageText;
+
     public Player playerCtrl;
 
     public GameObject panel_Pause;
@@ -62,7 +65,7 @@ public class UIManager : MonoBehaviour
 
         GameObject panel_Status = GameObject.FindGameObjectWithTag("UI_PANEL");
         Transform hpPanel = panel_Status.transform.Find("Panel_HpBar");
-        Transform expPanel = panel_Status.transform.Find("Panel_ExpBar");
+        Transform expPanel = panel_Status.transform.Find("Panel_ExpBar"); 
 
         hpBar = hpPanel.Find("HpBar").GetComponent<Image>();
         hpText = hpPanel.Find("Hp_Text").GetComponent<TextMeshProUGUI>();
@@ -75,11 +78,12 @@ public class UIManager : MonoBehaviour
         
         playerCtrl = GameObject.FindGameObjectWithTag("PLAYER")?.GetComponent<Player>();
         
-        hpText.text = playerCtrl.currentHp.ToString() + " / " + playerCtrl.maxHp.ToString();
-        expText.text = playerCtrl.currentExp.ToString() + " / " + playerCtrl.maxExp.ToString();
+        hpText.text = playerCtrl.currentHp.ToString() + " / " + playerCtrl.currentExpToLevel.ToString();
+        expText.text = playerCtrl.currentExp.ToString() + " / " + playerCtrl.currentExpToLevel.ToString();
         CheckScore();
         CheckPlayerHp();
         CheckPlayerExp();
+        CheckPlayerAbilityGage();
 
         panel_Pause = canvas.transform.Find("Panel_Pause").gameObject;
         panel_Pause.SetActive(false);
@@ -126,14 +130,21 @@ public class UIManager : MonoBehaviour
 
     public void CheckPlayerExp()
     {
-        expText.text = playerCtrl.currentExp.ToString() + " / " + playerCtrl.maxExp.ToString();
-        
-        expBar.fillAmount = (float)playerCtrl.currentExp / (float)playerCtrl.maxExp;
+        Debug.Log("플레이어경험치 체크");
+        expText.text = playerCtrl.currentExp.ToString() + " / " + playerCtrl.currentExpToLevel.ToString();
+        expBar.fillAmount = (float)playerCtrl.currentExp / (float)playerCtrl.currentExpToLevel;
+
+        Debug.Log("플레이어경험치 체크");
     }
 
     public void CheckScore()
     {
         scoreText.text = MainManager.instance.score.ToString();
+    }
+    public void CheckPlayerAbilityGage()
+    {
+        AbilityGageText.text = playerCtrl.currentAbilityGage.ToString() + " / " + playerCtrl.maxAbilityGage.ToString();
+        AbilityGageBar.fillAmount = (float)playerCtrl.currentAbilityGage / (float)playerCtrl.maxAbilityGage;
     }
 
     public void CheckItem(ItemType itemType, Player playerCtrl)

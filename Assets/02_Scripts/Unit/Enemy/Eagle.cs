@@ -41,11 +41,12 @@ public class Eagle : EnemyBase
     public override void DieUnit()
     {
         player.GivePlayerExp(rewardExp);
+        player.GivePlayerAbilityGage(rewardAbilityGage);
         MainManager.instance.AddScore(rewardScore);
         UIManager.instance.CheckScore();
 
 
-        GameObject item = ItemManager.instance.MakeItem(transform);
+        GameObject item = ItemManager.instance.MakeItem(transform.position);
         
         GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.eagleDieParticle, transform.position, transform.rotation);
 

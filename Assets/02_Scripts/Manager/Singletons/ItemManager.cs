@@ -22,9 +22,10 @@ public class ItemManager : MonoBehaviour
         }
     }
 
-    public GameObject[] itemPrefab;
+    public GameObject[] itemPrefab { get { return _itemPrefab; } set { _itemPrefab = value; } }
+    [SerializeField] private GameObject[] _itemPrefab;
 
-    public GameObject MakeItem(Transform parent, bool isRandom = true)
+    public GameObject MakeItem(Vector3 position, bool isRandom = true)
     {
         int tmp = Random.Range(0, itemPrefab.Length * 4);
         
@@ -33,7 +34,21 @@ public class ItemManager : MonoBehaviour
             return null;
         }
 
-        GameObject gameObject = Instantiate<GameObject>(itemPrefab[tmp], parent.transform.position, Quaternion.Euler(Vector3.zero));
+        GameObject gameObject = Instantiate<GameObject>(itemPrefab[tmp], position, Quaternion.Euler(Vector3.zero));
+        RotateItemObject(gameObject);
+
+        return gameObject;
+    }
+    public GameObject MakeItem(Vector3 position, int rangeFirst, int rangeMax)
+    {
+        int tmp = Random.Range(rangeFirst, rangeMax + 1);
+
+        if (tmp >= itemPrefab.Length)
+        {
+            return null;
+        }
+
+        GameObject gameObject = Instantiate<GameObject>(itemPrefab[tmp], position, Quaternion.Euler(Vector3.zero));
         RotateItemObject(gameObject);
 
         return gameObject;

@@ -120,8 +120,9 @@ public abstract class EnemyBase : UnitBase, IMovalble, IAttackable
         player.GivePlayerExp(rewardExp);
         MainManager.instance.AddScore(rewardScore);
         UIManager.instance.CheckScore();
+        player.GivePlayerAbilityGage(rewardAbilityGage);
 
-        GameObject item = ItemManager.instance.MakeItem(transform);
+        GameObject item = ItemManager.instance.MakeItem(transform.position);
     }
 
     public virtual void Move()

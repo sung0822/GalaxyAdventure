@@ -59,17 +59,18 @@ public class StageBoss : IStage
     public void StopGenerating()
     {
     }
-
+        
     IEnumerator Generate()
     {
         isGenerated = true;
         ItemData itemData = Resources.Load<BombItemData>("Datas/Consumable/BombItemData");
         Player player = GameObject.FindWithTag("PLAYER").GetComponent<Player>();
         player.GiveItem(itemData);
-        
-        yield return new WaitForSeconds(10.0f);
-        spawnPointsForward[3].transform.rotation = Quaternion.Euler(0, 0, 0);
+
+        yield return new WaitForSeconds(5.0f);
+        spawnPointsForward[3].transform.localRotation = Quaternion.Euler(0, 0, 0);
         GameObject.Instantiate(BossEnemyPrefab, spawnPointsForward[3]).GetComponent<EnemyBase>().enableSlow = true;
+        Debug.Log("보스 생성");
         CloudManager.instance.StopCloudMoving();
 
     }

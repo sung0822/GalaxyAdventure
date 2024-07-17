@@ -27,10 +27,12 @@ public class CloudManager : MonoBehaviour
 
     int maxCloud = 20;
 
+    Coroutine coroutine;
+
     void Start()
     {
         CloudMover.SetCloudPointsGroup();
-        StartCoroutine(CreateCloud());
+        coroutine = StartCoroutine(CreateCloud());
 
     }
     void Update()
@@ -58,8 +60,9 @@ public class CloudManager : MonoBehaviour
 
     public void StopCloudMoving()
     {
-        for (int i = 0; i < maxCloud; i++)
+        for (int i = 0; i < cloudPool.Count; i++)
         {
+            StopCoroutine(coroutine);
             cloudPool[i].GetComponent<CloudMover>().moveSpd = 0;
 
         }

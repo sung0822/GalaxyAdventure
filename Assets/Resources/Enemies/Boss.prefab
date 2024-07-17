@@ -505,7 +505,7 @@ MonoBehaviour:
   _rewardScore: 5000
   enableSlow: 0
   enableAttack: 0
-  lifeTime: 0
+  lifeTime: 100000
   _spdChanged: 0
   _spdChangeDuration: 1.5
   _power: 0
