@@ -13,6 +13,7 @@ public class NormalBullet : Projectile
 
     protected override void Start()
     {
+        base.Start();
     }
 
     // Update is called once per frame

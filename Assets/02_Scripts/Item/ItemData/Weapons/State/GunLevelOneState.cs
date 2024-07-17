@@ -15,7 +15,7 @@ public class GunLevelOneState : IGunState
         GameObject projectileObject = GameObject.Instantiate<GameObject>
                                     (gunItemData.projectilePrefab,
                                     gunItemData.weaponSpaceTransform.transform.position,
-                                    gunItemData.weaponSpaceTransform.transform.rotation);
+                                    gunItemData.weaponSpaceTransform.transform.rotation); 
 
         Projectile projectile = projectileObject.GetComponent<Projectile>();
 

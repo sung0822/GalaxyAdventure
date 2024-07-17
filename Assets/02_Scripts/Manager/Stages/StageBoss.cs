@@ -71,7 +71,7 @@ public class StageBoss : IStage
         spawnPointsForward[3].transform.localRotation = Quaternion.Euler(0, 0, 0);
         GameObject.Instantiate(BossEnemyPrefab, spawnPointsForward[3]).GetComponent<EnemyBase>().enableSlow = true;
         Debug.Log("보스 생성");
-        CloudManager.instance.StopCloudMoving();
+        BackGroundManager.instance.StopCloudMoving();
 
     }
 

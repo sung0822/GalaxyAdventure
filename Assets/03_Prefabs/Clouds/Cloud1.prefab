@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 257167988263439651}
   m_Layer: 0
   m_Name: Cloud1
-  m_TagString: Untagged
+  m_TagString: CLOUD
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,10 +95,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 548019241170518666}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4b519a10f263d9428e97d707e10bb95, type: 3}
+  m_Script: {fileID: 11500000, guid: 95f32e2e2980bbd4bad95bc47a9d0275, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spd: 10
+  moveSpd: 10
 --- !u!136 &-1630704967017947267
 CapsuleCollider:
   m_ObjectHideFlags: 0

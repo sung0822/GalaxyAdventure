@@ -231,7 +231,6 @@ public class UIManager : MonoBehaviour
         }
         
     }
-
     public void SwitchPausePanel(bool isPaused)
     {
         panel_Pause.SetActive(isPaused);

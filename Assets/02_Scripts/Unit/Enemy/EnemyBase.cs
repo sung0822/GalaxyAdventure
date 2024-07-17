@@ -48,7 +48,7 @@ public abstract class EnemyBase : UnitBase, IMovalble, IAttackable
         base.SetFirstStatus();
 
         player = GameObject.FindGameObjectWithTag("PLAYER").GetComponent<Player>();
-        transform.SetParent(null);
+        transform.SetParent(MainManager.instance.mainStage.transform);
         SetImmortal(true);
         Destroy(gameObject, lifeTime);
     }

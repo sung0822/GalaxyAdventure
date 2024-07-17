@@ -49,6 +49,7 @@ public class Eagle : EnemyBase
         GameObject item = ItemManager.instance.MakeItem(transform.position);
         
         GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.eagleDieParticle, transform.position, transform.rotation);
+        particle.transform.SetParent(MainManager.instance.mainStage.transform);
 
         particle.transform.localScale = this.transform.localScale * 0.1f;
         Destroy(particle, 1.5f);

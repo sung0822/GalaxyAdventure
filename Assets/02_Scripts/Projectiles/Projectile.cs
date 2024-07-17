@@ -18,6 +18,7 @@ public abstract class Projectile : MonoBehaviour, ITeamMember
 
     protected virtual void Start()
     {
+        transform.SetParent(MainManager.instance.mainStage.transform);
         Destroy(gameObject, 15.0f);
     }
 

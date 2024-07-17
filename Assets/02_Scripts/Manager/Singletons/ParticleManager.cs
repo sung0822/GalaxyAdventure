@@ -45,7 +45,6 @@ public class ParticleManager : MonoBehaviour
         {
             GameObject particle = Instantiate<GameObject>(particlePrefab, parent);
             HandleScaleMode(particle);
-
             return particle;
         }
         return null;
@@ -55,6 +54,7 @@ public class ParticleManager : MonoBehaviour
         if (particlePrefab != null)
         {
             GameObject particle = GameObject.Instantiate<GameObject>(particlePrefab, pos, Quaternion.Euler(0, 0, 0));
+            particle.transform.SetParent(MainManager.instance.mainStage.transform);
             HandleScaleMode(particle);
 
             return particle;
@@ -66,6 +66,7 @@ public class ParticleManager : MonoBehaviour
         if (particlePrefab != null)
         {
             GameObject particle = GameObject.Instantiate<GameObject>(particlePrefab, pos, Quaternion.Euler(0, 0, 0));
+            particle.transform.SetParent(MainManager.instance.mainStage.transform);
             HandleScaleMode(particle);
 
             return particle;

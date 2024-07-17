@@ -21,6 +21,9 @@ TagManager:
   - PLAYER_UI
   - WEAPON
   - BOX
+  - MAIN_STAGE
+  - CLOUD
+  - ROCK
   layers:
   - Default
   - TransparentFX

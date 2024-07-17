@@ -48,6 +48,23 @@ public class MainManager : MonoBehaviour
 
     public GameObject soundManagerPrefab = null;
 
+    public GameObject mainStage { get { return _mainStage; } set { _mainStage = value; } }
+    [SerializeField] GameObject _mainStage = null;
+
+    public GameObject mainCamera { get { return _mainCamera; } set { _mainCamera = value; } }
+    [SerializeField] GameObject _mainCamera = null;
+
+
+    public float moveSpd { get { return _moveSpd; } set { _moveSpd = value; } }
+    [SerializeField] float _moveSpd;
+
+    public GameObject background { get { return _background; } set { _background = value; } }
+    [SerializeField] GameObject _background;
+
+    [SerializeField] MeshRenderer backgroundRenderer;
+    [SerializeField] Material backgroundMaterial;
+    [SerializeField] Color changedBackgroundColor;
+
     bool isPaused = false;
 
     private void Start()
@@ -70,8 +87,8 @@ public class MainManager : MonoBehaviour
         itemManager.name = itemManagerPrefab.name;
 
 
-        GameObject soundManager = Instantiate<GameObject>(soundManagerPrefab, transform);
-        itemManager.name = itemManagerPrefab.name;
+        //GameObject soundManager = Instantiate<GameObject>(soundManagerPrefab, transform);
+        //itemManager.name = itemManagerPrefab.name;
         /////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -83,18 +100,32 @@ public class MainManager : MonoBehaviour
 
 
         BGMManager.instance.PlayBGM(BGMManager.instance.bgm1);
+        BackGroundManager.instance.SetCloudPointsGroup();
+        BackGroundManager.instance.CreateClouds();
         currentStage = stages[currentStageIdx];
-
+        backgroundMaterial = backgroundRenderer.material;
     }
 
     private void Update()
     {
         currentStage.Execute();
+        _mainStage.transform.Translate(0, 0, 1 * _moveSpd * Time.deltaTime);
     }
 
     public void AddScore(int score)
     {
+        if (currentStageIdx >= stages.Count - 1)
+        {
+            return;
+        }
         this._score += score;
+        _moveSpd += score * 0.001f;
+        float colorPercent = (float)_score / 15000;
+        Debug.Log("colorPercent: " + colorPercent);
+        Color color = Color.Lerp(backgroundMaterial.color, changedBackgroundColor, colorPercent);
+        Debug.Log("Color: " + color);
+        backgroundMaterial.color = color;
+
         CheckStage();
     }
 
@@ -128,6 +159,7 @@ public class MainManager : MonoBehaviour
                 {
                     break;
                 }
+                BackGroundManager.instance.CreateRocks();
                 currentStageIdx++;
                 currentStage.StopGenerating();
                 currentStage = stages[currentStageIdx];
@@ -138,9 +170,12 @@ public class MainManager : MonoBehaviour
                 {
                     break;
                 }
+                BackGroundManager.instance.StopRockMoving();
+                BackGroundManager.instance.StopCloudMoving();
                 currentStageIdx++;
                 currentStage.StopGenerating();
                 currentStage = stages[currentStageIdx];
+                StartCoroutine(AdjustSpeed(0, 2.0f));
 
                 break;
 
@@ -173,6 +208,30 @@ public class MainManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         UIManager.instance.ShowEndLevelPanel();
+    }
+
+    protected virtual IEnumerator AdjustSpeed(float spd, float duration)
+    {
+        yield return new WaitForSeconds(4.0f);
+        float timeAdjustingSpd = 0;
+        float originalMoveSpd = _moveSpd;
+
+        while (true)
+        {
+            timeAdjustingSpd += Time.deltaTime;
+
+            // 정규화한 길이.
+            float normalizedTime = timeAdjustingSpd / duration;
+
+            if (normalizedTime >= 1)
+            {
+                break;
+            }
+
+            _moveSpd = Mathf.Lerp(originalMoveSpd, spd, normalizedTime);
+
+            yield return new WaitForEndOfFrame();
+        }
     }
 
 

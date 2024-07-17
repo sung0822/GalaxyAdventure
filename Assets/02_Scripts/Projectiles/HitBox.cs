@@ -20,9 +20,9 @@ public class HitBox : MonoBehaviour, ITeamMember
 
     protected virtual void OnTriggerEnter(Collider other)
     {
-        if (other.transform.GetComponentInParent<UnitBase>() != null)
+        UnitBase unit = other.transform.GetComponentInParent<UnitBase>();
+        if (unit != null)
         {
-            UnitBase unit = other.transform.GetComponentInParent<UnitBase>();
             if (unit.teamType != _teamType)
             {
                 Vector3 closetPoint = other.ClosestPoint(transform.position);

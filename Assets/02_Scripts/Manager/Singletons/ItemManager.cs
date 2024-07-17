@@ -34,7 +34,8 @@ public class ItemManager : MonoBehaviour
             return null;
         }
 
-        GameObject gameObject = Instantiate<GameObject>(itemPrefab[tmp], position, Quaternion.Euler(Vector3.zero));
+        GameObject gameObject = Instantiate<GameObject>(itemPrefab[tmp], position, Quaternion.Euler(0, 0, 0));
+        gameObject.transform.SetParent(MainManager.instance.mainStage.transform);
         RotateItemObject(gameObject);
 
         return gameObject;
@@ -48,7 +49,9 @@ public class ItemManager : MonoBehaviour
             return null;
         }
 
-        GameObject gameObject = Instantiate<GameObject>(itemPrefab[tmp], position, Quaternion.Euler(Vector3.zero));
+        GameObject gameObject = Instantiate<GameObject>(itemPrefab[tmp], MainManager.instance.mainStage.transform.position, Quaternion.Euler(0, 0, 0));
+        gameObject.transform.SetParent(MainManager.instance.mainStage.transform);
+        
         RotateItemObject(gameObject);
 
         return gameObject;

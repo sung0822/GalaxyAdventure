@@ -15,6 +15,7 @@ public class ExplosingBullet : Projectile
 
     protected override void Start()
     {
+        base.Start();
     }
 
     protected override void Update()
@@ -43,6 +44,7 @@ public class ExplosingBullet : Projectile
                 isDestroied = true;
 
                 HitBox explosion = Instantiate<GameObject>(explosionPrefab).GetComponent<HitBox>();
+                explosion.transform.SetParent(MainManager.instance.mainStage.transform);
 
                 explosion.transform.position = this .transform.position;
 

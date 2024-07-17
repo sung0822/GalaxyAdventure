@@ -16,21 +16,19 @@ public class ItemComponent : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.root.tag == "PLAYER")
+        if (isDestroied)
         {
-            if (isDestroied)
-            {
-                return;
-            }
+            return;
+        }
+        Player player = other.transform.GetComponentInParent<Player>();
+        if (player != null)
+        {
             isDestroied = true;
-            
-            Player player = other.transform.root.GetComponent<Player>();
             itemData.unitUser = player;
-
             player.GiveItem(itemData);
-            
             Destroy(this.gameObject);
         }
+        
     }
     private void Awake()
     {
