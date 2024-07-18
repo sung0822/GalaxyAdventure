@@ -63,7 +63,6 @@ public class Stage1 : IStage
             Transform child = stage1PointGroup.Find(SpawnPoint.commonName + i);
             spawnPointsForward.Add(child);
         }
-        
     }
     
     IEnumerator GenerateAll()

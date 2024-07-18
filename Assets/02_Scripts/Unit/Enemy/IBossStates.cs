@@ -63,14 +63,12 @@ public abstract class BossPageState : IBossPageState
         if (ismovingRight)
         {
             moveDir = Vector3.right * Time.deltaTime * 2;
-            Debug.Log("움직인 거리: " + moveDistanceTotal);
             moveDistanceTotal += moveDir.magnitude;
         }
         else
         {
             moveDistanceTotal -= moveDir.magnitude;
             moveDir = Vector3.right * Time.deltaTime * -2;
-            Debug.Log("움직인 거리: " + moveDistanceTotal);
         }
 
         boss.transform.Translate(moveDir, Space.Self);

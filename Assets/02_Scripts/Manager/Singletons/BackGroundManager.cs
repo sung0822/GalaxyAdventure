@@ -52,6 +52,13 @@ public class BackGroundManager : MonoBehaviour
 
     Transform[] formations;
 
+    public GameObject background { get { return _background; } set { _background = value; } }
+    [SerializeField] GameObject _background;
+
+    [SerializeField] MeshRenderer backgroundRenderer;
+    [SerializeField] Material backgroundMaterial;
+    [SerializeField] Color changedBackgroundColor;
+
     void Start()
     {
     }
@@ -61,10 +68,6 @@ public class BackGroundManager : MonoBehaviour
     }
     public void SetCloudPointsGroup()
     {
-
-        
-        
-
         for (int i = 0; i < _cloudPointsGroup.childCount; i++)
         {
             Transform child = _cloudPointsGroup.GetChild(i);
@@ -76,7 +79,6 @@ public class BackGroundManager : MonoBehaviour
             Transform child = _rockPointsGroup.GetChild(i);
             rockPoints.Add(child);
         }
-        
     }
 
     public void SpawnCloud(GameObject gameObject)

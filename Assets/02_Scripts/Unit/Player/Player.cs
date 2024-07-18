@@ -409,7 +409,7 @@ public class Player : UnitBase, IPlayer
     public void SpecialAttack()
     {
         Debug.Log("currentAbilityGage: " + currentAbilityGage);
-        if (currentAbilityGage <= maxAbilityGage)
+        if (currentAbilityGage < maxAbilityGage)
         {
             Debug.Log("들어옴");
             return;

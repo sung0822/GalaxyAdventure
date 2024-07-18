@@ -15,7 +15,6 @@ public class PistolItemData : GunItemData
         gameObject.transform.localPosition = Vector3.zero;
         pistol.pistolItemData = this;
 
-
         return pistol;
     }
     public override ItemData SetData(ItemData itemData)

@@ -87,11 +87,19 @@ public class MainManager : MonoBehaviour
         itemManager.name = itemManagerPrefab.name;
 
 
-        //GameObject soundManager = Instantiate<GameObject>(soundManagerPrefab, transform);
-        //itemManager.name = itemManagerPrefab.name;
         /////////////////////////////////////////////////////////////////////////////////////////
 
 
+        BGMManager.instance.PlayBGM(BGMManager.instance.bgm1);
+        BackGroundManager.instance.SetCloudPointsGroup();
+        BackGroundManager.instance.CreateClouds();
+        backgroundMaterial = backgroundRenderer.material;
+
+
+
+
+
+        // 스테이지 객체 캐싱
         stages.Add(new Stage1());
         stages.Add(new Stage2());
         stages.Add(new Stage3());
@@ -99,16 +107,15 @@ public class MainManager : MonoBehaviour
         stages.Add(new StageBoss());
 
 
-        BGMManager.instance.PlayBGM(BGMManager.instance.bgm1);
-        BackGroundManager.instance.SetCloudPointsGroup();
-        BackGroundManager.instance.CreateClouds();
+
         currentStage = stages[currentStageIdx];
-        backgroundMaterial = backgroundRenderer.material;
     }
 
     private void Update()
     {
         currentStage.Execute();
+        
+        // 메인 스테이지 움직임
         _mainStage.transform.Translate(0, 0, 1 * _moveSpd * Time.deltaTime);
     }
 
@@ -118,13 +125,13 @@ public class MainManager : MonoBehaviour
         {
             return;
         }
+
         this._score += score;
         _moveSpd += score * 0.001f;
-        float colorPercent = (float)_score / 15000;
+        float colorPercent = ((float)_score / 15000) * 0.5f;
         Debug.Log("colorPercent: " + colorPercent);
         Color color = Color.Lerp(backgroundMaterial.color, changedBackgroundColor, colorPercent);
-        Debug.Log("Color: " + color);
-        backgroundMaterial.color = color;
+        StartCoroutine(AdjustBackgroundColor(color, 0.3f));
 
         CheckStage();
     }
@@ -135,56 +142,42 @@ public class MainManager : MonoBehaviour
         { 
             case 0:
                 if (_score < 1000)
-                {
-                    break;
-                }
-                currentStageIdx++;
-                currentStage.StopGenerating();
-                currentStage = stages[currentStageIdx];
-
+                    return;
 
                 break;
             case 1:
                 if (_score < 5000)
-                {
-                    break;
-                }
-                currentStageIdx++;
-                currentStage.StopGenerating();
-                currentStage = stages[currentStageIdx];
+                    return;
 
                 break;
             case 2:
                 if (_score < 10000)
-                {
-                    break;
-                }
+                    return;
                 BackGroundManager.instance.CreateRocks();
-                currentStageIdx++;
-                currentStage.StopGenerating();
-                currentStage = stages[currentStageIdx];
 
                 break;
             case 3:
                 if (_score < 15000)
-                {
-                    break;
-                }
+                    return;
                 BackGroundManager.instance.StopRockMoving();
                 BackGroundManager.instance.StopCloudMoving();
-                currentStageIdx++;
-                currentStage.StopGenerating();
-                currentStage = stages[currentStageIdx];
                 StartCoroutine(AdjustSpeed(0, 2.0f));
 
                 break;
-
             case 4:
                 Debug.Log("보스 스테이지임.");
-                break;
+                return;
             default:
                 break;
         }
+        ChangeNextStage();
+
+    }
+    void ChangeNextStage()
+    {
+        currentStageIdx++;
+        currentStage.StopGenerating();
+        currentStage = stages[currentStageIdx];
     }
 
     public void SwitchPauseStat()
@@ -234,5 +227,26 @@ public class MainManager : MonoBehaviour
         }
     }
 
+    protected virtual IEnumerator AdjustBackgroundColor(Color color, float duration)
+    {
+        float timeAdjustingSpd = 0;
+        Color originalColor = backgroundMaterial.color;
 
+        while (true)
+        {
+            timeAdjustingSpd += Time.deltaTime;
+
+            // 정규화한 길이.
+            float normalizedTime = timeAdjustingSpd / duration;
+
+            if (normalizedTime >= 1)
+            {
+                break;
+            }
+            
+            backgroundMaterial.color = Color.Lerp(originalColor, color, normalizedTime);
+
+            yield return new WaitForEndOfFrame();
+        }
+    }
 }

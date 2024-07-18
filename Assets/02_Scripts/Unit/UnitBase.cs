@@ -240,7 +240,6 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
         }
     }
 
-
     /// <summary> 오브젝트 파괴하고 파티클 생성 </summary>
     public virtual void DieUnit()
     {
