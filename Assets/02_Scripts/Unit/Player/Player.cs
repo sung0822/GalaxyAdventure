@@ -49,16 +49,8 @@ public class Player : UnitBase, IPlayer
 
     public PlayerLevelUpData playerLevelUpData { get { return _playerLevelUpData;  } set { _playerLevelUpData = value; } }
     [SerializeField] private PlayerLevelUpData _playerLevelUpData;
-
-    public List<float> expToLevelUp { get { return _expToLevelUp; }  }
-    [SerializeField] List<float> _expToLevelUp = new List<float>();
-    public int maxLevel { get { return _maxLevel; } set { _maxLevel = value; } }
-    [SerializeField] int _maxLevel = 10;
     public float currentExpToLevel { get { return _currentExpToLevel; } set { _currentExpToLevel = value; } }
     [SerializeField] float _currentExpToLevel;
-
-    //public float maxExp { get { return _maxExp; } set { _maxExp = value; } }
-    //[SerializeField] float _maxExp = 100
     public int power { get { return _power; } set { _power = value; } }
     [SerializeField] public int _power = 10;
     public float currentAbilityGage { get { return _currentAbilityGage; } set { _currentAbilityGage = value; } }
@@ -228,14 +220,20 @@ public class Player : UnitBase, IPlayer
     public void LevelUp()
     {
         currentLevel++;
-        if (currentLevel-1 >= expToLevelUp.Count)
+        if (currentLevel-1 >= playerLevelUpData.expToLevelUp.Count)
         {
             currentLevel--;
+            _currentExp = 0;
+            currentExpToLevel = playerLevelUpData.expToLevelUp[currentLevel - 1];
+            currentHp = maxHp;
+            UIManager.instance.CheckPlayerHp();
+            UIManager.instance.CheckPlayerExp();
+            return;
         }
 
         _currentExp = 0;
 
-        currentExpToLevel = expToLevelUp[currentLevel - 1];
+        currentExpToLevel = playerLevelUpData.expToLevelUp[currentLevel - 1];
 
         previousMaxHp = maxHp;
 
@@ -260,7 +258,7 @@ public class Player : UnitBase, IPlayer
 
         _currentExp = 0;
 
-        currentExpToLevel = expToLevelUp[currentLevel - 1];
+        currentExpToLevel = playerLevelUpData.expToLevelUp[currentLevel - 1];
 
         previousMaxHp = maxHp;
         
