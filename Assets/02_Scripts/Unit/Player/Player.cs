@@ -9,7 +9,7 @@ using static UnityEditor.Progress;
 
 public class Player : UnitBase, IPlayer
 {
-    
+
     GameObject currentAirCraft;
 
     GameObject previousAirCraft;
@@ -22,7 +22,7 @@ public class Player : UnitBase, IPlayer
     WeaponSpace currentWeaponSpace;
     MeshRenderer meshRenderer;
 
-    public Inventory inventory { get { return _inventory; }}
+    public Inventory inventory { get { return _inventory; } }
     [SerializeField] protected Inventory _inventory;
 
     /// <summary> 무기 순서. Key: 무기 인덱스, value : 아이템 id </summary>
@@ -38,26 +38,27 @@ public class Player : UnitBase, IPlayer
 
     protected int currentConsumableItemIdx = -1;
 
-    public override bool isAttacking { get { return _isAttacking; } set{ _isAttacking = value; }}
+    public override bool isAttacking { get { return _isAttacking; } set { _isAttacking = value; } }
     protected bool _isAttacking;
     public Vector3 moveDir { get { return _moveDir; } set { _moveDir = value; } }
     Vector3 _moveDir;
-
     public int currentLevel { get { return _currentLevel; } set { _currentLevel = value; } }
     [SerializeField] int _currentLevel = 1;
     public float currentExp { get { return _currentExp; } }
     [SerializeField] float _currentExp = 0;
 
+    public PlayerLevelUpData playerLevelUpData { get { return _playerLevelUpData;  } set { _playerLevelUpData = value; } }
+    [SerializeField] private PlayerLevelUpData _playerLevelUpData;
+
     public List<float> expToLevelUp { get { return _expToLevelUp; }  }
     [SerializeField] List<float> _expToLevelUp = new List<float>();
-
+    public int maxLevel { get { return _maxLevel; } set { _maxLevel = value; } }
+    [SerializeField] int _maxLevel = 10;
     public float currentExpToLevel { get { return _currentExpToLevel; } set { _currentExpToLevel = value; } }
     [SerializeField] float _currentExpToLevel;
 
     //public float maxExp { get { return _maxExp; } set { _maxExp = value; } }
-    //[SerializeField] float _maxExp = 100;
-    public int maxLevel { get { return _maxLevel; } set { _maxLevel = value; } }
-    [SerializeField] int _maxLevel = 10;
+    //[SerializeField] float _maxExp = 100
     public int power { get { return _power; } set { _power = value; } }
     [SerializeField] public int _power = 10;
     public float currentAbilityGage { get { return _currentAbilityGage; } set { _currentAbilityGage = value; } }
@@ -111,9 +112,9 @@ public class Player : UnitBase, IPlayer
 
         isInvincibilityBlinking = false;
         currentAirCraft.transform.position = this.transform.position;
-
-        //하이드로빔 정보 캐싱
-
+        
+        playerLevelUpData = Instantiate<PlayerLevelUpData>(playerLevelUpData);
+        playerLevelUpData.SetUserLevelData();
         base.SetFirstStatus();
         SetBody();
     }

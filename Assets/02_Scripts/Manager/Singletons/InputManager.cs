@@ -108,6 +108,7 @@ public class InputManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.F8))
         {
+            UIManager.instance.DisplayPlayerLevelUpTable();
         }
         else if (Input.GetKeyDown(KeyCode.F9))
         {

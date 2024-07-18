@@ -17,7 +17,6 @@ public class ParticleManager : MonoBehaviour
             {
                 return;
             }
-            Debug.Log("Particle duplication");
             Destroy(this.gameObject);
         }
     }

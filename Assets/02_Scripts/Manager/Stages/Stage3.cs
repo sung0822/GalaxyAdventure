@@ -69,7 +69,6 @@ public class Stage3 : IStage
         pointGroupLeftward = pointGroup.transform.Find("Leftward");
         pointGroupRightward = pointGroup.transform.Find("Rightward");
 
-        Debug.Log(pointGroupBackward.childCount);
 
         for (int i = 0; i < pointGroupForward.childCount; i++)
         {

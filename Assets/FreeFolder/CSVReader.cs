@@ -9,6 +9,8 @@ public class CSVReader : MonoBehaviour
     public List<Dictionary<string, string>> ReadCSV()
     {
         List<Dictionary<string, string>> data = new List<Dictionary<string, string>>();
+        
+        // 행 나누기
         string[] lines = csvFile.text.Split('\n');
         for (int i = 0; i < lines.Length; i++)
         {
@@ -23,19 +25,24 @@ public class CSVReader : MonoBehaviour
 
         string[] headers = lines[0].Split(',');
         
+        // 헤더 분리
         for (int i = 0; i < headers.Length; i++)
         {
             Debug.Log(headers[i]);
         }
 
 
+        // 헤더를 제외하고 for문
         for (int i = 1; i < lines.Length; i++)
         {
+            // 필드 행 나누기
             string[] fields = lines[i].Split(',');
             Dictionary<string, string> entry = new Dictionary<string, string>();
 
+            // 헤더 개수만큼 for문
             for (int j = 0; j < headers.Length; j++)
             {
+                //헤더
                 entry[headers[j]] = fields[j];
             }
 

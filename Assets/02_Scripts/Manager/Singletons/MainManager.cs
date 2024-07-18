@@ -207,7 +207,7 @@ public class MainManager : MonoBehaviour
     public void EndLevel()
     {
         Time.timeScale = 0f;
-        UIManager.instance.ShowEndLevelPanel();
+        UIManager.instance.DisplyEndLevelPanel();
     }
 
     protected virtual IEnumerator AdjustSpeed(float spd, float duration)

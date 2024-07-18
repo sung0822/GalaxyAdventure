@@ -271,14 +271,14 @@
     <Position X="33.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>IAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
-      <FileName>Assets\02_Scripts\Item\Monobehaviour\BulletBox.cs</FileName>
+      <FileName>Assets\02_Scripts\Item\MonoBehaviour\BulletBox.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ItemComponent" Collapsed="true">
     <Position X="35.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QAQAAAAAABBAAAAAACAAAAAAAAAAAAACQAAgAAAAAEA=</HashCode>
-      <FileName>Assets\02_Scripts\Item\Monobehaviour\ItemComponent.cs</FileName>
+      <FileName>Assets\02_Scripts\Item\MonoBehaviour\ItemComponent.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PistolFactory" Collapsed="true">
@@ -326,7 +326,7 @@
   <Class Name="BackGroundManager" Collapsed="true">
     <Position X="26.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQhAUAQSCBCAAIAAAEAAAAAgETAAQSgAAQAAAAAAEg=</HashCode>
+      <HashCode>QAQhAUEwSCBCAAIAACCAAAAAgETACQSAgAQAAAAkAEg=</HashCode>
       <FileName>Assets\02_Scripts\Manager\Singletons\BackGroundManager.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -368,7 +368,7 @@
   <Class Name="MainManager" Collapsed="true">
     <Position X="28.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAgAAQICAAAgBAQBAIACIAAAJAGAABAAKAAUADKEA=</HashCode>
+      <HashCode>AAQAgAAQICBAAgRAABAIACIAAAJgGAABBAKAAUADKEA=</HashCode>
       <FileName>Assets\02_Scripts\Manager\Singletons\MainManager.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -403,7 +403,7 @@
   <Class Name="UIManager" Collapsed="true">
     <Position X="30" Y="5.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ACQECAAAAiQAAQEgIAJGAAAgAAFBAAAgIECQAQCACkA=</HashCode>
+      <HashCode>ACQECAAAAiQAAQEgYAJGKAAgAAFBAAAhIECQAQCACkA=</HashCode>
       <FileName>Assets\02_Scripts\Manager\Singletons\UIManager.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -472,10 +472,9 @@
   <Class Name="Explosion" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="30" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AgAAAAAAAAAAAAAAAAAAAAAAACEEAAABQAAAAAAAAEA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
       <FileName>Assets\02_Scripts\Projectiles\Explosion.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="HitBox" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="28.25" Y="2.5" Width="1.5" />
@@ -610,7 +609,7 @@
   <Class Name="Player" Collapsed="true">
     <Position X="1.25" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>MgQCASQkAqNQhYgIEEYBGAEFAakUQACPVUAAQEhKAEg=</HashCode>
+      <HashCode>MgQCASQkAqNQhYgIEEYBGAEFAakUQACPVUAAwEhKAEg=</HashCode>
       <FileName>Assets\02_Scripts\Unit\Player\Player.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />

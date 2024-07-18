@@ -58,6 +58,14 @@ public class UIManager : MonoBehaviour
     public GameObject panel_Final;
     public Button replayButton;
 
+    public GameObject PanelLevel;
+
+    public GridLayoutGroup PlayerLevelDataTable;
+    public GameObject dataTextPrefab;
+    public GameObject cell;
+
+    public TextMeshProUGUI currentLevelText;
+    public TextMeshProUGUI currentExpText;
 
     void Start()
     {
@@ -130,11 +138,9 @@ public class UIManager : MonoBehaviour
 
     public void CheckPlayerExp()
     {
-        Debug.Log("플레이어경험치 체크");
         expText.text = playerCtrl.currentExp.ToString() + " / " + playerCtrl.currentExpToLevel.ToString();
         expBar.fillAmount = (float)playerCtrl.currentExp / (float)playerCtrl.currentExpToLevel;
 
-        Debug.Log("플레이어경험치 체크");
     }
 
     public void CheckScore()
@@ -236,7 +242,7 @@ public class UIManager : MonoBehaviour
         panel_Pause.SetActive(isPaused);
     }
 
-    public void ShowEndLevelPanel()
+    public void DisplyEndLevelPanel()
     {
         panel_Final.SetActive(true);
         finalScore.text = MainManager.instance.score.ToString();
@@ -247,6 +253,52 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene("Menu");
     }
 
+    public void DisplayPlayerLevelUpTable()
+    {
+        if (PanelLevel.activeSelf == true)
+        {
+            Debug.Log("패널 내림");
+            DownPlayerLevelUpTable();
+            PanelLevel.SetActive(false);
+            return;
+        }
+        PanelLevel.SetActive(true);
+        TextMeshProUGUI dataText;
 
+        PlayerLevelDataTable.constraintCount = playerCtrl.playerLevelUpData.headerOrder.Count;
+
+        for (int i = 0; i < playerCtrl.playerLevelUpData.headerOrder.Count; i++)
+        {
+            // 헤더 출력
+            dataText = Instantiate<GameObject>(cell, PlayerLevelDataTable.transform).GetComponentInChildren<TextMeshProUGUI>();
+            string header = playerCtrl.playerLevelUpData.headerOrder[i + 1];
+            dataText.text = header;
+
+            Debug.Log("key:" + header);
+            //playerCtrl.playerLevelUpData.headers[playerCtrl.playerLevelUpData.headerOrder[i + 1]];
+        }
+        for (int i = 0; i < playerCtrl.playerLevelUpData.maxLevel; i++)
+        {
+            Debug.Log("header: " + i);
+            for (int j = 0; j < playerCtrl.playerLevelUpData.headerOrder.Count; j++)
+            {
+                Debug.Log("value: " + playerCtrl.playerLevelUpData.headers[playerCtrl.playerLevelUpData.headerOrder[j+1]][i]);
+                dataText = Instantiate<GameObject>(dataTextPrefab.gameObject, PlayerLevelDataTable.transform).GetComponentInChildren<TextMeshProUGUI>();
+                dataText.text = playerCtrl.playerLevelUpData.headers[playerCtrl.playerLevelUpData.headerOrder[j+1]][i];
+
+            }
+        }
+        currentExpText.text = "Current Exp: " + playerCtrl.currentExp;
+        currentLevelText.text = "Current Level: " + playerCtrl.currentLevel;
+    }
+
+    public void DownPlayerLevelUpTable()
+    {
+        for (int i = 0; i < PlayerLevelDataTable.transform.childCount; i++)
+        {
+            Destroy(PlayerLevelDataTable.transform.GetChild(i).gameObject);
+        }
+        
+    }
 
 }
