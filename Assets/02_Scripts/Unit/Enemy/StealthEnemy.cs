@@ -97,7 +97,7 @@ public class StealthEnemy : EnemyBase
         StartCoroutine(StartAttack());
 
         // 각종 쉐이더 속성에 접근. 일반적으로 속성 이름으로 접근하는듯함.
-        Renders.ChangeStandardShader(material, BlendMode.Fade);
+        Renders.ChangeStandardShaderRenderMode(material, BlendMode.Fade);
         
         Color color = new Color(material.color.r, material.color.g, material.color.b, 1);
         material.SetColor("_Color", color);

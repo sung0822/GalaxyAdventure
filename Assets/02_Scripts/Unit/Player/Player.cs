@@ -362,7 +362,7 @@ public class Player : UnitBase, IPlayer
 
     IEnumerator InvincibilityBlink()
     {
-        Renders.ChangeStandardShader(meshRenderer.material, BlendMode.Transparent);
+        Renders.ChangeStandardShaderRenderMode(meshRenderer.material, BlendMode.Transparent);
 
         while (isInvincibilityBlinking) 
         {
@@ -391,7 +391,7 @@ public class Player : UnitBase, IPlayer
             yield return new WaitForSeconds(0.15f);
         }
 
-        Renders.ChangeStandardShader(meshRenderer.material, BlendMode.Opaque);
+        Renders.ChangeStandardShaderRenderMode(meshRenderer.material, BlendMode.Opaque);
 
     }
 

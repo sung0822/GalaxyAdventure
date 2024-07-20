@@ -103,10 +103,10 @@ public class Stage2 : IStage
         Debug.Log("Stage2: Generate1 Called");
         spawnPointsForward[0].transform.LookAt(Vector3.zero);
         spawnPointsForward[6].transform.LookAt(Vector3.zero);
-        spawnPointsForward[3].transform.rotation = Quaternion.Euler(0, 0, 0);
         
-        spawnPointsForward[1].transform.rotation = Quaternion.Euler(0, 0, 0);
-        spawnPointsForward[5].transform.rotation = Quaternion.Euler(0, 0, 0);
+        spawnPointsForward[3].transform.localRotation = Quaternion.Euler(0, 0, 0);
+        spawnPointsForward[1].transform.localRotation = Quaternion.Euler(0, 0, 0);
+        spawnPointsForward[5].transform.localRotation = Quaternion.Euler(0, 0, 0);
 
         GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[3]).GetComponent<EnemyBase>().enableSlow = true;
         GameObject.Instantiate(eaglePrefab, spawnPointsForward[0]).GetComponent<EnemyBase>().enableSlow = true;

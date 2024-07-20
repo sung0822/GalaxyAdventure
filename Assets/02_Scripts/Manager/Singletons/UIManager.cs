@@ -145,7 +145,7 @@ public class UIManager : MonoBehaviour
 
     public void CheckScore()
     {
-        scoreText.text = MainManager.instance.score.ToString();
+        scoreText.text = MainManager.instance.currentScore.ToString() + "/" + MainManager.instance.maxScore;
     }
     public void CheckPlayerAbilityGage()
     {
@@ -245,7 +245,7 @@ public class UIManager : MonoBehaviour
     public void DisplyEndLevelPanel()
     {
         panel_Final.SetActive(true);
-        finalScore.text = MainManager.instance.score.ToString();
+        finalScore.text = MainManager.instance.currentScore.ToString();
     }
 
     public void LoadMenu()

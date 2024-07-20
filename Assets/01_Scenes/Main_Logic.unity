@@ -1682,7 +1682,40 @@ PrefabInstance:
       propertyPath: m_Name
       value: BGMManager
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8850595193139401053, guid: a8969dd01c9cc144ba6d1e514145cb61, type: 3}
+      propertyPath: _changingTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8850595193139401053, guid: a8969dd01c9cc144ba6d1e514145cb61, type: 3}
+      propertyPath: currentAudioSource
+      value: 
+      objectReference: {fileID: 414584414}
+    - target: {fileID: 8850595193139401053, guid: a8969dd01c9cc144ba6d1e514145cb61, type: 3}
+      propertyPath: _bgmList.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8850595193139401053, guid: a8969dd01c9cc144ba6d1e514145cb61, type: 3}
+      propertyPath: _changingTimeForFrame
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8850595193139401053, guid: a8969dd01c9cc144ba6d1e514145cb61, type: 3}
+      propertyPath: _bgmList.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 033766cc31c97904bae4404b8a079544, type: 3}
+    - target: {fileID: 8850595193139401053, guid: a8969dd01c9cc144ba6d1e514145cb61, type: 3}
+      propertyPath: _bgmList.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: fc5af015011ea3745b7f78ea1dd1049f, type: 3}
+    - target: {fileID: 8850595193139401053, guid: a8969dd01c9cc144ba6d1e514145cb61, type: 3}
+      propertyPath: _bgmList.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 559c232a43caebe41870ce54786f604e, type: 3}
+    - target: {fileID: 8850595193139401053, guid: a8969dd01c9cc144ba6d1e514145cb61, type: 3}
+      propertyPath: _bgmList.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: 1f2ad53bacc245642854dbdc8ea71a9b, type: 3}
+    m_RemovedComponents:
+    - {fileID: 2395040193541208264, guid: a8969dd01c9cc144ba6d1e514145cb61, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1695,6 +1728,11 @@ Transform:
 --- !u!1 &414584413 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7901820600263793814, guid: a8969dd01c9cc144ba6d1e514145cb61, type: 3}
+  m_PrefabInstance: {fileID: 414584411}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &414584414 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 2374715843278473895, guid: a8969dd01c9cc144ba6d1e514145cb61, type: 3}
   m_PrefabInstance: {fileID: 414584411}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &422971168
@@ -2447,7 +2485,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1f13d1c9b7ac014b9b93a86d9cfe3d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _score: 0
+  _currentScore: 0
+  _maxScore: 15000
   cloudManagerPrefab: {fileID: 1690199830}
   particleManagerPrefab: {fileID: 689577564}
   inputManagerPrefab: {fileID: 875691594}

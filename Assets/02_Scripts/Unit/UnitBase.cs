@@ -13,10 +13,6 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
     public AudioSource audioSource;
     protected AudioClip dieSound { get { return _dieSound; } set { _dieSound = value; } }
     [SerializeField] AudioClip _dieSound;
-
-    //public
-    //unitData;
-
     public List<UnitBody> unitBodyColliders = new List<UnitBody>();
     public List<Rigidbody> rigidbodies = new List<Rigidbody>();
     public List<Collider> colliders = new List<Collider>();

@@ -119,7 +119,7 @@ public class BackGroundManager : MonoBehaviour
         float randomRotationY = Random.Range(0f, 360f);
         gameObject.transform.rotation = Quaternion.Euler(0, randomRotationY, 0);
 
-        int score = MainManager.Get().score;
+        int score = MainManager.Get().currentScore;
     }
 
     public void CreateClouds()

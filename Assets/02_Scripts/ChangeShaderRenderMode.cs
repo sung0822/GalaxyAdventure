@@ -8,7 +8,7 @@ public enum BlendMode
 }
 class Renders
 {
-    public static void ChangeStandardShader(Material standardShaderMaterial, BlendMode blendMode)
+    public static void ChangeStandardShaderRenderMode(Material standardShaderMaterial, BlendMode blendMode)
     {
         switch (blendMode)
         {
