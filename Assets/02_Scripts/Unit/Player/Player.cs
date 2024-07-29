@@ -7,11 +7,11 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using static UnityEditor.Progress;
 
+[RequireComponent(typeof(AudioSource))]
 public class Player : UnitBase, IPlayer
 {
 
     GameObject currentAirCraft;
-
     GameObject previousAirCraft;
 
     [SerializeField] GameObject hydroBeamPrefab;
@@ -19,7 +19,11 @@ public class Player : UnitBase, IPlayer
 
     List<GameObject> aircrafts = new List<GameObject>();
 
-    WeaponSpace currentWeaponSpace;
+    public AudioSource audioSource;
+    public AudioClip changeAirCraftSound;
+    public AudioClip changeBulletSound;
+
+    [SerializeField] WeaponSpace currentWeaponSpace;
     MeshRenderer meshRenderer;
 
     public Inventory inventory { get { return _inventory; } }
@@ -58,8 +62,7 @@ public class Player : UnitBase, IPlayer
     public float maxAbilityGage { get { return _maxAbilityGage; } set { _maxAbilityGage = value; } }
     [SerializeField] float _maxAbilityGage;
 
-    protected float previousMaxExp;
-    protected int previousMaxHp;
+    [SerializeField] protected List<int> maxHpPerLevel = new List<int>();
 
     public bool isInvincibilityBlinking;
 
@@ -69,6 +72,9 @@ public class Player : UnitBase, IPlayer
     private TeamType _teamType = TeamType.ALLY;
 
     protected float _moveSpd = 10;
+
+    public bool isAbsoluteImmortal { get { return _isAbsoluteImmortal; } set { _isAbsoluteImmortal = value; } }
+    private bool _isAbsoluteImmortal;
 
     protected override void Start()
     {
@@ -107,6 +113,12 @@ public class Player : UnitBase, IPlayer
         
         playerLevelUpData = Instantiate<PlayerLevelUpData>(playerLevelUpData);
         playerLevelUpData.SetUserLevelData();
+        maxHpPerLevel.Add(currentMaxHp);
+        for (int i = 1; i < playerLevelUpData.maxLevel; i++)
+        {
+            maxHpPerLevel.Add((int)(maxHpPerLevel[i-1] + maxHpPerLevel[i-1] * 0.1f));
+        }
+
         base.SetFirstStatus();
         SetBody();
     }
@@ -115,8 +127,6 @@ public class Player : UnitBase, IPlayer
     {
         _inventory = gameObject.AddComponent<Inventory>();
         GunItemData gunItemData = ScriptableObject.Instantiate(Resources.Load<PistolItemData>("Datas/Weapons/PistolItemData"));
-
-        currentWeaponSpace = currentAirCraft.GetComponentInChildren<WeaponSpace>();
 
         gunItemData.power = 10;
         gunItemData.level = 1;
@@ -167,14 +177,7 @@ public class Player : UnitBase, IPlayer
 
     protected override void OnTriggerEnter(Collider other)
     {
-        UnitBase enemy = CheckBumpedIntoEnemy(other);
-        if (enemy == null)
-        {
-        }
-        else
-        {
-            enemy.Hit(30);
-        }
+        base.OnTriggerEnter(other);
     }
     protected override void OnCollisionEnter(Collision collision)
     {
@@ -183,8 +186,6 @@ public class Player : UnitBase, IPlayer
     protected override void OnCollisionStay(Collision collision)
     {
     }
-
-
     public void Move()
     {
         unitRigidbody.velocity = moveDir * moveSpd;
@@ -225,7 +226,7 @@ public class Player : UnitBase, IPlayer
             currentLevel--;
             _currentExp = 0;
             currentExpToLevel = playerLevelUpData.expToLevelUp[currentLevel - 1];
-            currentHp = maxHp;
+            currentHp = currentMaxHp;
             UIManager.instance.CheckPlayerHp();
             UIManager.instance.CheckPlayerExp();
             return;
@@ -235,10 +236,8 @@ public class Player : UnitBase, IPlayer
 
         currentExpToLevel = playerLevelUpData.expToLevelUp[currentLevel - 1];
 
-        previousMaxHp = maxHp;
-
-        maxHp = maxHp + (int)(maxHp * 0.1f);
-        currentHp = maxHp;
+        currentMaxHp = maxHpPerLevel[currentLevel - 1];
+        currentHp = currentMaxHp;
 
         power += (int)(power * 0.1f);
 
@@ -254,16 +253,16 @@ public class Player : UnitBase, IPlayer
         if (currentLevel <= 0)
         {
             currentLevel++;
+            return;
         }
 
         _currentExp = 0;
 
         currentExpToLevel = playerLevelUpData.expToLevelUp[currentLevel - 1];
-
-        previousMaxHp = maxHp;
         
-        maxHp = maxHp - (int)(maxHp * 0.1f);
-        currentHp = maxHp;
+        
+        currentMaxHp = maxHpPerLevel[currentLevel - 1];
+        currentHp = currentMaxHp;
 
         power -= (int)(power * 0.1f);
 
@@ -301,29 +300,40 @@ public class Player : UnitBase, IPlayer
         rigidbodies.Clear();
         colliders.Clear();
 
+        audioSource.clip = changeAirCraftSound;
+        audioSource.Play();
+
         SetBody();
 
     }
 
     public override void Hit(int damage)
     {
-        base.Hit(damage);
-
-        if (_isImmortal)
-        {
+        if (isAbsoluteImmortal)
             return;
-        }
 
+        if (isImmortal)
+            return;
+
+        currentHp -= damage;
+
+        GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.basicParticle, transform);
+        Destroy(particle, 0.7f);
+
+        CheckDead();
         isInvincibilityBlinking = true;
         SetImmortalDuring(true, 3.0f);
         StartCoroutine(InvincibilityBlink());
-
         UIManager.instance.CheckPlayerHp();
     }
     public override void Hit(int damage, Vector3 position)
     {
+        if (isAbsoluteImmortal)
+            return;
+
         if (isImmortal)
             return;
+
         currentHp -= damage;
 
         GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.basicParticle, position, Quaternion.Euler(0, 0, 0));
@@ -333,13 +343,16 @@ public class Player : UnitBase, IPlayer
         isInvincibilityBlinking = true;
         SetImmortalDuring(true, 3.0f);
         StartCoroutine(InvincibilityBlink());
-
         UIManager.instance.CheckPlayerHp();
     }
     public override void Hit(int damage, Transform hitTransform)
     {
+        if (isAbsoluteImmortal)
+            return;
+
         if (isImmortal)
             return;
+
         currentHp -= damage;
 
         GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.basicParticle, hitTransform.position, Quaternion.Euler(0, 0, 0));
@@ -427,7 +440,6 @@ public class Player : UnitBase, IPlayer
         switch (itemType)
         {
             case ItemType.Consumable:
-                Debug.Log("UseItemCalled");
 
                 if (currentConsumableItem == null)
                 {
@@ -440,9 +452,12 @@ public class Player : UnitBase, IPlayer
                 
                 if (0 == count)
                 {
+                    Debug.Log("currentConsumableItemIdx: " + currentConsumableItemIdx);
                     Destroy(selectedConsumableItems[currentConsumableItemIdx].transform.gameObject);
                     selectedConsumableItems.RemoveAt(currentConsumableItemIdx);
+                    currentConsumableItemIdx--;
                     ChangeSelectedItem(itemType);
+                    
                 }
                 if (selectedConsumableItems.Count <= 0)
                 {
@@ -493,7 +508,6 @@ public class Player : UnitBase, IPlayer
                     if (currentWeapon.data.id == item.id)
                     {
                         // 이미 가방안에 들어있고, 현재 선택된 무기라면
-
                         currentWeapon.weaponItemData.level += 1;
                         break;
                     }
@@ -505,14 +519,10 @@ public class Player : UnitBase, IPlayer
                             selectedWeapons[i].weaponItemData.level += 1;
                         }
                     }
-                    
-
                     break;
                 }
                 // 가방안에 없으면
-
                 weaponItemData = (GunItemData)Instantiate<ScriptableObject>(item);
-
                 weaponItemData.level = 1;
                 weaponItemData.weaponSpaceTransform = currentWeaponSpace.transform;
                 weaponItemData.unitUser = this;
@@ -529,13 +539,11 @@ public class Player : UnitBase, IPlayer
                 selectedWeapons.Add(currentWeapon);
                 currentWeaponIdx++;
                 inventory.Add(weaponItemData);
-                
-                
+
+                audioSource.clip = changeBulletSound;
+                audioSource.Play();
                 ChangeBullet(projectilePrefab);
-
-
                 break;
-
             default:
                 break;
         }
@@ -572,6 +580,8 @@ public class Player : UnitBase, IPlayer
                 }
                 currentWeapon.StopUse();
                 currentWeapon = selectedWeapons[currentWeaponIdx];
+                audioSource.clip = changeBulletSound;
+                audioSource.Play();
 
                 break;
             default:
@@ -584,11 +594,8 @@ public class Player : UnitBase, IPlayer
     {
         for (int i = 0; i < selectedWeapons.Count; i++)
         {
-
             ((GunItemBase)selectedWeapons[i]).gunItemData.projectilePrefab = bulletPrefab;
-
         }
-        
     }
 
     protected void SetBody()
@@ -622,5 +629,10 @@ public class Player : UnitBase, IPlayer
                 Physics.IgnoreCollision(colliders[i - 1], colliders[j]);
             }
         }
+    }
+
+    public override void SetImmortalDuring(bool isImmortal, float time)
+    {
+        base.SetImmortalDuring(isImmortal, time);
     }
 }

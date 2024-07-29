@@ -18,7 +18,7 @@ public class HealItem : ConsumableItemBase
     public override void Use()
     {
 
-        float healAmount = healItemData.unitUser.currentHp + (float)(healItemData.unitUser.maxHp) * healItemData.healAmountOfPercent;
+        float healAmount = healItemData.unitUser.currentHp + (float)(healItemData.unitUser.currentMaxHp) * healItemData.healAmountOfPercent;
 
         healItemData.unitUser.currentHp = healItemData.unitUser.currentHp + (int)healAmount;
 

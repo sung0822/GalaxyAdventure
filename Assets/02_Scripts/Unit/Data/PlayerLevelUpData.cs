@@ -16,7 +16,7 @@ public class PlayerLevelUpData : ScriptableObject
     [SerializeField] private Dictionary<int, string> _headerOrder = new Dictionary<int, string>();
     public List<float> expToLevelUp { get { return _expToLevelUp; } }
     [SerializeField] List<float> _expToLevelUp = new List<float>();
-    public int maxLevel { get { Debug.Log("maxLevel:" + _maxLevel); return _maxLevel;  } set { _maxLevel = value; } }
+    public int maxLevel { get { return _maxLevel; } set { _maxLevel = value; } }
     [SerializeField] int _maxLevel;
 
     public PlayerLevelUpData()
@@ -35,7 +35,6 @@ public class PlayerLevelUpData : ScriptableObject
         headers.Add("Level", levelColumn);
         headerOrder.Add(1, "Level");
 
-        Debug.Log("expToLevelUP.Count: " + expToLevelUp.Count);
         for (int i = 0; i < expToLevelUp.Count; i++)
         {
             requiredExpColumn.Add(expToLevelUp[i].ToString());

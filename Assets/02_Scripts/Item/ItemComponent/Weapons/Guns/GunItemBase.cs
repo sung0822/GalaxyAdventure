@@ -36,12 +36,11 @@ public abstract class GunItemBase : WeaponItemBase
     {
         audioSource = GetComponent<AudioSource>();
         audioSource.playOnAwake = false;
+        audioSource.clip = gunItemData.shootSound;
     }
 
     protected virtual void Start()
     {
-        audioSource = GetComponent<AudioSource>();
-        audioSource.clip = gunItemData.shootSound;
     }
     protected virtual void Update() 
     {

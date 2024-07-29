@@ -16,8 +16,6 @@ public class Inventory : MonoBehaviour
     [SerializeField]
     private UIManager _inventoryUI; // 연결된 인벤토리 UI
 
-    /// <summary> 아이템 목록 </summary>
-    [SerializeField]
     private void Awake()
     {
     }

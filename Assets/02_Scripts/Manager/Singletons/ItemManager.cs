@@ -68,7 +68,7 @@ public class ItemManager : MonoBehaviour
                 break;
 
             default:
-                gameObject.transform.Rotate(-50, 0, 0);
+                gameObject.transform.Rotate(50, 0, 0);
                 break;
         }
     }

@@ -37,6 +37,8 @@ public class Boss : EnemyBase
     public Transform targetPlayer;
     public Image hpBar { get { return _hpBar; } set { _hpBar = value; } }
     [SerializeField] Image _hpBar;
+    public TextMeshProUGUI hpText { get { return _hpText; } set { _hpText = value; } }
+    [SerializeField] TextMeshProUGUI _hpText;
 
     public Color page2Color { get { return _page2Color; } set { _page2Color = value; } }
     [SerializeField] Color _page2Color;
@@ -79,6 +81,7 @@ public class Boss : EnemyBase
 
         _pageState = new BossPageOneState();
         _pageState.boss = this;
+        CheckHpBarFill();
 
     }
 
@@ -87,12 +90,13 @@ public class Boss : EnemyBase
         base.Update();
         if (enableAttack)
         {
-            _pageState.Attack();
+            Attack();
         }
     }
 
     public override void Attack()
     {
+        _pageState.Attack();
     }
 
     public override void Move()
@@ -209,15 +213,13 @@ public class Boss : EnemyBase
         }
         return false;
     }
-
-
     IEnumerator ChangeColor(Color color, float duration)
     {
         float timeAdjustingSpd = 0;
         SetImmortal(true);
         Color originalColor = skinnedMeshRenderer.material.color;
         enableAttack = false;
-        maxHp = (int)((float)maxHp * 1.5f);
+        currentMaxHp = (int)((float)currentMaxHp * 1.5f);
 
         while (true)
         {
@@ -225,13 +227,13 @@ public class Boss : EnemyBase
 
             // 정규화한 길이.
             float normalizedTime = timeAdjustingSpd / duration;
-            currentHp = (int)((float)maxHp * normalizedTime);
+            currentHp = (int)((float)currentMaxHp * normalizedTime);
             CheckHpBarFill();
 
             if (normalizedTime >= 1)
             {
                 SetImmortal(false);
-                currentHp = maxHp;
+                currentHp = currentMaxHp;
                 CheckHpBarFill();
                 enableAttack = true;
                 break;
@@ -246,7 +248,8 @@ public class Boss : EnemyBase
 
     void CheckHpBarFill()
     {
-        hpBar.fillAmount = (float)currentHp / (float)maxHp;
+        hpBar.fillAmount = (float)currentHp / (float)currentMaxHp;
+        hpText.text = currentHp.ToString() + "/" + currentMaxHp.ToString();
     }
 
 }

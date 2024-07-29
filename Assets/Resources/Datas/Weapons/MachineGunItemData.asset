@@ -18,7 +18,7 @@ MonoBehaviour:
   _isUsing: 0
   _power: 5
   _level: 1
-  _weaponSpace: {fileID: 0}
+  _weaponSpaceTransform: {fileID: 0}
   _teamType: 0
   _projectilePrefab: {fileID: 5150634236380144079, guid: 7e935c33671eeb14ab6ff8a3afef355c, type: 3}
   _useCycle: 0.2
@@ -26,3 +26,5 @@ MonoBehaviour:
   _audioSource: {fileID: 0}
   _shootSound: {fileID: 8300000, guid: 48283adefda01514e851c40517a63d59, type: 3}
   _playSondWhileShooting: 1
+  _shooted: 0
+  _isShooting: 0
