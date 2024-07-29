@@ -10,7 +10,7 @@ public class HitBox : MonoBehaviour, ITeamMember
     [SerializeField] Collider collider;
 
     public TeamType teamType { get { return _teamType; } set{ _teamType = value; } }
-    private TeamType _teamType;
+    protected TeamType _teamType;
 
 
     private void Start()

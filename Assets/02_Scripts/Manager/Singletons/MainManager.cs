@@ -109,7 +109,7 @@ public class MainManager : MonoBehaviour
 
     private void Update()
     {
-        currentStage.Execute();
+        //currentStage.Execute();
         
         // 메인 스테이지 움직임
         _mainStage.transform.Translate(0, 0, 1 * _moveSpd * Time.deltaTime);
@@ -138,7 +138,9 @@ public class MainManager : MonoBehaviour
         { 
             case 0:
                 if (_currentScore < 1000)
+                {
                     return;
+                }
 
                 break;
             case 1:
@@ -167,12 +169,18 @@ public class MainManager : MonoBehaviour
             default:
                 break;
         }
+        Debug.Log(currentScore);
+        Debug.Log(currentStageIdx);
         ChangeNextStage();
 
     }
     void ChangeNextStage()
     {
         currentStageIdx++;
+        if (currentStage == null)
+        {
+            return;
+        }
         currentStage.StopGenerating();
         currentStage = stages[currentStageIdx];
     }

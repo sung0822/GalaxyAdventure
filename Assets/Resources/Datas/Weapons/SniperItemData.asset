@@ -14,13 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: 102
   _itemName: Sniper
-  _power: 40
+  _itemUsageType: 1
+  _isUsing: 0
+  _power: 50
   _level: 1
-  _weaponSpace: {fileID: 0}
+  _weaponSpaceTransform: {fileID: 0}
+  _teamType: 0
   _projectilePrefab: {fileID: 5150634236380144079, guid: 7e935c33671eeb14ab6ff8a3afef355c, type: 3}
   _useCycle: 1.2
   _forceForProjectile: 25
+  _audioSource: {fileID: 0}
   _shootSound: {fileID: 8300000, guid: 32706ea18cdb11446ad3d41bd264e970, type: 3}
-  _itemUsageType: 1
-  _unitUser: {fileID: 0}
-  _isUsing: 0
+  _playSondWhileShooting: 0
+  _shooted: 0
+  _isShooting: 0

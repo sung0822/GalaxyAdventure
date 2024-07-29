@@ -7,7 +7,6 @@ public class StealthEnemy : EnemyBase
 {
     public override bool isAttacking { get; set; }
 
-
     Vector3 moveDir;
     
     bool isInvisible = false;
@@ -23,6 +22,9 @@ public class StealthEnemy : EnemyBase
     Transform targetPlayer;
 
     [SerializeField] GunItemData gunItemData;
+
+    [SerializeField] string stealthLayerName;
+    [SerializeField] string unitLayerName;
 
     protected override void Start()
     {
@@ -107,18 +109,14 @@ public class StealthEnemy : EnemyBase
             // 투명일시 불투명으로 변경 및 공격 시작
             if (isInvisible)
             {
-                
                 moveDir = Vector3.zero;
-
                 StartCoroutine(AdjustTransparency(1, 1.0f));
 
                 isAttacking = true;
+                gameObject.layer = LayerMask.NameToLayer(unitLayerName);
 
-                for (int i = 0; i < rigidbodies.Count; i++)
-                {
-                    rigidbodies[i].detectCollisions = true;
-                }
-                unitRigidbody.detectCollisions = true;
+                for (int i = 0; i < colliders.Count; i++)
+                    colliders[i].gameObject.layer = LayerMask.NameToLayer(unitLayerName);
 
             }// 불투명일시 투명으로 변경 및 공격 중지
             else if(!isInvisible)
@@ -128,12 +126,11 @@ public class StealthEnemy : EnemyBase
                 StartCoroutine(AdjustTransparency(0, 1.0f));
                 
                 isAttacking = false;
+                gameObject.layer = LayerMask.NameToLayer(unitLayerName);
+                
+                for (int i = 0; i < colliders.Count; i++)
+                    colliders[i].gameObject.layer = LayerMask.NameToLayer(stealthLayerName);
 
-                for (int i = 0; i < rigidbodies.Count; i++)
-                {
-                    rigidbodies[i].detectCollisions = false;
-                }
-                unitRigidbody.detectCollisions = false;
             }
             isInvisible = !isInvisible;
 

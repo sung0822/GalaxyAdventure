@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 725686991666967465}
   - component: {fileID: 2434213968482309489}
   - component: {fileID: -6743943863351943606}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: Explosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 417761079494231308, guid: 6ddbe9b5445a589479e1ffc6d65e93c1, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 417761080263594737, guid: 6ddbe9b5445a589479e1ffc6d65e93c1, type: 3}
       propertyPath: m_Name
@@ -87,7 +87,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 417761080263594737, guid: 6ddbe9b5445a589479e1ffc6d65e93c1, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 417761080263594739, guid: 6ddbe9b5445a589479e1ffc6d65e93c1, type: 3}
       propertyPath: moveWithTransform
@@ -147,7 +147,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 417761080798259113, guid: 6ddbe9b5445a589479e1ffc6d65e93c1, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

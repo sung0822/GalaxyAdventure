@@ -24,6 +24,7 @@ TagManager:
   - MAIN_STAGE
   - CLOUD
   - ROCK
+  - STEALTH
   layers:
   - Default
   - TransparentFX
@@ -34,8 +35,8 @@ TagManager:
   - UNIT
   - PROJECTILE
   - PLANE
-  - 
-  - 
+  - STEALTH
+  - EXPLOSION
   - 
   - 
   - 

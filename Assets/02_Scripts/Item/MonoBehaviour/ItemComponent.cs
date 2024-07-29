@@ -55,7 +55,6 @@ public class ItemComponent : MonoBehaviour
         }
 
         transform.Rotate(0, rotSpd * Time.deltaTime, 0);
-        Debug.Log(name + ": "+ rotSpd);
 
     }
 

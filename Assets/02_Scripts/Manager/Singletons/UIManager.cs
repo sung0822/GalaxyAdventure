@@ -131,9 +131,9 @@ public class UIManager : MonoBehaviour
 
     public void CheckPlayerHp()
     {
-        hpText.text = playerCtrl.currentHp.ToString() + " / " + playerCtrl.maxHp.ToString();
+        hpText.text = playerCtrl.currentHp.ToString() + " / " + playerCtrl.currentMaxHp.ToString();
 
-        hpBar.fillAmount = (float)playerCtrl.currentHp / (float)playerCtrl.maxHp;
+        hpBar.fillAmount = (float)playerCtrl.currentHp / (float)playerCtrl.currentMaxHp;
     }
 
     public void CheckPlayerExp()

@@ -81,7 +81,7 @@ public class BackGroundManager : MonoBehaviour
         }
     }
 
-    public void SpawnCloud(GameObject gameObject)
+    public void SpawnBackObject(GameObject gameObject)
     {
         if (gameObject.tag == null)
         {
@@ -136,7 +136,7 @@ public class BackGroundManager : MonoBehaviour
             cloud.name = $"Cloud{i:00}";
 
             cloudPool.Add(cloud);
-            SpawnCloud(cloudPool[i]);
+            SpawnBackObject(cloudPool[i]);
             float waitTime = Random.Range(2.0f, 4.0f);
 
             yield return new WaitForSeconds(waitTime);

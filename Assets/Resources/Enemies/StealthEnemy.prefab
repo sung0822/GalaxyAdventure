@@ -118,13 +118,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9caf56a1ce573f4a99dc8d0e219cc63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
   _dieSound: {fileID: 0}
   unitBodyColliders: []
   rigidbodies: []
   colliders: []
   unitRigidbody: {fileID: 0}
-  _maxHp: 100
+  _currentMaxHp: 100
   _currentHp: 100
   _rewardExp: 10
   _rewardScore: 100
@@ -133,7 +132,7 @@ MonoBehaviour:
   lifeTime: 30
   _spdChanged: 0
   _spdChangeDuration: 1
-  _power: 10
+  _power: 0
   _moveSpd: 10
   _rewardAbilityGage: 15
   gunItemData: {fileID: 11400000, guid: 61872b0e59a0be14fa1191495c4b35b9, type: 2}

@@ -72,14 +72,13 @@ public class InputManager : MonoBehaviour
         {
             playerCtrl.ChangeSelectedItem(ItemType.Weapon);
         }
-
     }
-
     void ReceiveCheatKey()
     {
         if (Input.GetKeyDown(KeyCode.F1))
         {
-            playerCtrl.SetImmortalDuring(!playerCtrl.isImmortal, float.MaxValue);
+            playerCtrl.isAbsoluteImmortal = !playerCtrl.isAbsoluteImmortal;
+            Debug.Log("절대무적: " + playerCtrl.isAbsoluteImmortal);
         }
         else if(Input.GetKeyDown(KeyCode.F2))
         {
@@ -91,7 +90,8 @@ public class InputManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.F4))
         {
-            playerCtrl.currentHp = playerCtrl.maxHp;
+            playerCtrl.currentHp = playerCtrl.currentMaxHp;
+            UIManager.instance.CheckPlayerHp();
         }
         else if (Input.GetKeyDown(KeyCode.F5))
         {

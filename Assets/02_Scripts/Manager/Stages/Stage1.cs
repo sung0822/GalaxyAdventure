@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -118,15 +119,13 @@ public class Stage1 : IStage
     void Generate_3()
     {
 
-        spawnPointsForward[0].transform.LookAt(new Vector3(0, 0, 0));
-        spawnPointsForward[6].transform.LookAt(new Vector3(0, 0, 0));
+        spawnPointsForward[0].transform.LookAt(MainManager.instance.mainStage.transform);
+        spawnPointsForward[6].transform.LookAt(MainManager.instance.mainStage.transform);
         spawnPointsForward[3].transform.localRotation = Quaternion.Euler(0, 0, 0);
         GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[0]).GetComponent<EnemyBase>().enableSlow = true;
         GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[6]).GetComponent<EnemyBase>().enableSlow = true;
         GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[3]).GetComponent<EnemyBase>().enableSlow = false;
 
-        //spawnPoints[0].transform.rotation = Quaternion.Euler(0, 180, 0);
-        //spawnPoints[6].transform.rotation = Quaternion.Euler(0, 180, 0);
 
     }
 
