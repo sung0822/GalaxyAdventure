@@ -140,16 +140,17 @@ public class Player : UnitBase, IPlayer
         currentWeapon.transform.parent = currentWeaponSpace.transform;
         currentWeapon.transform.localPosition = Vector3.zero;
 
-        GunItemData specialGun = ScriptableObject.Instantiate(Resources.Load<LaserGunItemData>("Datas/Weapons/LaserGunItemData"));
+        GunItemData specialGunItemData = ScriptableObject.Instantiate(Resources.Load<LaserGunItemData>("Datas/Weapons/LaserGunItemData"));
 
-        specialGun.power = 0;
-        specialGun.level = 1;
-        specialGun.weaponSpaceTransform = hydroSpace;
-        specialGun.unitUser = this;
-        specialGun.attackableUser = this;
-        specialGun.teamType = teamType;
 
-        currentSpeicalWeapon = (GunItemBase)specialGun.CreateItem();
+        specialGunItemData.power = 0;
+        specialGunItemData.level = 1;
+        specialGunItemData.weaponSpaceTransform = hydroSpace;
+        specialGunItemData.unitUser = this;
+        specialGunItemData.attackableUser = this;
+        specialGunItemData.teamType = teamType;
+
+        currentSpeicalWeapon = (GunItemBase)specialGunItemData.CreateItem();
         inventory.Add(gunItemData);
         
         currentWeaponIdx++;
