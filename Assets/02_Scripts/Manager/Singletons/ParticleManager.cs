@@ -1,27 +1,8 @@
 using UnityEngine;
 using static UnityEngine.ParticleSystem;
 
-public class ParticleManager : MonoBehaviour
+public class ParticleManager : Singleton<ParticleManager>
 {
-    public static ParticleManager instance = null;
-
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            if (instance == this)
-            {
-                return;
-            }
-            Destroy(this.gameObject);
-        }
-    }
-    public static ParticleManager Get() { return instance; }
-
     public GameObject basicParticle { get { return _basicParticle; } }
     [SerializeField] private GameObject _basicParticle;
 
@@ -53,7 +34,6 @@ public class ParticleManager : MonoBehaviour
         if (particlePrefab != null)
         {
             GameObject particle = GameObject.Instantiate<GameObject>(particlePrefab, pos, Quaternion.Euler(0, 0, 0));
-            particle.transform.SetParent(MainManager.instance.mainStage.transform);
             HandleScaleMode(particle);
 
             return particle;
@@ -65,7 +45,6 @@ public class ParticleManager : MonoBehaviour
         if (particlePrefab != null)
         {
             GameObject particle = GameObject.Instantiate<GameObject>(particlePrefab, pos, Quaternion.Euler(0, 0, 0));
-            particle.transform.SetParent(MainManager.instance.mainStage.transform);
             HandleScaleMode(particle);
 
             return particle;

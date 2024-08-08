@@ -7,26 +7,8 @@ using UnityEditor.Search;
 using Unity.VisualScripting;
 using UnityEngine.SceneManagement;
 
-public class UIManager : MonoBehaviour
+public class UIManager : Singleton<UIManager>
 {
-
-    public static UIManager instance = null;
-
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            if (instance == this)
-            {
-                return;
-            }
-            Destroy(this.gameObject);
-        }
-    }
 
     public Image hpBar;
     public TextMeshProUGUI hpText;

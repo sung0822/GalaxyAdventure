@@ -14,6 +14,7 @@ public class Mover : MonoBehaviour
 
     void Update()
     {
+        transform.Translate(0, 0, -moveSpd * Time.deltaTime, Space.World);
     }
 
     private void OnCollisionEnter(Collision collision)

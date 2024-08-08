@@ -1,34 +1,44 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
-    private T _instance;
+    private static T _instance;
+    private static readonly object _lock = new object();
 
-    public T instance
+    public static T instance
     {
-        get 
+        get
         {
-            if (instance == null)
+            if (_instance == null)
             {
-                GameObject obj;
-                obj = GameObject.Find(typeof(T).Name);
-                if (obj == null)
+                lock (_lock)
                 {
-                    obj = new GameObject(typeof(T).Name);
-                    _instance = obj.AddComponent<T>();
-                }
-                else
-                {
-                    _instance = obj.GetComponent<T>();
+                    _instance = FindObjectOfType<T>();
+
+                    if (_instance == null)
+                    {
+                        GameObject singletonObject = new GameObject();
+                        _instance = singletonObject.AddComponent<T>();
+                        Debug.Log("ΩÃ±€≈œ ¿ŒΩ∫≈œΩ∫ ª˝º∫µ " + _instance.name);
+
+                    }
                 }
             }
-            return _instance; 
+
+            return _instance;
         }
     }
-    public void Awake()
+
+    protected virtual void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        if (_instance == null)
+        {
+            _instance = this as T;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }

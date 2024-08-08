@@ -3,29 +3,10 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-// ÄÄÆ÷³ÍÆ®¸¦ ¸í½ÃÇØ »èÁ¦µÇ´Â°É ¹æÁöÇÑ´Ù´Âµ¥ ¼ÖÁ÷È÷ ÀÛµ¿¿ø¸®´Â ¸ð¸§
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç´Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´Ù´Âµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ûµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 [RequireComponent(typeof(AudioListener))]
-public class MainManager : MonoBehaviour
+public class MainManager : Singleton<MainManager>
 {
-    public static MainManager instance = null;
-
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            if (instance == this)
-            {
-                return;
-            }
-            Destroy(this.gameObject);
-        }
-    }
-
-    public static MainManager Get() { return instance; }
 
     IStage currentStage = null;
     List<IStage> stages = new List<IStage>();
@@ -49,9 +30,6 @@ public class MainManager : MonoBehaviour
 
     public GameObject soundManagerPrefab = null;
 
-    public GameObject mainStage { get { return _mainStage; } set { _mainStage = value; } }
-    [SerializeField] GameObject _mainStage = null;
-
     public GameObject mainCamera { get { return _mainCamera; } set { _mainCamera = value; } }
     [SerializeField] GameObject _mainCamera = null;
 
@@ -70,11 +48,14 @@ public class MainManager : MonoBehaviour
 
     private void Start()
     {
-        {
-            ///////////////////////////////////////////////////////////////////////////////////////
-            //cloudManagerPrefab = Resources.Load<GameObject>("Managers/CloudManager");
-            GameObject cloudManager = Instantiate<GameObject>(cloudManagerPrefab, transform);
-            cloudManager.name = cloudManagerPrefab.name;
+        Debug.Log("ï¿½ï¿½ï¿½Î¸Å´ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸Æ®");
+        ///////////////////////////////////////////////////////////////////////////////////////
+        //cloudManagerPrefab = Resources.Load<GameObject>("Managers/CloudManager");
+        GameObject cloudManager = Instantiate<GameObject>(cloudManagerPrefab, transform);
+        cloudManager.name = cloudManagerPrefab.name;
+        
+        GameObject particleManager = Instantiate<GameObject>(particleManagerPrefab, transform);
+        particleManager.name = particleManagerPrefab.name;
 
             GameObject particleManager = Instantiate<GameObject>(particleManagerPrefab, transform);
             particleManager.name = particleManagerPrefab.name;
@@ -98,7 +79,7 @@ public class MainManager : MonoBehaviour
             backgroundMaterial = backgroundRenderer.material;
 
         }
-        // ½ºÅ×ÀÌÁö °´Ã¼ Ä³½Ì
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ Ä³ï¿½ï¿½
         stages.Add(new Stage1());
         stages.Add(new Stage2());
         stages.Add(new Stage3());
@@ -109,10 +90,7 @@ public class MainManager : MonoBehaviour
 
     private void Update()
     {
-        //currentStage.Execute();
-        
-        // ¸ÞÀÎ ½ºÅ×ÀÌÁö ¿òÁ÷ÀÓ
-        _mainStage.transform.Translate(0, 0, 1 * _moveSpd * Time.deltaTime);
+        currentStage.Execute();
     }
 
     public void AddScore(int score)
@@ -164,7 +142,7 @@ public class MainManager : MonoBehaviour
 
                 break;
             case 4:
-                Debug.Log("º¸½º ½ºÅ×ÀÌÁöÀÓ.");
+                Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.");
                 return;
             default:
                 break;
@@ -218,7 +196,7 @@ public class MainManager : MonoBehaviour
         {
             timeAdjustingSpd += Time.deltaTime;
 
-            // Á¤±ÔÈ­ÇÑ ±æÀÌ.
+            // ï¿½ï¿½ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
             float normalizedTime = timeAdjustingSpd / duration;
 
             if (normalizedTime >= 1)
@@ -241,7 +219,7 @@ public class MainManager : MonoBehaviour
         {
             timeAdjustingSpd += Time.deltaTime;
 
-            // Á¤±ÔÈ­ÇÑ ±æÀÌ.
+            // ï¿½ï¿½ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
             float normalizedTime = timeAdjustingSpd / duration;
 
             if (normalizedTime >= 1)

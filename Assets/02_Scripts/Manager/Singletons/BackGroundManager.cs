@@ -3,24 +3,8 @@ using System.Collections.Generic;
 using UnityEditor.SearchService;
 using UnityEngine;
 
-public class BackGroundManager : MonoBehaviour
+public class BackGroundManager : Singleton<BackGroundManager>
 {
-    public static BackGroundManager instance = null;
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            if (instance == this)
-            {
-                return;
-            }
-            Destroy(this.gameObject);
-        }
-    }
 
     public GameObject[] cloudPrefabs;
     public List<GameObject> cloudPool;
@@ -119,7 +103,7 @@ public class BackGroundManager : MonoBehaviour
         float randomRotationY = Random.Range(0f, 360f);
         gameObject.transform.rotation = Quaternion.Euler(0, randomRotationY, 0);
 
-        int score = MainManager.Get().currentScore;
+        int score = MainManager.instance.score;
     }
 
     public void CreateClouds()
@@ -151,11 +135,11 @@ public class BackGroundManager : MonoBehaviour
 
     IEnumerator CreateRocksDuring()
     {
-        Debug.Log("»ý¼ºÁß");
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
         for (int i = 0; i < maxRocks; i++)
         {
             int idx = Random.Range(0, rockPrefabs.Length);
-            Debug.Log("»ý¼ºÁß");
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
             var rock = Instantiate<GameObject>(rockPrefabs[idx]);
             SpawnRock(rock);
             rock.name = $"Rock{i:00}";
@@ -188,6 +172,5 @@ public class BackGroundManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        Mover.InitClouds();
     }
 }

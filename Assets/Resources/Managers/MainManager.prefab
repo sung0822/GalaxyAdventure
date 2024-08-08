@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4876995232741656763
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1053247918622187512}
+  - component: {fileID: 7419162097306465835}
+  - component: {fileID: 2132784283029011093}
+  - component: {fileID: 3719863739342650154}
+  m_Layer: 0
+  m_Name: MainManager
+  m_TagString: MAIN_MANAGER
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1053247918622187512
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4876995232741656763}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 10, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7419162097306465835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4876995232741656763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1f13d1c9b7ac014b9b93a86d9cfe3d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _score: 0
+  cloudManagerPrefab: {fileID: 0}
+  particleManagerPrefab: {fileID: 0}
+  inputManagerPrefab: {fileID: 0}
+  bgmManagerPrefab: {fileID: 0}
+  itemManagerPrefab: {fileID: 0}
+  soundManagerPrefab: {fileID: 0}
+  _mainStage: {fileID: 0}
+  _mainCamera: {fileID: 0}
+  _moveSpd: 5
+  _background: {fileID: 0}
+  backgroundRenderer: {fileID: 0}
+  backgroundMaterial: {fileID: 0}
+  changedBackgroundColor: {r: 1, g: 0.7882353, b: 0.77254903, a: 1}
+--- !u!81 &2132784283029011093
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4876995232741656763}
+  m_Enabled: 1
+--- !u!114 &3719863739342650154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4876995232741656763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dec999fabdebaa34bb9e7c03d55bb965, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 0, g: 0, b: 0, a: 1}

@@ -49,7 +49,7 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
     protected virtual void SetFirstStatus()
     {
         unitRigidbody = GetComponent<Rigidbody>();
-        colliders.AddRange(GetComponentsInChildren<Collider>());
+        transform.parent = null;
         dieSound = Resources.Load<AudioClip>("Sounds/ExplosionSound");
     }
 
