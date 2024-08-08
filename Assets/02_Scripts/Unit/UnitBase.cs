@@ -57,6 +57,7 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
     protected virtual void SetFirstStatus()
     {
         unitRigidbody = GetComponent<Rigidbody>();
+        transform.parent = null;
         dieSound = Resources.Load<AudioClip>("Sounds/ExplosionSound");
     }
 

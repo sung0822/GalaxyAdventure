@@ -4,26 +4,8 @@ using UnityEngine;
 using UnityEngine.Audio;
 
 [RequireComponent(typeof(AudioSource))]
-public class BGMManager : MonoBehaviour
+public class BGMManager : Singleton<BGMManager>
 {
-    public static BGMManager instance = null;
-
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            if (instance == this)
-            {
-                return;
-            }
-            Destroy(this.gameObject);
-        }
-    }
-
 
     [SerializeField] AudioSource freeAudioSource;
     [SerializeField] AudioSource currentAudioSource;

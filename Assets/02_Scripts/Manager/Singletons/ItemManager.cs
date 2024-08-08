@@ -2,25 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemManager : MonoBehaviour
+public class ItemManager : Singleton<ItemManager>
 {
-    public static ItemManager instance = null;
-
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            if (instance == this)
-            {
-                return;
-            }
-            Destroy(this.gameObject);
-        }
-    }
 
     public GameObject[] itemPrefab { get { return _itemPrefab; } set { _itemPrefab = value; } }
     [SerializeField] private GameObject[] _itemPrefab;
@@ -35,7 +18,6 @@ public class ItemManager : MonoBehaviour
         }
 
         GameObject gameObject = Instantiate<GameObject>(itemPrefab[tmp], position, Quaternion.Euler(0, 0, 0));
-        gameObject.transform.SetParent(MainManager.instance.mainStage.transform);
         RotateItemObject(gameObject);
 
         return gameObject;
@@ -49,8 +31,7 @@ public class ItemManager : MonoBehaviour
             return null;
         }
 
-        GameObject gameObject = Instantiate<GameObject>(itemPrefab[tmp], MainManager.instance.mainStage.transform.position, Quaternion.Euler(0, 0, 0));
-        gameObject.transform.SetParent(MainManager.instance.mainStage.transform);
+        GameObject gameObject = Instantiate<GameObject>(itemPrefab[tmp], Vector3.zero, Quaternion.Euler(0, 0, 0));
         
         RotateItemObject(gameObject);
 

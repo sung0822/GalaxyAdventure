@@ -4,24 +4,8 @@ using UnityEngine.Events;
 using Unity.VisualScripting;
 using UnityEngine.SceneManagement;
 
-public class MenuUIManager : MonoBehaviour
+public class MenuUIManager : Singleton<MenuUIManager>
 {
-    public static MenuUIManager instance = null;
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            if (instance == this)
-            {
-                return;
-            }
-            Destroy(this.gameObject);
-        }
-    }
 
     public Button startButton;
     public Button ReadMeButton;

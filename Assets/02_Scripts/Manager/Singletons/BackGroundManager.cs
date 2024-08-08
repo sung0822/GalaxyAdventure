@@ -3,24 +3,8 @@ using System.Collections.Generic;
 using UnityEditor.SearchService;
 using UnityEngine;
 
-public class BackGroundManager : MonoBehaviour
+public class BackGroundManager : Singleton<BackGroundManager>
 {
-    public static BackGroundManager instance = null;
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            if (instance == this)
-            {
-                return;
-            }
-            Destroy(this.gameObject);
-        }
-    }
 
     public GameObject[] cloudPrefabs;
     public List<GameObject> cloudPool;
@@ -119,7 +103,7 @@ public class BackGroundManager : MonoBehaviour
         float randomRotationY = Random.Range(0f, 360f);
         gameObject.transform.rotation = Quaternion.Euler(0, randomRotationY, 0);
 
-        int score = MainManager.Get().score;
+        int score = MainManager.instance.score;
     }
 
     public void CreateClouds()
@@ -188,6 +172,5 @@ public class BackGroundManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        Mover.InitClouds();
     }
 }

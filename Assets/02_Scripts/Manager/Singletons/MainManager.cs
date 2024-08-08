@@ -5,27 +5,8 @@ using UnityEngine;
 
 // 컴포넌트를 명시해 삭제되는걸 방지한다는데 솔직히 작동원리는 모름
 [RequireComponent(typeof(AudioListener))]
-public class MainManager : MonoBehaviour
+public class MainManager : Singleton<MainManager>
 {
-    public static MainManager instance = null;
-
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            if (instance == this)
-            {
-                return;
-            }
-            Destroy(this.gameObject);
-        }
-    }
-
-    public static MainManager Get() { return instance; }
 
     IStage currentStage = null;
     List<IStage> stages = new List<IStage>();
@@ -48,9 +29,6 @@ public class MainManager : MonoBehaviour
 
     public GameObject soundManagerPrefab = null;
 
-    public GameObject mainStage { get { return _mainStage; } set { _mainStage = value; } }
-    [SerializeField] GameObject _mainStage = null;
-
     public GameObject mainCamera { get { return _mainCamera; } set { _mainCamera = value; } }
     [SerializeField] GameObject _mainCamera = null;
 
@@ -69,6 +47,7 @@ public class MainManager : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log("메인매니저 스타트");
         ///////////////////////////////////////////////////////////////////////////////////////
         //cloudManagerPrefab = Resources.Load<GameObject>("Managers/CloudManager");
         GameObject cloudManager = Instantiate<GameObject>(cloudManagerPrefab, transform);
@@ -114,9 +93,6 @@ public class MainManager : MonoBehaviour
     private void Update()
     {
         currentStage.Execute();
-        
-        // 메인 스테이지 움직임
-        _mainStage.transform.Translate(0, 0, 1 * _moveSpd * Time.deltaTime);
     }
 
     public void AddScore(int score)
