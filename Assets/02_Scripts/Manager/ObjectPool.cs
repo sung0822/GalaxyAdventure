@@ -7,14 +7,19 @@ using UnityEngine.Pool;
 
 public class ObjectPool : MonoBehaviour
 {
-    string name { get { return _name; } set { _name = value; } }
-    [SerializeField] string _name;
-
+    public string poolName { get { return _poolName; } set { _poolName = value; } }
+    [SerializeField] string _poolName;
     public Queue<GameObject> objects { get { return _objects; } set { _objects = value; } }
-    public Queue<GameObject> _objects = new Queue<GameObject>();
+    public Queue<GameObject> _objects;
+
+    private void Awake()
+    {
+        objects = new Queue<GameObject>();
+    }
 
     public void AddObject(GameObject gameObject)
     {
+        gameObject.SetActive(false); // ï¿½ï¿½È°ï¿½ï¿½È­ï¿½Ï¿ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Öµï¿½ï¿½ï¿½ ï¿½ï¿½
         objects.Enqueue(gameObject);
     }
 
@@ -23,18 +28,18 @@ public class ObjectPool : MonoBehaviour
         if (objects.Count > 0)
         {
             GameObject obj = objects.Dequeue();
-            obj.SetActive(true); // È°¼ºÈ­ÇÏ¿© »ç¿ë °¡´É »óÅÂ·Î º¯°æ
+            obj.SetActive(true); // È°ï¿½ï¿½È­ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â·ï¿½ ï¿½ï¿½ï¿½ï¿½
             return obj;
         }
-        else 
+        else
         {
             return null;
         }
-        
+
     }
     public void ReturnObject(GameObject gameObject)
     {
-        gameObject.SetActive(false); // ºñÈ°¼ºÈ­ÇÏ¿© ´Ù½Ã »ç¿ëÇÒ ¼ö ÀÖµµ·Ï ÇÔ
+        gameObject.SetActive(false); // ï¿½ï¿½È°ï¿½ï¿½È­ï¿½Ï¿ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Öµï¿½ï¿½ï¿½ ï¿½ï¿½
         objects.Enqueue(gameObject);
     }
 
