@@ -91,7 +91,13 @@ public class Stage1 : IStage
         for (int i = 0; i < 5; i++)
         {
             spawnPointsForward[i + 1].transform.localRotation = Quaternion.Euler(0, 20, 0);
-            GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[i + 1]).GetComponent<EnemyBase>().enableSlow = true;
+            
+            
+            Transform enemyTransform = ObjectPoolManager.instance.GetObject("BasicEnemy Pool").transform;
+            enemyTransform.transform.position = spawnPointsForward[i+1].position;
+            enemyTransform.transform.rotation = spawnPointsForward[i+1].rotation;
+
+            //GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[i + 1]).GetComponent<EnemyBase>().enableSlow = true;
             yield return new WaitForSeconds(0.3f);
         }
 
@@ -100,7 +106,11 @@ public class Stage1 : IStage
         for (int i = 0; i < 5; i++)
         {
             spawnPointsForward[i + 1].transform.localRotation = Quaternion.Euler(0, -20, 0);
-            GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[i + 1]).GetComponent<EnemyBase>().enableSlow = true;
+            //GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[i + 1]).GetComponent<EnemyBase>().enableSlow = true;
+            
+            Transform enemyTransform = ObjectPoolManager.instance.GetObject("BasicEnemy Pool").transform;
+            enemyTransform.transform.position = spawnPointsForward[i+1].position;
+            enemyTransform.transform.rotation = spawnPointsForward[i+1].rotation;
             yield return new WaitForSeconds(0.3f);
         }
 
@@ -111,16 +121,19 @@ public class Stage1 : IStage
         for (int i = 0; i < 5; i++)
         {
             spawnPointsForward[i].transform.LookAt(target);
-            GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[i]).GetComponent<EnemyBase>().enableSlow = true;
+            
+            Transform enemyTransform = ObjectPoolManager.instance.GetObject("BasicEnemy Pool").transform;
+            enemyTransform.transform.position = spawnPointsForward[i].position;
+            enemyTransform.transform.rotation = spawnPointsForward[i].rotation;
             yield return new WaitForSeconds(0.5f);
         }
 
     }
     void Generate_3()
     {
-
-        spawnPointsForward[0].transform.LookAt(MainManager.instance.mainStage.transform);
-        spawnPointsForward[6].transform.LookAt(MainManager.instance.mainStage.transform);
+        
+        spawnPointsForward[0].transform.LookAt(MainManager.instance.transform);
+        spawnPointsForward[6].transform.LookAt(MainManager.instance.transform);
         spawnPointsForward[3].transform.localRotation = Quaternion.Euler(0, 0, 0);
         GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[0]).GetComponent<EnemyBase>().enableSlow = true;
         GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[6]).GetComponent<EnemyBase>().enableSlow = true;

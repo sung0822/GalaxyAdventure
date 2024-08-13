@@ -130,14 +130,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e6b083f6474f084fa5ae62b9520594e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
   _dieSound: {fileID: 0}
   unitBodyColliders: []
   rigidbodies: []
   colliders: []
   unitRigidbody: {fileID: 0}
-  _maxHp: 40
+  _currentMaxHp: 0
   _currentHp: 40
+  unitName: RotateEnemy
   _rewardExp: 10
   _rewardScore: 100
   enableSlow: 0

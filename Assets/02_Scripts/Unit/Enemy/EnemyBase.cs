@@ -10,15 +10,12 @@ public abstract class EnemyBase : UnitBase, IMovalble, IAttackable
     protected IPlayer player;
     public override TeamType teamType { get { return _teamType; } set { _teamType = value; } }
     protected TeamType _teamType = TeamType.ENEMY;
-
     public int rewardExp { get { return _rewardExp; } set { _rewardExp = value; } }
     [SerializeField] protected int _rewardExp;  
     public int rewardScore { get { return _rewardScore; } }
     [SerializeField] protected int _rewardScore;
-
     public bool enableSlow = false;
     public bool enableAttack = false;
-
     public float lifeTime = 0;
     public float spdChanged { get {return _spdChanged; } set { _spdChanged = value; } }
     [SerializeField] protected float _spdChanged;
@@ -32,8 +29,8 @@ public abstract class EnemyBase : UnitBase, IMovalble, IAttackable
 
     public float rewardAbilityGage { get { return _rewardAbilityGage; } set { _rewardAbilityGage = value; } }
     [SerializeField] protected float _rewardAbilityGage;
-
     protected bool hasCollideWithWall = false;
+
 
     protected override void Start()
     {
@@ -41,7 +38,7 @@ public abstract class EnemyBase : UnitBase, IMovalble, IAttackable
     }
 
     /// <summary>
-    /// EnemyÀÇ ±âº» »óÅÂ¸¦ ¼³Á¤ÇÕ´Ï´Ù. ¼Óµµ, Ã¼·Â, °ø°Ý·Â, ¹«±âµîÀº ±¸Ã¼È­µÈ Å¬·¡½º¿¡¼­ ±¸ÇöÇØ¾ßÇÕ´Ï´Ù.
+    /// Enemyï¿½ï¿½ ï¿½âº» ï¿½ï¿½ï¿½Â¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½. ï¿½Óµï¿½, Ã¼ï¿½ï¿½, ï¿½ï¿½ï¿½Ý·ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼È­ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½Õ´Ï´ï¿½.
     /// </summary>
     protected override void SetFirstStatus()
     {
@@ -49,7 +46,7 @@ public abstract class EnemyBase : UnitBase, IMovalble, IAttackable
 
         player = GameObject.FindGameObjectWithTag("PLAYER").GetComponent<Player>();
         SetImmortal(true);
-        Destroy(gameObject, lifeTime);
+        ObjectPoolManager.instance.ReturnObject(unitName, this.gameObject, lifeTime);
     }
 
 
@@ -75,7 +72,7 @@ public abstract class EnemyBase : UnitBase, IMovalble, IAttackable
     }
 
     /// <summary>
-    /// º® Ãæµ¹ °Ë»ç.
+    /// ï¿½ï¿½ ï¿½æµ¹ ï¿½Ë»ï¿½.
     /// </summary>
     protected bool CheckCollideWall(Collider other)
     {
@@ -131,7 +128,7 @@ public abstract class EnemyBase : UnitBase, IMovalble, IAttackable
     
 
     /// <summary>
-    /// ¼Óµµ¸¦ ¼±Çüº¸°£ ÇÏ¿© Á¶ÀýÇÕ´Ï´Ù. º¸°£ÇÒ ½Ã°£À» ¸Å°³º¯¼ö·Î ¹Þ½À´Ï´Ù.
+    /// ï¿½Óµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½Ï´ï¿½.
     /// </summary>
     protected virtual IEnumerator AdjustSpeed(float spd, float duration)
     {
@@ -143,7 +140,7 @@ public abstract class EnemyBase : UnitBase, IMovalble, IAttackable
         {
             timeAdjustingSpd += Time.deltaTime;
 
-            // Á¤±ÔÈ­ÇÑ ±æÀÌ.
+            // ï¿½ï¿½ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
             float normalizedTime = timeAdjustingSpd / duration;
 
             if (normalizedTime >= 1)

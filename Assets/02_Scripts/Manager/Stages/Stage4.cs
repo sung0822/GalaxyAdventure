@@ -124,12 +124,12 @@ public class Stage4 : IStage
         
         yield return new WaitForSeconds(0.5f);
         
-        spawnPointsBackward[6].transform.LookAt(MainManager.instance.mainStage.transform);
+        spawnPointsBackward[6].transform.LookAt(MainManager.instance.transform);
         GameObject.Instantiate(sprayEnemyPrefab, spawnPointsBackward[6]).GetComponent<EnemyBase>().enableSlow = true;
         
         yield return new WaitForSeconds(0.5f);
         
-        spawnPointsBackward[0].transform.LookAt(MainManager.instance.mainStage.transform);
+        spawnPointsBackward[0].transform.LookAt(MainManager.instance.transform);
         GameObject.Instantiate(sprayEnemyPrefab, spawnPointsBackward[0]).GetComponent<EnemyBase>().enableSlow = true;
 
     }

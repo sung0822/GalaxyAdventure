@@ -32,8 +32,6 @@ public class MainManager : Singleton<MainManager>
 
     public GameObject mainCamera { get { return _mainCamera; } set { _mainCamera = value; } }
     [SerializeField] GameObject _mainCamera = null;
-
-
     public float moveSpd { get { return _moveSpd; } set { _moveSpd = value; } }
     [SerializeField] float _moveSpd;
 
@@ -48,6 +46,7 @@ public class MainManager : Singleton<MainManager>
 
     private void Start()
     {
+        {
         Debug.Log("���θŴ��� ��ŸƮ");
         ///////////////////////////////////////////////////////////////////////////////////////
         //cloudManagerPrefab = Resources.Load<GameObject>("Managers/CloudManager");
@@ -56,9 +55,6 @@ public class MainManager : Singleton<MainManager>
         
         GameObject particleManager = Instantiate<GameObject>(particleManagerPrefab, transform);
         particleManager.name = particleManagerPrefab.name;
-
-            GameObject particleManager = Instantiate<GameObject>(particleManagerPrefab, transform);
-            particleManager.name = particleManagerPrefab.name;
 
             GameObject inputManager = Instantiate<GameObject>(inputManagerPrefab, transform);
             inputManager.name = inputManagerPrefab.name;
@@ -78,6 +74,10 @@ public class MainManager : Singleton<MainManager>
             BackGroundManager.instance.CreateClouds();
             backgroundMaterial = backgroundRenderer.material;
 
+        }
+        for (int i = 0; i < 20; i++)
+        {
+            EnemyFactory.instance.CreateEnemy("BasicEnemy");
         }
         // �������� ��ü ĳ��
         stages.Add(new Stage1());

@@ -635,6 +635,7 @@ MonoBehaviour:
   unitRigidbody: {fileID: 0}
   _currentMaxHp: 1000
   _currentHp: 1000
+  unitName: Boss
   _rewardExp: 10000
   _rewardScore: 5000
   enableSlow: 0

@@ -236,6 +236,7 @@ MonoBehaviour:
   unitRigidbody: {fileID: 0}
   _currentMaxHp: 700
   _currentHp: 700
+  unitName: BigSizeEnemy
   _rewardExp: 10
   _rewardScore: 100
   enableSlow: 0

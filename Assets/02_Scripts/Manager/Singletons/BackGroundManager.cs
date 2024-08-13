@@ -103,7 +103,6 @@ public class BackGroundManager : Singleton<BackGroundManager>
         float randomRotationY = Random.Range(0f, 360f);
         gameObject.transform.rotation = Quaternion.Euler(0, randomRotationY, 0);
 
-        int score = MainManager.instance.score;
     }
 
     public void CreateClouds()

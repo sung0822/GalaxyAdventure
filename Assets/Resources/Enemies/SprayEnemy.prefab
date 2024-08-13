@@ -80,6 +80,7 @@ MonoBehaviour:
   unitRigidbody: {fileID: 0}
   _currentMaxHp: 50
   _currentHp: 50
+  unitName: SprayEnemy
   _rewardExp: 15
   _rewardScore: 200
   enableSlow: 1

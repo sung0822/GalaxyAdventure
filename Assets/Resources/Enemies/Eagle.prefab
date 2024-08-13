@@ -1142,6 +1142,7 @@ MonoBehaviour:
   unitRigidbody: {fileID: 0}
   _currentMaxHp: 10
   _currentHp: 10
+  unitName: Eagle
   _rewardExp: 10
   _rewardScore: 50
   enableSlow: 1

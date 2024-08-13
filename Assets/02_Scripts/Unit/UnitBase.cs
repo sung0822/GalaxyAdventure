@@ -34,6 +34,7 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
     private bool _isBumpedIntoEnemy;
 
     public bool isDead { get { return _isDead; } set { _isDead = value; } }
+    public string unitName;
     protected bool _isDead = false;
     public abstract bool isAttacking { get; set; }
     public abstract TeamType teamType { get; set; }
@@ -240,8 +241,8 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
 
         particle.transform.localScale = this.transform.localScale * 0.1f;
         Destroy(particle, 1.5f);
-
-        Destroy(this.gameObject);
+        
+        ObjectPoolManager.instance.ReturnObject(unitName + " Pool", this.gameObject);
     }
 
     protected virtual void LateUpdate()

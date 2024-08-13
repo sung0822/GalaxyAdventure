@@ -111,6 +111,7 @@ MonoBehaviour:
   unitRigidbody: {fileID: 0}
   _currentMaxHp: 40
   _currentHp: 40
+  unitName: BasicEnemy
   _rewardExp: 10
   _rewardScore: 100
   enableSlow: 1

@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,7 +6,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
 {
     Dictionary<string, ObjectPool> objectPools = new Dictionary<string, ObjectPool>();
 
-    ObjectPool CreateObjectPool(string poolName)
+    public ObjectPool CreateObjectPool(string poolName)
     {
         GameObject poolObject = new GameObject(poolName);
         ObjectPool objectPool = poolObject.AddComponent<ObjectPool>();
@@ -15,7 +16,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
         return objectPool;
     }
 
-    GameObject GetObject(string poolName)
+    public GameObject GetObject(string poolName)
     {
         if (objectPools.ContainsKey(poolName))
         {
@@ -28,8 +29,26 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
         }
     }
 
-    void ReturnObject(string poolName, GameObject gameObject)
+    public void ReturnObject(string poolName, GameObject gameObject)
     {
+        if (objectPools.ContainsKey(poolName))
+        {
+            objectPools[poolName].ReturnObject(gameObject);
+        }
+        else
+        {
+            Debug.LogError($"Object pool with name {poolName} does not exist.");
+        }
+    }
+    public void ReturnObject(string poolName, GameObject gameObject, float time)
+    {
+        StartCoroutine(ReturnObjectAfterTime(poolName, gameObject, time));
+    }
+
+    private IEnumerator ReturnObjectAfterTime(string poolName, GameObject gameObject, float time)
+    {
+        yield return new WaitForSeconds(time);
+
         if (objectPools.ContainsKey(poolName))
         {
             objectPools[poolName].ReturnObject(gameObject);

@@ -125,6 +125,7 @@ MonoBehaviour:
   unitRigidbody: {fileID: 0}
   _currentMaxHp: 100
   _currentHp: 100
+  unitName: StealthEnemy
   _rewardExp: 10
   _rewardScore: 100
   enableSlow: 0
@@ -136,6 +137,8 @@ MonoBehaviour:
   _moveSpd: 10
   _rewardAbilityGage: 15
   gunItemData: {fileID: 11400000, guid: 61872b0e59a0be14fa1191495c4b35b9, type: 2}
+  stealthLayerName: 
+  unitLayerName: 
 --- !u!1001 &5038047779144639672
 PrefabInstance:
   m_ObjectHideFlags: 0
