@@ -34,13 +34,17 @@ public abstract class GunItemBase : WeaponItemBase
     }
     protected virtual void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
-        audioSource.playOnAwake = false;
     }
 
     protected virtual void Start()
     {
+
         audioSource = GetComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        if (gunItemData.shootSound == null)
+        {
+            return;
+        }
         audioSource.clip = gunItemData.shootSound;
     }
     protected virtual void Update() 

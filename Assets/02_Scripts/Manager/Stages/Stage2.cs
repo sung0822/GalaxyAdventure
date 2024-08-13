@@ -101,12 +101,12 @@ public class Stage2 : IStage
     IEnumerator Generate_1()
     {
         Debug.Log("Stage2: Generate1 Called");
-        spawnPointsForward[0].transform.LookAt(Vector3.zero);
-        spawnPointsForward[6].transform.LookAt(Vector3.zero);
-        spawnPointsForward[3].transform.rotation = Quaternion.Euler(0, 0, 0);
+        spawnPointsForward[0].transform.LookAt(MainManager.instance.mainStage.transform);
+        spawnPointsForward[6].transform.LookAt(MainManager.instance.mainStage.transform );
         
-        spawnPointsForward[1].transform.rotation = Quaternion.Euler(0, 0, 0);
-        spawnPointsForward[5].transform.rotation = Quaternion.Euler(0, 0, 0);
+        spawnPointsForward[3].transform.localRotation = Quaternion.Euler(0, 0, 0);
+        spawnPointsForward[1].transform.localRotation = Quaternion.Euler(0, 0, 0);
+        spawnPointsForward[5].transform.localRotation = Quaternion.Euler(0, 0, 0);
 
         GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[3]).GetComponent<EnemyBase>().enableSlow = true;
         GameObject.Instantiate(eaglePrefab, spawnPointsForward[0]).GetComponent<EnemyBase>().enableSlow = true;
@@ -133,13 +133,13 @@ public class Stage2 : IStage
     {
         Debug.Log("Stage2: Generate3 Called");
         //중앙을 향해 달려가는 기본 몬스터
-        spawnPointsForward[0].transform.LookAt(Vector3.zero);
-        spawnPointsForward[6].transform.LookAt(Vector3.zero);
+        spawnPointsForward[0].transform.LookAt(MainManager.instance.mainStage.transform);
+        spawnPointsForward[6].transform.LookAt(MainManager.instance.mainStage.transform);
         
         spawnPointsForward[3].transform.localRotation = Quaternion.Euler(0, 180, 0);
         
-        spawnPointsForward[1].transform.LookAt(Vector3.zero);
-        spawnPointsForward[5].transform.LookAt(Vector3.zero);
+        spawnPointsForward[1].transform.LookAt(MainManager.instance.mainStage.transform);
+        spawnPointsForward[5].transform.LookAt(MainManager.instance.mainStage.transform);
         
         GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[0]).GetComponent<EnemyBase>().enableSlow = true;
         GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[6]).GetComponent<EnemyBase>().enableSlow = true;

@@ -1,0 +1,4 @@
+repository "GalaxyAdventure@adapadap123@cloud"
+  path "/"
+    br "/main"
+    co "/main"

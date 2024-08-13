@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2988080354857279162}
-  - component: {fileID: 2395040193541208264}
   - component: {fileID: 8850595193139401053}
   - component: {fileID: 2374715843278473895}
+  - component: {fileID: 2395040193541208264}
   m_Layer: 0
   m_Name: BGMManager
   m_TagString: Untagged
@@ -34,7 +34,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &2395040193541208264
+--- !u!114 &8850595193139401053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7901820600263793814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05b9e00853470bd41b4d002de70a3f54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  freeAudioSource: {fileID: 2374715843278473895}
+  currentAudioSource: {fileID: 2395040193541208264}
+  nextAudioSource: {fileID: 0}
+  bgm1: {fileID: 8300000, guid: 033766cc31c97904bae4404b8a079544, type: 3}
+  bgm2: {fileID: 8300000, guid: fc5af015011ea3745b7f78ea1dd1049f, type: 3}
+  bgm3: {fileID: 8300000, guid: 559c232a43caebe41870ce54786f604e, type: 3}
+  bgm4: {fileID: 8300000, guid: 1f2ad53bacc245642854dbdc8ea71a9b, type: 3}
+  bossBgm: {fileID: 8300000, guid: 51a4f1157b7ff1449b5e5cf064d584c7, type: 3}
+--- !u!82 &2374715843278473895
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,27 +150,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &8850595193139401053
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7901820600263793814}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05b9e00853470bd41b4d002de70a3f54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  freeAudioSource: {fileID: 2374715843278473895}
-  currentAudioSource: {fileID: 2395040193541208264}
-  nextAudioSource: {fileID: 0}
-  bgm1: {fileID: 8300000, guid: 033766cc31c97904bae4404b8a079544, type: 3}
-  bgm2: {fileID: 8300000, guid: fc5af015011ea3745b7f78ea1dd1049f, type: 3}
-  bgm3: {fileID: 8300000, guid: 559c232a43caebe41870ce54786f604e, type: 3}
-  bgm4: {fileID: 8300000, guid: 1f2ad53bacc245642854dbdc8ea71a9b, type: 3}
-  bossBgm5: {fileID: 8300000, guid: 51a4f1157b7ff1449b5e5cf064d584c7, type: 3}
---- !u!82 &2374715843278473895
+--- !u!82 &2395040193541208264
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

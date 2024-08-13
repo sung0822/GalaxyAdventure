@@ -26,7 +26,7 @@ public class Mover : MonoBehaviour
     {
         if (other.gameObject.tag == "CloudChecker")
         {
-            BackGroundManager.instance.SpawnCloud(gameObject);
+            BackGroundManager.instance.SpawnBackObject(gameObject);
         }
     }
 

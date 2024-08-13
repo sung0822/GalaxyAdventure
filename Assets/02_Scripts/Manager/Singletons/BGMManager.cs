@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -7,20 +8,16 @@ using UnityEngine.Audio;
 public class BGMManager : Singleton<BGMManager>
 {
 
-    [SerializeField] AudioSource freeAudioSource;
+    [SerializeField] AudioSource previousAudioSource;
     [SerializeField] AudioSource currentAudioSource;
     [SerializeField] AudioSource nextAudioSource;
+    public List<AudioClip> bgmList { get { return _bgmList; } set { _bgmList = value; } }
+    [SerializeField] private List<AudioClip> _bgmList = new List<AudioClip>();
 
-    [SerializeField] public AudioClip bgm1;
-    [SerializeField] public AudioClip bgm2;
-    [SerializeField] public AudioClip bgm3;
-    [SerializeField] public AudioClip bgm4;
-
-    [SerializeField] public AudioClip bossBgm5;
-
-    [SerializeField] private float changingTime { get { return _changingTime; } set { SetChangingTime(value); } }
-    private float _changingTime = 1;
-    private float changingTimeForFrame;
+    [SerializeField] public AudioClip bossBgm;
+    
+    public float changingTime { get { return _changingTime; } set { SetChangingTime(value); } }
+    [SerializeField] private float _changingTime = 1;
 
 
     private void Start()
@@ -28,17 +25,43 @@ public class BGMManager : Singleton<BGMManager>
         SetChangingTime(_changingTime);
     }
 
-    public void PlayBGM(AudioClip audioClip)
+    Coroutine currentPlayingCoroutine;
+    public void StartBGM()
     {
-        currentAudioSource.Stop();
-        currentAudioSource.clip = audioClip;
-        currentAudioSource.Play();
+        currentPlayingCoroutine = StartCoroutine(PlayBGM());
     }
-
-    public void ChangeBGM(AudioClip audioClip)
+    private IEnumerator PlayBGM()
     {
+        while (true)
+        {
+            for (int i = 0; i < bgmList.Count; i++)
+            {
+                if (previousAudioSource != null)
+                    Destroy(previousAudioSource);
+
+                nextAudioSource = gameObject.AddComponent<AudioSource>();
+                nextAudioSource.clip = bgmList[i];
+                nextAudioSource.volume = 0;
+                nextAudioSource.Play();
+                
+                yield return StartCoroutine(DissolveBGM(bgmList[i]));
+                yield return WaitForClipLength(currentAudioSource.clip);
+            }
+        }
+    }
+    public void ChangeBGM(AudioClip audioClip, bool loop = true)
+    {
+        if (previousAudioSource != null)
+        {
+            Destroy(previousAudioSource);
+        }
+        StopCoroutine(currentPlayingCoroutine);
+        nextAudioSource = gameObject.AddComponent<AudioSource>();
         nextAudioSource.clip = audioClip;
+        nextAudioSource.loop = true;
         nextAudioSource.volume = 0;
+        nextAudioSource.Play();
+        
         StartCoroutine(DissolveBGM(audioClip));
     }
 
@@ -46,32 +69,33 @@ public class BGMManager : Singleton<BGMManager>
     {
         while (true) 
         {
-            currentAudioSource.volume -= changingTimeForFrame * Time.deltaTime;
-            nextAudioSource.volume += changingTimeForFrame * Time.deltaTime;
+            currentAudioSource.volume -= (1 / changingTime) * Time.deltaTime;
+            nextAudioSource.volume += (1 / changingTime) * Time.deltaTime;
 
             if ((nextAudioSource.volume >= 1) && (currentAudioSource.volume <= 0))
             {
-                
                 currentAudioSource.volume = 0;
                 nextAudioSource.volume = 1;
                 
-                freeAudioSource = currentAudioSource;
+                previousAudioSource = currentAudioSource;
                 currentAudioSource = nextAudioSource;
-                nextAudioSource = freeAudioSource;
-
+                nextAudioSource = null;
+                Debug.Log("전환 완료");
+                break;
             }
-
 
             yield return new WaitForEndOfFrame();
 
         }
     }
-
     void SetChangingTime(float changingTime)
     {
-        changingTimeForFrame = 1 / changingTime;
+        this._changingTime = 1 / changingTime;
         this._changingTime = changingTime;
     }
 
-
+    IEnumerator WaitForClipLength(AudioClip audioClip)
+    {
+        yield return new WaitForSeconds(currentAudioSource.clip.length - changingTime);
+    }
 }

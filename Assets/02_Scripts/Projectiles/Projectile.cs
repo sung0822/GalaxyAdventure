@@ -37,7 +37,6 @@ public abstract class Projectile : MonoBehaviour, ITeamMember
         }
         if (other.tag == "HYDRO_BEAM")
         {
-            Debug.Log("하이드로펌프 충격");
             return;
         }
 
@@ -49,10 +48,6 @@ public abstract class Projectile : MonoBehaviour, ITeamMember
                 Vector3 closetPoint = other.ClosestPoint(transform.position);
                 unit.Hit(power, closetPoint);
 
-                
-                if (unit.tag == "ENEMY")
-                {
-                }
                 isDestroied = true;
                 Destroy(this.gameObject);
 

@@ -1135,13 +1135,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9385c98ddda378b458d5e07d339e62b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
   _dieSound: {fileID: 0}
   unitBodyColliders: []
   rigidbodies: []
   colliders: []
   unitRigidbody: {fileID: 0}
-  _maxHp: 10
+  _currentMaxHp: 10
   _currentHp: 10
   _rewardExp: 10
   _rewardScore: 50
@@ -1150,7 +1149,7 @@ MonoBehaviour:
   lifeTime: 1000
   _spdChanged: 4
   _spdChangeDuration: 1
-  _power: 10
+  _power: 0
   _moveSpd: 10
   _rewardAbilityGage: 2
 --- !u!54 &1851218276069378059

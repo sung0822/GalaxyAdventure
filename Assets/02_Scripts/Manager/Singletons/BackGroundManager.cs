@@ -65,7 +65,7 @@ public class BackGroundManager : Singleton<BackGroundManager>
         }
     }
 
-    public void SpawnCloud(GameObject gameObject)
+    public void SpawnBackObject(GameObject gameObject)
     {
         if (gameObject.tag == null)
         {
@@ -120,7 +120,7 @@ public class BackGroundManager : Singleton<BackGroundManager>
             cloud.name = $"Cloud{i:00}";
 
             cloudPool.Add(cloud);
-            SpawnCloud(cloudPool[i]);
+            SpawnBackObject(cloudPool[i]);
             float waitTime = Random.Range(2.0f, 4.0f);
 
             yield return new WaitForSeconds(waitTime);
@@ -135,11 +135,11 @@ public class BackGroundManager : Singleton<BackGroundManager>
 
     IEnumerator CreateRocksDuring()
     {
-        Debug.Log("»ý¼ºÁß");
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
         for (int i = 0; i < maxRocks; i++)
         {
             int idx = Random.Range(0, rockPrefabs.Length);
-            Debug.Log("»ý¼ºÁß");
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
             var rock = Instantiate<GameObject>(rockPrefabs[idx]);
             SpawnRock(rock);
             rock.name = $"Rock{i:00}";

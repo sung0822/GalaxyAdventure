@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-// ÄÄÆ÷³ÍÆ®¸¦ ¸í½ÃÇØ »èÁ¦µÇ´Â°É ¹æÁöÇÑ´Ù´Âµ¥ ¼ÖÁ÷È÷ ÀÛµ¿¿ø¸®´Â ¸ð¸§
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç´Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´Ù´Âµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ûµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 [RequireComponent(typeof(AudioListener))]
 public class MainManager : Singleton<MainManager>
 {
@@ -11,12 +11,13 @@ public class MainManager : Singleton<MainManager>
     IStage currentStage = null;
     List<IStage> stages = new List<IStage>();
     int currentStageIdx = 0;
-    public int score 
-    {
-        get { return _score; }
-    }
+    public int currentScore { get { return _currentScore; } }
     Stage1 stage1;
-    [SerializeField] int _score;
+    [SerializeField] int _currentScore;
+
+    public int maxScore { get { return _maxScore; }}
+    [SerializeField] int _maxScore;
+
     public GameObject cloudManagerPrefab = null;
 
     public GameObject particleManagerPrefab = null;
@@ -47,7 +48,7 @@ public class MainManager : Singleton<MainManager>
 
     private void Start()
     {
-        Debug.Log("¸ÞÀÎ¸Å´ÏÀú ½ºÅ¸Æ®");
+        Debug.Log("ï¿½ï¿½ï¿½Î¸Å´ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸Æ®");
         ///////////////////////////////////////////////////////////////////////////////////////
         //cloudManagerPrefab = Resources.Load<GameObject>("Managers/CloudManager");
         GameObject cloudManager = Instantiate<GameObject>(cloudManagerPrefab, transform);
@@ -56,37 +57,34 @@ public class MainManager : Singleton<MainManager>
         GameObject particleManager = Instantiate<GameObject>(particleManagerPrefab, transform);
         particleManager.name = particleManagerPrefab.name;
 
-        GameObject inputManager = Instantiate<GameObject>(inputManagerPrefab, transform);
-        inputManager.name = inputManagerPrefab.name;
+            GameObject particleManager = Instantiate<GameObject>(particleManagerPrefab, transform);
+            particleManager.name = particleManagerPrefab.name;
 
-        GameObject audioManager = Instantiate<GameObject>(bgmManagerPrefab, transform);
-        audioManager.name = bgmManagerPrefab.name;
+            GameObject inputManager = Instantiate<GameObject>(inputManagerPrefab, transform);
+            inputManager.name = inputManagerPrefab.name;
 
-        GameObject itemManager = Instantiate<GameObject>(itemManagerPrefab, transform);
-        itemManager.name = itemManagerPrefab.name;
+            GameObject audioManager = Instantiate<GameObject>(bgmManagerPrefab, transform);
+            audioManager.name = bgmManagerPrefab.name;
 
-
-        /////////////////////////////////////////////////////////////////////////////////////////
-
-
-        BGMManager.instance.PlayBGM(BGMManager.instance.bgm1);
-        BackGroundManager.instance.SetCloudPointsGroup();
-        BackGroundManager.instance.CreateClouds();
-        backgroundMaterial = backgroundRenderer.material;
+            GameObject itemManager = Instantiate<GameObject>(itemManagerPrefab, transform);
+            itemManager.name = itemManagerPrefab.name;
 
 
+            /////////////////////////////////////////////////////////////////////////////////////////
 
 
+            BGMManager.instance.StartBGM();
+            BackGroundManager.instance.SetCloudPointsGroup();
+            BackGroundManager.instance.CreateClouds();
+            backgroundMaterial = backgroundRenderer.material;
 
-        // ½ºÅ×ÀÌÁö °´Ã¼ Ä³½Ì
+        }
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ Ä³ï¿½ï¿½
         stages.Add(new Stage1());
         stages.Add(new Stage2());
         stages.Add(new Stage3());
         stages.Add(new Stage4());
         stages.Add(new StageBoss());
-
-
-
         currentStage = stages[currentStageIdx];
     }
 
@@ -102,9 +100,9 @@ public class MainManager : Singleton<MainManager>
             return;
         }
 
-        this._score += score;
+        this._currentScore += score;
         _moveSpd += score * 0.001f;
-        float colorPercent = ((float)_score / 15000) * 0.5f;
+        float colorPercent = ((float)_currentScore / 15000) * 0.5f;
         Debug.Log("colorPercent: " + colorPercent);
         Color color = Color.Lerp(backgroundMaterial.color, changedBackgroundColor, colorPercent);
         StartCoroutine(AdjustBackgroundColor(color, 0.3f));
@@ -117,41 +115,50 @@ public class MainManager : Singleton<MainManager>
         switch (currentStageIdx)
         { 
             case 0:
-                if (_score < 1000)
+                if (_currentScore < 1000)
+                {
                     return;
+                }
 
                 break;
             case 1:
-                if (_score < 5000)
+                if (_currentScore < 5000)
                     return;
 
                 break;
             case 2:
-                if (_score < 10000)
+                if (_currentScore < 10000)
                     return;
                 BackGroundManager.instance.CreateRocks();
 
                 break;
             case 3:
-                if (_score < 15000)
+                if (_currentScore < _maxScore)
                     return;
                 BackGroundManager.instance.StopRockMoving();
                 BackGroundManager.instance.StopCloudMoving();
+                BGMManager.instance.ChangeBGM(BGMManager.instance.bossBgm);
                 StartCoroutine(AdjustSpeed(0, 2.0f));
 
                 break;
             case 4:
-                Debug.Log("º¸½º ½ºÅ×ÀÌÁöÀÓ.");
+                Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.");
                 return;
             default:
                 break;
         }
+        Debug.Log(currentScore);
+        Debug.Log(currentStageIdx);
         ChangeNextStage();
 
     }
     void ChangeNextStage()
     {
         currentStageIdx++;
+        if (currentStage == null)
+        {
+            return;
+        }
         currentStage.StopGenerating();
         currentStage = stages[currentStageIdx];
     }
@@ -189,7 +196,7 @@ public class MainManager : Singleton<MainManager>
         {
             timeAdjustingSpd += Time.deltaTime;
 
-            // Á¤±ÔÈ­ÇÑ ±æÀÌ.
+            // ï¿½ï¿½ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
             float normalizedTime = timeAdjustingSpd / duration;
 
             if (normalizedTime >= 1)
@@ -212,7 +219,7 @@ public class MainManager : Singleton<MainManager>
         {
             timeAdjustingSpd += Time.deltaTime;
 
-            // Á¤±ÔÈ­ÇÑ ±æÀÌ.
+            // ï¿½ï¿½ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
             float normalizedTime = timeAdjustingSpd / duration;
 
             if (normalizedTime >= 1)

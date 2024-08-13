@@ -113,9 +113,9 @@ public class UIManager : Singleton<UIManager>
 
     public void CheckPlayerHp()
     {
-        hpText.text = playerCtrl.currentHp.ToString() + " / " + playerCtrl.maxHp.ToString();
+        hpText.text = playerCtrl.currentHp.ToString() + " / " + playerCtrl.currentMaxHp.ToString();
 
-        hpBar.fillAmount = (float)playerCtrl.currentHp / (float)playerCtrl.maxHp;
+        hpBar.fillAmount = (float)playerCtrl.currentHp / (float)playerCtrl.currentMaxHp;
     }
 
     public void CheckPlayerExp()
@@ -127,7 +127,7 @@ public class UIManager : Singleton<UIManager>
 
     public void CheckScore()
     {
-        scoreText.text = MainManager.instance.score.ToString();
+        scoreText.text = MainManager.instance.currentScore.ToString() + "/" + MainManager.instance.maxScore;
     }
     public void CheckPlayerAbilityGage()
     {
@@ -227,7 +227,7 @@ public class UIManager : Singleton<UIManager>
     public void DisplyEndLevelPanel()
     {
         panel_Final.SetActive(true);
-        finalScore.text = MainManager.instance.score.ToString();
+        finalScore.text = MainManager.instance.currentScore.ToString();
     }
 
     public void LoadMenu()
