@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
-using static UnityEditor.Progress;
 public abstract class ItemData : ScriptableObject
 {
     public int id { get { return _id; } }
@@ -17,7 +16,7 @@ public abstract class ItemData : ScriptableObject
 
     public UnitBase unitUser { get { return _unitUser; } set { _unitUser = value; } }
     protected UnitBase _unitUser;
-    /// <summary> ¾ÆÀÌÅÛ½ÇÃ¼¸¦ »ý¼ºÇÕ´Ï´Ù. ¿øÇÏ´Â ¾ÆÀÌÅÛ Å¸ÀÔ¿¡ ¸Â°Ô Ä³½ºÆÃÇØ¼­ ¾²¼¼¿ä</summary>
+    /// <summary> ï¿½ï¿½ï¿½ï¿½ï¿½Û½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½. ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½Ô¿ï¿½ ï¿½Â°ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</summary>
     public abstract ItemBase CreateItem();
 
     public virtual ItemData SetData(ItemData itemData)

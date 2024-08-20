@@ -38,6 +38,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         }
         else
         {
+            Debug.Log("기존 싱글턴 오브젝트 파괴됨");
             Destroy(gameObject);
         }
     }

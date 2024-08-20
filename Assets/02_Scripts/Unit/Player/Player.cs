@@ -2,10 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UIElements;
-using static UnityEditor.Progress;
 
 [RequireComponent(typeof(AudioSource))]
 public class Player : UnitBase, IPlayer

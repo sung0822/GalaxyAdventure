@@ -14,7 +14,6 @@ public class SceneHandler : Singleton<SceneHandler>
     {
         AsyncOperation mainScene = SceneManager.LoadSceneAsync("Main_Logic", loadSceneMode);
         mainScene.allowSceneActivation = false;
-        LoadingSceneManager.instance.nextSceneProgress = mainScene;
 
         loadingScenes.Add(mainScene);
         
@@ -28,9 +27,8 @@ public class SceneHandler : Singleton<SceneHandler>
 
     public void LoadLoadingScene(AsyncOperation nextScene, LoadSceneMode loadSceneMode)
     {
-
         SceneManager.LoadScene("Loading",  loadSceneMode);
-        LoadingSceneManager.instance.nextSceneProgress = nextScene;
+        LoadingSceneManager.nextSceneProgress = nextScene;
         Debug.Log("로딩씬 로드됨");
     }
 
@@ -40,7 +38,6 @@ public class SceneHandler : Singleton<SceneHandler>
     }
     IEnumerator CoUnloadLoadingScene(Func<bool> condition)
     {
-        //yield return new WaitForSeconds(5.0f);
         yield return new WaitUntil(condition);
         SceneManager.UnloadSceneAsync("Loading");
         Debug.Log("로딩씬 언로드됨");
@@ -53,7 +50,7 @@ public class SceneHandler : Singleton<SceneHandler>
     IEnumerator CoWaitUntilEverySceneIsOn()
     {
         Debug.Log("CoWaitUntilEverySceneIsOn 불려짐");
-        Queue<AsyncOperation> loadingSceneBuffer = new Queue<AsyncOperation>();
+        Queue<AsyncOperation> sceneBuffer = new Queue<AsyncOperation>();
 
         while (loadingScenes.Count > 0)
         {
@@ -61,15 +58,16 @@ public class SceneHandler : Singleton<SceneHandler>
             {
                 if (loadingScenes[i].isDone)
                 {
-                    loadingSceneBuffer.Enqueue(loadingScenes[i]);
+                    sceneBuffer.Enqueue(loadingScenes[i]);
                     loadingScenes.RemoveAt(i);
                 }
             }
             yield return waitTime;
         }
-        while (loadingSceneBuffer.Count > 0)
+        while (sceneBuffer.Count > 0)
         {
-            loadingSceneBuffer.Dequeue().allowSceneActivation = true;
+            Debug.Log("로딩 전부 완료");
+            sceneBuffer.Dequeue().allowSceneActivation = true;
         }
     }
 

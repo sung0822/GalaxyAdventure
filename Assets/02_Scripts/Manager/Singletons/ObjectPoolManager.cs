@@ -8,6 +8,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
 
     public ObjectPool CreateObjectPool(string poolName)
     {
+        Debug.Log("오브젝트풀 생성완료");
         GameObject poolObject = new GameObject(poolName);
         ObjectPool objectPool = poolObject.AddComponent<ObjectPool>();
         objectPool.poolName = poolName;

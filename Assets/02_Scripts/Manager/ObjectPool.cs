@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -9,6 +8,7 @@ public class ObjectPool : MonoBehaviour
 {
     public string poolName { get { return _poolName; } set { _poolName = value; } }
     [SerializeField] string _poolName;
+    [SerializeField] GameObject ObjectContainer;
     public Queue<GameObject> objects { get { return _objects; } set { _objects = value; } }
     public Queue<GameObject> _objects;
 
@@ -28,7 +28,7 @@ public class ObjectPool : MonoBehaviour
         if (objects.Count > 0)
         {
             GameObject obj = objects.Dequeue();
-            obj.SetActive(true); // Ȱ��ȭ�Ͽ� ��� ���� ���·� ����
+            obj.SetActive(true);
             return obj;
         }
         else

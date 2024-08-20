@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LoadingSceneManager : Singleton<LoadingSceneManager>
+public class LoadingSceneManager : MonoBehaviour
 {
     [SerializeField] Image progressBar;
-    public AsyncOperation nextSceneProgress;
+    static public AsyncOperation nextSceneProgress;
     
     [SerializeField] float UpdateCycle;
     

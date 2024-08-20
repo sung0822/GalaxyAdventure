@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-// ������Ʈ�� ������ �����Ǵ°� �����Ѵٴµ� ������ �۵������� ��
 [RequireComponent(typeof(AudioListener))]
 public class MainManager : Singleton<MainManager>
 {
@@ -17,18 +17,6 @@ public class MainManager : Singleton<MainManager>
 
     public int maxScore { get { return _maxScore; }}
     [SerializeField] int _maxScore;
-
-    public GameObject cloudManagerPrefab = null;
-
-    public GameObject particleManagerPrefab = null;
-
-    public GameObject inputManagerPrefab = null;
-
-    public GameObject bgmManagerPrefab = null;
-
-    public GameObject itemManagerPrefab = null;
-
-    public GameObject soundManagerPrefab = null;
 
     public GameObject mainCamera { get { return _mainCamera; } set { _mainCamera = value; } }
     [SerializeField] GameObject _mainCamera = null;
@@ -46,50 +34,52 @@ public class MainManager : Singleton<MainManager>
 
     private void Start()
     {
-        {
-        ///////////////////////////////////////////////////////////////////////////////////////
-        //cloudManagerPrefab = Resources.Load<GameObject>("Managers/CloudManager");
-        GameObject cloudManager = Instantiate<GameObject>(cloudManagerPrefab, transform);
-        cloudManager.name = cloudManagerPrefab.name;
-        
-        GameObject particleManager = Instantiate<GameObject>(particleManagerPrefab, transform);
-        particleManager.name = particleManagerPrefab.name;
+        StartCoroutine(InitializeStage());
+    }
 
-            GameObject inputManager = Instantiate<GameObject>(inputManagerPrefab, transform);
-            inputManager.name = inputManagerPrefab.name;
-
-            GameObject audioManager = Instantiate<GameObject>(bgmManagerPrefab, transform);
-            audioManager.name = bgmManagerPrefab.name;
-
-            GameObject itemManager = Instantiate<GameObject>(itemManagerPrefab, transform);
-            itemManager.name = itemManagerPrefab.name;
-
-
-            /////////////////////////////////////////////////////////////////////////////////////////
-
-
-            BGMManager.instance.StartBGM();
-            BackGroundManager.instance.SetCloudPointsGroup();
-            BackGroundManager.instance.CreateClouds();
-            backgroundMaterial = backgroundRenderer.material;
-
+    IEnumerator InitializeStage()
+    {
+        while (!EnemyFactory.instance.isInitialized)
+        {   
+            yield return new WaitForEndOfFrame();
         }
+
         for (int i = 0; i < 20; i++)
         {
-            EnemyFactory.instance.CreateEnemy("BasicEnemy");
+            GameObject basicEnemyObject = EnemyFactory.instance.CreateEnemy("BasicEnemy").gameObject;
+            GameObject eagleObject = EnemyFactory.instance.CreateEnemy("Eagle").gameObject;
+            SceneManager.MoveGameObjectToScene(basicEnemyObject, SceneManager.GetSceneByName("Main_Logic"));
+            SceneManager.MoveGameObjectToScene(eagleObject, SceneManager.GetSceneByName("Main_Logic"));
         }
-        // �������� ��ü ĳ��
+
+        for (int i = 0; i < 10; i++)
+        {
+            GameObject BigSizeEnemyObject = EnemyFactory.instance.CreateEnemy("BigSizeEnemy").gameObject;
+            GameObject stealthEnemyObject = EnemyFactory.instance.CreateEnemy("StealthEnemy").gameObject;
+            SceneManager.MoveGameObjectToScene(BigSizeEnemyObject, SceneManager.GetSceneByName("Main_Logic"));
+            SceneManager.MoveGameObjectToScene(stealthEnemyObject, SceneManager.GetSceneByName("Main_Logic"));
+        }
+
+        BGMManager.instance.StartBGM();
+        BackGroundManager.instance.SetCloudPointsGroup();
+        BackGroundManager.instance.CreateClouds();
+        backgroundMaterial = backgroundRenderer.material;
+        
         stages.Add(new Stage1());
         stages.Add(new Stage2());
         stages.Add(new Stage3());
         stages.Add(new Stage4());
         stages.Add(new StageBoss());
         currentStage = stages[currentStageIdx];
+        StartCoroutine(ExecuteStage());
     }
-
-    private void Update()
+    IEnumerator ExecuteStage()
     {
-        currentStage.Execute();
+        while (true)
+        {
+            currentStage.Execute();
+            yield return new WaitForEndOfFrame();
+        }
     }
 
     public void AddScore(int score)

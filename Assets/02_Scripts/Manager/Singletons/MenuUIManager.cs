@@ -25,9 +25,13 @@ public class MenuUIManager : Singleton<MenuUIManager>
     public void OnStartClick()
     {
         Debug.Log("OnStartClick 호출됨");
+        
         AsyncOperation mainScene = SceneHandler.instance.LoadMainSceneAsync(LoadSceneMode.Additive);
         SceneHandler.instance.LoadLoadingScene(mainScene, LoadSceneMode.Additive);
-        SceneHandler.instance.UnloadLoadingScene(() => mainScene.allowSceneActivation == false);
+
+        SceneHandler.instance.UnloadLoadingScene(() => mainScene.allowSceneActivation == true);
+        
+        
         SceneHandler.instance.WaitUntilEverySceneIsOn();
         StartCoroutine(UnloadMenuScene()); // 코루틴으로 호출
     }

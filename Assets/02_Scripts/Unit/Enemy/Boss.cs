@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
-using UnityEditor.Search;
 using Unity.VisualScripting;
 using UnityEngine.SceneManagement;
 
@@ -118,7 +117,7 @@ public class Boss : EnemyBase
         {
             timeAdjustingSpd += Time.deltaTime;
 
-            // Á¤±ÔÈ­ÇÑ ±æÀÌ.
+            // ï¿½ï¿½ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
             float normalizedTime = timeAdjustingSpd / duration;
 
             if (normalizedTime >= 1)
@@ -207,7 +206,7 @@ public class Boss : EnemyBase
 
                     break;
                 default:
-                    Debug.Log("ÀÌ»óÇÑ ¼ö°¡ µé¾î¿È");
+                    Debug.Log("ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
                     break;
             }
         }
@@ -225,7 +224,7 @@ public class Boss : EnemyBase
         {
             timeAdjustingSpd += Time.deltaTime;
 
-            // Á¤±ÔÈ­ÇÑ ±æÀÌ.
+            // ï¿½ï¿½ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
             float normalizedTime = timeAdjustingSpd / duration;
             currentHp = (int)((float)currentMaxHp * normalizedTime);
             CheckHpBarFill();

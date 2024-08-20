@@ -3,18 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 
 public class Inventory : MonoBehaviour
 {
     /// <summary>
-    /// ¾ÆÀÌÅÛ id·Î ÀúÀåÇÕ´Ï´Ù. List¿¡ ½ÇÁ¦ °ªÀÌ ´ã±â°Ô µÇ±¸¿ä.
+    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ idï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½. Listï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç±ï¿½ï¿½ï¿½.
     /// </summary>
     [SerializeField] private Dictionary<int, List<ItemData>> items = new Dictionary<int, List<ItemData>>();
 
     [SerializeField]
-    private UIManager _inventoryUI; // ¿¬°áµÈ ÀÎº¥Åä¸® UI
+    private UIManager _inventoryUI; // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ï¿½ä¸® UI
 
     private void Awake()
     {
@@ -74,7 +73,7 @@ public class Inventory : MonoBehaviour
             return false;
     }
 
-    /// <summary> ¾ÆÀÌÅÛ µ¥ÀÌÅÍ Á¤º¸ÂüÁ¶ ¸®ÅÏ. </summary>
+    /// <summary> ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. </summary>
     public ItemData GetItemData(int id)
     {
         if (items.ContainsKey(id))
