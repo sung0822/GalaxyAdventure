@@ -80,7 +80,6 @@ public class BGMManager : Singleton<BGMManager>
                 previousAudioSource = currentAudioSource;
                 currentAudioSource = nextAudioSource;
                 nextAudioSource = null;
-                Debug.Log("전환 완료");
                 break;
             }
 

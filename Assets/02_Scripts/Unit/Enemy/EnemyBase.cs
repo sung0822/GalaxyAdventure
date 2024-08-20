@@ -46,7 +46,7 @@ public abstract class EnemyBase : UnitBase, IMovalble, IAttackable
 
         player = GameObject.FindGameObjectWithTag("PLAYER").GetComponent<Player>();
         SetImmortal(true);
-        ObjectPoolManager.instance.ReturnObject(unitName, this.gameObject, lifeTime);
+        ObjectPoolManager.instance.ReturnObject(unitName + " Pool", this.gameObject, lifeTime);
     }
 
 

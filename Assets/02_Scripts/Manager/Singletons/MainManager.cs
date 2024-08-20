@@ -47,7 +47,6 @@ public class MainManager : Singleton<MainManager>
     private void Start()
     {
         {
-        Debug.Log("���θŴ��� ��ŸƮ");
         ///////////////////////////////////////////////////////////////////////////////////////
         //cloudManagerPrefab = Resources.Load<GameObject>("Managers/CloudManager");
         GameObject cloudManager = Instantiate<GameObject>(cloudManagerPrefab, transform);

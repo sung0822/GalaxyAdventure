@@ -23,9 +23,12 @@ public class MenuUIManager : Singleton<MenuUIManager>
 
     public void OnStartClick()
     {
-        SceneManager.LoadScene("Main_Logic");
-        Time.timeScale = 1.0f;
-        SceneManager.LoadScene("Main_UI", LoadSceneMode.Additive);
+        Debug.Log("OnStartClick 호출됨");
+        AsyncOperation mainScene = SceneHandler.instance.LoadMainSceneAsync(LoadSceneMode.Additive);
+        SceneHandler.instance.LoadLoadingScene(mainScene, LoadSceneMode.Additive);
+        SceneHandler.instance.UnloadLoadingScene(() => mainScene.allowSceneActivation == false);
+        SceneHandler.instance.WaitUntilEverySceneIsOn();
+        SceneManager.UnloadScene("Menu");
     }
 
     public void OnReadMeClick()

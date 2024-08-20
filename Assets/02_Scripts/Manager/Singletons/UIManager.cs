@@ -63,7 +63,6 @@ public class UIManager : Singleton<UIManager>
         expBar = expPanel.Find("ExpBar").GetComponent<Image>();
         expText = expPanel.Find("Exp_Text").GetComponent<TextMeshProUGUI>();
 
-        //scoreText = ui_Panel.transform.Find("Panel_Score").Find("ScoreText").GetComponent<TextMeshProUGUI>();
         scoreText = panel_Status.transform.Find("Panel_Score").Find("ScoreText").GetComponent<TextMeshProUGUI>();
         
         playerCtrl = GameObject.FindGameObjectWithTag("PLAYER")?.GetComponent<Player>();
@@ -163,7 +162,7 @@ public class UIManager : Singleton<UIManager>
                     {
                         continue;
                     }
-                    // ÇØ´ç ·»´õÅØ½ºÃÄ¿Í ÇÃ·¹ÀÌ¾î ¾ÆÀÌÅÛ id°¡ °°À» ½Ã
+                    // ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø½ï¿½ï¿½Ä¿ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ idï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
                     if (showingConsumableItem == null)
                     {
                         showingConsumableItem = consumableItems[i];
@@ -196,7 +195,7 @@ public class UIManager : Singleton<UIManager>
                     {
                         continue;
                     }
-                    // ÇØ´ç ·»´õÅØ½ºÃÄ¿Í ÇÃ·¹ÀÌ¾î ¾ÆÀÌÅÛ id°¡ °°À» ½Ã
+                    // ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø½ï¿½ï¿½Ä¿ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ idï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
                     if (showingWeaponItem == null)
                     {
                         showingWeaponItem = weaponItems[i];
@@ -239,7 +238,7 @@ public class UIManager : Singleton<UIManager>
     {
         if (PanelLevel.activeSelf == true)
         {
-            Debug.Log("ÆÐ³Î ³»¸²");
+            Debug.Log("ï¿½Ð³ï¿½ ï¿½ï¿½ï¿½ï¿½");
             DownPlayerLevelUpTable();
             PanelLevel.SetActive(false);
             return;
@@ -251,7 +250,7 @@ public class UIManager : Singleton<UIManager>
 
         for (int i = 0; i < playerCtrl.playerLevelUpData.headerOrder.Count; i++)
         {
-            // Çì´õ Ãâ·Â
+            // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
             dataText = Instantiate<GameObject>(cell, PlayerLevelDataTable.transform).GetComponentInChildren<TextMeshProUGUI>();
             string header = playerCtrl.playerLevelUpData.headerOrder[i + 1];
             dataText.text = header;
