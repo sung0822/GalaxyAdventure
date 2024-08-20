@@ -1,0 +1,34 @@
+@startuml Projectile
+
+abstract class Projectile
+{
+
+}
+
+class ArmorPiercingBullet
+{
+
+}
+
+class ExplosingBullet
+{
+
+}
+
+class Missile
+{
+
+}
+
+class NormalBullet
+{
+
+}
+
+ITeamMemer <|.. Projectile
+Projectile <|-- NormalBullet
+Projectile <|-- ExplosingBullet
+Projectile <|-- Missile
+Projectile <|-- ArmorPiercingBullet
+
+@enduml

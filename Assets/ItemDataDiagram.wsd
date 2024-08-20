@@ -1,0 +1,77 @@
+@startuml ItemData
+
+abstract class ItemData
+{
+
+}
+
+abstract class ConsumableItemData
+{
+
+}
+
+abstract class WeaponItemData
+{
+
+}
+
+abstract class GunItemData
+{
+
+}
+
+class BombItemData
+{
+
+}
+
+class HealItemData
+{
+
+}
+
+class ShieldItemData
+{
+
+}
+
+class SniperItemData
+{
+
+}
+
+class SprayGunItemData
+{
+
+}
+
+class LaserGunItemData
+{
+
+}
+
+class MachineGunItemData
+{
+
+}
+
+class PistolItemData
+{
+
+}
+ItemData <|-- ConsumableItemData
+
+ConsumableItemData <|-- BombItemData
+ConsumableItemData <|-- HealItemData
+ConsumableItemData <|-- ShieldItemData
+
+ItemData <|-- WeaponItemData
+WeaponItemData <|-- GunItemData
+
+GunItemData <|-- PistolItemData
+GunItemData <|-- SniperItemData
+GunItemData <|-- MachineGunItemData
+GunItemData <|-- SprayGunItemData
+GunItemData <|-- LaserGunItemData
+
+@enduml

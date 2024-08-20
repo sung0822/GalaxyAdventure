@@ -1,0 +1,92 @@
+@startuml SkyAdventure
+
+interface ITeamMember
+{
+    +teamType : TeamType 
+}
+
+interface IMovable
+{
+
+}
+
+interface IAttackable
+{
+
+}
+
+interface ICarryable
+{
+
+}
+
+interface IPlayer
+{
+}
+
+abstract class UnitBase
+{
+
+}
+
+abstract class EnemyBase
+{
+
+}
+
+class Player
+{
+
+}
+
+class BasicEnemy
+{
+
+}
+
+class StealthEnemy
+{
+
+}
+
+class BigSizeEnemy
+{
+
+}
+
+class Eagle
+{
+
+}
+
+class Boss
+{
+
+}
+
+
+ITeamMember <|.. UnitBase
+UnitBase <|-- Player
+UnitBase <|-- EnemyBase
+
+IMovable <|.. BasicEnemy
+IMovable <|.. IPlayer
+IAttackable <|.. IPlayer
+ICarryable <|.. IPlayer
+
+IPlayer <|.. Player
+
+IAttackable <|.. BasicEnemy
+
+EnemyBase <|-- BasicEnemy
+
+
+EnemyBase <|-- StealthEnemy
+EnemyBase <|-- BigSizeEnemy
+EnemyBase <|-- Eagle
+EnemyBase <|-- Boss
+
+
+
+
+@enduml
