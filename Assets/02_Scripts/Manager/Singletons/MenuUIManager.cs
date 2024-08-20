@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using Unity.VisualScripting;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class MenuUIManager : Singleton<MenuUIManager>
 {
@@ -28,7 +29,14 @@ public class MenuUIManager : Singleton<MenuUIManager>
         SceneHandler.instance.LoadLoadingScene(mainScene, LoadSceneMode.Additive);
         SceneHandler.instance.UnloadLoadingScene(() => mainScene.allowSceneActivation == false);
         SceneHandler.instance.WaitUntilEverySceneIsOn();
-        SceneManager.UnloadScene("Menu");
+        StartCoroutine(UnloadMenuScene()); // 코루틴으로 호출
+    }
+
+    IEnumerator UnloadMenuScene()
+    {
+        yield return new WaitUntil(() => SceneHandler.instance.loadingScenes.Count == 0);
+        SceneManager.UnloadSceneAsync("Menu");
+        Debug.Log("Menu 씬 언로드됨");
     }
 
     public void OnReadMeClick()

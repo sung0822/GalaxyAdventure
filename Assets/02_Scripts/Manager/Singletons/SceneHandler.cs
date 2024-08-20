@@ -1,23 +1,26 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneHandler : Singleton<SceneHandler>
 {
-    List<AsyncOperation> loadingScenes = new List<AsyncOperation>();
+    public List<AsyncOperation> loadingScenes {get { return _loadingScenes;}}
+    private List<AsyncOperation> _loadingScenes = new List<AsyncOperation>();
     [SerializeField] float waitTime = 0.1f;
     public AsyncOperation LoadMainSceneAsync(LoadSceneMode loadSceneMode)
     {
         AsyncOperation mainScene = SceneManager.LoadSceneAsync("Main_Logic", loadSceneMode);
         mainScene.allowSceneActivation = false;
         LoadingSceneManager.instance.nextSceneProgress = mainScene;
+
         loadingScenes.Add(mainScene);
         
         AsyncOperation uiScene = SceneManager.LoadSceneAsync("Main_UI", loadSceneMode);
         uiScene.allowSceneActivation = false;
-        LoadingSceneManager.instance.nextSceneProgress = uiScene;
+        
         loadingScenes.Add(uiScene);
 
         return mainScene;

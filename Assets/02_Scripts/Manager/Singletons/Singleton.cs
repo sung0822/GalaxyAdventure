@@ -19,7 +19,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
                     {
                         GameObject singletonObject = new GameObject();
                         _instance = singletonObject.AddComponent<T>();
-                        Debug.Log("싱글턴 인스턴스 생성됨" + _instance.name);
+                        Debug.Log("singleton Manger has been created " + _instance.name);
 
                     }
                 }
