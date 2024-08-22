@@ -3,25 +3,17 @@ using UnityEngine;
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
     private static T _instance;
-    private static readonly object _lock = new object();
-
     public static T instance
     {
         get
         {
             if (_instance == null)
             {
-                lock (_lock)
+                if (_instance == null)
                 {
-                    _instance = FindObjectOfType<T>();
-
-                    if (_instance == null)
-                    {
-                        GameObject singletonObject = new GameObject();
-                        _instance = singletonObject.AddComponent<T>();
-                        Debug.Log("singleton Manger has been created " + _instance.name);
-
-                    }
+                    GameObject singletonObject = new GameObject();
+                    _instance = singletonObject.AddComponent<T>();
+                    Debug.Log("singleton Manger has been created " + _instance.name);
                 }
             }
 

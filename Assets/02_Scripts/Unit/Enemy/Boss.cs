@@ -206,7 +206,6 @@ public class Boss : EnemyBase
 
                     break;
                 default:
-                    Debug.Log("�̻��� ���� ����");
                     break;
             }
         }

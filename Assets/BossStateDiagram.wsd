@@ -1,0 +1,39 @@
+@startuml ItemData
+
+class Boss
+{
+
+}
+
+interface IBossPageState
+{
+
+}
+
+abstract class BossPageState
+{
+
+}
+
+class BossPageStateOne
+{
+
+}
+
+class BossPageStateTwo
+{
+
+}
+
+class BossPageStateThree
+{
+
+}
+
+IBossPageState <|.. BossPageState
+BossPageState <|-- BossPageStateOne
+BossPageState <|-- BossPageStateTwo
+BossPageState <|-- BossPageStateThree
+Boss *-- IBossPageState
+
+@enduml

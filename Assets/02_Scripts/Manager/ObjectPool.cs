@@ -8,18 +8,15 @@ public class ObjectPool : MonoBehaviour
 {
     public string poolName { get { return _poolName; } set { _poolName = value; } }
     [SerializeField] string _poolName;
-    [SerializeField] GameObject ObjectContainer;
-    public Queue<GameObject> objects { get { return _objects; } set { _objects = value; } }
-    public Queue<GameObject> _objects;
+    private Queue<GameObject> objects = new Queue<GameObject>();
 
     private void Awake()
     {
-        objects = new Queue<GameObject>();
     }
 
     public void AddObject(GameObject gameObject)
     {
-        gameObject.SetActive(false); // ��Ȱ��ȭ�Ͽ� �ٽ� ����� �� �ֵ��� ��
+        gameObject.SetActive(false);
         objects.Enqueue(gameObject);
     }
 
@@ -39,7 +36,7 @@ public class ObjectPool : MonoBehaviour
     }
     public void ReturnObject(GameObject gameObject)
     {
-        gameObject.SetActive(false); // ��Ȱ��ȭ�Ͽ� �ٽ� ����� �� �ֵ��� ��
+        gameObject.SetActive(false);
         objects.Enqueue(gameObject);
     }
 

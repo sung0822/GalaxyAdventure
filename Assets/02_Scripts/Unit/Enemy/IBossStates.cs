@@ -4,9 +4,7 @@ public interface IBossPageState
 {
     Boss boss { get; set; }
     void Attack();
-
     void Move();
-
 }
 
 public abstract class BossPageState : IBossPageState
@@ -28,14 +26,11 @@ public abstract class BossPageState : IBossPageState
     {
         boss.sprayGun.Use();
         boss.sprayGunItemData.weaponSpaceTransform.Rotate(new Vector3(0, 10, 0) * Time.deltaTime);
-        Debug.Log("ÆÐÅÏ1: È£Ãâ");
-
     }
     protected virtual void AttackPatternTwo()
     {
         boss.machineGun.Use();
         boss.machineGunWeaponSpace.transform.LookAt(boss.targetPlayer);
-        Debug.Log("ÆÐÅÏ2: È£Ãâ");
     }
 
     protected virtual void AttackPatternThree()
@@ -45,7 +40,6 @@ public abstract class BossPageState : IBossPageState
 
         boss.machineGun.Use();
         boss.machineGunWeaponSpace.transform.LookAt(boss.targetPlayer);
-        Debug.Log("ÆÐÅÏ1: È£Ãâ");
     }
 
     public virtual void Move()
@@ -80,14 +74,14 @@ public class BossPageOneState : BossPageState
     public BossPageOneState()
     {
         attacks = new Attacks[] { AttackPatternOne, AttackPatternTwo };
-        currentAttack = attacks[currentAttackIdx]; // ÃÊ±â °ø°Ý ÆÐÅÏ ¼³Á¤
+        currentAttack = attacks[currentAttackIdx]; // ï¿½Ê±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 
     public override void Attack()
     {
         timeElapsed += Time.deltaTime;
         currentAttack();
-        Debug.Log("È£ÃâµÊ");
+        Debug.Log("È£ï¿½ï¿½ï¿½");
         if (timeElapsed >= attackPatternInterval)
         {
             currentAttackIdx++;
@@ -114,7 +108,7 @@ public class BossPageTwoState : BossPageState
     public BossPageTwoState()
     {
         attacks = new Attacks[] { AttackPatternOne, AttackPatternTwo, AttackPatternThree };
-        currentAttack = attacks[currentAttackIdx]; // ÃÊ±â °ø°Ý ÆÐÅÏ ¼³Á¤
+        currentAttack = attacks[currentAttackIdx]; // ï¿½Ê±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
     public override void Attack()
     {
@@ -156,7 +150,7 @@ public class BossPageThreeState : BossPageState
     public BossPageThreeState()
     {
         attacks = new Attacks[] { AttackPatternOne, AttackPatternTwo, AttackPatternThree };
-        currentAttack = attacks[currentAttackIdx]; // ÃÊ±â °ø°Ý ÆÐÅÏ ¼³Á¤
+        currentAttack = attacks[currentAttackIdx]; // ï¿½Ê±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
     public override void Attack()
     {
