@@ -88,7 +88,8 @@ public class MainManager : Singleton<MainManager>
         {
             return;
         }
-
+        UIManager.instance.CheckScore();        
+        Debug.Log("currentScore is changed");
         this._currentScore += score;
         _moveSpd += score * 0.001f;
         float colorPercent = ((float)_currentScore / 15000) * 0.5f;
@@ -131,7 +132,7 @@ public class MainManager : Singleton<MainManager>
 
                 break;
             case 4:
-                Debug.Log("���� ����������.");
+            
                 return;
             default:
                 break;
@@ -185,7 +186,6 @@ public class MainManager : Singleton<MainManager>
         {
             timeAdjustingSpd += Time.deltaTime;
 
-            // ����ȭ�� ����.
             float normalizedTime = timeAdjustingSpd / duration;
 
             if (normalizedTime >= 1)
@@ -208,7 +208,6 @@ public class MainManager : Singleton<MainManager>
         {
             timeAdjustingSpd += Time.deltaTime;
 
-            // ����ȭ�� ����.
             float normalizedTime = timeAdjustingSpd / duration;
 
             if (normalizedTime >= 1)

@@ -125,6 +125,7 @@ public class UIManager : Singleton<UIManager>
 
     public void CheckScore()
     {
+        Debug.Log("체크 스코어");
         scoreText.text = MainManager.instance.currentScore.ToString() + "/" + MainManager.instance.maxScore;
     }
     public void CheckPlayerAbilityGage()
