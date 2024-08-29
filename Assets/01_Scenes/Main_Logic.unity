@@ -6914,11 +6914,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6547018128584068663, guid: 71b28e973e136504aaf17764ed5ef0a1, type: 3}
       propertyPath: _currentHp
-      value: 100
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 6547018128584068663, guid: 71b28e973e136504aaf17764ed5ef0a1, type: 3}
       propertyPath: _currentMaxHp
-      value: 100
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 6547018128584068663, guid: 71b28e973e136504aaf17764ed5ef0a1, type: 3}
       propertyPath: currentWeaponSpace

@@ -368,7 +368,13 @@ public class Player : UnitBase, IPlayer
 
     public override void DieUnit()
     {
-        base.DieUnit();
+        isDead = true;
+
+        GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.unitExplodingParticle, transform.position, transform.rotation);
+
+        particle.transform.localScale = this.transform.localScale * 0.1f;
+        Destroy(particle, 1.5f);
+
         MainManager.instance.EndLevel();
     }
 

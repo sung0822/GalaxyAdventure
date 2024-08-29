@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class InputManager : Singleton<InputManager>
 {
-    GameObject player;
-    Player playerCtrl;
+    [SerializeField] Player playerCtrl;
 
     float inputHor;
     float inputVer;
 
     void Start()
     {
-        player = GameObject.FindWithTag("PLAYER");
+        GameObject player = GameObject.FindWithTag("PLAYER");
         playerCtrl = player.GetComponent<Player>();
     }
 
@@ -31,13 +30,18 @@ public class InputManager : Singleton<InputManager>
         Vector3 moveDir = ((Vector3.forward * inputVer) + (Vector3.right * inputHor)).normalized;
 
         playerCtrl.moveDir = ((Vector3.forward * inputVer) + (Vector3.right * inputHor)).normalized;
-
+        
+        Debug.Log("player moveDir: " + playerCtrl.moveDir);
+        Debug.Log("moveDir: " + moveDir);
+        //Debug.Log("OnPlaying is called");
         if (Input.GetKeyDown(KeyCode.Z))
         {
+            Debug.Log("Z key down");
             playerCtrl.isAttacking = true;
         }
         else if (Input.GetKeyUp(KeyCode.Z))
         {
+            Debug.Log("Z key UP");
             playerCtrl.StopAttack();
         }
         else if(Input.GetKeyUp(KeyCode.Q))
