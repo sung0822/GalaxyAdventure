@@ -47,7 +47,13 @@ public class BasicEnemy : EnemyBase
         {
             Attack();
         }
-            
+    }
+
+    public override void DieUnit()
+    {
+        base.DieUnit();
+        _isAttacking = unitBaseData.isAttacking;
+        
     }
 
 

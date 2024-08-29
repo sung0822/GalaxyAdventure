@@ -32,6 +32,11 @@ public abstract class EnemyBase : UnitBase, IMovalble, IAttackable
     protected bool hasCollideWithWall = false;
 
 
+    private void OnEnable()
+    {
+        
+    }
+
     protected override void Start()
     {
         base.Start();
@@ -44,6 +49,7 @@ public abstract class EnemyBase : UnitBase, IMovalble, IAttackable
     {
         base.SetFirstStatus();
 
+        Debug.Log("Enemy SetFirstStatus is Called");
         player = GameObject.FindGameObjectWithTag("PLAYER").GetComponent<Player>();
         SetImmortal(true);
         ObjectPoolManager.instance.ReturnObject(unitName + " Pool", this.gameObject, lifeTime);

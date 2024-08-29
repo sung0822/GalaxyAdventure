@@ -31,8 +31,6 @@ public class InputManager : Singleton<InputManager>
 
         playerCtrl.moveDir = ((Vector3.forward * inputVer) + (Vector3.right * inputHor)).normalized;
         
-        Debug.Log("player moveDir: " + playerCtrl.moveDir);
-        Debug.Log("moveDir: " + moveDir);
         //Debug.Log("OnPlaying is called");
         if (Input.GetKeyDown(KeyCode.Z))
         {

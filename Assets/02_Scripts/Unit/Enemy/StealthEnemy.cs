@@ -98,7 +98,7 @@ public class StealthEnemy : EnemyBase
         moveSpd = 5.0f;
         StartCoroutine(StartAttack());
 
-        // °¢Á¾ ½¦ÀÌ´õ ¼Ó¼º¿¡ Á¢±Ù. ÀÏ¹ÝÀûÀ¸·Î ¼Ó¼º ÀÌ¸§À¸·Î Á¢±ÙÇÏ´ÂµíÇÔ.
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½Ó¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. ï¿½Ï¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ó¼ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´Âµï¿½ï¿½ï¿½.
         Renders.ChangeStandardShaderRenderMode(material, BlendMode.Fade);
         
         Color color = new Color(material.color.r, material.color.g, material.color.b, 1);
@@ -106,7 +106,7 @@ public class StealthEnemy : EnemyBase
 
         while (true)
         {
-            // Åõ¸íÀÏ½Ã ºÒÅõ¸íÀ¸·Î º¯°æ ¹× °ø°Ý ½ÃÀÛ
+            // ï¿½ï¿½ï¿½ï¿½ï¿½Ï½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             if (isInvisible)
             {
                 moveDir = Vector3.zero;
@@ -118,7 +118,7 @@ public class StealthEnemy : EnemyBase
                 for (int i = 0; i < colliders.Count; i++)
                     colliders[i].gameObject.layer = LayerMask.NameToLayer(unitLayerName);
 
-            }// ºÒÅõ¸íÀÏ½Ã Åõ¸íÀ¸·Î º¯°æ ¹× °ø°Ý ÁßÁö
+            }// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             else if(!isInvisible)
             {
 
@@ -170,7 +170,7 @@ public class StealthEnemy : EnemyBase
         {
             timeAdjustingSpd += Time.deltaTime;
 
-            // Á¤±ÔÈ­ÇÑ ±æÀÌ.
+            // ï¿½ï¿½ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
             float normalizedTime = timeAdjustingSpd / duration;
 
             if (normalizedTime >= 1)

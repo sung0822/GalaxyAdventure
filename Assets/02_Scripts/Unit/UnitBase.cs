@@ -39,6 +39,10 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
     public abstract bool isAttacking { get; set; }
     public abstract TeamType teamType { get; set; }
 
+    [SerializeField] protected EnemyBaseData currentUnitData;
+    [SerializeField] protected UnitBaseData unitBaseData;
+
+
     protected virtual void Start()
     {
         SetFirstStatus();
@@ -241,7 +245,7 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
 
         particle.transform.localScale = this.transform.localScale * 0.1f;
         Destroy(particle, 1.5f);
-        
+
         ObjectPoolManager.instance.ReturnObject(unitName + " Pool", this.gameObject);
     }
 
