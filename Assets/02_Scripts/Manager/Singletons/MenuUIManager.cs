@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
-public class MenuUIManager : Singleton<MenuUIManager>
+public class MenuUIManager : MonoBehaviour
 {
 
     public Button startButton;
@@ -15,6 +15,7 @@ public class MenuUIManager : Singleton<MenuUIManager>
 
     private void Start()
     {
+        Debug.Log("메인 ui 호출");
         action = () => OnStartClick();
         startButton.onClick.AddListener(action);
 

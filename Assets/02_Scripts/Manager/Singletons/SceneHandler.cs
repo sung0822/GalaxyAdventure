@@ -72,15 +72,19 @@ public class SceneHandler : Singleton<SceneHandler>
     }
     public void LoadMenu()
     {
-        Destroy(MainManager.instance);
-        Destroy(BGMManager.instance);
-        Destroy(InputManager.instance);
-        Destroy(ItemManager.instance);
-        Destroy(ObjectPoolManager.instance);
-        Destroy(ParticleManager.instance);
-        Destroy(EnemyFactory.instance);
-        Destroy(BackGroundManager.instance);
-        
+        Debug.Log("LoadMenu 호출됨");
+        Destroy(MainManager.instance.gameObject);
+        Destroy(BGMManager.instance.gameObject);
+        Destroy(InputManager.instance.gameObject);
+        Destroy(ItemManager.instance.gameObject);
+        Destroy(ObjectPoolManager.instance.gameObject);
+        Destroy(ParticleManager.instance.gameObject);
+        Destroy(EnemyFactory.instance.gameObject);
+        Destroy(BackGroundManager.instance.gameObject);
+        Destroy(SoundManager.instance.gameObject);
+        Destroy(UIManager.instance.gameObject);
+        Time.timeScale = 1;
+
         SceneManager.LoadScene("Menu");
     }
 

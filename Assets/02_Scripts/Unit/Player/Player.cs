@@ -76,6 +76,7 @@ public class Player : UnitBase, IPlayer
 
     protected override void Start()
     {
+        Debug.Log("Player 생성됨");
         base.Start();
     }
     protected override void SetFirstStatus()

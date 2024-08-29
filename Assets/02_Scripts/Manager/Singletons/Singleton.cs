@@ -26,6 +26,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         if (_instance == null)
         {
             _instance = this as T;
+            Debug.Log("this singleton has existed already" + _instance.name);
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -34,4 +35,9 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    private void OnDestroy() {
+        Debug.Log(_instance.name + " 파괴됨");
+    }
+
 }
