@@ -231,7 +231,7 @@ public class UIManager : Singleton<UIManager>
 
     public void LoadMenu()
     {
-        SceneManager.LoadScene("Menu");
+        SceneHandler.instance.LoadMenu();
     }
 
     public void DisplayPlayerLevelUpTable()

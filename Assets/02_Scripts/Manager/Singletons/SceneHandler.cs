@@ -70,6 +70,19 @@ public class SceneHandler : Singleton<SceneHandler>
             sceneBuffer.Dequeue().allowSceneActivation = true;
         }
     }
+    public void LoadMenu()
+    {
+        Destroy(MainManager.instance);
+        Destroy(BGMManager.instance);
+        Destroy(InputManager.instance);
+        Destroy(ItemManager.instance);
+        Destroy(ObjectPoolManager.instance);
+        Destroy(ParticleManager.instance);
+        Destroy(EnemyFactory.instance);
+        Destroy(BackGroundManager.instance);
+        
+        SceneManager.LoadScene("Menu");
+    }
 
 
 }
