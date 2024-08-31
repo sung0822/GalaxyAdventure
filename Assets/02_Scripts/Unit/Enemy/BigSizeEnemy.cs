@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BigSizeEnemy : EnemyBase
 {
-    public override bool isAttacking { get { return _isAttacking; } set { _isAttacking = value; } }
     private bool _isAttacking = false;
 
     [SerializeField] GunItemData gunItemData;
@@ -35,13 +34,13 @@ public class BigSizeEnemy : EnemyBase
         currentWeapon = (GunItemBase)gunItemData.CreateItem();
 
 
-        isAttacking = false;
+        _currentEnemyBaseData.isAttacking = false;
     }
     protected override void Update()
     {
         base.Update();
 
-        if (enableAttack)
+        if (currentEnemyBaseData.enableAttack)
         {
             Attack();
         }
@@ -56,7 +55,7 @@ public class BigSizeEnemy : EnemyBase
     public override void DieUnit()
     {
         DieEnemy();
-
+        
         StartCoroutine(CreateExploding());
 
         unitRigidbody.useGravity = true;
@@ -76,14 +75,22 @@ public class BigSizeEnemy : EnemyBase
             rigidbodies[i].detectCollisions = false;
         }
 
-        Destroy(this.gameObject, 10.0f);
-        isDead = true;
-        enableAttack = false;
+        _currentEnemyBaseData.isDead = true;
+        currentEnemyBaseData.enableAttack = false;
+        
+
+        GameObject particle = ParticleManager.instance.CreateParticle(currentEnemyBaseData.unitDieParticlePrefab, transform.position, transform.rotation);
+        particle.transform.localScale = this.transform.localScale * 0.1f;
+
+        Destroy(particle, 1.5f);
+
+        ObjectPoolManager.instance.ReturnObject(currentEnemyBaseData.unitName + " Pool", this.gameObject, 10);
+
     }
 
     IEnumerator CreateExploding()
     {
-        GameObject firstParticle = ParticleManager.instance.CreateParticle(ParticleManager.instance.unitExplodingParticle, transform.position, transform.rotation);
+        GameObject firstParticle = ParticleManager.instance.CreateParticle(currentEnemyBaseData.unitDieParticlePrefab, transform.position, transform.rotation);
 
         firstParticle.transform.localScale = this.transform.localScale * 2f;
         Destroy(firstParticle, 1.5f);
@@ -91,7 +98,7 @@ public class BigSizeEnemy : EnemyBase
 
         while (true)
         {
-            GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.unitExplodingParticle, transform.position, transform.rotation);
+            GameObject particle = ParticleManager.instance.CreateParticle(currentEnemyBaseData.unitDieParticlePrefab, transform.position, transform.rotation);
 
             particle.transform.localScale = this.transform.localScale * 2f;
             Destroy(particle, 1.5f);

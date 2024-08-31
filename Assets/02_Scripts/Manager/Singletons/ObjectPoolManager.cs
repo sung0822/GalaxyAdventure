@@ -29,11 +29,41 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
             return null;
         }
     }
+    public GameObject GetObject(string poolName, Vector3 position)
+    {
+        if (objectPools.ContainsKey(poolName))
+        {
+            GameObject gameObject = objectPools[poolName].GetObject();
+            gameObject.transform.position = position;
+            return gameObject;
+        }
+        else
+        {
+            Debug.LogError($"Object pool with name {poolName} does not exist.");
+            return null;
+        }
+    }
+    public GameObject GetObject(string poolName, Vector3 position, Quaternion quaternion)
+    {
+        if (objectPools.ContainsKey(poolName))
+        {
+            GameObject gameObject = objectPools[poolName].GetObject();
+            gameObject.transform.position = position;
+            gameObject.transform.rotation = quaternion;
+            return gameObject;
+        }
+        else
+        {
+            Debug.LogError($"Object pool with name {poolName} does not exist.");
+            return null;
+        }
+    }
 
     public void ReturnObject(string poolName, GameObject gameObject)
     {
         if (objectPools.ContainsKey(poolName))
         {
+            Debug.Log(poolName + "에 반환됨");
             objectPools[poolName].ReturnObject(gameObject);
         }
         else

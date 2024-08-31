@@ -4,6 +4,7 @@ using UnityEngine;
 public class EnemyBaseData : UnitBaseData
 {
     public int rewardExp { get { return _rewardExp; } set { _rewardExp = value; } }
+    [Header("EnemyBaseData")]
     [SerializeField] protected int _rewardExp;
 
     public int rewardScore { get { return _rewardScore; } }
@@ -32,5 +33,30 @@ public class EnemyBaseData : UnitBaseData
 
     public int rewardAbilityGage { get { return _rewardAbilityGage; } set { _rewardAbilityGage = value; } }
     [SerializeField] protected int _rewardAbilityGage;
+    public bool isAttacking { get { return _isAttacking; } set { _isAttacking = value; } }
+    protected bool _isAttacking;
+
+    public bool hasCollideWithWall { get { return _hasCollideWithWall; } set { _hasCollideWithWall = value; } }
+    protected bool _hasCollideWithWall;
+    
+    public override void SetData(UnitBaseData unitBaseData)
+    {
+        base.SetData(unitBaseData);
+        Debug.Log("EnemyBaseData SetData is called");
+        
+        EnemyBaseData enemyBaseData = (EnemyBaseData)unitBaseData;
+
+        this.rewardExp = enemyBaseData.rewardExp;
+        this._rewardScore = enemyBaseData.rewardScore;
+        this._enableSlow = enemyBaseData.enableSlow;
+        this._enableAttack = enemyBaseData.enableAttack;
+        this._lifeTime = enemyBaseData.lifeTime;
+        this._spdChanged = enemyBaseData.spdChanged;
+        this._spdChangeDuration = enemyBaseData.spdChangeDuration;
+        this._power = enemyBaseData.power;
+        this._moveSpd = enemyBaseData.moveSpd;
+        this._rewardAbilityGage = enemyBaseData.rewardAbilityGage;
+        this._isAttacking = enemyBaseData.isAttacking;
+    }
 
 }

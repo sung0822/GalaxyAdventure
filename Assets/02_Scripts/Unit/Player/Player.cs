@@ -15,7 +15,8 @@ public class Player : UnitBase, IPlayer
     [SerializeField] GameObject hydroBeamPrefab;
     [SerializeField] Transform hydroSpace;
 
-    List<GameObject> aircrafts = new List<GameObject>();
+    public List<GameObject> aircrafts { get { return _aircrafts; } }
+    [SerializeField] List<GameObject> _aircrafts = new List<GameObject>();
 
     public AudioSource audioSource;
     public AudioClip changeAirCraftSound;
@@ -39,40 +40,25 @@ public class Player : UnitBase, IPlayer
     protected List<ConsumableItemBase> selectedConsumableItems = new List<ConsumableItemBase>();
 
     protected int currentConsumableItemIdx = -1;
-
-    public override bool isAttacking { get { return _isAttacking; } set { _isAttacking = value; } }
-    protected bool _isAttacking;
     public Vector3 moveDir { get { return _moveDir; } set { _moveDir = value; } }
     Vector3 _moveDir;
-    public int currentLevel { get { return _currentLevel; } set { _currentLevel = value; } }
-    [SerializeField] int _currentLevel = 1;
-    public float currentExp { get { return _currentExp; } }
-    [SerializeField] float _currentExp = 0;
-
-    public PlayerLevelUpData playerLevelUpData { get { return _playerLevelUpData;  } set { _playerLevelUpData = value; } }
-    [SerializeField] private PlayerLevelUpData _playerLevelUpData;
-    public float currentExpToLevel { get { return _currentExpToLevel; } set { _currentExpToLevel = value; } }
-    [SerializeField] float _currentExpToLevel;
-    public int power { get { return _power; } set { _power = value; } }
-    [SerializeField] public int _power = 10;
     public float currentAbilityGage { get { return _currentAbilityGage; } set { _currentAbilityGage = value; } }
     [SerializeField] float _currentAbilityGage;
-    public float maxAbilityGage { get { return _maxAbilityGage; } set { _maxAbilityGage = value; } }
-    [SerializeField] float _maxAbilityGage;
+    public bool isAttacking { get { return _currentPlayerData.isAttacking; } set { _currentPlayerData.isAttacking = value; } }
 
-    [SerializeField] protected List<int> maxHpPerLevel = new List<int>();
+    public int currentLevel { get { return _currentPlayerData.currentLevel; } set { _currentPlayerData.currentLevel = value; } }
 
-    public bool isInvincibilityBlinking;
+    public float currentExp { get { return _currentPlayerData.currentExp; } }
 
-    public float moveSpd { get { return _moveSpd; } set { _moveSpd = value; } }
+    public float moveSpd { get { return _currentPlayerData.moveSpd; } set { _currentPlayerData.moveSpd = value; } }
+    public int power { get { return _currentPlayerData.power; } set { _currentPlayerData.power = value; } }
+    public override TeamType teamType { get { return _currentPlayerData.teamType; } set { _currentPlayerData.teamType = value; } }
 
-    public override TeamType teamType { get { return _teamType; } set { _teamType = value; } }
-    private TeamType _teamType = TeamType.ALLY;
+    public PlayerData currentPlayerData { get { return _currentPlayerData; } set { _currentPlayerData = value; } }
 
-    protected float _moveSpd = 10;
+    public PlayerLevelUpData playerLevelUpData { get { return _currentPlayerData.playerLevelUpData; } set { _currentPlayerData.playerLevelUpData = value; } }
 
-    public bool isAbsoluteImmortal { get { return _isAbsoluteImmortal; } set { _isAbsoluteImmortal = value; } }
-    private bool _isAbsoluteImmortal;
+    protected PlayerData _currentPlayerData;
 
     protected override void Start()
     {
@@ -81,44 +67,38 @@ public class Player : UnitBase, IPlayer
     }
     protected override void SetFirstStatus()
     {
-        ChangeAirCraft(0);
-        // 비행기 메쉬 캐싱 및 현재 비행기 활성화
-        {
-            aircrafts.Add(transform.Find("Player_0").gameObject);
-            aircrafts.Add(transform.Find("Player_1").gameObject);
-            aircrafts.Add(transform.Find("Player_2").gameObject);
-            aircrafts.Add(transform.Find("Player_3").gameObject);
-            aircrafts.Add(transform.Find("Player_4").gameObject);
-        }
+        base.SetFirstStatus();
+        _currentPlayerData = (PlayerData)currentUnitBaseData;
 
-        currentAirCraft = aircrafts[0];
+        // 비행체 등록
+        currentAirCraft = _aircrafts[0];
             
-        for (int i = 1; i < aircrafts.Count; i++)
+        for (int i = 1; i < _aircrafts.Count; i++)
         {
-            aircrafts[i].SetActive(false);
+            _aircrafts[i].SetActive(false);
         }
 
+        meshRenderer = currentAirCraft.GetComponent<MeshRenderer>();
+        currentAirCraft.transform.localPosition = Vector3.zero;
+        
+        currentAirCraft.transform.position = this.transform.position;
+
+        // 플레이어 레벨업 데이터 등록
+        currentPlayerData.playerLevelUpData = Instantiate<PlayerLevelUpData>(currentPlayerData.playerLevelUpData);
+        currentPlayerData.playerLevelUpData.SetUserLevelData();
+
+        _currentPlayerData.maxHpPerLevel.Add(_currentPlayerData.currentMaxHp);
+
+        for (int i = 1; i < currentPlayerData.playerLevelUpData.maxLevel; i++)
+        {
+            _currentPlayerData.maxHpPerLevel.Add((int)(_currentPlayerData.maxHpPerLevel[i - 1] + _currentPlayerData.maxHpPerLevel[i - 1] * 0.1f));
+        }
         // 무기 등록 
         hydroSpace = transform.Find("HydroSpace");
         MakeBasicGun();
 
-        currentAirCraft.transform.localPosition = Vector3.zero;
-
-        // 메시렌더러 캐싱
-        meshRenderer = currentAirCraft.GetComponent<MeshRenderer>();
-
-        isInvincibilityBlinking = false;
-        currentAirCraft.transform.position = this.transform.position;
         
-        playerLevelUpData = Instantiate<PlayerLevelUpData>(playerLevelUpData);
-        playerLevelUpData.SetUserLevelData();
-        maxHpPerLevel.Add(currentMaxHp);
-        for (int i = 1; i < playerLevelUpData.maxLevel; i++)
-        {
-            maxHpPerLevel.Add((int)(maxHpPerLevel[i-1] + maxHpPerLevel[i-1] * 0.1f));
-        }
 
-        base.SetFirstStatus();
         SetBody();
     }
 
@@ -158,11 +138,11 @@ public class Player : UnitBase, IPlayer
 
     protected override void Update()
     {
-        if (_isAttacking)
+        if (_currentPlayerData.isAttacking)
         {
             currentWeapon.Use();
         }
-        if (isInvincibilityBlinking)
+        if (_currentPlayerData.isInvincibilityBlinking)
         {
             return;
         }
@@ -188,19 +168,19 @@ public class Player : UnitBase, IPlayer
     }
     public void Move()
     {
-        unitRigidbody.velocity = moveDir * moveSpd;
+        unitRigidbody.velocity = moveDir * _currentPlayerData.moveSpd;
         
         for (int i = 0; i < rigidbodies.Count; i++)
         {
-            rigidbodies[i].velocity = moveDir * moveSpd;
+            rigidbodies[i].velocity = moveDir * _currentPlayerData.moveSpd;
         }
     }
 
     public void GivePlayerExp(float exp)
     {
-        _currentExp += exp;
+        _currentPlayerData.currentExp += exp;
 
-        if (currentExp >= currentExpToLevel)
+        if (_currentPlayerData.currentExp >= _currentPlayerData.currentExpToLevel)
         {
             LevelUp();
         }
@@ -210,9 +190,9 @@ public class Player : UnitBase, IPlayer
     public void GivePlayerAbilityGage(float abilityGage)
     {
         currentAbilityGage += abilityGage;
-        if (currentAbilityGage >= maxAbilityGage)
+        if (currentAbilityGage >= _currentPlayerData.maxAbilityGage)
         {
-            currentAbilityGage = maxAbilityGage;
+            currentAbilityGage = _currentPlayerData.maxAbilityGage;
         }
         UIManager.instance.CheckPlayerAbilityGage();
 
@@ -220,28 +200,28 @@ public class Player : UnitBase, IPlayer
 
     public void LevelUp()
     {
-        currentLevel++;
-        if (currentLevel-1 >= playerLevelUpData.expToLevelUp.Count)
+        _currentPlayerData.currentLevel++;
+        if (_currentPlayerData.currentLevel -1 >= currentPlayerData.playerLevelUpData.expToLevelUp.Count)
         {
-            currentLevel--;
-            _currentExp = 0;
-            currentExpToLevel = playerLevelUpData.expToLevelUp[currentLevel - 1];
-            currentHp = currentMaxHp;
+            _currentPlayerData.currentLevel--;
+            _currentPlayerData.currentExp = 0;
+            _currentPlayerData.currentExpToLevel = currentPlayerData.playerLevelUpData.expToLevelUp[_currentPlayerData.currentLevel - 1];
+            _currentPlayerData.currentHp = _currentPlayerData.currentMaxHp;
             UIManager.instance.CheckPlayerHp();
             UIManager.instance.CheckPlayerExp();
             return;
         }
 
-        _currentExp = 0;
+        _currentPlayerData.currentExp = 0;
 
-        currentExpToLevel = playerLevelUpData.expToLevelUp[currentLevel - 1];
+        _currentPlayerData.currentExpToLevel = currentPlayerData.playerLevelUpData.expToLevelUp[_currentPlayerData.currentLevel - 1];
 
-        currentMaxHp = maxHpPerLevel[currentLevel - 1];
-        currentHp = currentMaxHp;
+        _currentPlayerData.currentMaxHp = _currentPlayerData.maxHpPerLevel[_currentPlayerData.currentLevel - 1];
+        _currentPlayerData.currentHp = _currentPlayerData.currentMaxHp;
 
-        power += (int)(power * 0.1f);
+        _currentPlayerData.power += (int)(_currentPlayerData.power * 0.1f);
 
-        ChangeAirCraft(currentLevel -1 );
+        ChangeAirCraft(_currentPlayerData.currentLevel -1 );
 
         UIManager.instance.CheckPlayerHp();
         UIManager.instance.CheckPlayerExp();
@@ -249,24 +229,24 @@ public class Player : UnitBase, IPlayer
 
     public void LevelDown()
     {
-        currentLevel--;
-        if (currentLevel <= 0)
+        _currentPlayerData.currentLevel--;
+        if (_currentPlayerData.currentLevel <= 0)
         {
-            currentLevel++;
+            _currentPlayerData.currentLevel++;
             return;
         }
 
-        _currentExp = 0;
+        _currentPlayerData.currentExp = 0;
 
-        currentExpToLevel = playerLevelUpData.expToLevelUp[currentLevel - 1];
-        
-        
-        currentMaxHp = maxHpPerLevel[currentLevel - 1];
-        currentHp = currentMaxHp;
+        _currentPlayerData.currentExpToLevel = currentPlayerData.playerLevelUpData.expToLevelUp[_currentPlayerData.currentLevel - 1];
 
-        power -= (int)(power * 0.1f);
 
-        ChangeAirCraft(currentLevel - 1);
+        _currentPlayerData.currentMaxHp = _currentPlayerData.maxHpPerLevel[_currentPlayerData.currentLevel - 1];
+        _currentPlayerData.currentHp = _currentPlayerData.currentMaxHp;
+
+        _currentPlayerData.power -= (int)(_currentPlayerData.power * 0.1f);
+
+        ChangeAirCraft(_currentPlayerData.currentLevel - 1);
 
         UIManager.instance.CheckPlayerHp();
         UIManager.instance.CheckPlayerExp();
@@ -275,17 +255,23 @@ public class Player : UnitBase, IPlayer
     /// <summary> 현재 레벨보다 1 낮은 수의 인덱스로 접근합니다. </summary>
     void ChangeAirCraft(int idx)
     {
-        if (currentLevel >= aircrafts.Count + 1)
+        if (_currentPlayerData.currentLevel >= _aircrafts.Count + 1)
         {
             return;
         }
         // 비행체 변경
+        if (currentAirCraft == null) 
+        {
+            Debug.Log("currentAirCraft is null");
+        }
+
         previousAirCraft = currentAirCraft;
         previousAirCraft.transform.position = new Vector3(0, 10000, 0);
         previousAirCraft.SetActive(false);
 
-        currentAirCraft = aircrafts[idx];
+        currentAirCraft = _aircrafts[idx];
         currentAirCraft.SetActive(true);
+        Debug.Log("비행기 변경");
         
         // 변경한 비행체로 무기 어태치
         currentWeaponSpace.transform.SetParent(currentAirCraft.GetComponentInChildren<WeaponSpace>().transform);
@@ -309,58 +295,58 @@ public class Player : UnitBase, IPlayer
 
     public override void Hit(int damage)
     {
-        if (isAbsoluteImmortal)
+        if (_currentPlayerData.isAbsoluteImmortal)
             return;
 
-        if (isImmortal)
+        if (_currentPlayerData.isImmortal)
             return;
 
-        currentHp -= damage;
+        _currentPlayerData.currentHp -= damage;
 
         GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.basicParticle, transform);
         Destroy(particle, 0.7f);
 
         CheckDead();
-        isInvincibilityBlinking = true;
+        _currentPlayerData.isInvincibilityBlinking = true;
         SetImmortalDuring(true, 3.0f);
         StartCoroutine(InvincibilityBlink());
         UIManager.instance.CheckPlayerHp();
     }
     public override void Hit(int damage, Vector3 position)
     {
-        if (isAbsoluteImmortal)
+        if (_currentPlayerData.isAbsoluteImmortal)
             return;
 
-        if (isImmortal)
+        if (_currentPlayerData.isImmortal)
             return;
 
-        currentHp -= damage;
+        _currentPlayerData.currentHp -= damage;
 
         GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.basicParticle, position, Quaternion.Euler(0, 0, 0));
         Destroy(particle, 0.7f);
 
         CheckDead();
-        isInvincibilityBlinking = true;
+        _currentPlayerData.isInvincibilityBlinking = true;
         SetImmortalDuring(true, 3.0f);
         StartCoroutine(InvincibilityBlink());
         UIManager.instance.CheckPlayerHp();
     }
     public override void Hit(int damage, Transform hitTransform)
     {
-        if (isAbsoluteImmortal)
+        if (_currentPlayerData.isAbsoluteImmortal)
             return;
 
-        if (isImmortal)
+        if (_currentPlayerData.isImmortal)
             return;
 
-        currentHp -= damage;
+        _currentPlayerData.currentHp -= damage;
 
         GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.basicParticle, hitTransform.position, Quaternion.Euler(0, 0, 0));
         Destroy(particle, 0.7f);
         Debug.Log("쳐맞음");
         CheckDead();
-        
-        isInvincibilityBlinking = true;
+
+        _currentPlayerData.isInvincibilityBlinking = true;
         SetImmortalDuring(true, 3.0f);
         StartCoroutine(InvincibilityBlink());
 
@@ -369,7 +355,7 @@ public class Player : UnitBase, IPlayer
 
     public override void DieUnit()
     {
-        isDead = true;
+        _currentPlayerData.isDead = true;
 
         GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.unitExplodingParticle, transform.position, transform.rotation);
 
@@ -383,7 +369,7 @@ public class Player : UnitBase, IPlayer
     {
         Renders.ChangeStandardShaderRenderMode(meshRenderer.material, BlendMode.Transparent);
 
-        while (isInvincibilityBlinking) 
+        while (_currentPlayerData.isInvincibilityBlinking) 
         {
                 // 반투명으로 변경
             if (meshRenderer.material.color.a == 1.0f)
@@ -401,9 +387,9 @@ public class Player : UnitBase, IPlayer
                 
                 meshRenderer.material.color = color;
 
-                if (!isImmortal)
+                if (!_currentPlayerData.isImmortal)
                 {
-                    isInvincibilityBlinking = false;
+                    _currentPlayerData.isInvincibilityBlinking = false;
                 }
             }
 
@@ -416,19 +402,19 @@ public class Player : UnitBase, IPlayer
 
     public void Attack()
     {
-        isAttacking = true;
+        _currentPlayerData.isAttacking = true;
     }
 
     public void StopAttack()
     {
-        _isAttacking = false;
+        _currentPlayerData.isAttacking = false;
         currentWeapon.StopUse();
     }
 
     public void SpecialAttack()
     {
         Debug.Log("currentAbilityGage: " + currentAbilityGage);
-        if (currentAbilityGage < maxAbilityGage)
+        if (currentAbilityGage < _currentPlayerData.maxAbilityGage)
         {
             Debug.Log("들어옴");
             return;

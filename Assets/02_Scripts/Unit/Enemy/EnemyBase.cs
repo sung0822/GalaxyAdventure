@@ -5,36 +5,24 @@ using static UnityEngine.GraphicsBuffer;
 
 public abstract class EnemyBase : UnitBase, IMovalble, IAttackable
 {
-    //protected Dictionary<string, IPattern> patternsDic = new Dictionary<string, IPattern>();
-
+    
     protected IPlayer player;
-    public override TeamType teamType { get { return _teamType; } set { _teamType = value; } }
-    protected TeamType _teamType = TeamType.ENEMY;
-    public int rewardExp { get { return _rewardExp; } set { _rewardExp = value; } }
-    [SerializeField] protected int _rewardExp;  
-    public int rewardScore { get { return _rewardScore; } }
-    [SerializeField] protected int _rewardScore;
-    public bool enableSlow = false;
-    public bool enableAttack = false;
-    public float lifeTime = 0;
-    public float spdChanged { get {return _spdChanged; } set { _spdChanged = value; } }
-    [SerializeField] protected float _spdChanged;
-    public float spdChangeDuration { get { return _spdChangeDuration; } set{ _spdChangeDuration = value; } }
-    [SerializeField] protected float _spdChangeDuration;
-    public int power { get { return _power; } set { _power = value; } }
-    [SerializeField] protected int _power;
+    public override TeamType teamType { get { return _currentEnemyBaseData.teamType; } set { _currentEnemyBaseData.teamType = value; } }
+    public bool isAttacking { get { return currentEnemyBaseData.isAttacking; } set { currentEnemyBaseData.isAttacking = value; } }
+    public float moveSpd { get { return currentEnemyBaseData.moveSpd; } set { currentEnemyBaseData.moveSpd = value; } }
+    public int power { get { return currentEnemyBaseData.power; } set { currentEnemyBaseData.power = value; } }
+    public EnemyBaseData currentEnemyBaseData { get { return _currentEnemyBaseData; } set { _currentEnemyBaseData = value; } }
 
-    public float moveSpd { get { return _moveSpd;} set { _moveSpd = value; } }
-    [SerializeField] protected float _moveSpd;
+    protected EnemyBaseData _currentEnemyBaseData;
 
-    public float rewardAbilityGage { get { return _rewardAbilityGage; } set { _rewardAbilityGage = value; } }
-    [SerializeField] protected float _rewardAbilityGage;
-    protected bool hasCollideWithWall = false;
-
-
-    private void OnEnable()
+    protected override void Awake()
     {
-        
+        base.Awake();
+    }
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
     }
 
     protected override void Start()
@@ -49,12 +37,19 @@ public abstract class EnemyBase : UnitBase, IMovalble, IAttackable
     {
         base.SetFirstStatus();
 
-        Debug.Log("Enemy SetFirstStatus is Called");
-        player = GameObject.FindGameObjectWithTag("PLAYER").GetComponent<Player>();
-        SetImmortal(true);
-        ObjectPoolManager.instance.ReturnObject(unitName + " Pool", this.gameObject, lifeTime);
-    }
+        _currentEnemyBaseData = (EnemyBaseData)currentUnitBaseData;
 
+        player = GameObject.FindGameObjectWithTag("PLAYER").GetComponent<Player>();
+        coroutineWaitAndReturnObject = StartCoroutine(WaitAndReturnObject());
+        ObjectPoolManager.instance.ReturnObject(_currentEnemyBaseData.unitName + " Pool", this.gameObject, _currentEnemyBaseData.lifeTime);
+    }
+    Coroutine coroutineWaitAndReturnObject;
+    IEnumerator WaitAndReturnObject()
+    {
+        yield return new WaitForSeconds(_currentEnemyBaseData.lifeTime);
+        Debug.Log("lifeTime이 끝남");
+        ObjectPoolManager.instance.ReturnObject(_currentEnemyBaseData.unitName + " Pool", this.gameObject);
+    }
 
     protected override void Update()
     {
@@ -71,7 +66,7 @@ public abstract class EnemyBase : UnitBase, IMovalble, IAttackable
     {
         base.OnTriggerEnter(other);
 
-        if (CheckCollideWall(other) && !hasCollideWithWall)
+        if (CheckCollideWall(other) && !currentEnemyBaseData.hasCollideWithWall)
         {
             HandleColliderWall();
         }
@@ -91,8 +86,8 @@ public abstract class EnemyBase : UnitBase, IMovalble, IAttackable
     protected virtual void HandleColliderWall()
     {
         
-        hasCollideWithWall = true;
-        StartCoroutine(AdjustSpeed(spdChanged, spdChangeDuration));
+        currentEnemyBaseData.hasCollideWithWall = true;
+        StartCoroutine(AdjustSpeed(_currentEnemyBaseData.spdChanged, _currentEnemyBaseData.spdChangeDuration));
         SetImmortal(false);
     }
 
@@ -119,10 +114,11 @@ public abstract class EnemyBase : UnitBase, IMovalble, IAttackable
 
     protected void DieEnemy()
     {
-        player.GivePlayerExp(rewardExp);
-        MainManager.instance.AddScore(rewardScore);
+        StopCoroutine(coroutineWaitAndReturnObject); 
+        player.GivePlayerExp(_currentEnemyBaseData.rewardExp);
+        MainManager.instance.AddScore(_currentEnemyBaseData.rewardScore);
         UIManager.instance.CheckScore();
-        player.GivePlayerAbilityGage(rewardAbilityGage);
+        player.GivePlayerAbilityGage(_currentEnemyBaseData.rewardAbilityGage);
 
         GameObject item = ItemManager.instance.MakeItem(transform.position);
     }
@@ -140,7 +136,7 @@ public abstract class EnemyBase : UnitBase, IMovalble, IAttackable
     {
         float timeAdjustingSpd = 0;
         float originalMoveSpd = moveSpd;
-        enableAttack = true;
+        _currentEnemyBaseData.enableAttack = true;
 
         while (true)
         {

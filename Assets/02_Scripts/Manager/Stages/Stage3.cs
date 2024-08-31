@@ -123,9 +123,9 @@ public class Stage3 : IStage
         spawnPointsLeftward[2].transform.localRotation = Quaternion.Euler(0, 0, 0);
         spawnPointsRightward[4].transform.localRotation = Quaternion.Euler(0, 0, 0);
         
-        GameObject.Instantiate(bigSizeEnemyprefab, spawnPointsLeftward[2]).GetComponent<EnemyBase>().enableSlow = true;
+        GameObject.Instantiate(bigSizeEnemyprefab, spawnPointsLeftward[2]);
         yield return new WaitForSeconds(2.0f);
-        GameObject.Instantiate(bigSizeEnemyprefab, spawnPointsRightward[4]).GetComponent<EnemyBase>().enableSlow = true;
+        GameObject.Instantiate(bigSizeEnemyprefab, spawnPointsRightward[4]);
         
     }
 
@@ -134,14 +134,14 @@ public class Stage3 : IStage
         spawnPointsForward[3].transform.localRotation = Quaternion.Euler(0, 0, 0);
 
         // 대형적 앞 중앙에서 등장
-        GameObject.Instantiate(bigSizeEnemyprefab, spawnPointsForward[3]).GetComponent<EnemyBase>().enableSlow = true;
+        GameObject.Instantiate(bigSizeEnemyprefab, spawnPointsForward[3]);
         yield return new WaitForSeconds(2.0f);
 
         for (int i = 0; i < 5; i++)
         {
             // 뒤에서 일렬로 기본 몬스터 등장
             spawnPointsBackward[i+1].transform.localRotation = Quaternion.Euler(0, 0, 0);
-            GameObject.Instantiate(BasicEnemyPrefab, spawnPointsBackward[i+1]).GetComponent<EnemyBase>().enableSlow = true;
+            GameObject.Instantiate(BasicEnemyPrefab, spawnPointsBackward[i + 1]);
             yield return new WaitForSeconds(0.5f);
         }
 
@@ -152,26 +152,26 @@ public class Stage3 : IStage
         {
             // 앞에서 일렬로 기본 몬스터 등장
             spawnPointsForward[i+1].transform.localRotation = Quaternion.Euler(0, 180, 0);
-            GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[i+1]).GetComponent<EnemyBase>().enableSlow = true;
+            GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[i + 1]);
         }
 
         // 스텔스기 사이드에서 등장
         spawnPointsLeftward[2].transform.localRotation = Quaternion.Euler(0, 0, 0);
         spawnPointsRightward[4].transform.localRotation = Quaternion.Euler(0, 0, 0);
-        GameObject.Instantiate(stealthEnemyPrefab, spawnPointsLeftward[2]).GetComponent<EnemyBase>().enableSlow = true;
-        GameObject.Instantiate(stealthEnemyPrefab, spawnPointsRightward[4]).GetComponent<EnemyBase>().enableSlow = true;
+        GameObject.Instantiate(stealthEnemyPrefab, spawnPointsLeftward[2]);
+        GameObject.Instantiate(stealthEnemyPrefab, spawnPointsRightward[4]);
     }
 
     IEnumerator Generate_4()
     {
         spawnPointsLeftward[2].transform.localRotation = Quaternion.Euler(0, 0, 0);
         spawnPointsLeftward[4].transform.localRotation = Quaternion.Euler(0, 0, 0);
-        GameObject.Instantiate(BasicEnemyPrefab, spawnPointsLeftward[2]).GetComponent<EnemyBase>().enableSlow = true;
+        GameObject.Instantiate(BasicEnemyPrefab, spawnPointsLeftward[2]);
         yield return new WaitForSeconds(0.5f);
         
         spawnPointsRightward[4].transform.localRotation = Quaternion.Euler(0, 0, 0);
         spawnPointsRightward[2].transform.localRotation = Quaternion.Euler(0, 0, 0);
-        GameObject.Instantiate(BasicEnemyPrefab, spawnPointsRightward[4]).GetComponent<EnemyBase>().enableSlow = true;
+        GameObject.Instantiate(BasicEnemyPrefab, spawnPointsRightward[4]);
 
         yield return new WaitForSeconds(0.5f);
 
@@ -179,21 +179,21 @@ public class Stage3 : IStage
         {
             // 뒤에서 기본 3마리 등장
             spawnPointsBackward[i+2].transform.localRotation = Quaternion.Euler(0, 0, 0);
-            GameObject.Instantiate(BasicEnemyPrefab, spawnPointsBackward[i+2]).GetComponent<EnemyBase>().enableSlow = true;
+            GameObject.Instantiate(BasicEnemyPrefab, spawnPointsBackward[i + 2]);
         }
 
         yield return new WaitForSeconds(0.5f);
         
         spawnPointsForward[2].transform.localRotation = Quaternion.Euler(0, 0, 0);
         spawnPointsForward[4].transform.localRotation = Quaternion.Euler(0, 0, 0);
-        GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[4]).GetComponent<EnemyBase>().enableSlow = true;
-        GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[2]).GetComponent<EnemyBase>().enableSlow = true;
+        GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[4]);
+        GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[2]);
 
-        GameObject.Instantiate(BasicEnemyPrefab, spawnPointsRightward[2]).GetComponent<EnemyBase>().enableSlow = true;
-        GameObject.Instantiate(BasicEnemyPrefab, spawnPointsRightward[4]).GetComponent<EnemyBase>().enableSlow = true;
+        GameObject.Instantiate(BasicEnemyPrefab, spawnPointsRightward[2]);
+        GameObject.Instantiate(BasicEnemyPrefab, spawnPointsRightward[4]);
         
-        GameObject.Instantiate(BasicEnemyPrefab, spawnPointsLeftward[2]).GetComponent<EnemyBase>().enableSlow = true;
-        GameObject.Instantiate(BasicEnemyPrefab, spawnPointsLeftward[4]).GetComponent<EnemyBase>().enableSlow = true;
+        GameObject.Instantiate(BasicEnemyPrefab, spawnPointsLeftward[2]);
+        GameObject.Instantiate(BasicEnemyPrefab, spawnPointsLeftward[4]);
         yield return new WaitForSeconds(0.5f);
 
     }
@@ -207,12 +207,12 @@ public class Stage3 : IStage
         spawnPointsForward[4].transform.localRotation = Quaternion.Euler(0, 0, 0);
         spawnPointsForward[5].transform.localRotation = Quaternion.Euler(0, 0, 0);
 
-        GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[0]).GetComponent<EnemyBase>().enableSlow = true;
-        GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[1]).GetComponent<EnemyBase>().enableSlow = true;
-        GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[2]).GetComponent<EnemyBase>().enableSlow = true;
-        GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[3]).GetComponent<EnemyBase>().enableSlow = true;
-        GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[4]).GetComponent<EnemyBase>().enableSlow = true;
-        GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[5]).GetComponent<EnemyBase>().enableSlow = true;
+        GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[0]);
+        GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[1]);
+        GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[2]);
+        GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[3]);
+        GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[4]);
+        GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[5]);
 
 
     }

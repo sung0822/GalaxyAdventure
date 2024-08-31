@@ -1143,6 +1143,8 @@ MonoBehaviour:
   _currentMaxHp: 10
   _currentHp: 10
   unitName: Eagle
+  unitBaseData: {fileID: 11400000, guid: 53d82f3f433392941979ffba01b86dbf, type: 2}
+  currentUnitBaseData: {fileID: 0}
   _rewardExp: 10
   _rewardScore: 50
   enableSlow: 1
@@ -1153,6 +1155,7 @@ MonoBehaviour:
   _power: 0
   _moveSpd: 10
   _rewardAbilityGage: 2
+  targetPlayer: {fileID: 0}
 --- !u!54 &1851218276069378059
 Rigidbody:
   m_ObjectHideFlags: 0

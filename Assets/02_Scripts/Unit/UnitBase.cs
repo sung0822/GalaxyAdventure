@@ -7,43 +7,32 @@ using static UnityEngine.UI.CanvasScaler;
 [RequireComponent(typeof(Rigidbody))]
 public abstract class UnitBase : MonoBehaviour, ITeamMember
 {
-    protected AudioClip dieSound { get { return _dieSound; } set { _dieSound = value; } }
-    [SerializeField] AudioClip _dieSound;
     public List<UnitBody> unitBodyColliders = new List<UnitBody>();
     public List<Rigidbody> rigidbodies = new List<Rigidbody>();
     public List<Collider> colliders = new List<Collider>();
     public Rigidbody unitRigidbody;
-    public int currentMaxHp { get { return _currentMaxHp; } set { _currentMaxHp = value; } }
-    [SerializeField] protected int _currentMaxHp;
-    public int currentHp 
-    { 
-        get { return _currentHp; }
-        set 
-        {
-            _currentHp = value;
-            if (_currentHp > currentMaxHp)
-            {
-                _currentHp = currentMaxHp;
-            }
-        } 
-    }
-    [SerializeField] protected int _currentHp;
-    public bool isImmortal { get { return _isImmortal; }}
-    protected bool _isImmortal;
-    public bool isBumpedIntoEnemy { get { return _isBumpedIntoEnemy; } }
-    private bool _isBumpedIntoEnemy;
-
-    public bool isDead { get { return _isDead; } set { _isDead = value; } }
-    public string unitName;
-    protected bool _isDead = false;
-    public abstract bool isAttacking { get; set; }
     public abstract TeamType teamType { get; set; }
 
-    [SerializeField] protected EnemyBaseData currentUnitData;
-    [SerializeField] protected UnitBaseData unitBaseData;
+    
+    [SerializeField] private UnitBaseData unitBaseData;
+    public UnitBaseData currentUnitBaseData { get { return _currentUnitBaseData; } }
+    [SerializeField] protected UnitBaseData _currentUnitBaseData;
 
+
+    protected virtual void Awake()
+    {
+        _currentUnitBaseData = ScriptableObject.Instantiate(unitBaseData);
+    }
 
     protected virtual void Start()
+    {
+        unitRigidbody = GetComponent<Rigidbody>();
+        transform.parent = null;
+
+        SetFirstStatus();
+    }
+
+    protected virtual void OnEnable()
     {
         SetFirstStatus();
     }
@@ -53,9 +42,7 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
     /// </summary>
     protected virtual void SetFirstStatus()
     {
-        unitRigidbody = GetComponent<Rigidbody>();
-        transform.parent = null;
-        dieSound = Resources.Load<AudioClip>("Sounds/ExplosionSound");
+        _currentUnitBaseData.SetData(unitBaseData);
     }
 
     protected virtual void Update()
@@ -90,7 +77,7 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
     protected UnitBase CheckBumpedIntoEnemy(Collider other)
     {
         
-        if (isBumpedIntoEnemy)
+        if (_currentUnitBaseData.isBumpedIntoEnemy)
         {
             return null;
         }
@@ -106,7 +93,7 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
             return null;
         }
 
-        if (unit.teamType != teamType)
+        if (unit.teamType != _currentUnitBaseData.teamType)
         {
             SetIsBumped(true);
             StartCoroutine(SetIsBumped(false, 3.0f));
@@ -115,7 +102,6 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
         }
         else
         {
-            
             return null;
         }
 
@@ -123,7 +109,7 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
     protected UnitBase CheckBumpedIntoEnemy(Collision other)
     {
 
-        if (isBumpedIntoEnemy)
+        if (_currentUnitBaseData.isBumpedIntoEnemy)
         {
             return null;
         }
@@ -155,11 +141,11 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
 
     public virtual void Hit(int damage)
     {
-        if (isImmortal)
+        if (_currentUnitBaseData.isImmortal)
         {
             return;
         }
-        currentHp -= damage;
+        _currentUnitBaseData.currentHp -= damage;
         GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.basicParticle, this.transform.position, Quaternion.Euler(0, 0, 0));
         Destroy(particle, 0.7f);
         
@@ -168,10 +154,10 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
 
     public virtual void Hit(int damage, Transform hitTransform)
     {
-        if (isImmortal)
+        if (_currentUnitBaseData.isImmortal)
             return;
 
-        currentHp -= damage;
+        _currentUnitBaseData.currentHp -= damage;
 
         GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.basicParticle, hitTransform.position, Quaternion.Euler(0, 0, 0));
         Destroy(particle, 0.7f);
@@ -182,10 +168,10 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
     public virtual void Hit(int damage, Vector3 position)
     {
 
-        if (isImmortal)
+        if (_currentUnitBaseData.isImmortal)
             return;
-        
-        currentHp -= damage;
+
+        _currentUnitBaseData.currentHp -= damage;
 
         GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.basicParticle, position, Quaternion.Euler(0, 0, 0));
         Destroy(particle, 0.7f);
@@ -195,18 +181,18 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
     public IEnumerator SetIsBumped(bool isBumpedIntoEnemy, float time)
     {
         yield return new WaitForSeconds(time);
-        this._isBumpedIntoEnemy = isBumpedIntoEnemy;
+        _currentUnitBaseData.isBumpedIntoEnemy = isBumpedIntoEnemy;
     }
 
     public void SetIsBumped(bool isBumpedIntoEnemy)
     {
-        this._isBumpedIntoEnemy = isBumpedIntoEnemy;
+        _currentUnitBaseData.isBumpedIntoEnemy = isBumpedIntoEnemy;
     }
 
     Coroutine immortalCoroutine = null;
     public virtual void SetImmortalDuring(bool isImmortal, float time)
     {
-        if (this.isImmortal)
+        if (_currentUnitBaseData.isImmortal)
         {
             StopCoroutine(immortalCoroutine);
         }
@@ -214,18 +200,18 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
     }
     protected IEnumerator SetImmortalCoroutine(bool isImmortal, float time)
     {
-        this._isImmortal = isImmortal;
+        _currentUnitBaseData.isImmortal = isImmortal;
         yield return new WaitForSeconds(time);
-        this._isImmortal = !isImmortal;
+        _currentUnitBaseData.isImmortal = !isImmortal;
     }
     public virtual void SetImmortal(bool isImmortal)
     {
-        this._isImmortal = isImmortal;
+        _currentUnitBaseData.isImmortal = isImmortal;
     }
 
     protected virtual bool CheckDead()
     {
-        if (currentHp <= 0)
+        if (_currentUnitBaseData.currentHp <= 0)
         {
             DieUnit();
             return true;
@@ -239,14 +225,14 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
     /// <summary> 오브젝트 파괴하고 파티클 생성 </summary>
     public virtual void DieUnit()
     {
-        isDead = true;
+        _currentUnitBaseData.isDead = true;
         
-        GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.unitExplodingParticle, transform.position, transform.rotation);
-
+        GameObject particle = ParticleManager.instance.CreateParticle(currentUnitBaseData.unitDieParticlePrefab, transform.position, transform.rotation);
         particle.transform.localScale = this.transform.localScale * 0.1f;
+        
         Destroy(particle, 1.5f);
 
-        ObjectPoolManager.instance.ReturnObject(unitName + " Pool", this.gameObject);
+        ObjectPoolManager.instance.ReturnObject(currentUnitBaseData.unitName + " Pool", this.gameObject);
     }
 
     protected virtual void LateUpdate()

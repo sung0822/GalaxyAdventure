@@ -633,18 +633,8 @@ MonoBehaviour:
   rigidbodies: []
   colliders: []
   unitRigidbody: {fileID: 0}
-  _currentMaxHp: 1000
-  _currentHp: 1000
-  unitName: Boss
-  _rewardExp: 10000
-  _rewardScore: 5000
-  enableSlow: 0
-  enableAttack: 0
-  lifeTime: 100000
-  _spdChanged: 0
-  _spdChangeDuration: 1.5
-  _power: 0
-  _moveSpd: 10
+  unitBaseData: {fileID: 11400000, guid: 7add6df99028b4444808468461e4ae95, type: 2}
+  _currentUnitBaseData: {fileID: 0}
   _rewardAbilityGage: 0
   _pageNumber: 1
   _skinnedMeshRenderer: {fileID: 1871404316682925304}

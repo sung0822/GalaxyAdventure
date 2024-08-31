@@ -81,6 +81,8 @@ MonoBehaviour:
   _currentMaxHp: 50
   _currentHp: 50
   unitName: SprayEnemy
+  unitBaseData: {fileID: 11400000, guid: 712590ffeeef0f345993d4eec1e59b3c, type: 2}
+  currentUnitBaseData: {fileID: 0}
   _rewardExp: 15
   _rewardScore: 200
   enableSlow: 1

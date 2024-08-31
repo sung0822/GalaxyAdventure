@@ -6,11 +6,10 @@ using static UnityEngine.GraphicsBuffer;
 
 public class Eagle : EnemyBase
 {
-    public override bool isAttacking { get { return _isAttacking; } set { _isAttacking = value; } }
 
     private bool _isAttacking;
 
-    Transform targetPlayer;
+    [SerializeField] Transform targetPlayer;
 
     protected override void Start()
     {
@@ -20,7 +19,6 @@ public class Eagle : EnemyBase
     protected override void SetFirstStatus()
     {
         base.SetFirstStatus();
-        lifeTime = 0;
         targetPlayer = GameObject.FindWithTag("PLAYER").transform;
     }
     protected override void Update()
@@ -40,20 +38,7 @@ public class Eagle : EnemyBase
 
     public override void DieUnit()
     {
-        player.GivePlayerExp(rewardExp);
-        player.GivePlayerAbilityGage(rewardAbilityGage);
-        MainManager.instance.AddScore(rewardScore);
-        UIManager.instance.CheckScore();
-
-
-        GameObject item = ItemManager.instance.MakeItem(transform.position);
-        
-        GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.eagleDieParticle, transform.position, transform.rotation);
-
-        particle.transform.localScale = this.transform.localScale * 0.1f;
-        Destroy(particle, 1.5f);
-
-        Destroy(this.gameObject);
+        base.DieUnit();
     }
 
     public override void Move()

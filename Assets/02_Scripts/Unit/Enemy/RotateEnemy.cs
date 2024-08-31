@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class RotateEnemy : EnemyBase
 {
-    public override bool isAttacking { get; set; }
 
     protected override void Start()
     {

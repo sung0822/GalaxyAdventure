@@ -34,12 +34,10 @@ public class InputManager : Singleton<InputManager>
         //Debug.Log("OnPlaying is called");
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            Debug.Log("Z key down");
             playerCtrl.isAttacking = true;
         }
         else if (Input.GetKeyUp(KeyCode.Z))
         {
-            Debug.Log("Z key UP");
             playerCtrl.StopAttack();
         }
         else if(Input.GetKeyUp(KeyCode.Q))
@@ -63,8 +61,8 @@ public class InputManager : Singleton<InputManager>
     {
         if (Input.GetKeyDown(KeyCode.F1))
         {
-            playerCtrl.isAbsoluteImmortal = !playerCtrl.isAbsoluteImmortal;
-            Debug.Log("例措公利: " + playerCtrl.isAbsoluteImmortal);
+            playerCtrl.currentPlayerData.isAbsoluteImmortal = !playerCtrl.currentPlayerData.isAbsoluteImmortal;
+            Debug.Log("例措公利: " + playerCtrl.currentPlayerData.isAbsoluteImmortal);
         }
         else if(Input.GetKeyDown(KeyCode.F2))
         {
@@ -76,7 +74,7 @@ public class InputManager : Singleton<InputManager>
         }
         else if (Input.GetKeyDown(KeyCode.F4))
         {
-            playerCtrl.currentHp = playerCtrl.currentMaxHp;
+            playerCtrl.currentUnitBaseData.currentHp = playerCtrl.currentUnitBaseData.currentMaxHp;
             UIManager.instance.CheckPlayerHp();
         }
         else if (Input.GetKeyDown(KeyCode.F5))

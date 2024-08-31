@@ -50,6 +50,7 @@ public class BGMManager : Singleton<BGMManager>
     }
     public void ChangeBGM(AudioClip audioClip, bool loop = true)
     {
+        Debug.Log("Bgm is Changed");
         if (previousAudioSource != null)
         {
             Destroy(previousAudioSource);

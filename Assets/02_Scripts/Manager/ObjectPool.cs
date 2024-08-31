@@ -30,6 +30,7 @@ public class ObjectPool : MonoBehaviour
         }
         else
         {
+            Debug.Log("there is no objects in the pool");
             return null;
         }
 

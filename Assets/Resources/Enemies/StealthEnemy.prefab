@@ -126,9 +126,11 @@ MonoBehaviour:
   _currentMaxHp: 100
   _currentHp: 100
   unitName: StealthEnemy
+  unitBaseData: {fileID: 11400000, guid: c2c17fcda49e9fe4585df90f595ba6ea, type: 2}
+  currentUnitBaseData: {fileID: 0}
   _rewardExp: 10
   _rewardScore: 100
-  enableSlow: 0
+  enableSlow: 1
   enableAttack: 0
   lifeTime: 30
   _spdChanged: 0

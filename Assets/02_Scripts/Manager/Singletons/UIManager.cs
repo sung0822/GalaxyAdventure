@@ -66,8 +66,8 @@ public class UIManager : Singleton<UIManager>
         
         playerCtrl = GameObject.FindGameObjectWithTag("PLAYER")?.GetComponent<Player>();
         
-        hpText.text = playerCtrl.currentHp.ToString() + " / " + playerCtrl.currentExpToLevel.ToString();
-        expText.text = playerCtrl.currentExp.ToString() + " / " + playerCtrl.currentExpToLevel.ToString();
+        hpText.text = playerCtrl.currentUnitBaseData.currentHp.ToString() + " / " + playerCtrl.currentPlayerData.currentExpToLevel.ToString();
+        expText.text = playerCtrl.currentExp.ToString() + " / " + playerCtrl.currentPlayerData.currentExpToLevel.ToString();
         CheckScore();
         CheckPlayerHp();
         CheckPlayerExp();
@@ -111,15 +111,15 @@ public class UIManager : Singleton<UIManager>
 
     public void CheckPlayerHp()
     {
-        hpText.text = playerCtrl.currentHp.ToString() + " / " + playerCtrl.currentMaxHp.ToString();
+        hpText.text = playerCtrl.currentUnitBaseData.currentHp.ToString() + " / " + playerCtrl.currentUnitBaseData.currentMaxHp.ToString();
 
-        hpBar.fillAmount = (float)playerCtrl.currentHp / (float)playerCtrl.currentMaxHp;
+        hpBar.fillAmount = (float)playerCtrl.currentUnitBaseData.currentHp / (float)playerCtrl.currentUnitBaseData.currentMaxHp;
     }
 
     public void CheckPlayerExp()
     {
-        expText.text = playerCtrl.currentExp.ToString() + " / " + playerCtrl.currentExpToLevel.ToString();
-        expBar.fillAmount = (float)playerCtrl.currentExp / (float)playerCtrl.currentExpToLevel;
+        expText.text = playerCtrl.currentExp.ToString() + " / " + playerCtrl.currentPlayerData.currentExpToLevel.ToString();
+        expBar.fillAmount = (float)playerCtrl.currentExp / (float)playerCtrl.currentPlayerData.currentExpToLevel;
 
     }
 
@@ -130,8 +130,8 @@ public class UIManager : Singleton<UIManager>
     }
     public void CheckPlayerAbilityGage()
     {
-        AbilityGageText.text = playerCtrl.currentAbilityGage.ToString() + " / " + playerCtrl.maxAbilityGage.ToString();
-        AbilityGageBar.fillAmount = (float)playerCtrl.currentAbilityGage / (float)playerCtrl.maxAbilityGage;
+        AbilityGageText.text = playerCtrl.currentAbilityGage.ToString() + " / " + playerCtrl.currentPlayerData.maxAbilityGage.ToString();
+        AbilityGageBar.fillAmount = (float)playerCtrl.currentAbilityGage / (float)playerCtrl.currentPlayerData.maxAbilityGage;
     }
 
     public void CheckItem(ItemType itemType, Player playerCtrl)
@@ -246,26 +246,26 @@ public class UIManager : Singleton<UIManager>
         PanelLevel.SetActive(true);
         TextMeshProUGUI dataText;
 
-        PlayerLevelDataTable.constraintCount = playerCtrl.playerLevelUpData.headerOrder.Count;
+        PlayerLevelDataTable.constraintCount = playerCtrl.currentPlayerData.playerLevelUpData.headerOrder.Count;
 
-        for (int i = 0; i < playerCtrl.playerLevelUpData.headerOrder.Count; i++)
+        for (int i = 0; i < playerCtrl.currentPlayerData.playerLevelUpData.headerOrder.Count; i++)
         {
             // ��� ���
             dataText = Instantiate<GameObject>(cell, PlayerLevelDataTable.transform).GetComponentInChildren<TextMeshProUGUI>();
-            string header = playerCtrl.playerLevelUpData.headerOrder[i + 1];
+            string header = playerCtrl.currentPlayerData.playerLevelUpData.headerOrder[i + 1];
             dataText.text = header;
 
             Debug.Log("key:" + header);
             //playerCtrl.playerLevelUpData.headers[playerCtrl.playerLevelUpData.headerOrder[i + 1]];
         }
-        for (int i = 0; i < playerCtrl.playerLevelUpData.maxLevel; i++)
+        for (int i = 0; i < playerCtrl.currentPlayerData.playerLevelUpData.maxLevel; i++)
         {
             Debug.Log("header: " + i);
-            for (int j = 0; j < playerCtrl.playerLevelUpData.headerOrder.Count; j++)
+            for (int j = 0; j < playerCtrl.currentPlayerData.playerLevelUpData.headerOrder.Count; j++)
             {
-                Debug.Log("value: " + playerCtrl.playerLevelUpData.headers[playerCtrl.playerLevelUpData.headerOrder[j+1]][i]);
+                Debug.Log("value: " + playerCtrl.currentPlayerData.playerLevelUpData.headers[playerCtrl.currentPlayerData.playerLevelUpData.headerOrder[j+1]][i]);
                 dataText = Instantiate<GameObject>(dataTextPrefab.gameObject, PlayerLevelDataTable.transform).GetComponentInChildren<TextMeshProUGUI>();
-                dataText.text = playerCtrl.playerLevelUpData.headers[playerCtrl.playerLevelUpData.headerOrder[j+1]][i];
+                dataText.text = playerCtrl.currentPlayerData.playerLevelUpData.headers[playerCtrl.currentPlayerData.playerLevelUpData.headerOrder[j+1]][i];
 
             }
         }

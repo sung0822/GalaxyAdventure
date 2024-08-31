@@ -39,7 +39,7 @@ public class UnitBody : MonoBehaviour, ITeamMember
     protected UnitBase CheckBumpedIntoEnemy(Collision other)
     {
 
-        if (masterUnit.isBumpedIntoEnemy)
+        if (masterUnit.currentUnitBaseData.isBumpedIntoEnemy)
             return null;
 
         UnitBase unit = other.transform.GetComponentInParent<UnitBase>();
@@ -68,7 +68,7 @@ public class UnitBody : MonoBehaviour, ITeamMember
 
     protected UnitBase CheckBumpedIntoEnemy(Collider other)
     {
-        if (masterUnit.isBumpedIntoEnemy)
+        if (masterUnit.currentUnitBaseData.isBumpedIntoEnemy)
         {
             return null;
         }

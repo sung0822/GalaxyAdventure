@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b45b291e2df2ed4aa99a0b89e55e21f, type: 3}
+  m_Name: BigSizeEnemyData
+  m_EditorClassIdentifier: 
+  _dieSound: {fileID: 0}
+  _unitDieParticle: {fileID: 1828176872806910, guid: 6c8921aff7597e149834dd51071aa659, type: 3}
+  _teamType: 1
+  _currentMaxHp: 700
+  _currentHp: 700
+  _isImmortal: 1
+  _isBumpedIntoEnemy: 0
+  _isDead: 0
+  _unitName: BigSizeEnemy
+  _rewardExp: 10
+  _rewardScore: 100
+  _enableSlow: 0
+  _enableAttack: 0
+  _lifeTime: 20
+  _spdChanged: 4
+  _spdChangeDuration: 1
+  _power: 0
+  _moveSpd: 10
+  _rewardAbilityGage: 30

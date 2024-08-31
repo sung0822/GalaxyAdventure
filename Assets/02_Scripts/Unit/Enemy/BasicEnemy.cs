@@ -11,9 +11,7 @@ public class BasicEnemy : EnemyBase
     WeaponSpace currentWeaponSpace;
 
     protected WeaponItemBase currentWeapon;
-    public override bool isAttacking { get { return _isAttacking; } set { _isAttacking = value; } }
-    bool _isAttacking;
-
+    
     [SerializeField] GunItemData gunItemData;
 
     protected override void Start()
@@ -43,7 +41,7 @@ public class BasicEnemy : EnemyBase
     {
         base.Update();
 
-        if (enableAttack)
+        if (currentEnemyBaseData.enableAttack)
         {
             Attack();
         }
@@ -52,7 +50,6 @@ public class BasicEnemy : EnemyBase
     public override void DieUnit()
     {
         base.DieUnit();
-        _isAttacking = unitBaseData.isAttacking;
         
     }
 

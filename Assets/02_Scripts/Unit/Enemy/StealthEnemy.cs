@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class StealthEnemy : EnemyBase
 {
-    public override bool isAttacking { get; set; }
 
     Vector3 moveDir;
     
@@ -34,7 +33,7 @@ public class StealthEnemy : EnemyBase
     protected override void SetFirstStatus()
     {
         base.SetFirstStatus();
-        lifeTime = 0;
+        currentEnemyBaseData.lifeTime = 0;
 
         gunItemData = ScriptableObject.Instantiate(gunItemData);
 
@@ -54,7 +53,7 @@ public class StealthEnemy : EnemyBase
         gunItemData.level = 1;
         
         currentWeapon = (GunItemBase)gunItemData.CreateItem();
-        isAttacking = false;
+        _currentEnemyBaseData.isAttacking = false;
 
         targetPlayer = GameObject.FindWithTag("PLAYER").transform;
         moveDir = Vector3.forward;
@@ -80,9 +79,9 @@ public class StealthEnemy : EnemyBase
 
     protected override void HandleColliderWall()
     {
-        enableAttack = true;
-        hasCollideWithWall = true;
-        StartCoroutine(AdjustSpeed(spdChanged, spdChangeDuration));
+        currentEnemyBaseData.enableAttack = true;
+        currentEnemyBaseData.hasCollideWithWall = true;
+        StartCoroutine(AdjustSpeed(currentEnemyBaseData.spdChanged, currentEnemyBaseData.spdChangeDuration));
         SetImmortal(false);
         StartCoroutine(ChangeVisibility());
     }
@@ -112,7 +111,7 @@ public class StealthEnemy : EnemyBase
                 moveDir = Vector3.zero;
                 StartCoroutine(AdjustTransparency(1, 1.0f));
 
-                isAttacking = true;
+                _currentEnemyBaseData.isAttacking = true;
                 gameObject.layer = LayerMask.NameToLayer(unitLayerName);
 
                 for (int i = 0; i < colliders.Count; i++)
@@ -124,8 +123,8 @@ public class StealthEnemy : EnemyBase
 
                 moveDir = Vector3.zero;
                 StartCoroutine(AdjustTransparency(0, 1.0f));
-                
-                isAttacking = false;
+
+                _currentEnemyBaseData.isAttacking = false;
                 gameObject.layer = LayerMask.NameToLayer(unitLayerName);
                 
                 for (int i = 0; i < colliders.Count; i++)
@@ -151,7 +150,7 @@ public class StealthEnemy : EnemyBase
     {
         while (true)
         {
-            if (isAttacking)
+            if (_currentEnemyBaseData.isAttacking)
             {
                 Attack();
             }

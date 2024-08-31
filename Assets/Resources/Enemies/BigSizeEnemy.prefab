@@ -237,6 +237,8 @@ MonoBehaviour:
   _currentMaxHp: 700
   _currentHp: 700
   unitName: BigSizeEnemy
+  unitBaseData: {fileID: 11400000, guid: bb351b69423349945ba1e9af9518a6b5, type: 2}
+  currentUnitBaseData: {fileID: 0}
   _rewardExp: 10
   _rewardScore: 100
   enableSlow: 0

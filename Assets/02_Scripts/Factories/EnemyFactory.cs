@@ -9,6 +9,10 @@ public class EnemyFactory : Singleton<EnemyFactory>
 
     public List<GameObject> enemyPrefabsList { get { return _enemyPrefabsList; } set { _enemyPrefabsList = value; } }
     [SerializeField] List<GameObject> _enemyPrefabsList = new List<GameObject>();
+
+    public List<EnemyBaseData> enemyBaseDatas { get { return _enemyBaseDatas; } set { _enemyBaseDatas = value; } }
+    [SerializeField] List<EnemyBaseData> _enemyBaseDatas = new List<EnemyBaseData>();
+
     public bool isInitialized{ get { return _isInitialized; } }
     private bool _isInitialized = false;
 
@@ -20,13 +24,15 @@ public class EnemyFactory : Singleton<EnemyFactory>
     IEnumerator Initialize()
     {
         yield return new WaitUntil(() => SceneHandler.instance.loadingScenes.Count == 0);
-        for (int i = 0; i < _enemyPrefabsList.Count; i++)
+
+        for (int i = 0; i < _enemyBaseDatas.Count; i++)
         {
-            string unitName = _enemyPrefabsList[i].GetComponent<UnitBase>().unitName;
+            string unitName = _enemyBaseDatas[i].unitName;
+
             ObjectPoolManager.instance.CreateObjectPool(unitName + " Pool");
-            Debug.Log("Object Pool name is : " + unitName + " Pool");
             enemeyPrefabs.Add(unitName, _enemyPrefabsList[i]);
         }
+
         _isInitialized = true;
     }
 
@@ -37,7 +43,6 @@ public class EnemyFactory : Singleton<EnemyFactory>
             Debug.LogError("존재하지 않는 유닛 이름");
             return null;
         }
-        Debug.Log("Enemy " + unitName + " has been created");
         GameObject gameObject = Instantiate(enemeyPrefabs[unitName]);
         ObjectPoolManager.instance.ReturnObject(unitName + " Pool", gameObject);
         return gameObject.GetComponent<EnemyBase>();

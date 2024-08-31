@@ -112,6 +112,8 @@ MonoBehaviour:
   _currentMaxHp: 40
   _currentHp: 40
   unitName: BasicEnemy
+  unitBaseData: {fileID: 11400000, guid: 74a453961d7085e44a07a3c93e6d3830, type: 2}
+  currentUnitBaseData: {fileID: 0}
   _rewardExp: 10
   _rewardScore: 100
   enableSlow: 1

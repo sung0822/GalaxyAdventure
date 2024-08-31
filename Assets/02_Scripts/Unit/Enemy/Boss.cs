@@ -8,7 +8,6 @@ using UnityEngine.SceneManagement;
 
 public class Boss : EnemyBase
 {
-    public override bool isAttacking { get { return _isAttacking; } set { _isAttacking = value; } }
     bool _isAttacking;
     public int pageNumber { get { return _pageNumber; } }
     [SerializeField] int _pageNumber;
@@ -56,6 +55,8 @@ public class Boss : EnemyBase
     {
         base.SetFirstStatus();
 
+        _currentEnemyBaseData = (EnemyBaseData)_currentUnitBaseData;
+
         sprayGunItemData = ScriptableObject.Instantiate(sprayGunItemData);
         targetPlayer = GameObject.FindWithTag("PLAYER").transform;
                
@@ -87,7 +88,7 @@ public class Boss : EnemyBase
     protected override void Update()
     {
         base.Update();
-        if (enableAttack)
+        if (_currentEnemyBaseData.enableAttack)
         {
             Attack();
         }
@@ -100,7 +101,7 @@ public class Boss : EnemyBase
 
     public override void Move()
     {
-        if (enableAttack)
+        if (_currentEnemyBaseData.enableAttack)
         {
             _pageState.Move();
             return;
@@ -122,7 +123,7 @@ public class Boss : EnemyBase
 
             if (normalizedTime >= 1)
             {
-                enableAttack = true;
+                _currentEnemyBaseData.enableAttack = true;
                 break;
             }
 
@@ -134,10 +135,10 @@ public class Boss : EnemyBase
 
     public override void Hit(int damage)
     {
-        if (isImmortal)
+        if (_currentEnemyBaseData.isImmortal)
             return;
 
-        currentHp -= damage;
+        _currentEnemyBaseData.currentHp -= damage;
         CheckHpBarFill();
 
         GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.basicParticle, this.transform.position, this.transform.rotation);
@@ -148,10 +149,10 @@ public class Boss : EnemyBase
 
     public override void Hit(int damage, Vector3 position)
     {
-        if (isImmortal)
+        if (_currentEnemyBaseData.isImmortal)
             return;
 
-        currentHp -= damage;
+        _currentEnemyBaseData.currentHp -= damage;
         CheckHpBarFill();
 
         GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.basicParticle, position, Quaternion.Euler(0, 0, 0));
@@ -162,10 +163,10 @@ public class Boss : EnemyBase
 
     public override void Hit(int damage, Transform hitTransform)
     {
-        if (isImmortal)
+        if (_currentEnemyBaseData.isImmortal)
             return;
 
-        currentHp -= damage;
+        _currentEnemyBaseData.currentHp -= damage;
         CheckHpBarFill();
 
         GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.basicParticle, hitTransform.position, Quaternion.Euler(0, 0, 0));
@@ -177,7 +178,7 @@ public class Boss : EnemyBase
     protected override bool CheckDead()
     {
 
-        if (currentHp <= 0)
+        if (_currentEnemyBaseData.currentHp <= 0)
         {
             switch (pageNumber)
             {
@@ -216,8 +217,8 @@ public class Boss : EnemyBase
         float timeAdjustingSpd = 0;
         SetImmortal(true);
         Color originalColor = skinnedMeshRenderer.material.color;
-        enableAttack = false;
-        currentMaxHp = (int)((float)currentMaxHp * 1.5f);
+        _currentEnemyBaseData.enableAttack = false;
+        _currentEnemyBaseData.currentMaxHp = (int)((float)_currentEnemyBaseData.currentMaxHp * 1.5f);
 
         while (true)
         {
@@ -225,15 +226,15 @@ public class Boss : EnemyBase
 
             // ����ȭ�� ����.
             float normalizedTime = timeAdjustingSpd / duration;
-            currentHp = (int)((float)currentMaxHp * normalizedTime);
+            _currentEnemyBaseData.currentHp = (int)((float)_currentEnemyBaseData.currentMaxHp * normalizedTime);
             CheckHpBarFill();
 
             if (normalizedTime >= 1)
             {
                 SetImmortal(false);
-                currentHp = currentMaxHp;
+                _currentEnemyBaseData.currentHp = _currentEnemyBaseData.currentMaxHp;
                 CheckHpBarFill();
-                enableAttack = true;
+                _currentEnemyBaseData.enableAttack = true;
                 break;
             }
 
@@ -246,8 +247,8 @@ public class Boss : EnemyBase
 
     void CheckHpBarFill()
     {
-        hpBar.fillAmount = (float)currentHp / (float)currentMaxHp;
-        hpText.text = currentHp.ToString() + "/" + currentMaxHp.ToString();
+        hpBar.fillAmount = (float)_currentEnemyBaseData.currentHp / (float)_currentEnemyBaseData.currentMaxHp;
+        hpText.text = _currentEnemyBaseData.currentHp.ToString() + "/" + _currentEnemyBaseData.currentMaxHp.ToString();
     }
 
 }
