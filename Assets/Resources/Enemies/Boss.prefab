@@ -282,7 +282,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3994749108713072704}
   m_LocalRotation: {x: 0, y: 0.7071068, z: -0.7071068, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: -13.12}
+  m_LocalPosition: {x: 0, y: 0, z: -4.23}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -628,15 +628,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1086b1e33e6652842887d809919086ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dieSound: {fileID: 0}
   unitBodyColliders: []
   rigidbodies: []
   colliders: []
   unitRigidbody: {fileID: 0}
   unitBaseData: {fileID: 11400000, guid: 7add6df99028b4444808468461e4ae95, type: 2}
   _currentUnitBaseData: {fileID: 0}
-  _rewardAbilityGage: 0
-  _pageNumber: 1
   _skinnedMeshRenderer: {fileID: 1871404316682925304}
   page2Hp: 0
   _sprayGunItemData: {fileID: 11400000, guid: b98e617bab24e3f4d854fa8f1644d6b6, type: 2}
@@ -648,8 +645,6 @@ MonoBehaviour:
   targetPlayer: {fileID: 0}
   _hpBar: {fileID: 5552085947461535414}
   _hpText: {fileID: 1630037739137687337}
-  _page2Color: {r: 0.26420057, g: 0.98490566, b: 0.19140615, a: 0}
-  _page3Color: {r: 1, g: 0.19833887, b: 0.1566037, a: 0}
 --- !u!1001 &1734293080094310822
 PrefabInstance:
   m_ObjectHideFlags: 0

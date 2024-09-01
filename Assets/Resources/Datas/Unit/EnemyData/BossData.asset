@@ -15,8 +15,8 @@ MonoBehaviour:
   _dieSound: {fileID: 0}
   _unitDieParticle: {fileID: 0}
   _teamType: 1
-  _currentMaxHp: 0
-  _currentHp: 0
+  _currentMaxHp: 1000
+  _currentHp: 1000
   _isImmortal: 1
   _isBumpedIntoEnemy: 0
   _isDead: 0
@@ -31,4 +31,6 @@ MonoBehaviour:
   _power: 0
   _moveSpd: 10
   _rewardAbilityGage: 0
+  _isAttacking: 0
+  _hasCollideWithWall: 0
   a: 0

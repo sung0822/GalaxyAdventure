@@ -8,10 +8,6 @@ using UnityEngine.SceneManagement;
 
 public class Boss : EnemyBase
 {
-    bool _isAttacking;
-    public int pageNumber { get { return _pageNumber; } }
-    [SerializeField] int _pageNumber;
-
     public SkinnedMeshRenderer skinnedMeshRenderer { get { return _skinnedMeshRenderer; } set { _skinnedMeshRenderer = value; } }
     [SerializeField] SkinnedMeshRenderer _skinnedMeshRenderer;
 
@@ -37,14 +33,11 @@ public class Boss : EnemyBase
     [SerializeField] Image _hpBar;
     public TextMeshProUGUI hpText { get { return _hpText; } set { _hpText = value; } }
     [SerializeField] TextMeshProUGUI _hpText;
-
-    public Color page2Color { get { return _page2Color; } set { _page2Color = value; } }
-    [SerializeField] Color _page2Color;
-
-    public Color page3Color { get { return _page3Color; } set { _page3Color = value; } }
-    [SerializeField] Color _page3Color;
-
     IBossPageState _pageState;
+
+    public BossData currentBossData { get { return _currentBossData; } set { _currentBossData = value; } }
+
+    protected BossData _currentBossData;
 
     protected override void Start()
     {
@@ -54,6 +47,7 @@ public class Boss : EnemyBase
     protected override void SetFirstStatus()
     {
         base.SetFirstStatus();
+        _currentBossData = (BossData)currentEnemyBaseData;
 
         _currentEnemyBaseData = (EnemyBaseData)_currentUnitBaseData;
 
@@ -180,19 +174,19 @@ public class Boss : EnemyBase
 
         if (_currentEnemyBaseData.currentHp <= 0)
         {
-            switch (pageNumber)
+            switch (_currentBossData.pageNumber)
             {
                 case 1:
-                    _pageNumber++;
-                    StartCoroutine(ChangeColor(page2Color, 2));
+                    _currentBossData.pageNumber++;
+                    StartCoroutine(ChangeColor(_currentBossData.page2Color, 2));
                     _pageState = new BossPageTwoState();
                     _sprayGunItemData.useCycle -= _sprayGunItemData.useCycle * 0.5f;
                     _pageState.boss = this;
 
                     break;
                 case 2:
-                    _pageNumber++;
-                    StartCoroutine(ChangeColor(page3Color, 2));
+                    _currentBossData.pageNumber++;
+                    StartCoroutine(ChangeColor(_currentBossData.page3Color, 2));
                     _sprayGunItemData.useCycle -= _sprayGunItemData.useCycle * 0.3f;
                     _machineGunItemData.useCycle -= _machineGunItemData.useCycle * 0.5f;
                     _pageState = new BossPageThreeState();

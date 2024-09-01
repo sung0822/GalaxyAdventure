@@ -69,5 +69,10 @@ public class BasicEnemy : EnemyBase
         currentWeapon.Use();
     }
 
+    private void OnDisable() 
+    {
+        Debug.Log("Disable됨");    
+    }
+
 
 }

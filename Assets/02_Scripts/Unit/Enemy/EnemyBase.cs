@@ -41,7 +41,7 @@ public abstract class EnemyBase : UnitBase, IMovalble, IAttackable
 
         player = GameObject.FindGameObjectWithTag("PLAYER").GetComponent<Player>();
         coroutineWaitAndReturnObject = StartCoroutine(WaitAndReturnObject());
-        ObjectPoolManager.instance.ReturnObject(_currentEnemyBaseData.unitName + " Pool", this.gameObject, _currentEnemyBaseData.lifeTime);
+        //ObjectPoolManager.instance.ReturnObject(_currentEnemyBaseData.unitName + " Pool", this.gameObject, _currentEnemyBaseData.lifeTime);
     }
     Coroutine coroutineWaitAndReturnObject;
     IEnumerator WaitAndReturnObject()

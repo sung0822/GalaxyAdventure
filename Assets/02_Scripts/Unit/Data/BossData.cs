@@ -7,6 +7,14 @@ public class BossData : EnemyBaseData
 {
     [Header("BossData")]
     [SerializeField] int a;
+    
+    public Color page2Color { get { return _page2Color; } set { _page2Color = value; } }
+    [SerializeField] Color _page2Color;
+
+    public Color page3Color { get { return _page3Color; } set { _page3Color = value; } }
+    [SerializeField] Color _page3Color;
+    public int pageNumber { get { return _pageNumber; } set{ _pageNumber = value;} }
+    [SerializeField] int _pageNumber;
     public override void SetData(UnitBaseData unitBaseData)
     {
         base.SetData(unitBaseData);

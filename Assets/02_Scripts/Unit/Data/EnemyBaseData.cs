@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "EnemyBaseData", menuName = "UnitData/UnitBaseData/EnemyBaseData", order = 1)]
@@ -34,15 +35,14 @@ public class EnemyBaseData : UnitBaseData
     public int rewardAbilityGage { get { return _rewardAbilityGage; } set { _rewardAbilityGage = value; } }
     [SerializeField] protected int _rewardAbilityGage;
     public bool isAttacking { get { return _isAttacking; } set { _isAttacking = value; } }
-    protected bool _isAttacking;
+    [SerializeField] protected bool _isAttacking;
 
     public bool hasCollideWithWall { get { return _hasCollideWithWall; } set { _hasCollideWithWall = value; } }
-    protected bool _hasCollideWithWall;
+    [SerializeField] protected bool _hasCollideWithWall;
     
     public override void SetData(UnitBaseData unitBaseData)
     {
         base.SetData(unitBaseData);
-        Debug.Log("EnemyBaseData SetData is called");
         
         EnemyBaseData enemyBaseData = (EnemyBaseData)unitBaseData;
 
@@ -57,6 +57,7 @@ public class EnemyBaseData : UnitBaseData
         this._moveSpd = enemyBaseData.moveSpd;
         this._rewardAbilityGage = enemyBaseData.rewardAbilityGage;
         this._isAttacking = enemyBaseData.isAttacking;
+        this._hasCollideWithWall = enemyBaseData.hasCollideWithWall;
     }
 
 }

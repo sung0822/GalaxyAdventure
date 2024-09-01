@@ -87,9 +87,7 @@ public class Stage1 : IStage
             spawnPointsForward[i + 1].transform.localRotation = Quaternion.Euler(0, 20, 0);
             
             
-            Transform enemyTransform = ObjectPoolManager.instance.GetObject("BasicEnemy Pool").transform;
-            enemyTransform.transform.position = spawnPointsForward[i+1].position;
-            enemyTransform.transform.rotation = spawnPointsForward[i+1].rotation;
+            ObjectPoolManager.instance.GetObject("BasicEnemy Pool", spawnPointsForward[i+1].position, spawnPointsForward[i+1].rotation);
 
             //GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[i + 1]).GetComponent<EnemyBase>().enableSlow = true;
             yield return new WaitForSeconds(0.3f);
@@ -102,9 +100,7 @@ public class Stage1 : IStage
             spawnPointsForward[i + 1].transform.localRotation = Quaternion.Euler(0, -20, 0);
             //GameObject.Instantiate(BasicEnemyPrefab, spawnPointsForward[i + 1]).GetComponent<EnemyBase>().enableSlow = true;
             
-            Transform enemyTransform = ObjectPoolManager.instance.GetObject("BasicEnemy Pool").transform;
-            enemyTransform.transform.position = spawnPointsForward[i+1].position;
-            enemyTransform.transform.rotation = spawnPointsForward[i+1].rotation;
+            ObjectPoolManager.instance.GetObject("BasicEnemy Pool", spawnPointsForward[i+1].position, spawnPointsForward[i+1].rotation);
             yield return new WaitForSeconds(0.3f);
         }
 
@@ -116,9 +112,7 @@ public class Stage1 : IStage
         {
             spawnPointsForward[i].transform.LookAt(target);
             
-            Transform enemyTransform = ObjectPoolManager.instance.GetObject("BasicEnemy Pool").transform;
-            enemyTransform.transform.position = spawnPointsForward[i].position;
-            enemyTransform.transform.rotation = spawnPointsForward[i].rotation;
+            ObjectPoolManager.instance.GetObject("BasicEnemy Pool", spawnPointsForward[i].position, spawnPointsForward[i].rotation);
             yield return new WaitForSeconds(0.5f);
         }
 
@@ -130,17 +124,11 @@ public class Stage1 : IStage
         spawnPointsForward[6].transform.LookAt(MainManager.instance.transform);
         spawnPointsForward[3].transform.localRotation = Quaternion.Euler(0, 0, 0);
         
-        Transform enemyTransform = ObjectPoolManager.instance.GetObject("BasicEnemy Pool").transform;
-        enemyTransform.transform.position = spawnPointsForward[0].position;
-        enemyTransform.transform.rotation = spawnPointsForward[0].rotation;
+        ObjectPoolManager.instance.GetObject("BasicEnemy Pool",  spawnPointsForward[0].position, spawnPointsForward[0].rotation);
 
-        Transform enemyTransform2 = ObjectPoolManager.instance.GetObject("BasicEnemy Pool").transform;
-        enemyTransform2.transform.position = spawnPointsForward[6].position;
-        enemyTransform2.transform.rotation = spawnPointsForward[6].rotation;
+        ObjectPoolManager.instance.GetObject("BasicEnemy Pool", spawnPointsForward[6].position, spawnPointsForward[6].rotation);
 
-        Transform enemyTransform3 = ObjectPoolManager.instance.GetObject("BasicEnemy Pool").transform;
-        enemyTransform3.transform.position = spawnPointsForward[3].position;
-        enemyTransform3.transform.rotation = spawnPointsForward[3].rotation;
+        ObjectPoolManager.instance.GetObject("BasicEnemy Pool",  spawnPointsForward[3].position, spawnPointsForward[3].rotation);
 
     }
 

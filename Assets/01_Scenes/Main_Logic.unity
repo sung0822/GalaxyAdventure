@@ -1740,7 +1740,7 @@ PrefabInstance:
       objectReference: {fileID: 414584414}
     - target: {fileID: 8850595193139401053, guid: a8969dd01c9cc144ba6d1e514145cb61, type: 3}
       propertyPath: _bgmList.Array.size
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8850595193139401053, guid: a8969dd01c9cc144ba6d1e514145cb61, type: 3}
       propertyPath: _changingTimeForFrame
@@ -1749,19 +1749,19 @@ PrefabInstance:
     - target: {fileID: 8850595193139401053, guid: a8969dd01c9cc144ba6d1e514145cb61, type: 3}
       propertyPath: _bgmList.Array.data[0]
       value: 
-      objectReference: {fileID: 8300000, guid: e4c7e7fa7193013489539f3b991a3cc4, type: 3}
+      objectReference: {fileID: 8300000, guid: 033766cc31c97904bae4404b8a079544, type: 3}
     - target: {fileID: 8850595193139401053, guid: a8969dd01c9cc144ba6d1e514145cb61, type: 3}
       propertyPath: _bgmList.Array.data[1]
       value: 
-      objectReference: {fileID: 8300000, guid: 033766cc31c97904bae4404b8a079544, type: 3}
+      objectReference: {fileID: 8300000, guid: fc5af015011ea3745b7f78ea1dd1049f, type: 3}
     - target: {fileID: 8850595193139401053, guid: a8969dd01c9cc144ba6d1e514145cb61, type: 3}
       propertyPath: _bgmList.Array.data[2]
       value: 
-      objectReference: {fileID: 8300000, guid: fc5af015011ea3745b7f78ea1dd1049f, type: 3}
+      objectReference: {fileID: 8300000, guid: 559c232a43caebe41870ce54786f604e, type: 3}
     - target: {fileID: 8850595193139401053, guid: a8969dd01c9cc144ba6d1e514145cb61, type: 3}
       propertyPath: _bgmList.Array.data[3]
       value: 
-      objectReference: {fileID: 8300000, guid: 559c232a43caebe41870ce54786f604e, type: 3}
+      objectReference: {fileID: 8300000, guid: 1f2ad53bacc245642854dbdc8ea71a9b, type: 3}
     - target: {fileID: 8850595193139401053, guid: a8969dd01c9cc144ba6d1e514145cb61, type: 3}
       propertyPath: _bgmList.Array.data[4]
       value: 

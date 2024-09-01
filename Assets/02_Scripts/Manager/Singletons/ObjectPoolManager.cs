@@ -43,13 +43,13 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
             return null;
         }
     }
-    public GameObject GetObject(string poolName, Vector3 position, Quaternion quaternion)
+    public GameObject GetObject(string poolName, Vector3 position, Quaternion rotation)
     {
         if (objectPools.ContainsKey(poolName))
         {
             GameObject gameObject = objectPools[poolName].GetObject();
             gameObject.transform.position = position;
-            gameObject.transform.rotation = quaternion;
+            gameObject.transform.rotation = rotation;
             return gameObject;
         }
         else
