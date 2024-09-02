@@ -29,7 +29,16 @@ public class Player : UnitBase, IPlayer
     [SerializeField] protected Inventory _inventory;
 
     /// <summary> 무기 순서. Key: 무기 인덱스, value : 아이템 id </summary>
-    protected List<WeaponItemBase> selectedWeapons = new List<WeaponItemBase>();
+    
+    public List<WeaponItemBase> selectedWeapons 
+    {
+        get
+        {
+             Debug.Log("get selectedWeapons is Called"); 
+             return _selectedWeapons;
+        }
+    }
+    [SerializeField] protected List<WeaponItemBase> _selectedWeapons = new List<WeaponItemBase>();
     public WeaponItemBase currentWeapon;
     public WeaponItemBase currentSpeicalWeapon;
 
@@ -60,10 +69,16 @@ public class Player : UnitBase, IPlayer
 
     protected PlayerData _currentPlayerData;
 
+    protected override void Awake()
+    {
+        base.Awake();
+    }
+
     protected override void Start()
     {
         Debug.Log("Player 생성됨");
         base.Start();
+        CreateBasicGun();
     }
     protected override void SetFirstStatus()
     {
@@ -95,14 +110,14 @@ public class Player : UnitBase, IPlayer
         }
         // 무기 등록 
         hydroSpace = transform.Find("HydroSpace");
-        MakeBasicGun();
+        
 
         
 
         SetBody();
     }
 
-    private void MakeBasicGun()
+    private void CreateBasicGun()
     {
         _inventory = gameObject.AddComponent<Inventory>();
         GunItemData gunItemData = ScriptableObject.Instantiate(Resources.Load<PistolItemData>("Datas/Weapons/PistolItemData"));
@@ -500,45 +515,53 @@ public class Player : UnitBase, IPlayer
                     if (currentWeapon.data.id == item.id)
                     {
                         // 이미 가방안에 들어있고, 현재 선택된 무기라면
+                        Debug.Log("가방안에 들어있고, 선택된 무기임");
                         currentWeapon.weaponItemData.level += 1;
                         break;
                     }
 
+                    Debug.Log("가방안에 들어있고, 선택되지 않은 무기임");
                     for (int i = 0; i < selectedWeapons.Count; i++)
                     {
                         if (selectedWeapons[i].data.id == item.id)
                         {
                             selectedWeapons[i].weaponItemData.level += 1;
                         }
+                        audioSource.clip = changeBulletSound;
+                        audioSource.Play();
                     }
                     break;
                 }
-                // 가방안에 없으면
-                weaponItemData = (GunItemData)Instantiate<ScriptableObject>(item);
-                weaponItemData.level = 1;
-                weaponItemData.weaponSpaceTransform = currentWeaponSpace.transform;
-                weaponItemData.unitUser = this;
-                weaponItemData.attackableUser = this;
-                weaponItemData.teamType = teamType;
+                else
+                {
+                    // 가방안에 없으면
+                    Debug.Log("가방안에 없음");
+                    weaponItemData = (GunItemData)Instantiate<ScriptableObject>(item);
+                    weaponItemData.level = 1;
+                    weaponItemData.weaponSpaceTransform = currentWeaponSpace.transform;
+                    weaponItemData.unitUser = this;
+                    weaponItemData.attackableUser = this;
+                    weaponItemData.teamType = teamType;
+                    
+                    currentWeapon.StopUse();
+                    currentWeapon = (GunItemBase)weaponItemData.CreateItem();
+                    currentWeapon.transform.parent = currentWeaponSpace.transform;
+                    currentWeapon.transform.localPosition = Vector3.zero;
+                    
+                    selectedWeapons.Add(currentWeapon);
+                    currentWeaponIdx++;
+                    inventory.Add(weaponItemData);
+                    GameObject projectilePrefab = ((GunItemData)(currentWeapon.data)).projectilePrefab;    
+                    ChangeBullet(projectilePrefab);
+                    audioSource.clip = changeBulletSound;
+                    audioSource.Play();
+                }
 
-                GameObject projectilePrefab = ((GunItemData)(currentWeapon.data)).projectilePrefab;
-
-
-                currentWeapon.StopUse();
-                currentWeapon = (GunItemBase)weaponItemData.CreateItem();
-                currentWeapon.transform.parent = currentWeaponSpace.transform;
-                currentWeapon.transform.localPosition = Vector3.zero;
-                selectedWeapons.Add(currentWeapon);
-                currentWeaponIdx++;
-                inventory.Add(weaponItemData);
-
-                audioSource.clip = changeBulletSound;
-                audioSource.Play();
-                ChangeBullet(projectilePrefab);
                 break;
             default:
                 break;
         }
+
         UIManager.instance.CheckItem(itemType, this);
 
     }

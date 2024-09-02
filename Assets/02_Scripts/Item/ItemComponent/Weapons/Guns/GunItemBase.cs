@@ -30,7 +30,6 @@ public abstract class GunItemBase : WeaponItemBase
             return;
         }
         audioSource.Play();
-        Debug.Log(gunItemData.unitUser.name + gunItemData.name + "오디오플레이");
     }
     protected virtual void Awake()
     {
