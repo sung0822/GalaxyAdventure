@@ -25,16 +25,22 @@ public class MenuUIManager : MonoBehaviour
 
     public void OnStartClick()
     {
-        Debug.Log("OnStartClick 호출됨");
-        
-        AsyncOperation mainScene = SceneHandler.instance.LoadMainSceneAsync(LoadSceneMode.Additive);
-        SceneHandler.instance.LoadLoadingScene(mainScene, LoadSceneMode.Additive);
 
-        SceneHandler.instance.UnloadLoadingScene(() => mainScene.allowSceneActivation == true);
+        SceneManager.LoadScene("Loading");
+
+
+
+
+        //Debug.Log("OnStartClick 호출됨");
+        
+        //AsyncOperation mainScene = SceneHandler.instance.LoadMainSceneAsync(LoadSceneMode.Additive);
+        //SceneHandler.instance.LoadLoadingScene(mainScene, LoadSceneMode.Additive);
+
+        //SceneHandler.instance.UnloadLoadingScene(() => mainScene.allowSceneActivation == true);
         
         
-        SceneHandler.instance.WaitUntilEverySceneIsOn();
-        StartCoroutine(UnloadMenuScene()); // 코루틴으로 호출
+        //SceneHandler.instance.WaitUntilEverySceneIsOn();
+        //StartCoroutine(UnloadMenuScene()); // 코루틴으로 호출
     }
 
     IEnumerator UnloadMenuScene()

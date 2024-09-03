@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LoadingSceneManager : MonoBehaviour
@@ -14,24 +15,37 @@ public class LoadingSceneManager : MonoBehaviour
     private void Start() 
     {
         Debug.Log("Start불림");
+
+        //SceneManager.LoadSceneAsync("Main_UI");
         StartCoroutine(UpdateSceneProcess());
     }
 
     IEnumerator UpdateSceneProcess()
     {
+        AsyncOperation op = SceneManager.LoadSceneAsync("Main_Logic");
+        AsyncOperation uiOp = SceneManager.LoadSceneAsync("Main_UI", LoadSceneMode.Additive);
+        op.allowSceneActivation = false;
+
+        nextSceneProgress = op;
+        float timer = 0.0f;
         while (!nextSceneProgress.isDone)
         {
-            if (nextSceneProgress != null)
+            timer += Time.deltaTime;
+            if (nextSceneProgress.progress < 0.9f)
             {
-                Debug.Log("로딩씬 프로세스");
-                progressBar.fillAmount = nextSceneProgress.progress;    
+                progressBar.fillAmount = nextSceneProgress.progress;
             }
             else
             {
-                Debug.Log("다음 씬이 없습니다.");
+                progressBar.fillAmount = Mathf.Lerp(progressBar.fillAmount, 1f, timer);
+                if (progressBar.fillAmount == 1.0f)
+                {
+                    op.allowSceneActivation = true;
+                    yield break;
+                }
             }
 
-            yield return new WaitForSeconds(UpdateCycle);
+            yield return null;
         }
     }
 
