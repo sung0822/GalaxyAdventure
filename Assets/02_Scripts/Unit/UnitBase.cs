@@ -68,7 +68,7 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
         }
         else
         {
-            Debug.Log("enemy Hit");
+            Debug.Log("enemy를 Hit함 unit name is: " + enemy._currentUnitBaseData.unitName);
             enemy.Hit(30);
         }
     }
@@ -84,7 +84,6 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
         }
         if (other.tag == "HYDRO_BEAM")
         {
-        
             return null;
         }
         UnitBase unit = other.transform.GetComponentInParent<UnitBase>();
@@ -196,7 +195,7 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
     Coroutine immortalCoroutine = null;
     public virtual void SetImmortalDuring(bool isImmortal, float time)
     {
-        if (_currentUnitBaseData.isImmortal)
+        if (_currentUnitBaseData.isImmortal == isImmortal)
         {
             StopCoroutine(immortalCoroutine);
         }

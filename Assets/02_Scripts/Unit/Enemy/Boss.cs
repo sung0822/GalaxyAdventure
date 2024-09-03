@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
-using Unity.VisualScripting;
-using UnityEngine.SceneManagement;
 
 public class Boss : EnemyBase
 {
@@ -236,7 +234,6 @@ public class Boss : EnemyBase
             skinnedMeshRenderer.material.color = Color.Lerp(originalColor, color, timeAdjustingSpd);
 
             yield return new WaitForEndOfFrame();
-
         }
     }
 

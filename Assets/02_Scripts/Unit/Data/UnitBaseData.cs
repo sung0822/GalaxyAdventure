@@ -29,10 +29,16 @@ public class UnitBaseData : ScriptableObject
     }
     [SerializeField] protected int _currentHp;
 
-    public bool isImmortal { get { return _isImmortal; } set { _isImmortal = value; } }
+    public bool isImmortal { get { return _isImmortal; } 
+        set 
+        {
+            Debug.Log("set isImmortal is Called. unit name is: " + unitName);
+            _isImmortal = value; 
+        } 
+    }
     [SerializeField] protected bool _isImmortal;
     
-    public bool isBumpedIntoEnemy { get { return _isBumpedIntoEnemy; } set { _isImmortal = value; } }
+    public bool isBumpedIntoEnemy { get { return _isBumpedIntoEnemy; } set { _isBumpedIntoEnemy = value; } }
     [SerializeField] protected bool _isBumpedIntoEnemy;
 
     public bool isDead { get { return _isDead; } set { _isDead = value; } }

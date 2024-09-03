@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: UnitBaseData
   m_EditorClassIdentifier: 
   _dieSound: {fileID: 0}
+  _unitDieParticle: {fileID: 0}
+  _teamType: 2
   _currentMaxHp: 0
   _currentHp: 0
   _isImmortal: 0
   _isBumpedIntoEnemy: 0
   _isDead: 0
   _unitName: 
-  _isAttacking: 0
-  _teamType: 0

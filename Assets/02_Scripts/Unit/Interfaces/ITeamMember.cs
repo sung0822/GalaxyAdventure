@@ -10,5 +10,6 @@ public interface ITeamMember
 public enum TeamType
 {
     ALLY,
-    ENEMY
+    ENEMY,
+    NEUTRAL
 }
