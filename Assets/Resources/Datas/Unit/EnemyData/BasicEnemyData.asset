@@ -30,4 +30,6 @@ MonoBehaviour:
   _spdChangeDuration: 1
   _power: 0
   _moveSpd: 10
-  _rewardAbilityGage: 5
+  _rewardAbilityGage: 10
+  _isAttacking: 0
+  _hasCollideWithWall: 0

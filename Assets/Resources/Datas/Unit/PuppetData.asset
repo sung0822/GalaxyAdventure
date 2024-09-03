@@ -10,26 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f541e743b4f220c47be8a6305decaca8, type: 3}
-  m_Name: BossData
+  m_Name: PuppetData
   m_EditorClassIdentifier: 
   _dieSound: {fileID: 0}
   _unitDieParticle: {fileID: 1121192042590650, guid: e1b08032bec16ba4eb1ae23cbd572664, type: 3}
   _teamType: 1
-  _currentMaxHp: 1000
-  _currentHp: 1000
-  _isImmortal: 1
+  _currentMaxHp: 10000000
+  _currentHp: 10000000
+  _isImmortal: 0
   _isBumpedIntoEnemy: 0
   _isDead: 0
   _unitName: Boss
   _rewardExp: 10000
   _rewardScore: 5000
-  _enableSlow: 1
+  _enableSlow: 0
   _enableAttack: 0
   _lifeTime: 10000
   _spdChanged: 0
   _spdChangeDuration: 1.5
   _power: 0
-  _moveSpd: 10
+  _moveSpd: 0
   _rewardAbilityGage: 0
   _isAttacking: 0
   _hasCollideWithWall: 0

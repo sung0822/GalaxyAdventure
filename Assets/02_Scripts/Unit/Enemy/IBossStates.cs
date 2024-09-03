@@ -81,7 +81,6 @@ public class BossPageOneState : BossPageState
     {
         timeElapsed += Time.deltaTime;
         currentAttack();
-        Debug.Log("ȣ���");
         if (timeElapsed >= attackPatternInterval)
         {
             currentAttackIdx++;

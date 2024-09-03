@@ -64,10 +64,11 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
         UnitBase enemy = CheckBumpedIntoEnemy(other);
         if (enemy == null)
         {
-            
+            Debug.Log("enemy가 null임");
         }
         else
         {
+            Debug.Log("enemy Hit");
             enemy.Hit(30);
         }
     }
@@ -145,6 +146,7 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
         {
             return;
         }
+        Debug.Log("unitHit is called, and unit Name is: " + currentUnitBaseData.unitName);
         _currentUnitBaseData.currentHp -= damage;
         GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.basicParticle, this.transform.position, Quaternion.Euler(0, 0, 0));
         Destroy(particle, 0.7f);
@@ -157,6 +159,7 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
         if (_currentUnitBaseData.isImmortal)
             return;
 
+        Debug.Log("unitHit is called, and unit Name is: " + currentUnitBaseData.unitName);
         _currentUnitBaseData.currentHp -= damage;
 
         GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.basicParticle, hitTransform.position, Quaternion.Euler(0, 0, 0));
@@ -171,6 +174,7 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
         if (_currentUnitBaseData.isImmortal)
             return;
 
+        Debug.Log("unitHit is called, and unit Name is: " + currentUnitBaseData.unitName);
         _currentUnitBaseData.currentHp -= damage;
 
         GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.basicParticle, position, Quaternion.Euler(0, 0, 0));
@@ -200,6 +204,7 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
     }
     protected IEnumerator SetImmortalCoroutine(bool isImmortal, float time)
     {
+        Debug.Log("Set Immortal during is called");
         _currentUnitBaseData.isImmortal = isImmortal;
         yield return new WaitForSeconds(time);
         _currentUnitBaseData.isImmortal = !isImmortal;
@@ -226,10 +231,20 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
     public virtual void DieUnit()
     {
         _currentUnitBaseData.isDead = true;
-        
+
         GameObject particle = ParticleManager.instance.CreateParticle(currentUnitBaseData.unitDieParticlePrefab, transform.position, transform.rotation);
+        if (particle == null)
+        {
+            Debug.Log("particle이 null임");
+        }
+        else if (this == null)
+        {
+            Debug.Log("this가 null임");
+        }
         particle.transform.localScale = this.transform.localScale * 0.1f;
         
+
+
         Destroy(particle, 1.5f);
 
         ObjectPoolManager.instance.ReturnObject(currentUnitBaseData.unitName + " Pool", this.gameObject);

@@ -12,13 +12,13 @@ public class StealthEnemy : EnemyBase
 
     private float shootCycle = 1.0f;
 
-    MeshRenderer meshRenderer;
-    Material material;
+    [SerializeField] MeshRenderer meshRenderer;
+    [SerializeField] Material material;
 
-    WeaponSpace currentWeaponSpace;
-    protected WeaponItemBase currentWeapon;
+    [SerializeField] WeaponSpace currentWeaponSpace;
+    [SerializeField] protected WeaponItemBase currentWeapon;
 
-    Transform targetPlayer;
+    [SerializeField] Transform targetPlayer;
 
     [SerializeField] GunItemData gunItemData;
 
@@ -94,42 +94,23 @@ public class StealthEnemy : EnemyBase
     IEnumerator ChangeVisibility()
     {
         yield return new WaitForSeconds(1.0f);
-        moveSpd = 5.0f;
+        moveSpd = 0.0f;
         StartCoroutine(StartAttack());
-
-        // ���� ���̴� �Ӽ��� ����. �Ϲ������� �Ӽ� �̸����� �����ϴµ���.
-        Renders.ChangeStandardShaderRenderMode(material, BlendMode.Fade);
         
         Color color = new Color(material.color.r, material.color.g, material.color.b, 1);
         material.SetColor("_Color", color);
 
         while (true)
         {
-            // �����Ͻ� ���������� ���� �� ���� ����
-            if (isInvisible)
+            if (isInvisible) // Make it visible if it is invisible
             {
-                moveDir = Vector3.zero;
-                StartCoroutine(AdjustTransparency(1, 1.0f));
-
+                yield return StartCoroutine(AdjustTransparency(1, 1.0f));
                 _currentEnemyBaseData.isAttacking = true;
-                gameObject.layer = LayerMask.NameToLayer(unitLayerName);
-
-                for (int i = 0; i < colliders.Count; i++)
-                    colliders[i].gameObject.layer = LayerMask.NameToLayer(unitLayerName);
-
-            }// �������Ͻ� �������� ���� �� ���� ����
-            else if(!isInvisible)
+            }
+            else if(!isInvisible) // Make it invisible if it is visible
             {
-
-                moveDir = Vector3.zero;
-                StartCoroutine(AdjustTransparency(0, 1.0f));
-
+                yield return StartCoroutine(AdjustTransparency(0, 1.0f));
                 _currentEnemyBaseData.isAttacking = false;
-                gameObject.layer = LayerMask.NameToLayer(unitLayerName);
-                
-                for (int i = 0; i < colliders.Count; i++)
-                    colliders[i].gameObject.layer = LayerMask.NameToLayer(stealthLayerName);
-
             }
             isInvisible = !isInvisible;
 
@@ -139,7 +120,34 @@ public class StealthEnemy : EnemyBase
 
     }
 
-    
+    protected IEnumerator AdjustTransparency(float transparency, float duration)
+    {
+        float timeAdjustingSpd = 0;
+        float originalAlpha = material.color.a;
+
+        while (true)
+        {
+            timeAdjustingSpd += Time.deltaTime;
+
+            float normalizedTime = timeAdjustingSpd / duration;
+
+            Debug.Log("normalized time is: " + normalizedTime);
+            if (normalizedTime >= 1)
+            {
+                break;
+            }
+
+            Color color = material.color;
+            float alpha = color.a;
+            alpha = Mathf.Lerp(originalAlpha, transparency, normalizedTime);
+            Color newColor = new Color(color.r, color.g, color.b, alpha);
+
+            material.SetColor("_Color", newColor);
+
+            yield return new WaitForEndOfFrame();
+        }
+    }
+
     public override void Attack()
     {
         currentWeaponSpace.transform.LookAt(targetPlayer);
@@ -159,32 +167,4 @@ public class StealthEnemy : EnemyBase
 
         }
     }
-
-    protected IEnumerator AdjustTransparency(float transparency, float duration)
-    {
-        float timeAdjustingSpd = 0;
-        float originalAlpha = material.color.a;
-
-        while (true)
-        {
-            timeAdjustingSpd += Time.deltaTime;
-
-            // ����ȭ�� ����.
-            float normalizedTime = timeAdjustingSpd / duration;
-
-            if (normalizedTime >= 1)
-            {
-                break;
-            }
-            Color color = material.color;
-            float alpha = color.a;
-            alpha = Mathf.Lerp(originalAlpha, transparency, normalizedTime);
-            Color newColor = new Color(color.r, color.g, color.b, alpha);
-
-            material.SetColor("_Color", newColor);
-
-            yield return new WaitForEndOfFrame();
-        }
-    }
-
 }

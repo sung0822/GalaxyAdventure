@@ -63,7 +63,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
     {
         if (objectPools.ContainsKey(poolName))
         {
-            Debug.Log(poolName + "에 반환됨");
+            //Debug.Log(poolName + "에 반환됨");
             objectPools[poolName].ReturnObject(gameObject);
         }
         else

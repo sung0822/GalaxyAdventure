@@ -71,7 +71,7 @@ public class BasicEnemy : EnemyBase
 
     private void OnDisable() 
     {
-        Debug.Log("Disable됨");    
+        //Debug.Log("Disable됨");    
     }
 
 

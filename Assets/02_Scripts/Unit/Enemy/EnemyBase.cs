@@ -30,9 +30,6 @@ public abstract class EnemyBase : UnitBase, IMovalble, IAttackable
         base.Start();
     }
 
-    /// <summary>
-    /// Enemy�� �⺻ ���¸� �����մϴ�. �ӵ�, ü��, ���ݷ�, ������� ��üȭ�� Ŭ�������� �����ؾ��մϴ�.
-    /// </summary>
     protected override void SetFirstStatus()
     {
         base.SetFirstStatus();

@@ -90,14 +90,14 @@ public class Boss : EnemyBase
 
     public override void Attack()
     {
-        _pageState.Attack();
+        //_pageState.Attack();
     }
 
     public override void Move()
     {
         if (_currentEnemyBaseData.enableAttack)
         {
-            _pageState.Move();
+            //_pageState.Move();
             return;
         }
         base.Move();
@@ -174,6 +174,7 @@ public class Boss : EnemyBase
 
         if (_currentEnemyBaseData.currentHp <= 0)
         {
+            Debug.Log("currentPageNumber: " + currentBossData.pageNumber);
             switch (_currentBossData.pageNumber)
             {
                 case 1:
