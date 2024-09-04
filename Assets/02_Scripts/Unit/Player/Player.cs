@@ -310,11 +310,8 @@ public class Player : UnitBase, IPlayer
 
     public override void Hit(int damage)
     {
-        if (CheckImmortal())
-        {
-            Debug.Log("플레이어가 무적");
+        if (_currentPlayerData.isImmortal)
             return;
-        }
 
         Debug.Log("player hit");
         _currentPlayerData.currentHp -= damage;
@@ -330,10 +327,8 @@ public class Player : UnitBase, IPlayer
     }
     public override void Hit(int damage, Vector3 position)
     {
-        if(CheckImmortal())
-        {
+        if (_currentPlayerData.isImmortal)
             return;
-        }
 
         _currentPlayerData.currentHp -= damage;
 
@@ -348,12 +343,12 @@ public class Player : UnitBase, IPlayer
     }
     public override void Hit(int damage, Transform hitTransform)
     {
-        if (CheckImmortal())
-        {
+
+        if (_currentPlayerData.isImmortal)
             return;
-        }
 
         _currentPlayerData.currentHp -= damage;
+
 
         GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.basicParticle, hitTransform.position, Quaternion.Euler(0, 0, 0));
         Destroy(particle, 0.7f);
@@ -367,15 +362,22 @@ public class Player : UnitBase, IPlayer
         UIManager.instance.CheckPlayerHp();
     }
 
-    private bool CheckImmortal()
+    protected override bool CheckDead()
     {
-        if (_currentPlayerData.isAbsoluteImmortal)
+        if (_currentUnitBaseData.currentHp <= 0)
+        {
+            if (_currentPlayerData.isAbsoluteImmortal)
+            {
+                _currentPlayerData.currentHp = 0;
+                return false;
+            }
+            DieUnit();
             return true;
-
-        if (_currentPlayerData.isImmortal)
-            return true;
-
-        return false;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public override void DieUnit()
