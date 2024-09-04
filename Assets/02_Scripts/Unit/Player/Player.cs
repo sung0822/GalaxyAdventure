@@ -520,6 +520,7 @@ public class Player : UnitBase, IPlayer
                 break;
             case ItemType.Weapon:
                 WeaponItemData weaponItemData;
+                GameObject projectilePrefab = ((GunItemData)(currentWeapon.data)).projectilePrefab;    
                 if (inventory.CheckExist(item.id))
                 {
                     if (currentWeapon.data.id == item.id)
@@ -537,8 +538,6 @@ public class Player : UnitBase, IPlayer
                         {
                             selectedWeapons[i].weaponItemData.level += 1;
                         }
-                        audioSource.clip = changeBulletSound;
-                        audioSource.Play();
                     }
                     break;
                 }
@@ -561,12 +560,11 @@ public class Player : UnitBase, IPlayer
                     selectedWeapons.Add(currentWeapon);
                     currentWeaponIdx++;
                     inventory.Add(weaponItemData);
-                    GameObject projectilePrefab = ((GunItemData)(currentWeapon.data)).projectilePrefab;    
+                    Debug.Log("ProjecttilePrefab is changed");
                     ChangeBullet(projectilePrefab);
-                    audioSource.clip = changeBulletSound;
-                    audioSource.Play();
                 }
-
+                audioSource.clip = changeBulletSound;
+                audioSource.Play();
                 break;
             default:
                 break;

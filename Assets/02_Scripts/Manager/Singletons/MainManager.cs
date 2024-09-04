@@ -20,8 +20,6 @@ public class MainManager : Singleton<MainManager>
 
     public GameObject mainCamera { get { return _mainCamera; } set { _mainCamera = value; } }
     [SerializeField] GameObject _mainCamera = null;
-    public float moveSpd { get { return _moveSpd; } set { _moveSpd = value; } }
-    [SerializeField] float _moveSpd;
 
     public GameObject background { get { return _background; } set { _background = value; } }
     [SerializeField] GameObject _background;
@@ -71,7 +69,7 @@ public class MainManager : Singleton<MainManager>
         stages.Add(new Stage4());
         stages.Add(new StageBoss());
         currentStage = stages[currentStageIdx];
-        //StartCoroutine(ExecuteStage());
+        StartCoroutine(ExecuteStage());
     }
     IEnumerator ExecuteStage()
     {
@@ -89,12 +87,17 @@ public class MainManager : Singleton<MainManager>
             return;
         }
         UIManager.instance.CheckScore();        
-        Debug.Log("currentScore is changed");
         this._currentScore += score;
-        _moveSpd += score * 0.001f;
-        float colorPercent = ((float)_currentScore / 15000) * 0.5f;
-        Debug.Log("colorPercent: " + colorPercent);
+
+        float scorePercent = ((float)_currentScore / 15000);
+        float colorPercent = scorePercent * 0.5f;
+        float additiveSpd = scorePercent * 5.0f;
+
         Color color = Color.Lerp(backgroundMaterial.color, changedBackgroundColor, colorPercent);
+
+        BackGroundManager.instance.maxSpd = BackGroundManager.instance.originalMaxSpd + additiveSpd;
+        BackGroundManager.instance.minSpd = BackGroundManager.instance.originalMinSpd + additiveSpd;
+
         StartCoroutine(AdjustBackgroundColor(color, 0.3f));
 
         CheckStage();
@@ -103,12 +106,10 @@ public class MainManager : Singleton<MainManager>
     public void CheckStage()
     {
         switch (currentStageIdx)
-        { 
+        {  
             case 0:
                 if (_currentScore < 1000)
-                {
                     return;
-                }
 
                 break;
             case 1:
@@ -125,10 +126,14 @@ public class MainManager : Singleton<MainManager>
             case 3:
                 if (_currentScore < _maxScore)
                     return;
-                BackGroundManager.instance.StopRockMoving();
-                BackGroundManager.instance.StopCloudMoving();
+
+                Debug.Log("Now, this is boss stage");
+                //BackGroundManager.instance.StopRockMoving();
+                //BackGroundManager.instance.StopCloudMoving();
                 BGMManager.instance.ChangeBGM(BGMManager.instance.bossBgm);
-                StartCoroutine(AdjustSpeed(0, 2.0f));
+                BackGroundManager.instance.StopAllCoroutines();
+                BackGroundManager.instance.AdjustSpdOfBackground(0, 3);
+                //StartCoroutine(AdjustSpeed(0, 2.0f));
 
                 break;
             case 4:
@@ -137,18 +142,13 @@ public class MainManager : Singleton<MainManager>
             default:
                 break;
         }
-        Debug.Log(currentScore);
-        Debug.Log(currentStageIdx);
         ChangeNextStage();
 
     }
     void ChangeNextStage()
     {
         currentStageIdx++;
-        if (currentStage == null)
-        {
-            return;
-        }
+        
         currentStage.StopGenerating();
         currentStage = stages[currentStageIdx];
     }
@@ -180,7 +180,6 @@ public class MainManager : Singleton<MainManager>
     {
         yield return new WaitForSeconds(4.0f);
         float timeAdjustingSpd = 0;
-        float originalMoveSpd = _moveSpd;
 
         while (true)
         {
@@ -193,7 +192,6 @@ public class MainManager : Singleton<MainManager>
                 break;
             }
 
-            _moveSpd = Mathf.Lerp(originalMoveSpd, spd, normalizedTime);
 
             yield return new WaitForEndOfFrame();
         }

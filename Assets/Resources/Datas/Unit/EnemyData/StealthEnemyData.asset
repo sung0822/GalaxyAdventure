@@ -22,7 +22,7 @@ MonoBehaviour:
   _isDead: 0
   _unitName: StealthEnemy
   _rewardExp: 10
-  _rewardScore: 100
+  _rewardScore: 200
   _enableSlow: 1
   _enableAttack: 0
   _lifeTime: 30
@@ -31,3 +31,5 @@ MonoBehaviour:
   _power: 0
   _moveSpd: 10
   _rewardAbilityGage: 15
+  _isAttacking: 0
+  _hasCollideWithWall: 0
