@@ -13,6 +13,13 @@ public class EnemyFactory : Singleton<EnemyFactory>
     public List<EnemyBaseData> enemyBaseDatas { get { return _enemyBaseDatas; } set { _enemyBaseDatas = value; } }
     [SerializeField] List<EnemyBaseData> _enemyBaseDatas = new List<EnemyBaseData>();
 
+    public List<GameObject> neutralUnitPrefabs { get { return _neutralUnitPrefabs; } set { _neutralUnitPrefabs = value; } }
+    [SerializeField] List<GameObject> _neutralUnitPrefabs = new List<GameObject>();
+
+    public List<UnitBaseData> neutralUnitDatas { get { return _neutralUnitDatas; } set { _neutralUnitDatas = value; } }
+    [SerializeField] List<UnitBaseData> _neutralUnitDatas = new List<UnitBaseData>();
+
+
     public bool isInitialized{ get { return _isInitialized; } }
     private bool _isInitialized = false;
 
@@ -29,6 +36,12 @@ public class EnemyFactory : Singleton<EnemyFactory>
         {
             string unitName = _enemyBaseDatas[i].unitName;
 
+            ObjectPoolManager.instance.CreateObjectPool(unitName + " Pool");
+            enemeyPrefabs.Add(unitName, _enemyPrefabsList[i]);
+        }
+        for (int i = 0; i < _neutralUnitDatas.Count; i++)
+        {
+            string unitName = _neutralUnitDatas[i].unitName;
             ObjectPoolManager.instance.CreateObjectPool(unitName + " Pool");
             enemeyPrefabs.Add(unitName, _enemyPrefabsList[i]);
         }

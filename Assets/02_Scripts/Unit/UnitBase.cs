@@ -64,7 +64,6 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
         UnitBase enemy = CheckBumpedIntoEnemy(other);
         if (enemy == null)
         {
-            Debug.Log("enemy가 null임");
         }
         else
         {
@@ -232,14 +231,6 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
         _currentUnitBaseData.isDead = true;
 
         GameObject particle = ParticleManager.instance.CreateParticle(currentUnitBaseData.unitDieParticlePrefab, transform.position, transform.rotation);
-        if (particle == null)
-        {
-            Debug.Log("particle이 null임");
-        }
-        else if (this == null)
-        {
-            Debug.Log("this가 null임");
-        }
         particle.transform.localScale = this.transform.localScale * 0.1f;
         
 

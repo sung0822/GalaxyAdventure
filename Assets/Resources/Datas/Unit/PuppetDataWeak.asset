@@ -15,8 +15,8 @@ MonoBehaviour:
   _dieSound: {fileID: 0}
   _unitDieParticle: {fileID: 1828176872806910, guid: 64891a0eb28db934898420d80ca07cb3, type: 3}
   _teamType: 2
-  _currentMaxHp: 1000
-  _currentHp: 1000
+  _currentMaxHp: 100
+  _currentHp: 100
   _isImmortal: 0
   _isBumpedIntoEnemy: 0
   _isDead: 0
