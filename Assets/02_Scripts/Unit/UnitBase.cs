@@ -152,20 +152,6 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
         CheckDead();
     }
 
-    public virtual void Hit(int damage, Transform hitTransform)
-    {
-        if (_currentUnitBaseData.isImmortal)
-            return;
-
-        Debug.Log("unitHit is called, and unit Name is: " + currentUnitBaseData.unitName);
-        _currentUnitBaseData.currentHp -= damage;
-
-        GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.basicParticle, hitTransform.position, Quaternion.Euler(0, 0, 0));
-        Destroy(particle, 0.7f);
-        
-        CheckDead();
-    }
-
     public virtual void Hit(int damage, Vector3 position)
     {
 
@@ -177,6 +163,20 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
 
         GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.basicParticle, position, Quaternion.Euler(0, 0, 0));
         Destroy(particle, 0.7f);
+        CheckDead();
+    }
+
+    public virtual void Hit(int damage, Transform hitTransform)
+    {
+        if (_currentUnitBaseData.isImmortal)
+            return;
+
+        Debug.Log("unitHit is called, and unit Name is: " + currentUnitBaseData.unitName);
+        _currentUnitBaseData.currentHp -= damage;
+
+        GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.basicParticle, hitTransform.position, Quaternion.Euler(0, 0, 0));
+        Destroy(particle, 0.7f);
+        
         CheckDead();
     }
 
@@ -225,7 +225,7 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
         }
     }
 
-    /// <summary> 오브젝트 파괴하고 파티클 생성 </summary>
+    /// <summary> 오브젝트 리턴하고 파티클 생성 </summary>
     public virtual void DieUnit()
     {
         _currentUnitBaseData.isDead = true;
@@ -233,8 +233,6 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
         GameObject particle = ParticleManager.instance.CreateParticle(currentUnitBaseData.unitDieParticlePrefab, transform.position, transform.rotation);
         particle.transform.localScale = this.transform.localScale * 0.1f;
         
-
-
         Destroy(particle, 1.5f);
 
         ObjectPoolManager.instance.ReturnObject(currentUnitBaseData.unitName + " Pool", this.gameObject);

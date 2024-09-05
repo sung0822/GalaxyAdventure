@@ -352,7 +352,6 @@ public class Player : UnitBase, IPlayer
 
         GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.basicParticle, hitTransform.position, Quaternion.Euler(0, 0, 0));
         Destroy(particle, 0.7f);
-        Debug.Log("쳐맞음");
         CheckDead();
 
         _currentPlayerData.isInvincibilityBlinking = true;

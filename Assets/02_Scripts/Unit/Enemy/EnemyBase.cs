@@ -30,6 +30,7 @@ public abstract class EnemyBase : UnitBase, IMovalble, IAttackable
         base.Start();
     }
 
+    Coroutine coroutineWaitAndReturnObject;
     protected override void SetFirstStatus()
     {
         base.SetFirstStatus();
@@ -38,9 +39,7 @@ public abstract class EnemyBase : UnitBase, IMovalble, IAttackable
 
         player = GameObject.FindGameObjectWithTag("PLAYER").GetComponent<Player>();
         coroutineWaitAndReturnObject = StartCoroutine(WaitAndReturnObject());
-        //ObjectPoolManager.instance.ReturnObject(_currentEnemyBaseData.unitName + " Pool", this.gameObject, _currentEnemyBaseData.lifeTime);
     }
-    Coroutine coroutineWaitAndReturnObject;
     IEnumerator WaitAndReturnObject()
     {
         yield return new WaitForSeconds(_currentEnemyBaseData.lifeTime);
@@ -139,7 +138,7 @@ public abstract class EnemyBase : UnitBase, IMovalble, IAttackable
         {
             timeAdjustingSpd += Time.deltaTime;
 
-            // ����ȭ�� ����.
+
             float normalizedTime = timeAdjustingSpd / duration;
 
             if (normalizedTime >= 1)
