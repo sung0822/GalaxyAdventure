@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e54dd51983588784699dc9f7d4da5bd1, type: 3}
+  m_Name: PuppetDataWeak
+  m_EditorClassIdentifier: 
+  _dieSound: {fileID: 0}
+  _unitDieParticle: {fileID: 1828176872806910, guid: 64891a0eb28db934898420d80ca07cb3, type: 3}
+  _teamType: 2
+  _currentMaxHp: 1000
+  _currentHp: 1000
+  _isImmortal: 0
+  _isBumpedIntoEnemy: 0
+  _isDead: 0
+  _unitName: Puppet

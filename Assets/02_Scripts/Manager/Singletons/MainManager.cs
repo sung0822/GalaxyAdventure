@@ -69,7 +69,7 @@ public class MainManager : Singleton<MainManager>
         stages.Add(new Stage4());
         stages.Add(new StageBoss());
         currentStage = stages[currentStageIdx];
-        StartCoroutine(ExecuteStage());
+        //StartCoroutine(ExecuteStage());
     }
     IEnumerator ExecuteStage()
     {
