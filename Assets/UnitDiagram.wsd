@@ -20,13 +20,19 @@ interface ICarryable
 
 }
 
+abstract class UnitBaseData
+{
+
+}
+
 interface IPlayer
 {
 }
 
 abstract class UnitBase
 {
-
+    UnitBaseData unitBaseData;
+    UnitBaseData currentUnitBaseData;
 }
 
 abstract class EnemyBase
@@ -64,8 +70,8 @@ class Boss
 
 }
 
-
 ITeamMember <|.. UnitBase
+UnitBase *-- UnitBaseData 
 UnitBase <|-- Player
 UnitBase <|-- EnemyBase
 
@@ -85,8 +91,5 @@ EnemyBase <|-- StealthEnemy
 EnemyBase <|-- BigSizeEnemy
 EnemyBase <|-- Eagle
 EnemyBase <|-- Boss
-
-
-
 
 @enduml

@@ -1,8 +1,13 @@
-@startuml ItemData
+@startuml Item
+
+abstract class ItemData
+{
+
+}
 
 abstract class ItemBase
 {
-
+    ItemData data
 }
 
 abstract class ConsumableItemBase
@@ -59,13 +64,15 @@ class PistolItem
 {
 
 }
-ItemBase <|-- ConsumableItem
+ItemBase <|-- ConsumableItemBase
+ItemBase <|-- WeaponItemBase
+
+ItemBase *-- ItemData
 
 ConsumableItemBase <|-- BombItem
 ConsumableItemBase <|-- HealItem
 ConsumableItemBase <|-- ShieldItem
 
-ItemBase <|-- WeaponItemBase
 WeaponItemBase <|-- GunItemBase
 
 GunItemBase <|-- PistolItem
