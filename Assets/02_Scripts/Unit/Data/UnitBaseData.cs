@@ -5,9 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "UnitBaseData", menuName = "UnitData/UnitBaseData", order = 1)]
 public class UnitBaseData : ScriptableObject
 {
-    public AudioClip dieSound { get { return _dieSound; } set { _dieSound = value; } }
-    [Header ("UnitBaseData")]
+    [Header("UnitBaseData")]
     [SerializeField] AudioClip _dieSound;
+    public AudioClip dieSound { get { return _dieSound; } set { _dieSound = value; } }
     public GameObject unitDieParticlePrefab { get { return _unitDieParticle; } set { _unitDieParticle = value; } }
     [SerializeField] private GameObject _unitDieParticle;
     public TeamType teamType { get { return _teamType; } set { _teamType = value; } }
@@ -29,21 +29,23 @@ public class UnitBaseData : ScriptableObject
     }
     [SerializeField] protected int _currentHp;
 
-    public bool isImmortal { get { return _isImmortal; } 
-        set 
+    public bool isImmortal
+    {
+        get { return _isImmortal; }
+        set
         {
             Debug.Log("set isImmortal is Called. unit name is: " + unitName);
-            _isImmortal = value; 
-        } 
+            _isImmortal = value;
+        }
     }
     [SerializeField] protected bool _isImmortal;
-    
+
     public bool isBumpedIntoEnemy { get { return _isBumpedIntoEnemy; } set { _isBumpedIntoEnemy = value; } }
     [SerializeField] protected bool _isBumpedIntoEnemy;
 
     public bool isDead { get { return _isDead; } set { _isDead = value; } }
     [SerializeField] private bool _isDead = false;
-    
+
     public string unitName { get { return _unitName; } set { _unitName = value; } }
     [SerializeField] protected string _unitName;
 

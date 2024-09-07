@@ -13,7 +13,7 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
     public Rigidbody unitRigidbody;
     public abstract TeamType teamType { get; set; }
 
-    
+
     [SerializeField] private UnitBaseData unitBaseData;
     public UnitBaseData currentUnitBaseData { get { return _currentUnitBaseData; } }
     [SerializeField] protected UnitBaseData _currentUnitBaseData;
@@ -57,7 +57,7 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
     {
     }
 
-    
+
 
     protected virtual void OnTriggerEnter(Collider other)
     {
@@ -76,7 +76,7 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
     /// <summary> 해당 콜라이더가 적 유닛인지 체크, 충돌변수를 설정함. </summary>
     protected UnitBase CheckBumpedIntoEnemy(Collider other)
     {
-        
+
         if (_currentUnitBaseData.isBumpedIntoEnemy)
         {
             return null;
@@ -148,7 +148,7 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
         _currentUnitBaseData.currentHp -= damage;
         GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.basicParticle, this.transform.position, Quaternion.Euler(0, 0, 0));
         Destroy(particle, 0.7f);
-        
+
         CheckDead();
     }
 
@@ -176,7 +176,7 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
 
         GameObject particle = ParticleManager.instance.CreateParticle(ParticleManager.instance.basicParticle, hitTransform.position, Quaternion.Euler(0, 0, 0));
         Destroy(particle, 0.7f);
-        
+
         CheckDead();
     }
 
@@ -232,7 +232,7 @@ public abstract class UnitBase : MonoBehaviour, ITeamMember
 
         GameObject particle = ParticleManager.instance.CreateParticle(currentUnitBaseData.unitDieParticlePrefab, transform.position, transform.rotation);
         particle.transform.localScale = this.transform.localScale * 0.1f;
-        
+
         Destroy(particle, 1.5f);
 
         ObjectPoolManager.instance.ReturnObject(currentUnitBaseData.unitName + " Pool", this.gameObject);

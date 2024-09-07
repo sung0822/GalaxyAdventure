@@ -5,9 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PlayerData", menuName = "UnitData/UnitBaseData/PlayerData", order = 1)]
 public class PlayerData : UnitBaseData
 {
-    public GameObject currentAircraft { get { return _currentAircraft; } set { _currentAircraft = value; } }
     [Header("PlayerData")]
     [SerializeField] protected GameObject _currentAircraft;
+    public GameObject currentAircraft { get { return _currentAircraft; } set { _currentAircraft = value; } }
 
     public GameObject previousAircraft { get { return _previousAircraft; } set { _previousAircraft = value; } }
     [SerializeField] protected GameObject _previousAircraft;
@@ -39,7 +39,7 @@ public class PlayerData : UnitBaseData
     [SerializeField] float _maxAbilityGage;
     public bool isInvincibilityBlinking { get { return _isInvincibilityBlinking; } set { _isInvincibilityBlinking = value; } }
     [SerializeField] bool _isInvincibilityBlinking;
-    
+
     public float moveSpd { get { return _moveSpd; } set { _moveSpd = value; } }
     [SerializeField] protected float _moveSpd;
     public bool isAbsoluteImmortal { get { return _isAbsoluteImmortal; } set { _isAbsoluteImmortal = value; } }

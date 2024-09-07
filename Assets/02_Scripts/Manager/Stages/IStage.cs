@@ -6,11 +6,11 @@ using UnityEngine;
 public interface IStage
 {
     float timeElapsed { get; }
-    Transform target {  get; set; }
+    Transform target { get; set; }
 
     void Execute();
     void SetUp();
 
     void StopGenerating();
-    Coroutine currentCoroutine { get;}
+    Coroutine currentCoroutine { get; }
 }
