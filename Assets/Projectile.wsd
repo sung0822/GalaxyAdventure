@@ -1,8 +1,12 @@
 @startuml Projectile
 
+interface ITeamMember
+{
+    +teamType : TeamType
+}
+
 abstract class Projectile
 {
-
 }
 
 class ArmorPiercingBullet
@@ -25,7 +29,7 @@ class NormalBullet
 
 }
 
-ITeamMemer <|.. Projectile
+ITeamMember <|.. Projectile
 Projectile <|-- NormalBullet
 Projectile <|-- ExplosingBullet
 Projectile <|-- Missile

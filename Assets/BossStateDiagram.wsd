@@ -1,18 +1,14 @@
 @startuml ItemData
 
-class Boss
-{
-
-}
-
 interface IBossPageState
 {
-
+    Boss boss;
+    void Attack();
+    void Move();
 }
 
 abstract class BossPageState
 {
-
 }
 
 class BossPageStateOne
@@ -30,10 +26,11 @@ class BossPageStateThree
 
 }
 
+Boss *-- IBossPageState
 IBossPageState <|.. BossPageState
 BossPageState <|-- BossPageStateOne
 BossPageState <|-- BossPageStateTwo
 BossPageState <|-- BossPageStateThree
-Boss *-- IBossPageState
+IBossPageState <-- Boss
 
 @enduml

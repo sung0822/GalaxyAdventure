@@ -31,7 +31,7 @@ public class Boss : EnemyBase
     [SerializeField] Image _hpBar;
     public TextMeshProUGUI hpText { get { return _hpText; } set { _hpText = value; } }
     [SerializeField] TextMeshProUGUI _hpText;
-    IBossPageState _pageState;
+    IBossPageState _currentPageState;
 
     public BossData currentBossData { get { return _currentBossData; } set { _currentBossData = value; } }
 
@@ -51,7 +51,7 @@ public class Boss : EnemyBase
 
         sprayGunItemData = ScriptableObject.Instantiate(sprayGunItemData);
         targetPlayer = GameObject.FindWithTag("PLAYER").transform;
-               
+
         sprayGunItemData.power = 10;
         sprayGunItemData.weaponSpaceTransform = sprayGunWeaponSpace.transform;
         sprayGunItemData.unitUser = this;
@@ -71,8 +71,8 @@ public class Boss : EnemyBase
 
         _machineGun = (MachineGun)_machineGunItemData.CreateItem();
 
-        _pageState = new BossPageOneState();
-        _pageState.boss = this;
+        _currentPageState = new BossPageOneState();
+        _currentPageState.boss = this;
         CheckHpBarFill();
 
     }
@@ -88,14 +88,14 @@ public class Boss : EnemyBase
 
     public override void Attack()
     {
-        _pageState.Attack();
+        _currentPageState.Attack();
     }
 
     public override void Move()
     {
         if (_currentEnemyBaseData.enableAttack)
         {
-            _pageState.Move();
+            _currentPageState.Move();
             return;
         }
         base.Move();
@@ -178,9 +178,9 @@ public class Boss : EnemyBase
                 case 1:
                     _currentBossData.pageNumber++;
                     StartCoroutine(ChangeColor(_currentBossData.page2Color, 2));
-                    _pageState = new BossPageTwoState();
+                    _currentPageState = new BossPageTwoState();
                     _sprayGunItemData.useCycle -= _sprayGunItemData.useCycle * 0.5f;
-                    _pageState.boss = this;
+                    _currentPageState.boss = this;
 
                     break;
                 case 2:
@@ -188,8 +188,8 @@ public class Boss : EnemyBase
                     StartCoroutine(ChangeColor(_currentBossData.page3Color, 2));
                     _sprayGunItemData.useCycle -= _sprayGunItemData.useCycle * 0.3f;
                     _machineGunItemData.useCycle -= _machineGunItemData.useCycle * 0.5f;
-                    _pageState = new BossPageThreeState();
-                    _pageState.boss = this;
+                    _currentPageState = new BossPageThreeState();
+                    _currentPageState.boss = this;
 
                     break;
                 case 3:
