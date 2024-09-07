@@ -24,6 +24,7 @@ MonoBehaviour:
   _useCycle: 0
   _forceForProjectile: 10
   _audioSource: {fileID: 0}
-  _shootSound: {fileID: 8300000, guid: 659b41325f414b543a766e24bba1804e, type: 3}
+  _shootSound: {fileID: 8300000, guid: 073dd88de99890c4ca852d3695310389, type: 3}
   _playSondWhileShooting: 0
+  _shooted: 0
   _isShooting: 0
