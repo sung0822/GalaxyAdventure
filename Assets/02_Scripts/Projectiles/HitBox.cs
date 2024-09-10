@@ -43,7 +43,6 @@ public class HitBox : MonoBehaviour, ITeamMember
     }
     public void SetEnableCollider(bool enable)
     {
-        Debug.Log("SetEnableCollider Called");
         StartCoroutine(SetEnableColliderAfterFixedTime(enable));
         
     }
@@ -54,7 +53,6 @@ public class HitBox : MonoBehaviour, ITeamMember
     }
     IEnumerator SetEnableColliderAfterFixedTime(bool enable)
     {
-        Debug.Log("SetEnableColliderAfterFixedTime Called");
         
         yield return new WaitForFixedUpdate();
         yield return new WaitForFixedUpdate();

@@ -78,6 +78,7 @@ public abstract class GunItemBase : WeaponItemBase
             time += Time.deltaTime;
             if (time >= gunItemData.useCycle)
             {
+                Debug.Log("½î´Â°Ô ³¡³²");
                 gunItemData.shooted = false;
                 break;
             }

@@ -21,7 +21,7 @@ MonoBehaviour:
   _weaponSpaceTransform: {fileID: 0}
   _teamType: 0
   _projectilePrefab: {fileID: 6054012028537393324, guid: fd9584113607a19468faa8480214c854, type: 3}
-  _useCycle: 0
+  _useCycle: 5
   _forceForProjectile: 10
   _audioSource: {fileID: 0}
   _shootSound: {fileID: 8300000, guid: 073dd88de99890c4ca852d3695310389, type: 3}

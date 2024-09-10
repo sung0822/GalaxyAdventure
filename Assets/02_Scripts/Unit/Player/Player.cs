@@ -29,13 +29,13 @@ public class Player : UnitBase, IPlayer
     [SerializeField] protected Inventory _inventory;
 
     /// <summary> 무기 순서. Key: 무기 인덱스, value : 아이템 id </summary>
-    
-    public List<WeaponItemBase> selectedWeapons 
+
+    public List<WeaponItemBase> selectedWeapons
     {
         get
         {
-             Debug.Log("get selectedWeapons is Called"); 
-             return _selectedWeapons;
+            Debug.Log("get selectedWeapons is Called");
+            return _selectedWeapons;
         }
     }
     [SerializeField] protected List<WeaponItemBase> _selectedWeapons = new List<WeaponItemBase>();
@@ -51,8 +51,20 @@ public class Player : UnitBase, IPlayer
     protected int currentConsumableItemIdx = -1;
     public Vector3 moveDir { get { return _moveDir; } set { _moveDir = value; } }
     Vector3 _moveDir;
-    public float currentAbilityGage { get { return _currentAbilityGage; } set { _currentAbilityGage = value; } }
-    [SerializeField] float _currentAbilityGage;
+    public float currentAbilityGage 
+    { 
+        get { return _currentPlayerData.currentAbilityGage; } 
+        set 
+        {
+            if (((GunItemBase)currentSpeicalWeapon).gunItemData.shooted)
+            {
+                Debug.Log("레이저 쏘는중");
+                return;
+            }
+            Debug.Log("레이저 shooted: " + ((GunItemBase)currentSpeicalWeapon).gunItemData.shooted);
+            _currentPlayerData.currentAbilityGage = value; 
+        } 
+    }
     public bool isAttacking { get { return _currentPlayerData.isAttacking; } set { _currentPlayerData.isAttacking = value; } }
 
     public int currentLevel { get { return _currentPlayerData.currentLevel; } set { _currentPlayerData.currentLevel = value; } }
@@ -87,7 +99,7 @@ public class Player : UnitBase, IPlayer
 
         // 비행체 등록
         currentAirCraft = _aircrafts[0];
-            
+
         for (int i = 1; i < _aircrafts.Count; i++)
         {
             _aircrafts[i].SetActive(false);
@@ -95,7 +107,7 @@ public class Player : UnitBase, IPlayer
 
         meshRenderer = currentAirCraft.GetComponent<MeshRenderer>();
         currentAirCraft.transform.localPosition = Vector3.zero;
-        
+
         currentAirCraft.transform.position = this.transform.position;
 
         // 플레이어 레벨업 데이터 등록
@@ -110,9 +122,9 @@ public class Player : UnitBase, IPlayer
         }
         // 무기 등록 
         hydroSpace = transform.Find("HydroSpace");
-        
 
-        
+
+
 
         SetBody();
     }
@@ -146,7 +158,7 @@ public class Player : UnitBase, IPlayer
 
         currentSpeicalWeapon = (GunItemBase)specialGunItemData.CreateItem();
         inventory.Add(gunItemData);
-        
+
         currentWeaponIdx++;
 
     }
@@ -184,7 +196,7 @@ public class Player : UnitBase, IPlayer
     public void Move()
     {
         unitRigidbody.velocity = moveDir * _currentPlayerData.moveSpd;
-        
+
         for (int i = 0; i < rigidbodies.Count; i++)
         {
             rigidbodies[i].velocity = moveDir * _currentPlayerData.moveSpd;
@@ -216,7 +228,7 @@ public class Player : UnitBase, IPlayer
     public void LevelUp()
     {
         _currentPlayerData.currentLevel++;
-        if (_currentPlayerData.currentLevel -1 >= currentPlayerData.playerLevelUpData.expToLevelUp.Count)
+        if (_currentPlayerData.currentLevel - 1 >= currentPlayerData.playerLevelUpData.expToLevelUp.Count)
         {
             _currentPlayerData.currentLevel--;
             _currentPlayerData.currentExp = 0;
@@ -236,7 +248,7 @@ public class Player : UnitBase, IPlayer
 
         _currentPlayerData.power += (int)(_currentPlayerData.power * 0.1f);
 
-        ChangeAirCraft(_currentPlayerData.currentLevel -1 );
+        ChangeAirCraft(_currentPlayerData.currentLevel - 1);
 
         UIManager.instance.CheckPlayerHp();
         UIManager.instance.CheckPlayerExp();
@@ -275,7 +287,7 @@ public class Player : UnitBase, IPlayer
             return;
         }
         // 비행체 변경
-        if (currentAirCraft == null) 
+        if (currentAirCraft == null)
         {
             Debug.Log("currentAirCraft is null");
         }
@@ -287,13 +299,13 @@ public class Player : UnitBase, IPlayer
         currentAirCraft = _aircrafts[idx];
         currentAirCraft.SetActive(true);
         Debug.Log("비행기 변경");
-        
+
         // 변경한 비행체로 무기 어태치
         currentWeaponSpace.transform.SetParent(currentAirCraft.GetComponentInChildren<WeaponSpace>().transform);
         currentWeaponSpace.transform.localPosition = Vector3.zero;
 
         currentAirCraft.transform.position = this.transform.position;
-        
+
         // 메쉬 렌더러, 필터 다시 재할당
         meshRenderer = currentAirCraft.GetComponentInChildren<MeshRenderer>();
 
@@ -395,22 +407,22 @@ public class Player : UnitBase, IPlayer
     {
         Renders.ChangeStandardShaderRenderMode(meshRenderer.material, BlendMode.Transparent);
 
-        while (_currentPlayerData.isInvincibilityBlinking) 
+        while (_currentPlayerData.isInvincibilityBlinking)
         {
-                // 반투명으로 변경
+            // 반투명으로 변경
             if (meshRenderer.material.color.a == 1.0f)
             {
                 Color color = meshRenderer.material.color;
                 color.a = 0.7f;
-                
+
                 meshRenderer.material.color = color;
-                
+
             }   // 불투명으로 변경
             else
             {
                 Color color = meshRenderer.material.color;
                 color.a = 1.0f;
-                
+
                 meshRenderer.material.color = color;
 
                 if (!_currentPlayerData.isImmortal)
@@ -467,7 +479,7 @@ public class Player : UnitBase, IPlayer
                 currentConsumableItem.Use();
                 int count = inventory.Remove(currentConsumableItem.data.id, 1);
                 Debug.Log(count);
-                
+
                 if (0 == count)
                 {
                     Debug.Log("currentConsumableItemIdx: " + currentConsumableItemIdx);
@@ -475,7 +487,7 @@ public class Player : UnitBase, IPlayer
                     selectedConsumableItems.RemoveAt(currentConsumableItemIdx);
                     currentConsumableItemIdx--;
                     ChangeSelectedItem(itemType);
-                    
+
                 }
                 if (selectedConsumableItems.Count <= 0)
                 {
@@ -494,7 +506,7 @@ public class Player : UnitBase, IPlayer
     public void GiveItem(ItemData item)
     {
         ItemType itemType = item.itemType;
-        
+
         if (item.itemUsageType == ItemUsageType.ImmediatelyUse)
         {
             item.unitUser = this;
@@ -514,14 +526,14 @@ public class Player : UnitBase, IPlayer
                 }
                 currentConsumableItem = (ConsumableItemBase)inventory.Add(item).CreateItem();
                 currentConsumableItem.transform.parent = transform;
-                
+
                 selectedConsumableItems.Add(currentConsumableItem);
                 currentConsumableItemIdx++;
 
                 break;
             case ItemType.Weapon:
                 WeaponItemData weaponItemData;
-                GameObject projectilePrefab = ((GunItemData)(currentWeapon.data)).projectilePrefab;    
+                GameObject projectilePrefab = ((GunItemData)(currentWeapon.data)).projectilePrefab;
                 if (inventory.CheckExist(item.id))
                 {
                     if (currentWeapon.data.id == item.id)
@@ -552,12 +564,12 @@ public class Player : UnitBase, IPlayer
                     weaponItemData.unitUser = this;
                     weaponItemData.attackableUser = this;
                     weaponItemData.teamType = teamType;
-                    
+
                     currentWeapon.StopUse();
                     currentWeapon = (GunItemBase)weaponItemData.CreateItem();
                     currentWeapon.transform.parent = currentWeaponSpace.transform;
                     currentWeapon.transform.localPosition = Vector3.zero;
-                    
+
                     selectedWeapons.Add(currentWeapon);
                     currentWeaponIdx++;
                     inventory.Add(weaponItemData);

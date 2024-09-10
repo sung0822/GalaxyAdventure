@@ -21,14 +21,12 @@ public class LaserGun : GunItemBase
 
     public override void Use()
     {
-        GameObject go = Instantiate<GameObject>(laserGunItemData.projectilePrefab, laserGunItemData.weaponSpaceTransform.transform);
-        HydroBeam hydroBeam = go.GetComponent<HydroBeam>();
-        hydroBeam.power += laserGunItemData.attackableUser.power * 10;
-        audioSource.clip = laserGunItemData.shootSound;
-        audioSource.Play();
-        Debug.Log("LaserGun 오디오플레이");
-        Destroy(go, 5.0f);
-        StartCoroutine(AudioStop(5.0f));
+        if (gunItemData.shooted)
+        {
+            return;
+        }
+
+        StartCoroutine(StartShoot());
     }
     public override void StopUse()
     {
@@ -38,5 +36,31 @@ public class LaserGun : GunItemBase
     {
         yield return new WaitForSeconds(time);
         audioSource.Stop();
+    }
+
+    protected override IEnumerator StartShoot()
+    {
+        GameObject go = Instantiate<GameObject>(laserGunItemData.projectilePrefab, laserGunItemData.weaponSpaceTransform.transform);
+        HydroBeam hydroBeam = go.GetComponent<HydroBeam>();
+        hydroBeam.power += laserGunItemData.attackableUser.power * 10;
+        audioSource.clip = laserGunItemData.shootSound;
+        audioSource.Play();
+        Debug.Log("LaserGun 오디오플레이");
+        StartCoroutine(AudioStop(5.0f));
+        gunItemData.shooted = true;
+
+        float time = 0;
+        while (gunItemData.shooted)
+        {
+            time += Time.deltaTime;
+            if (time >= gunItemData.useCycle)
+            {
+                Destroy(go);
+                Debug.Log("쏘는게 끝남");
+                gunItemData.shooted = false;
+                break;
+            }
+            yield return new WaitForEndOfFrame();
+        }
     }
 }
